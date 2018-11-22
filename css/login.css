@@ -1,0 +1,30 @@
+body{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:13px;
+color:#333333;
+background:url(../img/barra_bg.jpg)repeat-x;
+margin:0px;
+background-position:center;
+}
+#login_user{
+position:absolute;
+left:50%;
+top:50%;
+
+height:223px;
+background:#FFFFFF;
+z-index:10;
+margin-top: -150px;
+margin-left: -125px;
+text-align:center;
+}
+#btn_ingresar{
+padding-left:70px;
+}
+#btn_ingresar_2{
+padding-left:70px;
+padding-top:5px;
+}
+#mensajero{
+}
+#imagen_empre{}

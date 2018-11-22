@@ -1,0 +1,224 @@
+body{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:13px;
+color:#333333;
+background:#3f75a3;
+margin:0px;
+background-position:center;
+overflow:auto;
+overflow:hidden;
+}
+.img_user{
+height:46px;
+width:46px;
+position: relative;
+left:30px;
+top:-80px;
+z-index:8;
+display:none;
+}
+.glas_cont{
+width:72px;
+height:72px;
+background:url(../img/userframe.png) no-repeat;
+position: absolute;
+left:-13px;
+top:-12px;
+}
+.text_area{
+width:145px;
+height:31px;
+background:url(../img/contexare.png) no-repeat;
+}
+.name_id{
+color:#005a7f;
+float:left;
+margin-left:8px;
+}
+.txt_us{
+width:130px;
+margin:5px;
+background:none;
+border:none;
+color:#FFFFFF; 
+}
+#cont_pass{
+margin-top:-45px; display:none;
+}
+
+#dvlog{
+padding-top:80px;
+padding-left:22px;
+}
+
+#aviso_nav{
+position:absolute;
+left:50%;
+top:50%;
+width:458px;
+height:223px;
+background:#FFFFFF;
+z-index:10;
+margin-top: -112px;
+margin-left: -229px;
+display:none;
+}
+
+#cont_nav{
+width:420px;
+height:200px;
+margin-left:18px;
+margin-top:12px;
+color:#212121;
+font-family:Arial, Helvetica, sans-serif;
+font-size:13px;
+text-align:justify;
+}
+.redd{
+color:#b60a20;
+font-family:Arial, Helvetica, sans-serif;
+font-size:13px;
+}
+
+#icons_brows{
+width:400px;
+height:60px;
+margin-left:10px;
+margin-top:10px;
+}
+
+.icon{
+float:left;
+margin-left:10px;
+margin-right:10px;
+border: none;
+}
+A:link, A:visited { text-decoration: none }
+A:hover { text-decoration: none }
+#txt_web{
+width:100%;
+height:30px;
+text-decoration:none;
+}
+.txt_w{
+width:60px;
+height:30px;
+float:left;
+text-align:center;
+margin-left:10px;
+margin-right:10px;
+text-decoration: none;
+}
+
+.fox{
+color:#cf460c;
+}
+.ocho{
+color:#189ce2;
+}
+.op{
+color:#c52a26;
+}
+.ch{
+color:#5a74c8;
+}
+.blu{
+color:#4c7be9;
+}
+.amr{
+color:#ffac06;
+}
+.gr{
+color:#01a315;
+}
+.bl{
+color:#212121;
+}
+
+#btn_omit{
+width:146px;
+height:34px;
+background:url(../img/omt.GIF) no-repeat;
+margin-top:10px;
+margin-left:270px;
+}
+#descrip{
+	width:210px;
+	padding-top:5px;
+	height:35px;
+	left:168px;
+	top:40px;
+	position:absolute;
+	background:#40496a;
+	color:#FFF;
+	text-align:center;
+	font-size:12px;
+	z-index:4;
+	border:1px solid #353f62;
+	}
+	
+.btn{
+width:64px;
+height:28px;
+background:url(../img/accede.PNG);
+border:0px;
+margin-top:12px;
+display:none;
+}
+#title_img{
+width:250px;
+height:67px;
+background:url(../img/txtini.png) no-repeat;
+position:absolute;
+left:150px;
+top:50px;
+}
+#nube1{
+	position:absolute; 
+	top:1%; 
+	left:5%; 
+	width:125px; 
+	height:67px; 
+	filter:alpha(opacity=5); 
+	-moz-opacity:.5; 
+	opacity:.5;
+	z-index:1;
+	}
+#nube2{
+	position:absolute; 
+	top:10%; left:-45%; 
+	width:125px; 
+	height:67px; 
+	filter:alpha(opacity=7); 
+	-moz-opacity:.7; 
+	opacity:.7;
+	z-index:2;
+	}
+#nube3{
+	position:absolute; 
+	top:25%; 
+	right:5%; 
+	width:125px; 
+	height:67px; 
+	filter:alpha(opacity=7); 
+	-moz-opacity:.7; 
+	opacity:.7;
+	z-index:3;
+	}
+#bar{
+width:100%;
+height:32px;
+position:absolute;
+bottom:0px;
+background:url(../img/statusBar.png) repeat-x; 
+}
+#home{
+width:46px;
+height:32px;
+background:url(../img/revelHome.png) no-repeat;
+float:left;
+cursor:pointer;
+}
+#home:hover{
+background-position:0px -32px;
+}
