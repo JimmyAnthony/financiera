@@ -11,9 +11,9 @@ class MySQLDBConnection {
 	
 	//static private $instance;
 	private $hostname = "localhost";
-	private $username = "root";
-	private $password = "";
-	private $database = "estadistica";
+	private $username = "mass_root";
+	private $password = "mass_root";
+	private $database = "mass_financiera";
 	private $links;
 	private $result;
 	
