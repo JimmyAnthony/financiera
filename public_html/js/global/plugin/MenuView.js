@@ -15,7 +15,8 @@ Ext.define('Ext.global.plugin.MenuView',{
     idx:-1,
     config_:'',
     datafirst:{},
-    width: 300,
+    width: 600,
+    margin:'150px 0px 0px 0px',
     constructor: function(config){
         var me = this;
         me.config_=config;

@@ -562,7 +562,6 @@
                                             items:[
                                                 {
                                                     xtype:'MenuView',
-                                                    width: 300,
                                                     id:inicio.id,
                                                     url:inicio.url
                                                 }
