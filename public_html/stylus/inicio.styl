@@ -247,49 +247,12 @@ body
     color #fff//red_fondo
     background red_fondo//white_fondo
     padding 4px 6px 0px 6px
-    
-.visible-menu
-    //visibility block
-
-.cmp_contn
-    width auto !important
-    left 0 !important
-    right 0 !important
-    
-#cmp_clk
-    position fixed
-    z-index 19001
-    
-#menu_split
-    width  0px
-    bottom 0px
-    position fixed
-    z-index 19000
-    left 0px
-    top 0px
-    
-    
-.cmp_menu
-    background transparent !important
-    position absolute
-    z-index 19000
-    margin 0px
-    width 0px
-    right auto
-    bottom 0px
-    height 100%
-    padding-top 40px
-    //box-shadow 5px 0 5px #999
-    box-shadow 3px 43px 7px rgba(0, 0, 0, 0.5)
-
-
+   
         
 .eL.HKpYid 
     -webkit-transform translateX(0)
     transform translateX(0)
     
-.databox_list_menu_select
-    background white_fondo !important
     
 .red_bg
     //background red_fondo !important
@@ -451,28 +414,85 @@ body
 .upload-icon
     background transparent url('/images/icon/upload_reg.ico') 0 0 no-repeat !important  
     
+/*Menu*/
+.databox_list_menu_select
+    background white_fondo !important
+ 
+.visible-menu
+    //visibility block
 
+.cmp_contn
+    width auto !important
+    left 0 !important
+    right 0 !important
+    
+#cmp_clk
+    position fixed
+    z-index 19001
+    
+#menu_split
+    width  0px
+    bottom 0px
+    position fixed
+    z-index 19000
+    left 0px
+    top 0px
+    
+    
+.cmp_menu
+    background transparent !important
+    position absolute
+    z-index 19000
+    margin 0px
+    width 0px
+    right auto
+    bottom 0px
+    height 100%
+    padding-top 40px
+    //box-shadow 5px 0 5px #999
+    box-shadow 3px 43px 7px rgba(0, 0, 0, 0.5)
+    
 .databox_list_menu 
     background #fff
     font-size 13px
     color #333
-    //border 1px solid #e3e3e3
+    border 1px solid #e3e3e3
     padding 15px 15px 15px 15px
-    //margin 8px 10px 8px 10px
+    margin 10px 15px 10px 10px
     position relative
-    //border-radius 0.25em
-    //box-shadow 1px 2px 2px 0px rgba(0,0,0,0.25)
-    //border-left 5px solid #e3e3e3
+    border-radius 0.25em
+    box-shadow 1px 2px 2px 0px rgba(0,0,0,0.25)
+    border-left 5px solid #e3e3e3
+    
+.databox_list_menu_disabled
+    background #E2E2E2
+    font-size 13px
+    color #C1C1C1
+    border 1px solid #E2E2E2
+    padding 15px 15px 15px 15px
+    margin 10px 15px 10px 10px
+    position relative
+    border-radius 0.25em
+    box-shadow 1px 2px 2px 0px rgba(0,0,0,0.25)
+    border-left 5px solid #E2E2E2
+    
 
-.databox_list_menu.x-item-selected
-    //background  #E8E8E8
-    border-bottom 2px solid #CD7054
-    border-left 5px solid #F08080
     
 .databox_list_menu:hover 
     background none repeat scroll 0 0 #eceff5
     cursor pointer  
     
+.databox_list_menu_select.x-item-selected
+    background  #e3e3e3 
+    //border-bottom 2px solid #CD7054
+    //border-left 5px solid #F08080
+        
+.databox_list_menu_select.x-view-item-focused
+    outline: 0px dashed #ccc !important
+    outline-offset -0px
+    //background  #e3e3e3  !important
+    border-bottom 0px solid red_fondo
+    border-left 0px solid red_fondo
 
 .databox_menu_bx
     font-family 'Varela Round', sans-serif
@@ -518,6 +538,8 @@ body
         display inline-block
         padding 2px
         
+/*Menu Fin*/
+
 .icon_default
     background transparent url('/images/menu/logo_default.png') 0 0 no-repeat !important  
     height 30px

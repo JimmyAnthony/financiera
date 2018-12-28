@@ -138,6 +138,7 @@
             view:{},
             record:{},
             id_msn:0,
+            collapsed:true,
             init: function(){
                 Ext.tip.QuickTipManager.init();
 
@@ -149,6 +150,58 @@
                 });
 
                 inicio.task.start();
+
+
+                /*MENUS*/
+
+                Ext.define('storeTree1', {
+                    extend: 'Ext.data.TreeModel',
+                    fields: [
+                        {name: 'id', type: 'string'},
+                        {name: 'parent_id', type: 'string'},
+                        {name: 'text', type: 'string'},
+                        {name: 'nombre', type: 'string'},
+                        {name: 'iconCls', type: 'string'},
+                        {name: 'menu_url', type: 'string'},
+                        {name: 'menu_class', type: 'string'},
+                        {name: 'permisos', type: 'string'}
+                    ]
+                });
+                inicio.storeTree = new Ext.data.TreeStore({
+                    model: 'storeTree1',
+                    autoLoad:true,
+                    proxy: {
+                        type: 'ajax',
+                        url: inicio.url+'getDataMenuNew/'//,
+                        //reader:{
+                        //    type: 'json'//,
+                        //    //rootProperty: 'data'
+                        //}
+                    },
+                    folderSort: true,
+                    listeners:{
+                        beforeload: function (store, operation, opts) {
+                            store.proxy.extraParams = inicio.paramsStore;
+                            /*Ext.apply(operation, {
+                                params: {
+                                    to: 'test1',
+                                    from: 'test2'
+                                }
+                           });*/
+                        },
+                        load: function(obj, records, successful, opts){
+                            /*Ext.getCmp(tracking.id + '-grid-tracking').doLayout();
+                            //Ext.getCmp(lotizer.id + '-grid').getView().getRow(0).style.display = 'none';
+                            storeTree.removeAt(0);
+                            Ext.getCmp(tracking.id + '-grid-tracking').collapseAll();
+                            Ext.getCmp(tracking.id + '-grid-tracking').getRootNode().cascadeBy(function (node) {
+                                  if (node.getDepth() < 1) { node.expand(); }
+                                  if (node.getDepth() == 0) { return false; }
+                            });
+                            Ext.getCmp(tracking.id + '-grid-tracking').expandAll();*/
+                        }
+                    }
+                });
 
                 /* ----------------------------------------------------- */
                 var html_header = '<header class="Header">' +
@@ -548,40 +601,105 @@
                                         closable: true,
                                         autoScroll: true
                                     },
-                                    border: false,
+                                    border: true,
                                     layout: 'fit',
-                                    tabPosition: 'left',
+                                    tabPosition: 'top',
                                     // tabRotation: 0,
                                     items:[
                                         {
                                             title: '',
                                             icon: '/images/icon/home.png',
                                             closable: false,
-                                            layout: 'center',
-                                            //html: htmlFondo,
-                                            items:[
+                                            layout: 'fit',
+                                            html: htmlFondo,
+                                            /*items:[
                                                 {
-                                                    xtype:'MenuView',
-                                                    width: 300,
-                                                    id:inicio.id,
-                                                    url:inicio.url
+                                                    xtype: 'panel',
+                                                    items:[
+                                                        {
+                                                            xtype: 'textfield',
+                                                            id: inicio.id + '-campo1',
+                                                            allowBlank: false,
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'textfield',
+                                                            id: inicio.id + '-campo2',
+                                                            allowBlank: false,
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'textfield',
+                                                            id: inicio.id + '-campo3',
+                                                            allowBlank: false,
+                                                            flex: 1
+                                                        },
+                                                        {
+                                                            xtype: 'textfield',
+                                                            id: inicio.id + '-campo4',
+                                                            allowBlank: false,
+                                                            flex: 1
+                                                        }
+                                                    ]
                                                 }
-                                            ],
+                                            ],*/
                                             listeners:{
                                                 afterrender: function(obj){
                                                     // win.show({vurl: '/inicio/index/demo_maps/'});
                                                 }
                                             }
                                         }
-                                    ],
-                                    listeners:{
-                                        afterrender: function(obj){
-                                            // win.show({vurl: '/inicio/index/demo_maps/'});
-                                            obj.getTabBar().hide();
-                                        }
-                                    }
+                                    ]
                                 }
                             ]
+                        },
+                        {
+                            xtype: 'treepanel',
+                            id: inicio.id+'-menu-view',
+                            region:'west',
+                            width: 250,
+                            //split:'true',
+                            //height: 200,
+                            margins: '2 2 0 2',
+                            //collapsible:true,
+                            autoScroll: true,
+                            rootVisible: false,
+                            // Sharing the store synchronizes the views:
+                            store: inicio.storeTree,
+                            listeners:{
+                                itemclick:function(obj, record, index, eOpts ){
+                                    if(record.get('menu_url')!=''){
+                                        win.show({vurl: record.get('menu_url'), id_menu: record.get('id'), class: record.get('menu_class')});
+                                    }   
+                                }
+                            }
+                        },/*
+                        {
+                            xtype: 'treepanel',
+                            region:'west',
+                            region:'east',
+                            width: 300,
+                            split:'true',
+                            //height: 200,
+                            margins: '2 2 0 2',
+                            collapsible:true,
+                            autoScroll: true,
+                            rootVisible: false,
+                            // Sharing the store synchronizes the views:
+                            store: inicio.storeTree
+                        },*/
+                        {
+                            region: 'south',
+                            //contentEl: 'south',
+                            //split: true,
+                            height: 100,
+                            minSize: 100,
+                            maxSize: 200,
+                            //title: 'South',
+                            collapsible: true,
+                            margins: '0 0 0 0',
+                            tag: 'div',
+                            html:'<div style="height:60px; background-image:url(img//pie_travel.png); padding-top:15px"><center>Desarrollado por Jimmy Anthony Bazan Solis</center></div>'
                         }
                         /*,
                         {
@@ -754,6 +872,9 @@
                 
             },
             get_menu_sh:function(obj){
+                Ext.getCmp(inicio.id+'-menu-view').setCollapsed(inicio.collapsed);
+                inicio.collapsed=!inicio.collapsed;
+                return;
                 var menu = Ext.getCmp(inicio.id+'-contentMenu');
                 //var spinner = Ext.get('menu_spinner');
                 if(obj.fous)menu.setVisible(!obj.start);

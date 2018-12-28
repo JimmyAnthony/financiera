@@ -94,6 +94,8 @@ class indexController extends AppController {
                 $value_['nivel'] =trim($value['nivel']);
                 $value_['icono'] = (trim($value['icono']) == '' || trim($value['icono']) == './') ? 'form.png' : $value['icono'];
                 $value_['menu_class'] = (trim($value['menu_class']) == '.') ? '' : trim($value['menu_class']);
+                $value_['menu_estado'] = trim($value['menu_estado']);
+                $value_['clase_disabled'] = $value['menu_estado']==1?'databox_list_menu':'databox_list_menu_disabled';
                 $value_['permisos'] = $this->objDatos->usr_sis_servicios($p);
                 $array[]=$value_;
         }

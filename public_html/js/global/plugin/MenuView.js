@@ -7,7 +7,7 @@ Ext.define('Ext.global.plugin.MenuView',{
     extend: 'Ext.Container',
     xtype: 'MenuView',
     config: {
-        layout: 'border',
+        //layout: 'border',
         autoScroll:false,
         border:false
     },
@@ -15,6 +15,7 @@ Ext.define('Ext.global.plugin.MenuView',{
     idx:-1,
     config_:'',
     datafirst:{},
+    width: 300,
     constructor: function(config){
         var me = this;
         me.config_=config;
@@ -30,7 +31,7 @@ Ext.define('Ext.global.plugin.MenuView',{
                 '</tpl>',
                 '<tpl if="nivel!=0">',
                     '<div class="databox_list_menu_select" >',
-                        '<div class="databox_list_menu" >',
+                        '<div class="{clase_disabled}" >',
                             '<div class="databox_menu_bx" >',
                                 '<div class="">',
                                     '<img src="/images/menu/{icono}" />',
@@ -56,7 +57,9 @@ Ext.define('Ext.global.plugin.MenuView',{
                 {name: 'url', type: 'string'},
                 {name: 'icono', type: 'string'},
                 {name: 'id_menu', type: 'string'},
-                {name: 'menu_class', type: 'string'}
+                {name: 'menu_class', type: 'string'},
+                {name: 'clase_disabled', type: 'string'},
+                {name: 'menu_estado', type: 'int'},
             ],
             autoLoad:true,
             proxy:{
@@ -73,20 +76,13 @@ Ext.define('Ext.global.plugin.MenuView',{
             listeners:{
                 load: function(obj, records, successful, opts){
                     console.log(records);
-                    document.getElementById("menu_spinner").innerHTML = "";
+                    //document.getElementById("menu_spinner").innerHTML = "";
                 }
             }
         });
 
         me.items=[
             {
-                region:'center',
-                layout:'fit',
-                frame:true,
-                border:false,
-                bodyCls: 'white_bg',
-                items:[
-                    {
                         xtype: 'dataview',
                         id: config.id+'-menu-view',
                         layout:'fit',
@@ -109,13 +105,11 @@ Ext.define('Ext.global.plugin.MenuView',{
                                 var val =record.data;
                                 var menu_class = val.menu_class == null || val.menu_class == '' ? '' : val.menu_class;
                                 if(val.nivel!=0)
-                                win.show({vurl: val.url, id_menu: idx, class: menu_class});//obj.getItemId().split('-')[1]  
-                                
+                                    if(val.menu_estado!=0)
+                                        win.show({vurl: val.url, id_menu: idx, class: menu_class});//obj.getItemId().split('-')[1]  
                             }
                         }
                     }
-                ]
-            }
         ];
         me.callParent();
     }
