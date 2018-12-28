@@ -13,11 +13,18 @@ white_fondo = #fff
 gris_oscuro = #333333
 green_status = #16a765
 blue_status = #12aadf
+content-panel-grid-line #f5f5f5
+content-panel-grid-background #e8e8e8
 
 body
-    background-color gris_fondo !important
+    //background-color gris_fondo !important
     font-family 'Varela Round', sans-serif
     font-size 16px
+    background-image linear-gradient(0deg,#f5f5f5 1.1px, transparent 0), linear-gradient(90deg,#f5f5f5 1.1px, transparent 0) !important
+    background-image linear-gradient(0deg,var(content-panel-grid-line) 1.1px, transparent 0), linear-gradient(90deg,var(content-panel-grid-line) 1.1px, transparent 0) !important
+    background-size 20px 20px 
+    background-color #e8e8e8 !important 
+    background-color var(content-panel-grid-background)  !important
 
 .Header
     background-color #CCCACA
@@ -416,7 +423,7 @@ body
     
 /*Menu*/
 .databox_list_menu_select
-    background white_fondo !important
+    //background white_fondo !important
     display inline-block
     width 150px
  
@@ -485,7 +492,7 @@ body
     cursor pointer  
     
 .databox_list_menu_select.x-item-selected
-    background  #e3e3e3 
+    //background  #e3e3e3 
     //border-bottom 2px solid #CD7054
     //border-left 5px solid #F08080
         

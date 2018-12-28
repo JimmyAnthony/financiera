@@ -361,6 +361,31 @@
 									                        }
 									                    }
 		                                            ]
+		                                        },
+		                                        {
+		                                            width: 80,border:false,
+		                                            padding:'0px 2px 0px 0px',  
+		                                            bodyStyle: 'background: transparent',
+		                                            items:[
+		                                                {
+									                        xtype:'button',
+									                        text: 'Nuevo',
+									                        icon: '/images/icon/call_user_01.png',
+									                        listeners:{
+									                            beforerender: function(obj, opts){
+									                                /*global.permisos({
+									                                    id: 15,
+									                                    id_btn: obj.getId(), 
+									                                    id_menu: gestion_devolucion.id_menu,
+									                                    fn: ['panel_asignar_gestion.limpiar']
+									                                });*/
+									                            },
+									                            click: function(obj, e){	             	
+		                               					            Ext.getCmp(user.id+'-tab').close();
+									                            }
+									                        }
+									                    }
+		                                            ]
 		                                        }
 		                                    ]
 		                                }

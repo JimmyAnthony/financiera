@@ -16,6 +16,7 @@ Ext.define('Ext.global.plugin.MenuView',{
     config_:'',
     datafirst:{},
     width: 600,
+    bodyCls: 'transparent',
     margin:'150px 0px 0px 0px',
     constructor: function(config){
         var me = this;

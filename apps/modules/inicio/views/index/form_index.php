@@ -195,6 +195,7 @@
                         }
                     },
                     layout: 'border',
+                    //bodyCls: 'fondo_cuadros',
                     items:[
                         {
                             region: 'north',
@@ -523,6 +524,7 @@
                             //cls:'cmp_contn',
                             id: inicio.id+'-region-content',
                             border:false,
+                            bodyCls: 'transparent',
                             items:[
                                 {
                                     region:'west',
@@ -551,6 +553,7 @@
                                     border: false,
                                     layout: 'fit',
                                     tabPosition: 'left',
+                                    bodyCls: 'transparent',
                                     // tabRotation: 0,
                                     items:[
                                         {
@@ -558,6 +561,7 @@
                                             icon: '/images/icon/home.png',
                                             closable: false,
                                             layout: 'center',
+                                            bodyCls: 'transparent',
                                             //html: htmlFondo,
                                             items:[
                                                 {

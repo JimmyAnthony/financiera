@@ -7,7 +7,7 @@
  * @version 2.0
  */
 
-class agentesModels extends Adodb {
+class asesorModels extends Adodb {
 
     private $dsn;
 
