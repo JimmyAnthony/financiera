@@ -212,15 +212,15 @@
                                     border:false,
                                     bodyCls: 'transparent',
                                     items:[
-                                        {
+                                        /*{
                                             width: 40,
                                             bodyCls: 'transparent',
                                             border:false,
                                             html: '<a id="cmp_clk" href="#" onClick="inicio.get_menu_sh(inicio.cofingM);" class="az dS"></a>'
-                                        },
+                                        },*/
                                         {
                                             columnWidth: 1,
-                                            padding:'0px 0px 0px 40px',
+                                            padding:'0px 0px 0px 10px',
                                             bodyCls: 'transparent',
                                             border:false,
                                             html: '<div class="logo_init"></div>'
@@ -229,290 +229,337 @@
                                 },
                                 {
                                     region:'center',
-                                    layout:'fit',
+                                    layout:'border',
                                     border:false,
                                     bodyCls: 'transparent',
                                     items:[
-
+                                        {
+                                            region:'center',
+                                            bodyCls: 'transparent',
+                                            border:false,
+                                            items:[]
+                                        },
+                                        {
+                                            region:'east',
+                                            layout:'column',
+                                            width:170,
+                                            border:false,
+                                            bodyCls: 'transparent',
+                                            margin:7,
+                                            items:[
+                                                {
+                                                    width: 40,
+                                                    border:false,
+                                                    bodyCls: 'transparent',
+                                                    items:[
+                                                        {
+                                                            xtype: 'button',
+                                                            id:inicio.id+'-btn-nv-',
+                                                            scale: 'medium',
+                                                            icon: null,
+                                                            bodyCls: 'transparent',
+                                                            cls:'icon_cmp',
+                                                            arrowVisible:false,
+                                                            border:false,
+                                                            //width:30,
+                                                            menuAlign:'t-bl',
+                                                            //icon: '/images/front/message_attention.png',
+                                                            text:'',
+                                                            menu: [
+                                                                {
+                                                                    xtype:'panel',
+                                                                    id:inicio.id+'-pnl-nov-pm-',
+                                                                    layout:'fit',
+                                                                    width:380,
+                                                                    height:400,
+                                                                    bodyCls: 'white_fondo',
+                                                                    border:false,
+                                                                    items:[
+                                                                        {
+                                                                            xtype:'panel',
+                                                                            id:inicio.id+'-pnl-nov-',
+                                                                            border:false,
+                                                                            layout:'fit',
+                                                                            items:[
+                                                                                {
+                                                                                    xtype:'GridNovedades',
+                                                                                    id:inicio.id,
+                                                                                    url:inicio.url_nv,
+                                                                                    records:inicio.load_records,
+                                                                                    front:1,
+                                                                                    autoLoad:false
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            xtype:'panel',
+                                                                            id:inicio.id+'-pnl-coment-',
+                                                                            border:false,
+                                                                            hidden:true,
+                                                                            layout:'fit',
+                                                                            items:[
+                                                                                {
+                                                                                    xtype:'GridNovedadesComentarios',
+                                                                                    id:inicio.id,
+                                                                                    url:inicio.url_nv,
+                                                                                    closed:1
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ],
+                                                                    bbar:[
+                                                                        {
+                                                                            xtype:'panel',
+                                                                            height:40,
+                                                                            layout:'border',
+                                                                            width:380,
+                                                                            border:false,
+                                                                            bodyCls: 'white_fondo',
+                                                                            items:[
+                                                                                {
+                                                                                    border:false,
+                                                                                    region:'center',
+                                                                                    layout:'fit',
+                                                                                    bodyCls: 'transparent',
+                                                                                    items:[
+                                                                                        {
+                                                                                            xtype: 'button',
+                                                                                            text:'Gestor de Novedades',
+                                                                                            id:inicio.id+'-btn-ges-nv',
+                                                                                            scale: 'medium',
+                                                                                            icon: '/images/front/message_attention.png',
+                                                                                            arrowVisible:false,
+                                                                                            bodyCls: 'transparent',
+                                                                                            cls:'icon_cmp',
+                                                                                            border:false,
+                                                                                            listeners:{
+                                                                                                click: function(obj, e){
+                                                                                                    win.show({vurl: inicio.url_nv + 'form_panel/', id_menu: 17, class: ''});
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    border:false,
+                                                                                    width:190,
+                                                                                    region:'east',
+                                                                                    layout:'fit',
+                                                                                    bodyCls: 'transparent',
+                                                                                    items:[
+                                                                                        {
+                                                                                            xtype: 'button',
+                                                                                            text:'Crear Novedad',
+                                                                                            id:inicio.id+'-btn-add-nv',
+                                                                                            scale: 'medium',
+                                                                                            icon: '/images/front/More_2-24.png',
+                                                                                            arrowVisible:false,
+                                                                                            bodyCls: 'transparent',
+                                                                                            cls:'icon_cmp',
+                                                                                            border:false,
+                                                                                            listeners:{
+                                                                                                click: function(obj, e){
+                                                                                                    var obj = new Ext.global.plugin.RegistroNovedades();
+                                                                                                    obj.show_novedad();
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        {
+                                                                                            xtype: 'button',
+                                                                                            id:inicio.id+'-btn-back',
+                                                                                            text:'Regresar Listado',
+                                                                                            scale: 'medium',
+                                                                                            icon: '/images/front/back-32.png',
+                                                                                            arrowVisible:false,
+                                                                                            bodyCls: 'transparent',
+                                                                                            cls:'icon_cmp',
+                                                                                            border:false,
+                                                                                            listeners:{
+                                                                                                click: function(obj, e){
+                                                                                                    inicio.show_nv(true);
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            listeners:{
+                                                                render:function(o){
+                                                                    //console.log(o);
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    border:false,
+                                                    width: 40,
+                                                    bodyCls: 'transparent',
+                                                    items:[
+                                                        {
+                                                            xtype: 'button',
+                                                            scale: 'medium',
+                                                            padding:'3px 0px 10px 0px',
+                                                            icon: null,
+                                                            arrowVisible:false,
+                                                            bodyCls: 'transparent',
+                                                            cls:'icon_cmp',
+                                                            border:false,
+                                                            //width:30,
+                                                            menuAlign:'t-bl',
+                                                            icon: '/images/front/user_male-24_000.png',
+                                                            text:'',
+                                                            menu: [
+                                                                {
+                                                                    xtype:'panel',
+                                                                    layout:'border',
+                                                                    width:350,
+                                                                    height:130,
+                                                                    bodyCls: 'white_fondo',
+                                                                    border:false,
+                                                                    items:[
+                                                                        {
+                                                                            region:'west',
+                                                                            layout:'fit',
+                                                                            width:80,
+                                                                            border:false,
+                                                                            padding:'5px 5px 0px 5px',
+                                                                            html:'<img src="/images/front/user_male-64.png" class="icon_cmp"/>'
+                                                                        },
+                                                                        {
+                                                                            region:'center',
+                                                                            layout:'fit',
+                                                                            border:false,
+                                                                            html:'<div class="form_user"><p><span class="tit_usuario"><b><?php echo USR_NOMBRE;?></b></span></p>' +
+                                                                            '<p>Usuario : <span class="nom_usuario"><?php echo USR_LOGIN;?></span></p></div>'
+                                                                        }
+                                                                    ],
+                                                                    bbar:[
+                                                                        {
+                                                                            xtype:'panel',
+                                                                            height:40,
+                                                                            layout:'border',
+                                                                            width:350,
+                                                                            border:false,
+                                                                            bodyCls: 'white_fondo',
+                                                                            items:[
+                                                                                {
+                                                                                    border:false,
+                                                                                    region:'center',
+                                                                                    layout:'fit',
+                                                                                    bodyCls: 'transparent',
+                                                                                    items:[
+                                                                                        {
+                                                                                            xtype: 'button',
+                                                                                            text:'Modificar Contraseña',
+                                                                                            scale: 'medium',
+                                                                                            icon: '/images/front/key-24.png',
+                                                                                            arrowVisible:false,
+                                                                                            bodyCls: 'transparent',
+                                                                                            cls:'icon_cmp',
+                                                                                            border:false
+                                                                                        }
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    border:false,
+                                                                                    width:175,
+                                                                                    region:'east',
+                                                                                    layout:'fit',
+                                                                                    bodyCls: 'transparent',
+                                                                                    items:[
+                                                                                        {
+                                                                                            xtype: 'button',
+                                                                                            text:'Cerrar Sessión',
+                                                                                            scale: 'medium',
+                                                                                            icon: '/images/front/cancel.png',
+                                                                                            arrowVisible:false,
+                                                                                            bodyCls: 'transparent',
+                                                                                            cls:'icon_cmp',
+                                                                                            border:false,
+                                                                                            listeners:{
+                                                                                                click: function(obj, e){
+                                                                                                    inicio.logout();
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            listeners:{
+                                                                render:function(o){
+                                                                    //console.log(o);
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    border:false,
+                                                    width: 20,
+                                                    bodyCls: 'transparent',
+                                                    padding:'5px 0px 0px 0px',
+                                                    html:'<div class="cls_age_a"></div>'
+                                                },
+                                                {
+                                                    border:false,
+                                                    columnWidth: 1,
+                                                    bodyCls: 'transparent',
+                                                    padding:'9px 0px 0px 2px',
+                                                    //html:'<div class="cls_age"><div class="cls_age_a">AGENCIA</div><div class="cls_age_b"><?php echo PROV_NOMBRE;?></div></div>'
+                                                    html:'<div class="cls_age_b"><?php echo PROV_NOMBRE;?></div>'
+                                                }
+                                            ]
+                                        }
                                     ]
                                 },
                                 {
                                     region:'east',
-                                    layout:'column',
-                                    width:220,
                                     border:false,
+                                    width:50,
+                                    layout:'fit',
                                     bodyCls: 'transparent',
-                                    margin:7,
                                     items:[
                                         {
-                                            width: 40,
-                                            border:false,
-                                            bodyCls: 'transparent',
-                                            items:[
-                                                {
-                                                    xtype: 'button',
-                                                    id:inicio.id+'-btn-nv-',
-                                                    scale: 'medium',
-                                                    icon: null,
-                                                    bodyCls: 'transparent',
-                                                    cls:'icon_cmp',
-                                                    arrowVisible:false,
-                                                    border:false,
-                                                    //width:30,
-                                                    menuAlign:'t-bl',
-                                                    //icon: '/images/front/message_attention.png',
-                                                    text:'',
-                                                    menu: [
-                                                        {
-                                                            xtype:'panel',
-                                                            id:inicio.id+'-pnl-nov-pm-',
-                                                            layout:'fit',
-                                                            width:380,
-                                                            height:400,
-                                                            bodyCls: 'white_fondo',
-                                                            border:false,
-                                                            items:[
-                                                                {
-                                                                    xtype:'panel',
-                                                                    id:inicio.id+'-pnl-nov-',
-                                                                    border:false,
-                                                                    layout:'fit',
-                                                                    items:[
-                                                                        {
-                                                                            xtype:'GridNovedades',
-                                                                            id:inicio.id,
-                                                                            url:inicio.url_nv,
-                                                                            records:inicio.load_records,
-                                                                            front:1,
-                                                                            autoLoad:false
-                                                                        }
-                                                                    ]
-                                                                },
-                                                                {
-                                                                    xtype:'panel',
-                                                                    id:inicio.id+'-pnl-coment-',
-                                                                    border:false,
-                                                                    hidden:true,
-                                                                    layout:'fit',
-                                                                    items:[
-                                                                        {
-                                                                            xtype:'GridNovedadesComentarios',
-                                                                            id:inicio.id,
-                                                                            url:inicio.url_nv,
-                                                                            closed:1
-                                                                        }
-                                                                    ]
-                                                                }
-                                                            ],
-                                                            bbar:[
-                                                                {
-                                                                    xtype:'panel',
-                                                                    height:40,
-                                                                    layout:'border',
-                                                                    width:380,
-                                                                    border:false,
-                                                                    bodyCls: 'white_fondo',
-                                                                    items:[
-                                                                        {
-                                                                            border:false,
-                                                                            region:'center',
-                                                                            layout:'fit',
-                                                                            bodyCls: 'transparent',
-                                                                            items:[
-                                                                                {
-                                                                                    xtype: 'button',
-                                                                                    text:'Gestor de Novedades',
-                                                                                    id:inicio.id+'-btn-ges-nv',
-                                                                                    scale: 'medium',
-                                                                                    icon: '/images/front/message_attention.png',
-                                                                                    arrowVisible:false,
-                                                                                    bodyCls: 'transparent',
-                                                                                    cls:'icon_cmp',
-                                                                                    border:false,
-                                                                                    listeners:{
-                                                                                        click: function(obj, e){
-                                                                                            win.show({vurl: inicio.url_nv + 'form_panel/', id_menu: 17, class: ''});
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            ]
-                                                                        },
-                                                                        {
-                                                                            border:false,
-                                                                            width:190,
-                                                                            region:'east',
-                                                                            layout:'fit',
-                                                                            bodyCls: 'transparent',
-                                                                            items:[
-                                                                                {
-                                                                                    xtype: 'button',
-                                                                                    text:'Crear Novedad',
-                                                                                    id:inicio.id+'-btn-add-nv',
-                                                                                    scale: 'medium',
-                                                                                    icon: '/images/front/More_2-24.png',
-                                                                                    arrowVisible:false,
-                                                                                    bodyCls: 'transparent',
-                                                                                    cls:'icon_cmp',
-                                                                                    border:false,
-                                                                                    listeners:{
-                                                                                        click: function(obj, e){
-                                                                                            var obj = new Ext.global.plugin.RegistroNovedades();
-                                                                                            obj.show_novedad();
-                                                                                        }
-                                                                                    }
-                                                                                },
-                                                                                {
-                                                                                    xtype: 'button',
-                                                                                    id:inicio.id+'-btn-back',
-                                                                                    text:'Regresar Listado',
-                                                                                    scale: 'medium',
-                                                                                    icon: '/images/front/back-32.png',
-                                                                                    arrowVisible:false,
-                                                                                    bodyCls: 'transparent',
-                                                                                    cls:'icon_cmp',
-                                                                                    border:false,
-                                                                                    listeners:{
-                                                                                        click: function(obj, e){
-                                                                                            inicio.show_nv(true);
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    ]
-                                                                }
-                                                            ]
-                                                        }
-                                                    ],
-                                                    listeners:{
-                                                        render:function(o){
-                                                            //console.log(o);
-                                                        }
+                                            xtype:'button',
+                                            id: inicio.id+'-btn-close-tabs',
+                                            hidden:true,
+                                            bodyCls: 'boton_cierre',
+                                            cls: 'boton_cierre',
+                                            flex:1,
+                                            //text: '',
+                                            //glyph: 72,
+                                            scale: 'large',
+                                            icon: '/images/icon/iconfinder_close__cancel__denied__stop_2538682.png',
+                                            //bodyCls: 'close_botton',
+                                            listeners:{
+                                                beforerender: function(obj, opts){
+                                                    /*global.permisos({
+                                                        id: 15,
+                                                        id_btn: obj.getId(), 
+                                                        id_menu: gestion_devolucion.id_menu,
+                                                        fn: ['panel_asignar_gestion.limpiar']
+                                                    });*/
+                                                },
+                                                click: function(obj, e){                    
+                                                    var activeTab = Ext.getCmp(inicio.id+'-tabContent').getActiveTab();
+                                                    var activeTabIndex = Ext.getCmp(inicio.id+'-tabContent').items.findIndex('id', activeTab.id);
+                                                    if(activeTabIndex!=0){
+                                                        Ext.getCmp(inicio.id+'-tabContent').remove(activeTabIndex);
+                                                        if(activeTabIndex==1)Ext.getCmp(inicio.id+'-btn-close-tabs').setVisible(false);
+                                                    }else{
+                                                        Ext.getCmp(inicio.id+'-btn-close-tabs').setVisible(false);
                                                     }
                                                 }
-                                            ]
-                                        },
-                                        {
-                                            border:false,
-                                            width: 40,
-                                            bodyCls: 'transparent',
-                                            items:[
-                                                {
-                                                    xtype: 'button',
-                                                    scale: 'medium',
-                                                    padding:'3px 0px 10px 0px',
-                                                    icon: null,
-                                                    arrowVisible:false,
-                                                    bodyCls: 'transparent',
-                                                    cls:'icon_cmp',
-                                                    border:false,
-                                                    //width:30,
-                                                    menuAlign:'t-bl',
-                                                    icon: '/images/front/user_male-24_000.png',
-                                                    text:'',
-                                                    menu: [
-                                                        {
-                                                            xtype:'panel',
-                                                            layout:'border',
-                                                            width:350,
-                                                            height:130,
-                                                            bodyCls: 'white_fondo',
-                                                            border:false,
-                                                            items:[
-                                                                {
-                                                                    region:'west',
-                                                                    layout:'fit',
-                                                                    width:80,
-                                                                    border:false,
-                                                                    padding:'5px 5px 0px 5px',
-                                                                    html:'<img src="/images/front/user_male-64.png" class="icon_cmp"/>'
-                                                                },
-                                                                {
-                                                                    region:'center',
-                                                                    layout:'fit',
-                                                                    border:false,
-                                                                    html:'<div class="form_user"><p><span class="tit_usuario"><b><?php echo USR_NOMBRE;?></b></span></p>' +
-                                                                    '<p>Usuario : <span class="nom_usuario"><?php echo USR_LOGIN;?></span></p></div>'
-                                                                }
-                                                            ],
-                                                            bbar:[
-                                                                {
-                                                                    xtype:'panel',
-                                                                    height:40,
-                                                                    layout:'border',
-                                                                    width:350,
-                                                                    border:false,
-                                                                    bodyCls: 'white_fondo',
-                                                                    items:[
-                                                                        {
-                                                                            border:false,
-                                                                            region:'center',
-                                                                            layout:'fit',
-                                                                            bodyCls: 'transparent',
-                                                                            items:[
-                                                                                {
-                                                                                    xtype: 'button',
-                                                                                    text:'Modificar Contraseña',
-                                                                                    scale: 'medium',
-                                                                                    icon: '/images/front/key-24.png',
-                                                                                    arrowVisible:false,
-                                                                                    bodyCls: 'transparent',
-                                                                                    cls:'icon_cmp',
-                                                                                    border:false
-                                                                                }
-                                                                            ]
-                                                                        },
-                                                                        {
-                                                                            border:false,
-                                                                            width:175,
-                                                                            region:'east',
-                                                                            layout:'fit',
-                                                                            bodyCls: 'transparent',
-                                                                            items:[
-                                                                                {
-                                                                                    xtype: 'button',
-                                                                                    text:'Cerrar Sessión',
-                                                                                    scale: 'medium',
-                                                                                    icon: '/images/front/cancel.png',
-                                                                                    arrowVisible:false,
-                                                                                    bodyCls: 'transparent',
-                                                                                    cls:'icon_cmp',
-                                                                                    border:false,
-                                                                                    listeners:{
-                                                                                        click: function(obj, e){
-                                                                                            inicio.logout();
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    ]
-                                                                }
-                                                            ]
-                                                        }
-                                                    ],
-                                                    listeners:{
-                                                        render:function(o){
-                                                            //console.log(o);
-                                                        }
-                                                    }
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            border:false,
-                                            width: 20,
-                                            bodyCls: 'transparent',
-                                            padding:'5px 0px 0px 0px',
-                                            html:'<div class="cls_age_a"></div>'
-                                        },
-                                        {
-                                            border:false,
-                                            columnWidth: 1,
-                                            bodyCls: 'transparent',
-                                            padding:'9px 0px 0px 2px',
-                                            //html:'<div class="cls_age"><div class="cls_age_a">AGENCIA</div><div class="cls_age_b"><?php echo PROV_NOMBRE;?></div></div>'
-                                            html:'<div class="cls_age_b"><?php echo PROV_NOMBRE;?></div>'
+                                            }
                                         }
                                     ]
                                 }

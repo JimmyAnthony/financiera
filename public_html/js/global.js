@@ -67,6 +67,7 @@ win = {
                     params: params,
                     callback:function(){
                         Ext.getCmp(inicio.id + '-contenedor').unmask();
+                        Ext.getCmp(inicio.id+'-btn-close-tabs').setVisible(true);
                     }
                 });
             }else{

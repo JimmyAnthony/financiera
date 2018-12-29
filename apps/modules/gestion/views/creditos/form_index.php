@@ -4,8 +4,8 @@
 		var credit_list = {
 			id:'credit_list',
 			id_menu:'<?php echo $p["id_menu"];?>',
-			url:'/gestiones/creditos/',
-			url_cli:'/gestiones/clientes/',
+			url:'/gestion/creditos/',
+			url_cli:'/gestion/clientes/',
 			opcion:'I',
 			id_lote:0,
 			shi_codigo:0,

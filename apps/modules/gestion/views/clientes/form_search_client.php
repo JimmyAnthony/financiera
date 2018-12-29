@@ -4,7 +4,7 @@
 		var client_search = {
 			id:'client_search',
 			id_menu:'<?php echo $p["id_menu"];?>',
-			url:'/gestiones/clientes/',
+			url:'/gestion/clientes/',
 			opcion:'I',
 			id_lote:'<?php echo $p["id_lote"];?>',
 			shi_codigo:'<?php echo $p["shi_codigo"];?>',

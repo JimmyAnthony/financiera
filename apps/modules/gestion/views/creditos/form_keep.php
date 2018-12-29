@@ -4,8 +4,8 @@
 		var client_keep = {
 			id:'client_keep',
 			id_menu:'<?php echo $p["id_menu"];?>',
-			url:'/gestiones/creditos/',
-			url_cli:'/gestiones/clientes/',
+			url:'/gestion/creditos/',
+			url_cli:'/gestion/clientes/',
 			opcion:'<?php echo $p["op"];?>',
 			cod_credito:'<?php echo $p["cod_credito"];?>',
 			callback:'<?php echo $p["callback"];?>',
