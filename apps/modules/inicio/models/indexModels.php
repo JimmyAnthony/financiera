@@ -65,7 +65,7 @@ class indexModels extends Adodb {
         parent::SetParameterSP(USR_ID, 'int');
         parent::SetParameterSP(SIS_ID, 'int');
         parent::SetParameterSP($p['vp_mod_id'], 'int');
-        parent::SetParameterSP($p['id'], 'int');
+        parent::SetParameterSP($p['vp_menu_id'], 'int');
         // echo '=>' . parent::getSql() . '</br>';
         $array = parent::ExecuteSPArray(array('sql_error', 'msn_error'));
         return $array;

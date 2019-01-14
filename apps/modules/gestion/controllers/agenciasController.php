@@ -19,11 +19,16 @@ class agenciasController extends AppController {
     }
 
     public function index($p){        
-        $this->view('asesor/form_index.php', $p);
+        $this->view('agencias/form_index.php', $p);
     }
 
+<<<<<<< HEAD
    public function get_agencias_list($p){
         $rs = $this->objDatos->get_agencias_list($p);
+=======
+   public function get_list_agencias($p){
+        $rs = $this->objDatos->get_list_agencias($p);
+>>>>>>> 08ba32a10657d83d10c8135b3d7309d01c135f36
         //var_export($rs);
         $array = array();
         $lote = 0;
@@ -31,6 +36,7 @@ class agenciasController extends AppController {
             $value_['cod_age'] = intval($value['cod_age']);
             $value_['nombre'] = utf8_encode(trim($value['nombre']));
             $value_['descripcion'] = utf8_encode(trim($value['descripcion']));
+<<<<<<< HEAD
             $value_['direccion'] = utf8_encode(trim($value['direccion']));
             $value_['Distrito'] = utf8_encode(trim($value['cod_ubi']));
             $value_['Provincia'] = utf8_encode(trim($value['cod_ubi']));
@@ -41,6 +47,19 @@ class agenciasController extends AppController {
             $value_['y'] = trim($value['cod_ubi']);
             $value_['fecha'] = trim($value['cod_ubi']);
             $value_['estado'] = trim($value['cod_ubi']);
+=======
+            //substr(trim($value['fec_ingreso']),0,10)
+            $value_['direccion'] = utf8_encode(trim($value['direccion']));
+            $value_['telefonos'] = trim($value['telefonos']);
+            $value_['cod_ubi'] = utf8_encode(trim($value['cod_ubi']));
+            $value_['x'] = utf8_encode(trim($value['x']));
+            $value_['y'] = utf8_encode(trim($value['y']));
+            $value_['fecha'] = utf8_encode(trim($value['fecha']));
+            $value_['estado'] = utf8_encode(trim($value['estado']));
+            $value_['Distrito'] = utf8_encode(trim($value['Distrito']));
+            $value_['Provincia'] = utf8_encode(trim($value['Provincia']));
+            $value_['Departamento'] = utf8_encode(trim($value['Departamento']));
+>>>>>>> 08ba32a10657d83d10c8135b3d7309d01c135f36
             $array[]=$value_;
         }
 
@@ -76,6 +95,19 @@ class agenciasController extends AppController {
             'error'=>0,
             'total' => count($array),
             'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+
+    public function get_man_agencias($p){
+        $rs = $this->objDatos->get_man_agencias($p);
+        $rs = $rs[0];
+        $data = array(
+            'success' => true,
+            'error' => $rs['RESPONSE'],
+            'msn' => utf8_encode(trim($rs['MESSAGE_TEXT'])),
+            'CODIGO' => trim($rs['CODIGO'])
         );
         header('Content-Type: application/json');
         return $this->response($data);
