@@ -14,21 +14,104 @@
 			init:function(){
 				Ext.tip.QuickTipManager.init();
 
+				var store_ubigeo = Ext.create('Ext.data.Store',{
+	                fields: [
+	                    {name: 'cod_ubi', type: 'string'},
+	                    {name: 'Distrito', type: 'string'},
+	                    {name: 'Provincia', type: 'string'},
+	                    {name: 'Departamento', type: 'string'},                    
+	                    {name: 'Poblacion', type: 'string'},
+	                    {name: 'Superficie', type: 'string'},
+	                    {name: 'Y', type: 'string'},
+	                    {name: 'X', type: 'string'}
+	                ],
+	                autoLoad:false,
+	                proxy:{
+	                    type: 'ajax',
+	                    url: agencias.url+'get_list_ubigeo/',
+	                    reader:{
+	                        type: 'json',
+	                        rootProperty: 'data'
+	                    }
+	                },
+	                listeners:{
+	                    load: function(obj, records, successful, opts){
+	                        
+	                    }
+	                }
+	            });
+
+	            var store_ubigeo2 = Ext.create('Ext.data.Store',{
+	                fields: [
+	                    {name: 'cod_ubi', type: 'string'},
+	                    {name: 'Distrito', type: 'string'},
+	                    {name: 'Provincia', type: 'string'},
+	                    {name: 'Departamento', type: 'string'},                    
+	                    {name: 'Poblacion', type: 'string'},
+	                    {name: 'Superficie', type: 'string'},
+	                    {name: 'Y', type: 'string'},
+	                    {name: 'X', type: 'string'}
+	                ],
+	                autoLoad:false,
+	                proxy:{
+	                    type: 'ajax',
+	                    url: agencias.url+'get_list_ubigeo/',
+	                    reader:{
+	                        type: 'json',
+	                        rootProperty: 'data'
+	                    }
+	                },
+	                listeners:{
+	                    load: function(obj, records, successful, opts){
+	                        
+	                    }
+	                }
+	            });
+
+	            var store_ubigeo3 = Ext.create('Ext.data.Store',{
+	                fields: [
+	                    {name: 'cod_ubi', type: 'string'},
+	                    {name: 'Distrito', type: 'string'},
+	                    {name: 'Provincia', type: 'string'},
+	                    {name: 'Departamento', type: 'string'},                    
+	                    {name: 'Poblacion', type: 'string'},
+	                    {name: 'Superficie', type: 'string'},
+	                    {name: 'Y', type: 'string'},
+	                    {name: 'X', type: 'string'}
+	                ],
+	                autoLoad:false,
+	                proxy:{
+	                    type: 'ajax',
+	                    url: agencias.url+'get_list_ubigeo/',
+	                    reader:{
+	                        type: 'json',
+	                        rootProperty: 'data'
+	                    }
+	                },
+	                listeners:{
+	                    load: function(obj, records, successful, opts){
+	                        
+	                    }
+	                }
+	            });
+				
 				var store_agencias = Ext.create('Ext.data.Store',{
 	                fields: [
-	                    {name: 'id_agencias', type: 'string'},
-	                    {name: 'usr_codigo', type: 'string'},
-	                    {name: 'usr_tipo', type: 'string'},
-	                    {name: 'usr_nombre', type: 'string'},                    
-	                    {name: 'per_id', type: 'string'},
-	                    {name: 'id_contacto', type: 'string'},
-	                    {name: 'usr_perfil', type: 'string'},
-	                    {name: 'usr_estado', type: 'string'},
-	                    {name: 'id_usuario', type: 'string'},
-	                    {name: 'fecact', type: 'string'},
-	                    {name: 'hora', type: 'string'}
+	                    {name: 'cod_age', type: 'string'},
+	                    {name: 'nombre', type: 'string'},
+	                    {name: 'descripcion', type: 'string'},
+	                    {name: 'direccion', type: 'string'},                    
+	                    {name: 'telefonos', type: 'string'},
+	                    {name: 'cod_ubi', type: 'string'},
+	                    {name: 'x', type: 'string'},
+	                    {name: 'y', type: 'string'},
+	                    {name: 'fecha', type: 'string'},
+	                    {name: 'estado', type: 'string'},
+	                    {name: 'Distrito', type: 'string'},
+	                    {name: 'Provincia', type: 'string'},
+	                    {name: 'Departamento', type: 'string'}
 	                ],
-	                autoLoad:true,
+	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
 	                    url: agencias.url+'get_list_agencias/',
@@ -43,42 +126,22 @@
 	                    }
 	                }
 	            });
-				
-				var store_shipper = Ext.create('Ext.data.Store',{
+
+	            agencias.store_ubigeoA1 = Ext.create('Ext.data.Store',{
 	                fields: [
-	                    {name: 'shi_codigo', type: 'string'},
-	                    {name: 'shi_nombre', type: 'string'},
-	                    {name: 'shi_logo', type: 'string'},
-	                    {name: 'fec_ingreso', type: 'string'},                    
-	                    {name: 'shi_estado', type: 'string'},
-	                    {name: 'id_agencias', type: 'string'},
-	                    {name: 'fecha_actual', type: 'string'}
-	                ],
-	                autoLoad:true,
-	                proxy:{
-	                    type: 'ajax',
-	                    url: agencias.url+'get_list_shipper/',
-	                    reader:{
-	                        type: 'json',
-	                        rootProperty: 'data'
-	                    }
-	                },
-	                listeners:{
-	                    load: function(obj, records, successful, opts){
-	                        
-	                    }
-	                }
-	            });
-	            var store_contratos = Ext.create('Ext.data.Store',{
-	                fields: [
-	                    {name: 'fac_cliente', type: 'string'},
-	                    {name: 'cod_contrato', type: 'string'},
-	                    {name: 'pro_descri', type: 'string'}
+	                    {name: 'cod_ubi', type: 'string'},
+	                    {name: 'Distrito', type: 'string'},
+	                    {name: 'Provincia', type: 'string'},
+	                    {name: 'Departamento', type: 'string'},                    
+	                    {name: 'Poblacion', type: 'string'},
+	                    {name: 'Superficie', type: 'string'},
+	                    {name: 'Y', type: 'string'},
+	                    {name: 'X', type: 'string'}
 	                ],
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: agencias.url+'get_list_contratos/',
+	                    url: agencias.url+'get_list_ubigeo/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -91,32 +154,21 @@
 	                }
 	            });
 
-	            var store_plantillas = Ext.create('Ext.data.Store',{
+	            agencias.store_ubigeoA2 = Ext.create('Ext.data.Store',{
 	                fields: [
-	                    {name: 'cod_plantilla', type: 'string'},
-				        {name: 'shi_codigo', type: 'string'},
-				        {name: 'fac_cliente', type: 'string'},
-				        {name: 'nombre', type: 'string'},
-	                    {name: 'cod_formato', type: 'string'},
-	                    {name: 'tot_trazos', type: 'string'},
-	                    {name: 'path', type: 'string'},
-	                    {name: 'img', type: 'string'},
-	                    {name: 'pathorigen', type: 'string'},
-	                    {name: 'imgorigen', type: 'string'},
-	                    {name: 'texto', type: 'string'},
-	                    {name: 'estado', type: 'string'},
-	                    {name: 'fecha', type: 'string'},
-	                    {name: 'usuario', type: 'string'},
-	                    {name: 'width', type: 'string'},
-	                    {name: 'height', type: 'string'},
-	                    {name: 'width_formato', type: 'string'},
-	                    {name: 'height_formato', type: 'string'},
-	                    {name: 'formato', type: 'string'}
+	                    {name: 'cod_ubi', type: 'string'},
+	                    {name: 'Distrito', type: 'string'},
+	                    {name: 'Provincia', type: 'string'},
+	                    {name: 'Departamento', type: 'string'},                    
+	                    {name: 'Poblacion', type: 'string'},
+	                    {name: 'Superficie', type: 'string'},
+	                    {name: 'Y', type: 'string'},
+	                    {name: 'X', type: 'string'}
 	                ],
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: agencias.url+'get_ocr_plantillas/',
+	                    url: agencias.url+'get_list_ubigeo/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -129,27 +181,21 @@
 	                }
 	            });
 
-				var store_trazos = Ext.create('Ext.data.Store',{
+	            agencias.store_ubigeoA3 = Ext.create('Ext.data.Store',{
 	                fields: [
-	                    {name: 'cod_trazo', type: 'string'},
-				        {name: 'cod_plantilla', type: 'string'},
-				        {name: 'nombre', type: 'string'},
-				        {name: 'tipo', type: 'string'},
-	                    {name: 'x', type: 'string'},
-	                    {name: 'y', type: 'string'},
-	                    {name: 'w', type: 'string'},
-	                    {name: 'h', type: 'string'},
-	                    {name: 'path', type: 'string'},
-	                    {name: 'img', type: 'string'},
-	                    {name: 'texto', type: 'string'},
-	                    {name: 'estado', type: 'string'},
-	                    {name: 'usuario', type: 'string'},
-	                    {name: 'fecha', type: 'string'}
+	                    {name: 'cod_ubi', type: 'string'},
+	                    {name: 'Distrito', type: 'string'},
+	                    {name: 'Provincia', type: 'string'},
+	                    {name: 'Departamento', type: 'string'},                    
+	                    {name: 'Poblacion', type: 'string'},
+	                    {name: 'Superficie', type: 'string'},
+	                    {name: 'Y', type: 'string'},
+	                    {name: 'X', type: 'string'}
 	                ],
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: agencias.url+'get_ocr_trazos/',
+	                    url: agencias.url+'get_list_ubigeo/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -162,37 +208,11 @@
 	                }
 	            });
 
-				var myData = [
-				    ['databox_interno_color','databox_interno_color','databox_interno_color','databox_interno_color','databox_interno_color','databox_interno_color']
-				];
-				var store_estados = Ext.create('Ext.data.ArrayStore', {
-			        storeId: 'estado',
-			        autoLoad: false,
-			        data: myData,
-			        fields: ['clase_box1', 'clase_box2', 'clase_box3', 'clase_box4', 'clase_box5', 'clase_box6']
-			    });
-
-			    
-
-			    var myDataLote = [
-					['U','Usuario'],
-				    ['N','Nombre Usuario']
-				];
-				var store_estado_lote = Ext.create('Ext.data.ArrayStore', {
-			        storeId: 'estado',
-			        autoLoad: true,
-			        data: myDataLote,
-			        fields: ['code', 'name']
-			    });
 				var myDataSearch = [
-					['L','N° Lote'],
-					['N','Nombre Lote'],
-				    ['A','Nombre Archivo'],
-				    ['G','Nombre Archivo Generado'],
-				    ['O','Full Text OCR'],
-				    ['T','Texto en Trazo OCR']
+					['A','Activo'],
+					['I','Inactivo']
 				];
-				var store_search = Ext.create('Ext.data.ArrayStore', {
+				agencias.store_estado = Ext.create('Ext.data.ArrayStore', {
 			        storeId: 'search',
 			        autoLoad: true,
 			        data: myDataSearch,
@@ -228,10 +248,10 @@
 		                            region:'center',
 		                            border:false,
 		                            xtype: 'uePanelS',
-		                            logo: 'DC',
-		                            title: 'Busqueda de Documentos',
-		                            legend: 'Búsqueda de Lotes registrados',
-		                            width:1100,
+		                            logo: 'AG',
+		                            title: 'Agencias',
+		                            legend: 'Listado y Mantenimiento',
+		                            width:1200,
 		                            height:90,
 		                            items:[
 		                                {
@@ -240,33 +260,107 @@
 		                                    bodyStyle: 'background: transparent',
 		                                    padding:'2px 5px 1px 5px',
 		                                    layout:'column',
-
 		                                    items: [
 		                                    	{
-			                                   		width: 200,border:false,
+			                                   		width: 220,border:false,
 			                                    	padding:'0px 2px 0px 0px',  
 			                                    	bodyStyle: 'background: transparent',
 			                                 		items:[
 			                                                {
 			                                                    xtype:'combo',
-			                                                    fieldLabel: 'Filtro',
-			                                                    id:agencias.id+'-txt-estado-filter',
-			                                                    store: store_estado_lote,
+			                                                    fieldLabel: 'Departamento',
+			                                                    id:agencias.id+'-txt-departamento',
+			                                                    store: store_ubigeo,
 			                                                    queryMode: 'local',
 			                                                    triggerAction: 'all',
-			                                                    valueField: 'code',
-			                                                    displayField: 'name',
+			                                                    valueField: 'cod_ubi',
+			                                                    displayField: 'Departamento',
 			                                                    emptyText: '[Seleccione]',
 			                                                    labelAlign:'right',
 			                                                    //allowBlank: false,
-			                                                    labelWidth: 50,
+			                                                    labelWidth: 80,
 			                                                    width:'100%',
 			                                                    anchor:'100%',
 			                                                    //readOnly: true,
 			                                                    listeners:{
 			                                                        afterrender:function(obj, e){
+			                                                			Ext.getCmp(agencias.id+'-txt-provincia').getStore().removeAll();
+			                                                			Ext.getCmp(agencias.id+'-txt-Distrito').getStore().removeAll();
+			                                                        	agencias.getUbigeo({VP_OP:'D',VP_VALUE:''},obj,'100101');
 			                                                            // obj.getStore().load();
-			                                                            Ext.getCmp(agencias.id+'-txt-estado-filter').setValue('U');
+			                                                            //Ext.getCmp(agencias.id+'-txt-estado-filter').setValue('U');
+			                                                        },
+			                                                        select:function(obj, records, eOpts){
+			                                                			var pro = Ext.getCmp(agencias.id+'-txt-provincia');
+			                                                			Ext.getCmp(agencias.id+'-txt-provincia').setValue('');
+			                                                			Ext.getCmp(agencias.id+'-txt-Distrito').getStore().removeAll();
+			                                                			Ext.getCmp(agencias.id+'-txt-Distrito').setValue('');
+			                                                        	agencias.getUbigeo({VP_OP:'P',VP_VALUE:obj.getValue()},pro,'');
+			                                                        }
+			                                                    }
+			                                                }
+			                                 		]
+			                                    },
+			                                    {
+			                                   		width: 220,border:false,
+			                                    	padding:'0px 2px 0px 0px',  
+			                                    	bodyStyle: 'background: transparent',
+			                                 		items:[
+			                                                {
+			                                                    xtype:'combo',
+			                                                    fieldLabel: 'Provincia',
+			                                                    id:agencias.id+'-txt-provincia',
+			                                                    store: store_ubigeo2,
+			                                                    queryMode: 'local',
+			                                                    triggerAction: 'all',
+			                                                    valueField: 'cod_ubi',
+			                                                    displayField: 'Provincia',
+			                                                    emptyText: '[Seleccione]',
+			                                                    labelAlign:'right',
+			                                                    //allowBlank: false,
+			                                                    labelWidth: 70,
+			                                                    width:'100%',
+			                                                    anchor:'100%',
+			                                                    //readOnly: true,
+			                                                    listeners:{
+			                                                        afterrender:function(obj, e){
+			                                                			Ext.getCmp(agencias.id+'-txt-Distrito').getStore().removeAll();
+			                                                        	agencias.getUbigeo({VP_OP:'P',VP_VALUE:'100101'},obj,'100601');
+			                                                        },
+			                                                        select:function(obj, records, eOpts){
+			                                                			var dis=Ext.getCmp(agencias.id+'-txt-Distrito');
+			                                                        	agencias.getUbigeo({VP_OP:'X',VP_VALUE:obj.getValue()},dis,'');
+			                                                        }
+			                                                    }
+			                                                }
+			                                 		]
+			                                    },
+			                                    {
+			                                   		width: 220,border:false,
+			                                    	padding:'0px 2px 0px 0px',  
+			                                    	bodyStyle: 'background: transparent',
+			                                 		items:[
+			                                                {
+			                                                    xtype:'combo',
+			                                                    fieldLabel: 'Distrito',
+			                                                    id:agencias.id+'-txt-Distrito',
+			                                                    store: store_ubigeo3,
+			                                                    queryMode: 'local',
+			                                                    triggerAction: 'all',
+			                                                    valueField: 'cod_ubi',
+			                                                    displayField: 'Distrito',
+			                                                    emptyText: '[Seleccione]',
+			                                                    labelAlign:'right',
+			                                                    //allowBlank: false,
+			                                                    labelWidth: 70,
+			                                                    width:'100%',
+			                                                    anchor:'100%',
+			                                                    //readOnly: true,
+			                                                    listeners:{
+			                                                        afterrender:function(obj, e){
+			                                                        	agencias.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+			                                                            // obj.getStore().load();
+			                                                            //Ext.getCmp(agencias.id+'-txt-estado-filter').setValue('U');
 			                                                        },
 			                                                        select:function(obj, records, eOpts){
 			                                                
@@ -276,15 +370,15 @@
 			                                 		]
 			                                    },
 		                                        {
-		                                            width:200,border:false,
+		                                            width:260,border:false,
 		                                            padding:'0px 2px 0px 0px',  
 		                                            bodyStyle: 'background: transparent',
 		                                            items:[
 		                                                {
 		                                                    xtype: 'textfield',	
-		                                                    fieldLabel: '',
+		                                                    fieldLabel: 'Nombre',
 		                                                    id:agencias.id+'-txt-agencias',
-		                                                    labelWidth:0,
+		                                                    labelWidth:60,
 		                                                    //readOnly:true,
 		                                                    labelAlign:'right',
 		                                                    width:'100%',
@@ -292,26 +386,6 @@
 		                                                }
 		                                            ]
 		                                        },
-		                                        {
-			                                        width: 140,border:false,
-			                                        hidden:true,
-			                                        padding:'0px 2px 0px 0px',  
-			                                    	bodyStyle: 'background: transparent',
-			                                        items:[
-			                                            {
-			                                                xtype:'datefield',
-			                                                id:agencias.id+'-txt-fecha-filtro',
-			                                                fieldLabel:'Fecha',
-			                                                labelWidth:50,
-			                                                labelAlign:'right',
-			                                                value:new Date(),
-			                                                format: 'Ymd',
-			                                                //readOnly:true,
-			                                                width: '100%',
-			                                                anchor:'100%'
-			                                            }
-			                                        ]
-			                                    },
 		                                        {
 		                                            width: 80,border:false,
 		                                            padding:'0px 2px 0px 0px',  
@@ -330,8 +404,10 @@
 									                                    fn: ['panel_asignar_gestion.limpiar']
 									                                });*/
 									                            },
-									                            click: function(obj, e){	             	
-		                               					            agencias.getHistory();
+									                            click: function(obj, e){	  
+									                            	var cod_ubi = Ext.getCmp(agencias.id+'-txt-Distrito').getValue();
+									                            	var nombre = Ext.getCmp(agencias.id+'-txt-agencias').getValue();           	
+		                               					            agencias.getAgencias({vp_cod_age:0,vp_cod_ubi:cod_ubi,vp_nombre:nombre});
 									                            }
 									                        }
 									                    }
@@ -387,58 +463,40 @@
 											    locked: true
 											},
 			                                {
-			                                    text: 'Usuario',
-			                                    dataIndex: 'usr_codigo',
+			                                    text: 'Nombre',
+			                                    dataIndex: 'nombre',
 			                                    width: 200
 			                                },
 			                                {
-			                                    text: 'Nombre',
-			                                    dataIndex: 'usr_nombre',
+			                                    text: 'Descripción',
+			                                    dataIndex: 'descripcion',
+			                                    width: 400
+			                                },
+			                                {
+			                                    text: 'Dirección',
+			                                    dataIndex: 'direccion',
 			                                    flex: 1
 			                                },
 			                                {
-			                                    text: 'Perfil',
-			                                    dataIndex: 'usr_perfil',
-			                                    width: 100,
-			                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
-			                                        //console.log(record);
-			                                        metaData.style = "padding: 0px; margin: 0px";
-			                                        var perfil = 'Básico';
-			                                        if(parseInt(record.get('usr_perfil'))==2){
-			                                        	perfil = 'Consultor';
-			                                        }
-			                                        if(parseInt(record.get('usr_perfil'))==3){
-			                                        	perfil = 'Intermedio';
-			                                        }
-			                                        if(parseInt(record.get('usr_perfil'))==4){
-			                                        	perfil = 'Supervisor';
-			                                        }
-			                                        if(parseInt(record.get('usr_perfil'))==5){
-			                                        	perfil = 'Administrador';
-			                                        }
-			                                        return perfil;
-			                                    }
-			                                },
-			                                {
-			                                    text: 'Fecha',
-			                                    dataIndex: 'fecact',
+			                                    text: 'Teléfonos',
+			                                    dataIndex: 'telefonos',
 			                                    width: 100
 			                                },
 			                                {
-			                                    text: 'hora',
-			                                    dataIndex: 'hora',
+			                                    text: 'Fecha',
+			                                    dataIndex: 'fecha',
 			                                    width: 100
 			                                },
 											{
 			                                    text: 'ST',
-			                                    dataIndex: 'usr_estado',
+			                                    dataIndex: 'estado',
 			                                    //loocked : true,
 			                                    width: 40,
 			                                    align: 'center',
 			                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 			                                        //console.log(record);
 			                                        var estado = 'check-circle-green-16.png';
-			                                        if(parseInt(record.get('usr_estado'))==0){
+			                                        if(parseInt(record.get('estado'))=='I'){
 			                                        	estado = 'check-circle-black-16.png';
 			                                        }
 			                                        metaData.style = "padding: 0px; margin: 0px";
@@ -446,7 +504,7 @@
 			                                            type: 'link',
 			                                            id_menu: agencias.id_menu,
 			                                            icons:[
-			                                                {id_serv: 10, img: estado, qtip: 'Estado.', js: ""}
+			                                                {id_serv: 8, img: estado, qtip: 'Estado.', js: ""}
 
 			                                            ]
 			                                        });
@@ -454,7 +512,7 @@
 			                                },
 			                                {
 			                                    text: 'EDT',
-			                                    dataIndex: 'usr_estado',
+			                                    dataIndex: 'estado',
 			                                    //loocked : true,
 			                                    width: 40,
 			                                    align: 'center',
@@ -465,7 +523,7 @@
 			                                            type: 'link',
 			                                            id_menu: agencias.id_menu,
 			                                            icons:[
-			                                                {id_serv: 10, img: 'edit.png', qtip: 'Editar.', js: "agencias.getEdit("+rowIndex+")"}
+			                                                {id_serv: 8, img: 'edit.png', qtip: 'Editar.', js: "agencias.getEdit("+rowIndex+")"}
 
 			                                            ]
 			                                        });
@@ -491,7 +549,7 @@
 						}
 					],
 					listeners:{
-						/*beforerender: function(obj, opts){
+						beforerender: function(obj, opts){
 	                        global.state_item_menu(agencias.id_menu, true);
 	                    },
 	                    afterrender: function(obj, e){
@@ -501,7 +559,7 @@
 	                    },
 	                    beforeclose:function(obj,opts){
 	                    	global.state_item_menu(agencias.id_menu, false);
-	                    }*/
+	                    }
 					}
 
 				}).show();
@@ -545,7 +603,7 @@
 	                plain: true,
 	                title:'Mantenimiento Usuario',
 	                icon: '/images/icon/default-avatar_man.png',
-	                height: 300,
+	                height: 480,
 	                width: 400,
 	                resizable:false,
 	                modal: true,
@@ -561,7 +619,7 @@
 		                    padding:'5px 5px 5px 5px',
                             fieldLabel: 'Código',
                             id:agencias.id+'-txt-codigo',
-                            labelWidth:50,
+                            labelWidth:80,
                             //readOnly:true,
                             labelAlign:'right',
                             width:'50%',
@@ -569,17 +627,17 @@
                             listeners:{
                                 afterrender:function(obj, e){
                                     // obj.getStore().load();
-                                    obj.setValue(data.id_agencias);
+                                    //obj.setValue(data.id_agencias);
                                 }
                             }
                         },
                         {
                             xtype: 'textfield',	
-                            fieldLabel: 'Usuario',
+                            fieldLabel: 'Nombre',
                             bodyStyle: 'background: transparent',
 		                    padding:'5px 5px 5px 5px',
-                            id:agencias.id+'-txt-usuario-agencias',
-                            labelWidth:50,
+                            id:agencias.id+'-txt-nombre',
+                            labelWidth:80,
                             //readOnly:true,
                             labelAlign:'right',
                             width:'90%',
@@ -587,18 +645,18 @@
                             listeners:{
                                 afterrender:function(obj, e){
                                     // obj.getStore().load();
-                                    obj.setValue(data.usr_codigo);
+                                    //obj.setValue(data.usr_codigo);
                                 }
                             }
                         },
                         {
                             xtype: 'textfield',	
-                            fieldLabel: 'Clave',
+                            fieldLabel: 'Descripción',
                             bodyStyle: 'background: transparent',
 		                    padding:'5px 5px 5px 5px',
-                            inputType: 'password',
-                            id:agencias.id+'-txt-clave',
-                            labelWidth:50,
+                            //inputType: 'password',
+                            id:agencias.id+'-txt-descripcion',
+                            labelWidth:80,
                             //readOnly:true,
                             labelAlign:'right',
                             width:'90%',
@@ -608,9 +666,9 @@
                             xtype: 'textfield',
                             bodyStyle: 'background: transparent',
 		                    padding:'5px 5px 5px 5px',
-                            fieldLabel: 'Nombre',
-                            id:agencias.id+'-txt-nombre-agencias',
-                            labelWidth:50,
+                            fieldLabel: 'Teléfonos',
+                            id:agencias.id+'-txt-telefonos',
+                            labelWidth:80,
                             //readOnly:true,
                             labelAlign:'right',
                             width:'90%',
@@ -618,32 +676,98 @@
                             listeners:{
                                 afterrender:function(obj, e){
                                     // obj.getStore().load();
-                                    obj.setValue(data.usr_nombre);
+                                    //obj.setValue(data.usr_nombre);
                                 }
                             }
                         },
                         {
                             xtype:'combo',
-                            fieldLabel: 'Perfil',
+                            fieldLabel: 'Departamento',
                             bodyStyle: 'background: transparent',
 		                    padding:'5px 5px 5px 5px',
-                            id:agencias.id+'-cmb-perfil',
-                            store: store_perfil,
+                            id:agencias.id+'-cmb-depart',
+                            store: agencias.store_ubigeoA1,
                             queryMode: 'local',
                             triggerAction: 'all',
-                            valueField: 'code',
-                            displayField: 'name',
+                            valueField: 'cod_ubi',
+			                displayField: 'Departamento',
                             emptyText: '[Seleccione]',
                             labelAlign:'right',
                             //allowBlank: false,
-                            labelWidth: 50,
+                            labelWidth: 80,
                             width:'90%',
                             anchor:'100%',
                             //readOnly: true,
                             listeners:{
                                 afterrender:function(obj, e){
+                                	var dep = Ext.getCmp(agencias.id+'-cmb-depart');
+                        			Ext.getCmp(agencias.id+'-cmb-prov').getStore().removeAll();
+                        			Ext.getCmp(agencias.id+'-cmb-distri').getStore().removeAll();
+                                	agencias.getUbigeo({VP_OP:'D',VP_VALUE:''},dep,'100101');
                                     // obj.getStore().load();
-                                    Ext.getCmp(agencias.id+'-cmb-perfil').setValue(data.usr_perfil);
+                                    //Ext.getCmp(agencias.id+'-txt-estado-filter').setValue('U');
+                                },
+                                select:function(obj, records, eOpts){
+                        			var pro = Ext.getCmp(agencias.id+'-cmb-prov');
+                        			Ext.getCmp(agencias.id+'-cmb-prov').setValue('');
+                        			Ext.getCmp(agencias.id+'-cmb-distri').getStore().removeAll();
+                        			Ext.getCmp(agencias.id+'-cmb-distri').setValue('');
+                                	agencias.getUbigeo({VP_OP:'P',VP_VALUE:obj.getValue()},pro,'');
+                                }
+                            }
+                        },
+                        {
+                            xtype:'combo',
+                            fieldLabel: 'Provincia',
+                            bodyStyle: 'background: transparent',
+		                    padding:'5px 5px 5px 5px',
+                            id:agencias.id+'-cmb-prov',
+                            store: agencias.store_ubigeoA2,
+                            queryMode: 'local',
+                            triggerAction: 'all',
+                            valueField: 'cod_ubi',
+                            displayField: 'Provincia',
+                            emptyText: '[Seleccione]',
+                            labelAlign:'right',
+                            //allowBlank: false,
+                            labelWidth: 80,
+                            width:'90%',
+                            anchor:'100%',
+                            //readOnly: true,
+                            listeners:{
+                                afterrender:function(obj, e){
+                        			Ext.getCmp(agencias.id+'-cmb-distri').getStore().removeAll();
+                                	agencias.getUbigeo({VP_OP:'P',VP_VALUE:'100101'},obj,'100601');
+                                },
+                                select:function(obj, records, eOpts){
+                        			var dis=Ext.getCmp(agencias.id+'-cmb-distri');
+                                	agencias.getUbigeo({VP_OP:'X',VP_VALUE:obj.getValue()},dis,'');
+                                }
+                            }
+                        },
+                        {
+                            xtype:'combo',
+                            fieldLabel: 'Distrito',
+                            bodyStyle: 'background: transparent',
+		                    padding:'5px 5px 5px 5px',
+                            id:agencias.id+'-cmb-distri',
+                            store: agencias.store_ubigeoA3,
+                            queryMode: 'local',
+                            triggerAction: 'all',
+                            valueField: 'cod_ubi',
+                            displayField: 'Distrito',
+                            emptyText: '[Seleccione]',
+                            labelAlign:'right',
+                            //allowBlank: false,
+                            labelWidth: 80,
+                            width:'90%',
+                            anchor:'100%',
+                            //readOnly: true,
+                            listeners:{
+                                afterrender:function(obj, e){
+                                	agencias.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+                                    // obj.getStore().load();
+                                    //Ext.getCmp(agencias.id+'-txt-estado-filter').setValue('U');
                                 },
                                 select:function(obj, records, eOpts){
                         
@@ -651,12 +775,79 @@
                             }
                         },
                         {
+                            xtype: 'textfield',
+                            bodyStyle: 'background: transparent',
+		                    padding:'5px 5px 5px 5px',
+                            fieldLabel: 'Dirección',
+                            id:agencias.id+'-txt-direccion',
+                            labelWidth:80,
+                            //readOnly:true,
+                            labelAlign:'right',
+                            width:'90%',
+                            anchor:'100%',
+                            listeners:{
+                                afterrender:function(obj, e){
+                                    // obj.getStore().load();
+                                    //obj.setValue(data.usr_nombre);
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'textfield',
+                            bodyStyle: 'background: transparent',
+		                    padding:'5px 5px 5px 5px',
+                            fieldLabel: 'X',
+                            id:agencias.id+'-txt-x',
+                            labelWidth:80,
+                            //readOnly:true,
+                            labelAlign:'right',
+                            width:'90%',
+                            anchor:'100%',
+                            listeners:{
+                                afterrender:function(obj, e){
+                                    // obj.getStore().load();
+                                    //obj.setValue(data.usr_nombre);
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'textfield',
+                            bodyStyle: 'background: transparent',
+		                    padding:'5px 5px 5px 5px',
+                            fieldLabel: 'Y',
+                            id:agencias.id+'-txt-y',
+                            labelWidth:80,
+                            //readOnly:true,
+                            labelAlign:'right',
+                            width:'90%',
+                            anchor:'100%',
+                            listeners:{
+                                afterrender:function(obj, e){
+                                    // obj.getStore().load();
+                                    //obj.setValue(data.usr_nombre);
+                                }
+                            }
+                        },
+                        {
+		                    xtype:'datefield',
+		                    id:agencias.id+'-txt-fecha',
+		                    fieldLabel:'Fecha',
+		                    padding:'5px 5px 5px 5px',
+		                    labelWidth:80,
+		                    labelAlign:'right',
+		                    value:new Date(),
+		                    format: 'Ymd',
+		                    //readOnly:true,
+		                    width: 170,
+		                    anchor:'100%'
+		                },
+		                {
                             xtype:'combo',
                             fieldLabel: 'Estado',
                             bodyStyle: 'background: transparent',
 		                    padding:'5px 5px 5px 5px',
-                            id:agencias.id+'-cmb-estado-agencias',
-                            store: store_estado_agencias,
+                            id:agencias.id+'-cmb-estado',
+                            store: agencias.store_estado,
                             queryMode: 'local',
                             triggerAction: 'all',
                             valueField: 'code',
@@ -664,14 +855,13 @@
                             emptyText: '[Seleccione]',
                             labelAlign:'right',
                             //allowBlank: false,
-                            labelWidth: 50,
-                            width:'90%',
+                            labelWidth: 80,
+                            width:170,
                             anchor:'100%',
                             //readOnly: true,
                             listeners:{
                                 afterrender:function(obj, e){
-                                    // obj.getStore().load();
-                                    Ext.getCmp(agencias.id+'-cmb-estado-agencias').setValue(data.usr_estado);
+                                    obj.setValue('A');
                                 },
                                 select:function(obj, records, eOpts){
                         
@@ -722,26 +912,22 @@
 			setSaveagencias:function(op){
 
 		    	var codigo = Ext.getCmp(agencias.id+'-txt-codigo').getValue();
-		    	var usuario = Ext.getCmp(agencias.id+'-txt-usuario-agencias').getValue();
-		    	var clave = Ext.getCmp(agencias.id+'-txt-clave').getValue();
-		    	var nombre = Ext.getCmp(agencias.id+'-txt-nombre-agencias').getValue();
-		    	var perfil = Ext.getCmp(agencias.id+'-cmb-perfil').getValue();
-		    	var estado = Ext.getCmp(agencias.id+'-cmb-estado-agencias').getValue();
+		    	var nombre = Ext.getCmp(agencias.id+'-txt-nombre').getValue();
+		    	var descripcion = Ext.getCmp(agencias.id+'-txt-descripcion').getValue();
+		    	var telefonos = Ext.getCmp(agencias.id+'-txt-telefonos').getValue();
+		    	var distri = Ext.getCmp(agencias.id+'-cmb-distri').getValue();
+		    	var direccion = Ext.getCmp(agencias.id+'-txt-direccion').getValue();
+		    	var x = Ext.getCmp(agencias.id+'-txt-x').getValue();
+		    	var y = Ext.getCmp(agencias.id+'-txt-y').getValue();
+		    	var fecha = Ext.getCmp(agencias.id+'-txt-fecha').getValue();
+		    	var estado = Ext.getCmp(agencias.id+'-cmb-estado').getValue();
 
-				if(usuario==''){ 
-					global.Msg({msg:"Ingrese Usuario.",icon:2,fn:function(){}});
-					return false;
-				}
-				if(clave==''){ 
-					global.Msg({msg:"Ingrese Clave.",icon:2,fn:function(){}});
-					return false;
-				}
 				if(nombre==''){ 
-					global.Msg({msg:"Ingrese Nombre.",icon:2,fn:function(){}});
+					global.Msg({msg:"Ingrese un Nombre.",icon:2,fn:function(){}});
 					return false;
 				}
-				if(perfil==''){ 
-					global.Msg({msg:"Seleccione Perfil.",icon:2,fn:function(){}});
+				if(distri==''){ 
+					global.Msg({msg:"Seleccione un distrito.",icon:2,fn:function(){}});
 					return false;
 				}
 				if(estado==''){ 
@@ -757,30 +943,36 @@
                     fn: function(btn){
                     	if (btn == 'yes'){
                     		Ext.getCmp(agencias.id+'-tab').el.mask('Elinando Páginas…', 'x-mask-loading');
-	                        scanning.getLoader(true);
+	                        //scanning.getLoader(true);
 			                Ext.Ajax.request({
-			                    url:control.url+'set_save/',
+			                    url:agencias.url+'get_man_agencias/',
 			                    params:{
 			                    	vp_op:op,
-			                    	vp_id_agencias:codigo,
-			                    	vp_usr_codigo:usuario,
-			                    	vp_usr_passwd:clave,
-			                    	vp_usr_nombre:nombre,
-			                    	vp_usr_perfil:perfil,
-			                    	vp_usr_estado:estado
+			                    	vp_codigo:codigo,
+			                    	vp_nombre:nombre,
+			                    	vp_descripcion:descripcion,
+			                    	vp_telefonos:telefonos,
+			                    	vp_distri:distri,
+			                    	vp_direccion:direccion,
+			                    	vp_x:x,
+			                    	vp_y:y,
+			                    	vp_fecha:fecha,
+			                    	vp_estado:estado
 			                    },
-			                    timeout: 300000,
+			                    //timeout: 300000,
 			                    success: function(response, options){
 			                        Ext.getCmp(agencias.id+'-tab').el.unmask();
 			                        var res = Ext.JSON.decode(response.responseText);
-			                        control.getLoader(false);
+			                        //control.getLoader(false);
 			                        if (res.error == 'OK'){
 			                            global.Msg({
 			                                msg: res.msn,
 			                                icon: 1,
 			                                buttons: 1,
 			                                fn: function(btn){
-			                                	agencias.getHistory();
+			                                	var cod_ubi = Ext.getCmp(agencias.id+'-txt-Distrito').getValue();
+				                            	var nombre = Ext.getCmp(agencias.id+'-txt-agencias').getValue();
+                   					            agencias.getAgencias({vp_cod_age:0,vp_cod_ubi:cod_ubi,vp_nombre:nombre});
 			                                	Ext.getCmp(agencias.id+'-win-form').close();
 			                                }
 			                            });
@@ -799,6 +991,26 @@
 						}
 					}
 				});
+			},
+			getUbigeo:function(json,obj,value){
+				console.log(obj);
+		    	obj.getStore().removeAll();
+				obj.getStore().load(
+	                {params: json,
+	                callback:function(){
+	                	//Ext.getCmp(agencias.id+'-form').el.unmask();
+	                	obj.setValue(value);
+	                }
+	            });
+			},
+			getAgencias:function(json){
+				Ext.getCmp(agencias.id + '-grid-agencias').getStore().removeAll();
+				Ext.getCmp(agencias.id + '-grid-agencias').getStore().load(
+	                {params: json,
+	                callback:function(){
+	                	//Ext.getCmp(agencias.id+'-form').el.unmask();
+	                }
+	            });
 			},
 		    getHistory:function(){
 		    	var vp_op = Ext.getCmp(agencias.id+'-txt-estado-filter').getValue();

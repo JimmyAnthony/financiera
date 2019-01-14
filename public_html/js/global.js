@@ -195,14 +195,14 @@ var LarSyrExt = function(){
         });
         try{
             Ext.Object.each(eval(Ext.JSON.decode(Ext.JSON.encode(me.record.data.permisos))), function(index, value){
-                a.push(parseInt(value.serv_id));
+                a.push(parseInt(value.id_service));
             });
         }catch(e){
             console.log(e);
         }
 
         if (type == 'btn'){
-            var index = a.indexOf(parseInt(p.id_serv));
+            var index = a.indexOf(parseInt(p.id_service));
             if (index >= 0){
                 Ext.getCmp(p.id_btn).enable();
                 Ext.getCmp(p.id_btn).resumeEvents();

@@ -15,15 +15,34 @@ class agenciasModels extends Adodb {
         $this->dsn = Common::read_ini(PATH.'config/config.ini', 'server_main');
     }
 
-    public function get_list_client($p){
+    public function get_list_agencias($p){
         parent::ReiniciarSQL();
-        parent::ConnectionOpen($this->dsn, 'get_list_client');
+        parent::ConnectionOpen($this->dsn, 'SP_AGENCIAS_LIST');
       // parent::SetParameterSP($p['vp_shi_codigo'], 'int');
       //  parent::SetParameterSP($p['vp_fac_cliente'], 'int');
-        parent::SetParameterSP($p['vp_name'], 'varchar');
-        parent::SetParameterSP($p['vp_date'], 'varchar');
-        parent::SetParameterSP($p['vp_estado'], 'varchar');
+        parent::SetParameterSP($p['vp_cod_age'], 'int');
+        parent::SetParameterSP($p['vp_cod_ubi'], 'varchar');
+        parent::SetParameterSP($p['vp_nombre'], 'varchar');
         // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+
+    public function get_man_agencias($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_AGENCIAS_MANT');
+        parent::SetParameterSP($p['vp_op'], 'varchar');
+        parent::SetParameterSP($p['vp_codigo'], 'int');
+        parent::SetParameterSP($p['vp_nombre'], 'varchar');
+        parent::SetParameterSP($p['vp_descripcion'], 'varchar');
+        parent::SetParameterSP($p['vp_direccion'], 'varchar');
+        parent::SetParameterSP($p['vp_telefonos'], 'varchar');
+        parent::SetParameterSP($p['vp_distri'], 'varchar');
+        parent::SetParameterSP($p['vp_x'], 'varchar');
+        parent::SetParameterSP($p['vp_y'], 'varchar');
+        parent::SetParameterSP($p['vp_fecha'], 'varchar');
+        parent::SetParameterSP($p['vp_estado'], 'varchar');
+         //echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
         return $array;
     }
