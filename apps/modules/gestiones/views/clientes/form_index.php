@@ -5,7 +5,6 @@
 			id:'user',
 			id_menu:'<?php echo $p["id_menu"];?>',
 			url:'/gestion/user/',
-			urli: '/inicio/index/',
 			opcion:'I',
 			id_lote:0,
 			shi_codigo:0,
@@ -226,81 +225,281 @@
 					layout:'border',
 					items:[
 						{
-							region:'west',
-							layout:'border',
-							width:200,
-							border:false,
-							items:[
-								{
-									region:'north',
-									layout:'border',
-									height:200,
-									//border:false,
-									items:[										
-										{
-											region:'center',
-											layout:'fit',
-											padding:'5px 5px 5px 5px',
-											html: '<img src="/images/650_1200.jpg" style="width:100%;" >'
-										},
-										{
-											region:'south',
-											height:40,
-											layout:'vbox',
-											//border:false,
-											items:[
-												{
-											        xtype: 'label',
-											        //forId: 'myFieldId',
-											        padding:'5px 5px 5px 2px',
-											        text: 'My Awesome Field',
-											        margin: '0 0 0 10'
-											    },
-                                                {
-											        xtype: 'label',
-											        //forId: 'myFieldId',
-											        padding:'0px 5px 5px 2px',
-											        text: 'My Awesome Field',
-											        margin: '0 0 0 10'
-											    }
-											]
-										}
-									]
-								},
-								{
-									region:'center',
-									layout:'fit',
-									items:[
-										{
-							                id:user.id+'-contentMenuClient',
-							                layout:'fit',
-							                floatable: false,
-							                collapsible: false,
-							                //split: true,
-							                border:false,
-							                //bodyPadding: 10,
-							                //margin: '5 0 0 0',
-							                //width: 0,
-							                //hidden:true,
-							                //cls: 'cmp_menu',
-							                //bodyCls: 'cmp_menu',
-							                html:'<div id="menu_spinner" class="spinner"><div class="cube1"></div><div class="cube2"></div></div>',
-							                items:[
-							                        {
-							                            xtype:'MenuViewVert',
-							                            id:user.id,
-							                            url:user.urli
-							                        }
-							                    ]
-						                }
-									]
-								}
-							]
-						},
+                            region:'north',
+                            layout:'border',
+                            border:false,
+                            height:90,
+                            items:[
+		                        {
+		                            region:'center',
+		                            border:false,
+		                            xtype: 'uePanelS',
+		                            logo: 'DC',
+		                            title: 'Busqueda de Documentos',
+		                            legend: 'Búsqueda de Lotes registrados',
+		                            width:1100,
+		                            height:90,
+		                            items:[
+		                                {
+		                                    xtype:'panel',
+		                                    border:false,
+		                                    bodyStyle: 'background: transparent',
+		                                    padding:'2px 5px 1px 5px',
+		                                    layout:'column',
+
+		                                    items: [
+		                                    	{
+			                                   		width: 200,border:false,
+			                                    	padding:'0px 2px 0px 0px',  
+			                                    	bodyStyle: 'background: transparent',
+			                                 		items:[
+			                                                {
+			                                                    xtype:'combo',
+			                                                    fieldLabel: 'Filtro',
+			                                                    id:user.id+'-txt-estado-filter',
+			                                                    store: store_estado_lote,
+			                                                    queryMode: 'local',
+			                                                    triggerAction: 'all',
+			                                                    valueField: 'code',
+			                                                    displayField: 'name',
+			                                                    emptyText: '[Seleccione]',
+			                                                    labelAlign:'right',
+			                                                    //allowBlank: false,
+			                                                    labelWidth: 50,
+			                                                    width:'100%',
+			                                                    anchor:'100%',
+			                                                    //readOnly: true,
+			                                                    listeners:{
+			                                                        afterrender:function(obj, e){
+			                                                            // obj.getStore().load();
+			                                                            Ext.getCmp(user.id+'-txt-estado-filter').setValue('U');
+			                                                        },
+			                                                        select:function(obj, records, eOpts){
+			                                                
+			                                                        }
+			                                                    }
+			                                                }
+			                                 		]
+			                                    },
+		                                        {
+		                                            width:200,border:false,
+		                                            padding:'0px 2px 0px 0px',  
+		                                            bodyStyle: 'background: transparent',
+		                                            items:[
+		                                                {
+		                                                    xtype: 'textfield',	
+		                                                    fieldLabel: '',
+		                                                    id:user.id+'-txt-user',
+		                                                    labelWidth:0,
+		                                                    //readOnly:true,
+		                                                    labelAlign:'right',
+		                                                    width:'100%',
+		                                                    anchor:'100%'
+		                                                }
+		                                            ]
+		                                        },
+		                                        {
+			                                        width: 140,border:false,
+			                                        hidden:true,
+			                                        padding:'0px 2px 0px 0px',  
+			                                    	bodyStyle: 'background: transparent',
+			                                        items:[
+			                                            {
+			                                                xtype:'datefield',
+			                                                id:user.id+'-txt-fecha-filtro',
+			                                                fieldLabel:'Fecha',
+			                                                labelWidth:50,
+			                                                labelAlign:'right',
+			                                                value:new Date(),
+			                                                format: 'Ymd',
+			                                                //readOnly:true,
+			                                                width: '100%',
+			                                                anchor:'100%'
+			                                            }
+			                                        ]
+			                                    },
+		                                        {
+		                                            width: 80,border:false,
+		                                            padding:'0px 2px 0px 0px',  
+		                                            bodyStyle: 'background: transparent',
+		                                            items:[
+		                                                {
+									                        xtype:'button',
+									                        text: 'Buscar',
+									                        icon: '/images/icon/binocular.png',
+									                        listeners:{
+									                            beforerender: function(obj, opts){
+									                                /*global.permisos({
+									                                    id: 15,
+									                                    id_btn: obj.getId(), 
+									                                    id_menu: gestion_devolucion.id_menu,
+									                                    fn: ['panel_asignar_gestion.limpiar']
+									                                });*/
+									                            },
+									                            click: function(obj, e){	             	
+		                               					            user.getHistory();
+									                            }
+									                        }
+									                    }
+		                                            ]
+		                                        },
+		                                        {
+		                                            width: 80,border:false,
+		                                            padding:'0px 2px 0px 0px',  
+		                                            bodyStyle: 'background: transparent',
+		                                            items:[
+		                                                {
+									                        xtype:'button',
+									                        text: 'Nuevo',
+									                        icon: '/images/icon/call_user_01.png',
+									                        listeners:{
+									                            beforerender: function(obj, opts){
+									                                /*global.permisos({
+									                                    id: 15,
+									                                    id_btn: obj.getId(), 
+									                                    id_menu: gestion_devolucion.id_menu,
+									                                    fn: ['panel_asignar_gestion.limpiar']
+									                                });*/
+									                            },
+									                            click: function(obj, e){	             	
+		                               					            user.getNew();
+									                            }
+									                        }
+									                    }
+		                                            ]
+		                                        }
+		                                    ]
+		                                }
+		                            ]
+		                        }
+		                    ]
+		                },
 						{
 							region:'center',
 							layout:'fit',
 							items:[
+								{
+			                        xtype: 'grid',
+			                        id: user.id + '-grid-credit',
+			                        store: store_creditos, 
+			                        columnLines: true,
+			                        columns:{
+			                            items:[
+			                            	{
+			                            		text: 'N°',
+											    xtype: 'rownumberer',
+											    width: 40,
+											    sortable: false,
+											    locked: true
+											},
+			                                {
+			                                    text: 'Nombres',
+			                                    dataIndex: 'nombres',
+			                                    flex: 1
+			                                },
+			                                {
+			                                    text: 'dni',
+			                                    dataIndex: 'dni',
+			                                    width: 40
+			                                },
+			                                {
+			                                    text: 'fecha',
+			                                    dataIndex: 'fecha',
+			                                    width: 60
+			                                },
+			                                {
+			                                    text: 'tasa interes',
+			                                    dataIndex: 'tasa_interes',
+			                                    width: 100
+			                                },
+			                                {
+			                                    text: 'cod_metodo',
+			                                    dataIndex: 'cod_metodo',
+			                                    width: 100
+			                                },
+			                                {
+			                                    text: 'prestamo',
+			                                    dataIndex: 'prestamo',
+			                                    width: 100
+			                                },
+			                                {
+			                                    text: 'cuotas',
+			                                    dataIndex: 'cuotas',
+			                                    width: 100
+			                                },
+			                                {
+			                                    text: 'cod_tipo',
+			                                    dataIndex: 'cod_tipo',
+			                                    width: 100
+			                                },
+			                                {
+			                                    text: 'valor_cuota',
+			                                    dataIndex: 'valor_cuota',
+			                                    width: 100
+			                                },
+			                                {
+			                                    text: 'total_credito',
+			                                    dataIndex: 'total_credito',
+			                                    width: 100
+			                                },
+											{
+			                                    text: 'ST',
+			                                    dataIndex: 'flag',
+			                                    //loocked : true,
+			                                    width: 40,
+			                                    align: 'center',
+			                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+			                                        //console.log(record);
+			                                        var estado = 'check-circle-green-16.png';
+			                                        if(parseInt(record.get('usr_estado'))==0){
+			                                        	estado = 'check-circle-black-16.png';
+			                                        }
+			                                        metaData.style = "padding: 0px; margin: 0px";
+			                                        return global.permisos({
+			                                            type: 'link',
+			                                            id_menu: user.id_menu,
+			                                            icons:[
+			                                                {id_serv: 10, img: estado, qtip: 'Estado.', js: ""}
+
+			                                            ]
+			                                        });
+			                                    }
+			                                },
+			                                {
+			                                    text: 'EDT',
+			                                    dataIndex: 'usr_estado',
+			                                    //loocked : true,
+			                                    width: 40,
+			                                    align: 'center',
+			                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+			                                        //console.log(record);
+			                                        metaData.style = "padding: 0px; margin: 0px";
+			                                        return global.permisos({
+			                                            type: 'link',
+			                                            id_menu: user.id_menu,
+			                                            icons:[
+			                                                {id_serv: 10, img: 'edit.png', qtip: 'Editar.', js: "user.getEdit("+rowIndex+")"}
+
+			                                            ]
+			                                        });
+			                                    }
+			                                }
+			                            ],
+			                            defaults:{
+			                                menuDisabled: true
+			                            }
+			                        },
+			                        multiSelect: true,
+			                        trackMouseOver: false,
+			                        listeners:{
+			                            afterrender: function(obj){
+			                                
+			                            },
+			                            beforeselect:function(obj, record, index, eOpts ){
+			                            	//scanning.setImageFile(record.get('path'),record.get('file'));
+			                            }
+			                        }
+			                    }	
 							]
 						}
 					],

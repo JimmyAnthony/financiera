@@ -97,6 +97,7 @@
         Ext.require([
             '*',
             'Ext.global.plugin.MenuView',
+            'Ext.global.plugin.MenuViewVert',
             'Ext.global.uePanelS',
             'Ext.global.uePanel',
             'Ext.global.SubTable',

@@ -22,13 +22,8 @@ class agenciasController extends AppController {
         $this->view('agencias/form_index.php', $p);
     }
 
-<<<<<<< HEAD
-   public function get_agencias_list($p){
-        $rs = $this->objDatos->get_agencias_list($p);
-=======
    public function get_list_agencias($p){
         $rs = $this->objDatos->get_list_agencias($p);
->>>>>>> 08ba32a10657d83d10c8135b3d7309d01c135f36
         //var_export($rs);
         $array = array();
         $lote = 0;
@@ -36,18 +31,6 @@ class agenciasController extends AppController {
             $value_['cod_age'] = intval($value['cod_age']);
             $value_['nombre'] = utf8_encode(trim($value['nombre']));
             $value_['descripcion'] = utf8_encode(trim($value['descripcion']));
-<<<<<<< HEAD
-            $value_['direccion'] = utf8_encode(trim($value['direccion']));
-            $value_['Distrito'] = utf8_encode(trim($value['cod_ubi']));
-            $value_['Provincia'] = utf8_encode(trim($value['cod_ubi']));
-            $value_['Departamento'] = utf8_encode(trim($value['cod_ubi']));
-            $value_['telefonos'] = trim($value['telefonos']);
-            $value_['cod_ubi'] = trim($value['cod_ubi']);
-            $value_['x'] = trim($value['cod_ubi']);
-            $value_['y'] = trim($value['cod_ubi']);
-            $value_['fecha'] = trim($value['cod_ubi']);
-            $value_['estado'] = trim($value['cod_ubi']);
-=======
             //substr(trim($value['fec_ingreso']),0,10)
             $value_['direccion'] = utf8_encode(trim($value['direccion']));
             $value_['telefonos'] = trim($value['telefonos']);
@@ -59,7 +42,8 @@ class agenciasController extends AppController {
             $value_['Distrito'] = utf8_encode(trim($value['Distrito']));
             $value_['Provincia'] = utf8_encode(trim($value['Provincia']));
             $value_['Departamento'] = utf8_encode(trim($value['Departamento']));
->>>>>>> 08ba32a10657d83d10c8135b3d7309d01c135f36
+            $value_['cod_ubi_pro'] = trim($value['cod_ubi_pro']);
+            $value_['cod_ubi_dep'] = trim($value['cod_ubi_dep']);
             $array[]=$value_;
         }
 

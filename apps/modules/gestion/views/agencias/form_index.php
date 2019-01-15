@@ -109,7 +109,9 @@
 	                    {name: 'estado', type: 'string'},
 	                    {name: 'Distrito', type: 'string'},
 	                    {name: 'Provincia', type: 'string'},
-	                    {name: 'Departamento', type: 'string'}
+	                    {name: 'Departamento', type: 'string'},
+	                    {name: 'cod_ubi_pro', type: 'string'},
+	                    {name: 'cod_ubi_dep', type: 'string'}
 	                ],
 	                autoLoad:false,
 	                proxy:{
@@ -421,7 +423,7 @@
 		                                                {
 									                        xtype:'button',
 									                        text: 'Nuevo',
-									                        icon: '/images/icon/call_agencias_01.png',
+									                        icon: '/images/icon/add.png',
 									                        listeners:{
 									                            beforerender: function(obj, opts){
 									                                /*global.permisos({
@@ -496,7 +498,7 @@
 			                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 			                                        //console.log(record);
 			                                        var estado = 'check-circle-green-16.png';
-			                                        if(parseInt(record.get('estado'))=='I'){
+			                                        if(record.get('estado')=='I'){
 			                                        	estado = 'check-circle-black-16.png';
 			                                        }
 			                                        metaData.style = "padding: 0px; margin: 0px";
@@ -556,6 +558,10 @@
 	                    	//agencias.getReloadGridagencias('');
 	                        tab.setActiveTab(obj);
 	                        global.state_item_menu_config(obj,agencias.id_menu);
+
+	                        var cod_ubi = Ext.getCmp(agencias.id+'-txt-Distrito').getValue();
+                        	var nombre = Ext.getCmp(agencias.id+'-txt-agencias').getValue();           	
+					        agencias.getAgencias({vp_cod_age:0,vp_cod_ubi:cod_ubi,vp_nombre:nombre});
 	                    },
 	                    beforeclose:function(obj,opts){
 	                    	global.state_item_menu(agencias.id_menu, false);
@@ -573,36 +579,11 @@
 			},
 			setForm:function(op,data){
 
-                var myDataPerfil = [
-					[1,'Básico'], 
-				    [2,'Consultor'],
-				    [3,'Intermedio'],
-				    [4,'Supervisor'],
-				    [5,'Administrador']
-				];
-				var store_perfil = Ext.create('Ext.data.ArrayStore', {
-			        storeId: 'perfil',
-			        autoLoad: true,
-			        data: myDataPerfil,
-			        fields: ['code', 'name']
-			    });
-
-			    var myDataagencias = [
-					[1,'Activo'], 
-				    [0,'Inactivo']
-				];
-				var store_estado_agencias = Ext.create('Ext.data.ArrayStore', {
-			        storeId: 'perfil',
-			        autoLoad: true,
-			        data: myDataagencias,
-			        fields: ['code', 'name']
-			    });
-
                 Ext.create('Ext.window.Window',{
 	                id:agencias.id+'-win-form',
 	                plain: true,
-	                title:'Mantenimiento Usuario',
-	                icon: '/images/icon/default-avatar_man.png',
+	                title:'Mantenimiento de Agencias',
+	                icon: '/images/icon/home.png',
 	                height: 480,
 	                width: 400,
 	                resizable:false,
@@ -901,7 +882,20 @@
 	                ],
 	                listeners:{
 	                    'afterrender':function(obj, e){ 
-
+	                    	if(op=='U'){
+		                    	Ext.getCmp(agencias.id+'-txt-codigo').setValue(data.cod_age);
+						    	Ext.getCmp(agencias.id+'-txt-nombre').setValue(data.nombre);
+						    	Ext.getCmp(agencias.id+'-txt-descripcion').setValue(data.descripcion);
+						    	Ext.getCmp(agencias.id+'-txt-telefonos').setValue(data.telefonos);
+						    	Ext.getCmp(agencias.id+'-cmb-distri').setValue(data.cod_ubi);
+						    	Ext.getCmp(agencias.id+'-cmb-prov').setValue(data.cod_ubi_pro);
+						    	Ext.getCmp(agencias.id+'-cmb-depart').setValue(data.cod_ubi_dep);
+						    	Ext.getCmp(agencias.id+'-txt-direccion').setValue(data.direccion);
+						    	Ext.getCmp(agencias.id+'-txt-x').setValue(data.x);
+						    	Ext.getCmp(agencias.id+'-txt-y').setValue(data.y);
+						    	Ext.getCmp(agencias.id+'-txt-fecha').setValue(data.fecha);
+						    	Ext.getCmp(agencias.id+'-cmb-estado').setValue(data.estado);
+					    	}
 	                    },
 	                    'close':function(){
 
