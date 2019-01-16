@@ -61,7 +61,7 @@ Ext.define('Ext.global.plugin.MenuViewVert',{
             autoLoad:true,
             proxy:{
                 type: 'ajax',
-                url: config.url+'getDataMenuView/',
+                url: config.url,
                 reader:{
                     type: 'json',
                     rootProperty: 'data'

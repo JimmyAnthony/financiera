@@ -1,10 +1,10 @@
 <script type="text/javascript">
 	var tab = Ext.getCmp(inicio.id+'-tabContent');
-	if(!Ext.getCmp('user-tab')){
-		var user = {
-			id:'user',
+	if(!Ext.getCmp('clientes-tab')){
+		var clientes = {
+			id:'clientes',
 			id_menu:'<?php echo $p["id_menu"];?>',
-			url:'/gestion/user/',
+			url:'/gestion/clientes/',
 			urli: '/inicio/index/',
 			opcion:'I',
 			id_lote:0,
@@ -38,7 +38,7 @@
 	                autoLoad:true,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: user.url+'get_credit_list/',
+	                    url: clientes.url+'get_credit_list/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -58,13 +58,13 @@
 	                    {name: 'shi_logo', type: 'string'},
 	                    {name: 'fec_ingreso', type: 'string'},                    
 	                    {name: 'shi_estado', type: 'string'},
-	                    {name: 'id_user', type: 'string'},
+	                    {name: 'id_clientes', type: 'string'},
 	                    {name: 'fecha_actual', type: 'string'}
 	                ],
 	                autoLoad:true,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: user.url+'get_list_shipper/',
+	                    url: clientes.url+'get_list_shipper/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -85,7 +85,7 @@
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: user.url+'get_list_contratos/',
+	                    url: clientes.url+'get_list_contratos/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -123,7 +123,7 @@
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: user.url+'get_ocr_plantillas/',
+	                    url: clientes.url+'get_ocr_plantillas/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -156,7 +156,7 @@
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: user.url+'get_ocr_trazos/',
+	                    url: clientes.url+'get_ocr_trazos/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -206,7 +206,7 @@
 			        fields: ['code', 'name']
 			    });
 				var panel = Ext.create('Ext.form.Panel',{
-					id:user.id+'-form',
+					id:clientes.id+'-form',
 					bodyStyle: 'background: transparent',
 					border:false,
 					layout:'border',
@@ -219,7 +219,7 @@
 				});
 
 				tab.add({
-					id:user.id+'-tab',
+					id:clientes.id+'-tab',
 					border:false,
 					autoScroll:true,
 					closable:true,
@@ -272,7 +272,7 @@
 									layout:'fit',
 									items:[
 										{
-							                id:user.id+'-contentMenuClient',
+							                id:clientes.id+'-contentMenuClient',
 							                layout:'fit',
 							                floatable: false,
 							                collapsible: false,
@@ -288,8 +288,8 @@
 							                items:[
 							                        {
 							                            xtype:'MenuViewVert',
-							                            id:user.id,
-							                            url:user.urli
+							                            id:clientes.id,
+							                            url:clientes.url+'getDataMenu/'
 							                        }
 							                    ]
 						                }
@@ -306,26 +306,26 @@
 					],
 					listeners:{
 						/*beforerender: function(obj, opts){
-	                        global.state_item_menu(user.id_menu, true);
+	                        global.state_item_menu(clientes.id_menu, true);
 	                    },
 	                    afterrender: function(obj, e){
-	                    	//user.getReloadGriduser('');
+	                    	//clientes.getReloadGridclientes('');
 	                        tab.setActiveTab(obj);
-	                        global.state_item_menu_config(obj,user.id_menu);
+	                        global.state_item_menu_config(obj,clientes.id_menu);
 	                    },
 	                    beforeclose:function(obj,opts){
-	                    	global.state_item_menu(user.id_menu, false);
+	                    	global.state_item_menu(clientes.id_menu, false);
 	                    }*/
 					}
 
 				}).show();
 			},
 			getEdit:function(index){
-				var rec = Ext.getCmp(user.id + '-grid-credit').getStore().getAt(index);
-				user.setForm('U',rec.data);
+				var rec = Ext.getCmp(clientes.id + '-grid-credit').getStore().getAt(index);
+				clientes.setForm('U',rec.data);
 			},
 			getNew:function(){
-				user.setForm('I',{id_user:0,usr_codigo:'',usr_nombre:'',usr_perfil:1,usr_estado:1});
+				clientes.setForm('I',{id_clientes:0,usr_codigo:'',usr_nombre:'',usr_perfil:1,usr_estado:1});
 			},
 			setForm:function(op,data){
 
@@ -343,19 +343,19 @@
 			        fields: ['code', 'name']
 			    });
 
-			    var myDataUser = [
+			    var myDataclientes = [
 					[1,'Activo'], 
 				    [0,'Inactivo']
 				];
-				var store_estado_user = Ext.create('Ext.data.ArrayStore', {
+				var store_estado_clientes = Ext.create('Ext.data.ArrayStore', {
 			        storeId: 'perfil',
 			        autoLoad: true,
-			        data: myDataUser,
+			        data: myDataclientes,
 			        fields: ['code', 'name']
 			    });
 
                 Ext.create('Ext.window.Window',{
-	                id:user.id+'-win-form',
+	                id:clientes.id+'-win-form',
 	                plain: true,
 	                title:'Mantenimiento Usuario',
 	                icon: '/images/icon/default-avatar_man.png',
@@ -374,7 +374,7 @@
                             bodyStyle: 'background: transparent',
 		                    padding:'5px 5px 5px 5px',
                             fieldLabel: 'Código',
-                            id:user.id+'-txt-codigo',
+                            id:clientes.id+'-txt-codigo',
                             labelWidth:50,
                             //readOnly:true,
                             labelAlign:'right',
@@ -383,7 +383,7 @@
                             listeners:{
                                 afterrender:function(obj, e){
                                     // obj.getStore().load();
-                                    obj.setValue(data.id_user);
+                                    obj.setValue(data.id_clientes);
                                 }
                             }
                         },
@@ -392,7 +392,7 @@
                             fieldLabel: 'Usuario',
                             bodyStyle: 'background: transparent',
 		                    padding:'5px 5px 5px 5px',
-                            id:user.id+'-txt-usuario-user',
+                            id:clientes.id+'-txt-usuario-clientes',
                             labelWidth:50,
                             //readOnly:true,
                             labelAlign:'right',
@@ -411,7 +411,7 @@
                             bodyStyle: 'background: transparent',
 		                    padding:'5px 5px 5px 5px',
                             inputType: 'password',
-                            id:user.id+'-txt-clave',
+                            id:clientes.id+'-txt-clave',
                             labelWidth:50,
                             //readOnly:true,
                             labelAlign:'right',
@@ -423,7 +423,7 @@
                             bodyStyle: 'background: transparent',
 		                    padding:'5px 5px 5px 5px',
                             fieldLabel: 'Nombre',
-                            id:user.id+'-txt-nombre-user',
+                            id:clientes.id+'-txt-nombre-clientes',
                             labelWidth:50,
                             //readOnly:true,
                             labelAlign:'right',
@@ -441,7 +441,7 @@
                             fieldLabel: 'Perfil',
                             bodyStyle: 'background: transparent',
 		                    padding:'5px 5px 5px 5px',
-                            id:user.id+'-cmb-perfil',
+                            id:clientes.id+'-cmb-perfil',
                             store: store_perfil,
                             queryMode: 'local',
                             triggerAction: 'all',
@@ -457,7 +457,7 @@
                             listeners:{
                                 afterrender:function(obj, e){
                                     // obj.getStore().load();
-                                    Ext.getCmp(user.id+'-cmb-perfil').setValue(data.usr_perfil);
+                                    Ext.getCmp(clientes.id+'-cmb-perfil').setValue(data.usr_perfil);
                                 },
                                 select:function(obj, records, eOpts){
                         
@@ -469,8 +469,8 @@
                             fieldLabel: 'Estado',
                             bodyStyle: 'background: transparent',
 		                    padding:'5px 5px 5px 5px',
-                            id:user.id+'-cmb-estado-user',
-                            store: store_estado_user,
+                            id:clientes.id+'-cmb-estado-clientes',
+                            store: store_estado_clientes,
                             queryMode: 'local',
                             triggerAction: 'all',
                             valueField: 'code',
@@ -485,7 +485,7 @@
                             listeners:{
                                 afterrender:function(obj, e){
                                     // obj.getStore().load();
-                                    Ext.getCmp(user.id+'-cmb-estado-user').setValue(data.usr_estado);
+                                    Ext.getCmp(clientes.id+'-cmb-estado-clientes').setValue(data.usr_estado);
                                 },
                                 select:function(obj, records, eOpts){
                         
@@ -504,7 +504,7 @@
 	                            beforerender: function(obj, opts){
 								},
 	                            click: function(obj, e){
-	                            	user.setSaveUser(op);
+	                            	clientes.setSaveclientes(op);
 	                            }
 	                        }
 	                    },
@@ -517,7 +517,7 @@
 	                            beforerender: function(obj, opts){
 	                            },
 	                            click: function(obj, e){
-	                                Ext.getCmp(user.id+'-win-form').close();
+	                                Ext.getCmp(clientes.id+'-win-form').close();
 	                            }
 	                        }
 	                    },
@@ -533,14 +533,14 @@
 	                }
 	            }).show().center();
 			},
-			setSaveUser:function(op){
+			setSaveclientes:function(op){
 
-		    	var codigo = Ext.getCmp(user.id+'-txt-codigo').getValue();
-		    	var usuario = Ext.getCmp(user.id+'-txt-usuario-user').getValue();
-		    	var clave = Ext.getCmp(user.id+'-txt-clave').getValue();
-		    	var nombre = Ext.getCmp(user.id+'-txt-nombre-user').getValue();
-		    	var perfil = Ext.getCmp(user.id+'-cmb-perfil').getValue();
-		    	var estado = Ext.getCmp(user.id+'-cmb-estado-user').getValue();
+		    	var codigo = Ext.getCmp(clientes.id+'-txt-codigo').getValue();
+		    	var usuario = Ext.getCmp(clientes.id+'-txt-usuario-clientes').getValue();
+		    	var clave = Ext.getCmp(clientes.id+'-txt-clave').getValue();
+		    	var nombre = Ext.getCmp(clientes.id+'-txt-nombre-clientes').getValue();
+		    	var perfil = Ext.getCmp(clientes.id+'-cmb-perfil').getValue();
+		    	var estado = Ext.getCmp(clientes.id+'-cmb-estado-clientes').getValue();
 
 				if(usuario==''){ 
 					global.Msg({msg:"Ingrese Usuario.",icon:2,fn:function(){}});
@@ -570,13 +570,13 @@
                     buttons: 3,
                     fn: function(btn){
                     	if (btn == 'yes'){
-                    		Ext.getCmp(user.id+'-tab').el.mask('Elinando Páginas…', 'x-mask-loading');
+                    		Ext.getCmp(clientes.id+'-tab').el.mask('Elinando Páginas…', 'x-mask-loading');
 	                        scanning.getLoader(true);
 			                Ext.Ajax.request({
 			                    url:control.url+'set_save/',
 			                    params:{
 			                    	vp_op:op,
-			                    	vp_id_user:codigo,
+			                    	vp_id_clientes:codigo,
 			                    	vp_usr_codigo:usuario,
 			                    	vp_usr_passwd:clave,
 			                    	vp_usr_nombre:nombre,
@@ -585,7 +585,7 @@
 			                    },
 			                    timeout: 300000,
 			                    success: function(response, options){
-			                        Ext.getCmp(user.id+'-tab').el.unmask();
+			                        Ext.getCmp(clientes.id+'-tab').el.unmask();
 			                        var res = Ext.JSON.decode(response.responseText);
 			                        control.getLoader(false);
 			                        if (res.error == 'OK'){
@@ -594,8 +594,8 @@
 			                                icon: 1,
 			                                buttons: 1,
 			                                fn: function(btn){
-			                                	user.getHistory();
-			                                	Ext.getCmp(user.id+'-win-form').close();
+			                                	clientes.getHistory();
+			                                	Ext.getCmp(clientes.id+'-win-form').close();
 			                                }
 			                            });
 			                        } else{
@@ -615,33 +615,33 @@
 				});
 			},
 		    getHistory:function(){
-		    	var vp_op = Ext.getCmp(user.id+'-txt-estado-filter').getValue();
-				var nombre = Ext.getCmp(user.id+'-txt-user').getValue();
+		    	var vp_op = Ext.getCmp(clientes.id+'-txt-estado-filter').getValue();
+				var nombre = Ext.getCmp(clientes.id+'-txt-clientes').getValue();
 
-		    	Ext.getCmp(user.id + '-grid-credit').getStore().removeAll();
-				Ext.getCmp(user.id + '-grid-credit').getStore().load(
+		    	Ext.getCmp(clientes.id + '-grid-credit').getStore().removeAll();
+				Ext.getCmp(clientes.id + '-grid-credit').getStore().load(
 	                {params: {vp_op:vp_op,vp_nombre:nombre},
 	                callback:function(){
-	                	//Ext.getCmp(user.id+'-form').el.unmask();
+	                	//Ext.getCmp(clientes.id+'-form').el.unmask();
 	                }
 	            });
 	            
 		    },
 			getImagen:function(param){
-				win.getGalery({container:'GaleryFull',width:390,height:250,params:{forma:'F',img_path:'/images/icon/'+param}});///user/
+				win.getGalery({container:'GaleryFull',width:390,height:250,params:{forma:'F',img_path:'/images/icon/'+param}});///clientes/
 			},
 			getContratos:function(shi_codigo){
-				Ext.getCmp(user.id+'-cbx-contrato').getStore().removeAll();
-				Ext.getCmp(user.id+'-cbx-contrato').getStore().load(
+				Ext.getCmp(clientes.id+'-cbx-contrato').getStore().removeAll();
+				Ext.getCmp(clientes.id+'-cbx-contrato').getStore().load(
 	                {params: {vp_shi_codigo:shi_codigo},
 	                callback:function(){
-	                	//Ext.getCmp(user.id+'-form').el.unmask();
+	                	//Ext.getCmp(clientes.id+'-form').el.unmask();
 	                }
 	            });
 			}
 		}
-		Ext.onReady(user.init,user);
+		Ext.onReady(clientes.init,clientes);
 	}else{
-		tab.setActiveTab(user.id+'-tab');
+		tab.setActiveTab(clientes.id+'-tab');
 	}
 </script>

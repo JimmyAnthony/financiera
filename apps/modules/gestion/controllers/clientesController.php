@@ -67,4 +67,37 @@ class clientesController extends AppController {
     }
 
 
+    public function getDataMenu($p){
+        session_start();
+        $_SESSION['sis_id'] = $p['sis_id'];
+        $p['vp_mod_id'] = 1;
+        $p['vp_menu_id'] = 0;
+        // $this->objServicios = $this->objDatos->usr_sis_servicios($p);
+
+        $this->arrayMenu = $this->objDatos->usr_sis_menus($p);
+        //var_export($this->arrayMenu);
+        $array = array();
+        foreach ($this->arrayMenu as $index => $value){
+                $p['vp_mod_id'] = 1;
+                $p['vp_menu_id'] = intval($value['id_menu']);
+                $value_['id'] =intval($value['id_menu']);
+                $value_['nombre'] =utf8_encode(trim($value['nombre']));
+                $value_['url'] =trim($value['url']);
+                $value_['nivel'] =trim($value['nivel']);
+                $value_['icono'] = (trim($value['icono']) == '' || trim($value['icono']) == './') ? 'form.png' : $value['icono'];
+                $value_['menu_class'] = (trim($value['menu_class']) == '.') ? '' : trim($value['menu_class']);
+                $value_['menu_estado'] = trim($value['menu_estado']);
+                $value_['clase_disabled'] = $value['menu_estado']==1?'databox_list_menu':'databox_list_menu_disabled';
+                //$value_['permisos'] = $this->objDatos->usr_sis_servicios($p);
+                $array[]=$value_;
+        }
+        $data = array(
+            'success' => true,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+
 }
