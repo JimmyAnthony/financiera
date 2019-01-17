@@ -66,9 +66,7 @@ Ext.define('Ext.global.plugin.MenuViewVert',{
                     type: 'json',
                     rootProperty: 'data'
                 },
-                extraParams:{
-                    sis_id: 1
-                }
+                extraParams:config.params
             },
             listeners:{
                 load: function(obj, records, successful, opts){

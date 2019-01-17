@@ -227,42 +227,88 @@
 					items:[
 						{
 							region:'west',
-							layout:'border',
+							layout:'fit',
 							width:200,
 							border:false,
 							items:[
 								{
-									region:'north',
+					                id:clientes.id+'-contentMenuClient',
+					                layout:'fit',
+					                floatable: false,
+					                collapsible: false,
+					                //split: true,
+					                border:false,
+					                //bodyPadding: 10,
+					                //margin: '5 0 0 0',
+					                //width: 0,
+					                //hidden:true,
+					                //cls: 'cmp_menu',
+					                //bodyCls: 'cmp_menu',
+					                html:'<div id="menu_spinner" class="spinner"><div class="cube1"></div><div class="cube2"></div></div>',
+					                items:[
+					                        {
+					                            xtype:'MenuViewVert',
+					                            id:clientes.id,
+					                            url:clientes.url+'getDataMenu/',
+					                            params:{sis_id:2}
+					                        }
+					                    ]
+				                }
+							]
+						},
+						{
+							region:'center',
+							layout:'border',
+							items:[
+								{
+									region:'west',
 									layout:'border',
-									height:200,
+									//hidden:true,
+									width:200,
 									//border:false,
-									items:[										
+									items:[				
+										{
+											region:'north',
+											layout:'border',
+											//hidden:true,
+											height:200,
+											//border:false,
+											items:[								
+												{
+													region:'center',
+													layout:'fit',
+													padding:'5px 5px 5px 5px',
+													html: '<img src="/images/650_1200.jpg" style="width:100%;" >'
+												},
+												{
+													region:'south',
+													height:40,
+													layout:'vbox',
+													//border:false,
+													items:[
+														{
+													        xtype: 'label',
+													        //forId: 'myFieldId',
+													        padding:'5px 5px 5px 2px',
+													        text: 'My Awesome Field',
+													        margin: '0 0 0 10'
+													    },
+		                                                {
+													        xtype: 'label',
+													        //forId: 'myFieldId',
+													        padding:'0px 5px 5px 2px',
+													        text: 'My Awesome Field',
+													        margin: '0 0 0 10'
+													    }
+													]
+												}
+											]
+										},
 										{
 											region:'center',
 											layout:'fit',
-											padding:'5px 5px 5px 5px',
-											html: '<img src="/images/650_1200.jpg" style="width:100%;" >'
-										},
-										{
-											region:'south',
-											height:40,
-											layout:'vbox',
-											//border:false,
 											items:[
-												{
-											        xtype: 'label',
-											        //forId: 'myFieldId',
-											        padding:'5px 5px 5px 2px',
-											        text: 'My Awesome Field',
-											        margin: '0 0 0 10'
-											    },
-                                                {
-											        xtype: 'label',
-											        //forId: 'myFieldId',
-											        padding:'0px 5px 5px 2px',
-											        text: 'My Awesome Field',
-											        margin: '0 0 0 10'
-											    }
+												
 											]
 										}
 									]
@@ -271,36 +317,9 @@
 									region:'center',
 									layout:'fit',
 									items:[
-										{
-							                id:clientes.id+'-contentMenuClient',
-							                layout:'fit',
-							                floatable: false,
-							                collapsible: false,
-							                //split: true,
-							                border:false,
-							                //bodyPadding: 10,
-							                //margin: '5 0 0 0',
-							                //width: 0,
-							                //hidden:true,
-							                //cls: 'cmp_menu',
-							                //bodyCls: 'cmp_menu',
-							                html:'<div id="menu_spinner" class="spinner"><div class="cube1"></div><div class="cube2"></div></div>',
-							                items:[
-							                        {
-							                            xtype:'MenuViewVert',
-							                            id:clientes.id,
-							                            url:clientes.url+'getDataMenu/'
-							                        }
-							                    ]
-						                }
+										
 									]
 								}
-							]
-						},
-						{
-							region:'center',
-							layout:'fit',
-							items:[
 							]
 						}
 					],
