@@ -266,42 +266,146 @@
 									//hidden:true,
 									width:200,
 									//border:false,
-									items:[				
+									items:[
 										{
 											region:'north',
-											layout:'border',
-											//hidden:true,
-											height:200,
+											height:220,
+											layout:'fit',
+											padding:'5px 5px 5px 5px',
+											html: '<img src="/images/menu/usuario.png" style="width:100%; padding:20px;" >'
+										},
+										{
+											region:'center',
+											layout:'vbox',
 											//border:false,
-											items:[								
+											items:[
+												/*{
+											        xtype: 'label',
+											        //forId: 'myFieldId',
+											        padding:'5px 5px 5px 2px',
+											        text: 'My Awesome Field',
+											        margin: '0 0 0 10'
+											    },
+                                                {
+											        xtype: 'label',
+											        //forId: 'myFieldId',
+											        padding:'0px 5px 5px 2px',
+											        text: 'My Awesome Field',
+											        margin: '0 0 0 10'
+											    },*/
 												{
-													region:'center',
-													layout:'fit',
-													padding:'5px 5px 5px 5px',
-													html: '<img src="/images/650_1200.jpg" style="width:100%;" >'
-												},
+						                            xtype: 'textfield',	
+						                            fieldLabel: 'DNI',
+						                            bodyStyle: 'background: transparent',
+								                    padding:'15px 5px 5px 5px',
+						                            id:clientes.id+'-txt-dni',
+						                            labelWidth:40,
+						                            //readOnly:true,
+						                            labelAlign:'left',
+						                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;",
+						                            fieldStyle: 'font-size:25px; text-align: center;font-weight: bold ',
+						                            emptyText: 'ENTER',
+						                            allowOnlyWhitespace: false,
+						                            allowDecimals: false,
+						                            allowExponential: false,
+						                            allowBlank: true,
+						                            maxLength: 8,
+						                            width:180,
+						                            height:50,
+						                            maxLength : 8,
+													enforceMaxLength : true,
+													maskRe:/[0-9]/,
+						                            //anchor:'100%',
+						                            listeners:{
+						                                afterrender:function(obj, e){
+						                                }
+						                            }
+						                        },
+						                        {
+											        xtype: 'label',
+											        //forId: 'myFieldId',
+											        padding:'15px 5px 5px 2px',
+											        text: 'Nombres:',
+											        margin: '0 0 0 10'
+											    },
+						                        {
+											        xtype: 'label',
+											        //forId: 'myFieldId',
+											        padding:'5px 5px 5px 2px',
+											        text: 'Jimmy Anthony',
+											        style: 'font: normal 17px Sans-serif;font-weight: bold',
+											        margin: '0 0 0 10'
+											    },
+											    {
+											        xtype: 'label',
+											        //forId: 'myFieldId',
+											        padding:'10px 5px 5px 2px',
+											        text: 'Apellidos:',
+											        margin: '0 0 0 10'
+											    },
+						                        {
+											        xtype: 'label',
+											        //forId: 'myFieldId',
+											        padding:'5px 5px 5px 2px',
+											        text: 'Bazán Solis',
+											        style: 'font: normal 17px Sans-serif;font-weight: bold;',
+											        margin: '0 0 0 10'
+											    }
+											]
+										}
+									]
+								},
+								{
+									region:'center',
+									layout:'border',
+									items:[
+										{
+											region:'north',
+											xtype:'panel',
+											layout:'hbox',
+											height:200,
+											//layout:'fit',
+											items:[
 												{
-													region:'south',
-													height:40,
-													layout:'vbox',
-													//border:false,
-													items:[
-														{
-													        xtype: 'label',
-													        //forId: 'myFieldId',
-													        padding:'5px 5px 5px 2px',
-													        text: 'My Awesome Field',
-													        margin: '0 0 0 10'
-													    },
-		                                                {
-													        xtype: 'label',
-													        //forId: 'myFieldId',
-													        padding:'0px 5px 5px 2px',
-													        text: 'My Awesome Field',
-													        margin: '0 0 0 10'
-													    }
-													]
-												}
+						                            xtype: 'textfield',	
+						                            fieldLabel: 'Monto Solicitado',
+						                            bodyStyle: 'background: transparent',
+								                    padding:'15px 5px 5px 25px',
+						                            //id:clientes.id+'-txt-dni',
+						                            labelWidth:50,
+						                            //readOnly:true,
+						                            labelAlign:'top',
+						                            width:200,
+						                            height:60,
+						                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+						                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+						                            value:'4,444.40',
+						                            //anchor:'100%',
+						                            listeners:{
+						                                afterrender:function(obj, e){
+						                                }
+						                            }
+						                        },
+						                        {
+						                            xtype: 'textfield',	
+						                            fieldLabel: 'Tipo de Cliente',
+						                            bodyStyle: 'background: transparent',
+								                    padding:'15px 5px 5px 25px',
+						                            //id:clientes.id+'-txt-dni',
+						                            labelWidth:50,
+						                            //readOnly:true,
+						                            labelAlign:'top',
+						                            width:200,
+						                            height:60,
+						                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+						                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+						                            value:'',
+						                            //anchor:'100%',
+						                            listeners:{
+						                                afterrender:function(obj, e){
+						                                }
+						                            }
+						                        }
 											]
 										},
 										{
@@ -311,13 +415,6 @@
 												
 											]
 										}
-									]
-								},
-								{
-									region:'center',
-									layout:'fit',
-									items:[
-										
 									]
 								}
 							]
