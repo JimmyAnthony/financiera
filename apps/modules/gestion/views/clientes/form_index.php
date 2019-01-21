@@ -181,14 +181,14 @@
 
 			    
 
-			    var myDataLote = [
-					['U','Usuario'],
-				    ['N','Nombre Usuario']
+			    var myDataMoneda = [
+					['SOL','SOLES'],
+				    ['USD','DOLARES']
 				];
-				var store_estado_lote = Ext.create('Ext.data.ArrayStore', {
+				var store_moneda = Ext.create('Ext.data.ArrayStore', {
 			        storeId: 'estado',
 			        autoLoad: true,
-			        data: myDataLote,
+			        data: myDataMoneda,
 			        fields: ['code', 'name']
 			    });
 				var myDataSearch = [
@@ -363,9 +363,68 @@
 											region:'north',
 											xtype:'panel',
 											layout:'hbox',
-											height:200,
+											border:false,
+											height:50,
+											bodyStyle: 'background: #F0EFEF;text-align:center;',
 											//layout:'fit',
 											items:[
+												{
+											        xtype: 'label',
+											        //forId: 'myFieldId',
+											        text: 'SOLICITUD DE CRÉDITO',
+											        style: 'font: normal 25px Sans-serif;font-weight: bold;',
+											        padding:'15px 5px 5px 25px',
+											        width:'100%',
+						                            anchor:'100%'
+											    }
+											]
+										},
+										{
+											region:'north',
+											xtype:'panel',
+											layout:'hbox',
+											height:200,
+											border:false,
+											//layout:'fit',
+											items:[
+												
+											]
+										},
+										{
+											region:'center',
+											layout:'hbox',
+											items:[
+												{
+						                            xtype:'combo',
+						                            fieldLabel: 'Moneda',
+						                            bodyStyle: 'background: transparent',
+								                    padding:'15px 5px 5px 25px',
+						                            id:clientes.id+'-cmb-moneda',
+						                            store: store_moneda,
+						                            queryMode: 'local',
+						                            triggerAction: 'all',
+						                            valueField: 'code',
+						                            displayField: 'name',
+						                            emptyText: '[Seleccione]',
+						                            labelAlign:'right',
+						                            //allowBlank: false,
+						                            labelAlign:'top',
+						                            labelWidth: 50,
+						                            width:150,
+						                            anchor:'100%',
+						                            //readOnly: true,
+						                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+						                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+						                            listeners:{
+						                                afterrender:function(obj, e){
+						                                    // obj.getStore().load();
+						                                    obj.setValue('SOL');
+						                                },
+						                                select:function(obj, records, eOpts){
+						                        
+						                                }
+						                            }
+						                        },
 												{
 						                            xtype: 'textfield',	
 						                            fieldLabel: 'Monto Solicitado',
@@ -379,7 +438,7 @@
 						                            height:60,
 						                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
 						                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-						                            value:'4,444.40',
+						                            value:'1,444.40',
 						                            //anchor:'100%',
 						                            listeners:{
 						                                afterrender:function(obj, e){
@@ -405,14 +464,70 @@
 						                                afterrender:function(obj, e){
 						                                }
 						                            }
-						                        }
-											]
-										},
-										{
-											region:'center',
-											layout:'fit',
-											items:[
-												
+						                        },
+						                        {
+						                        	xtype:'panel',
+						                        	border:false,
+						                        	layout:'vbox',
+						                        	bodyStyle: 'background: transparent',
+								                    padding:'20px 5px 5px 25px',
+								                    //width:200,
+						                        	items:[
+						                        		{
+								                        	xtype:'panel',
+								                        	border:false,
+								                        	layout:'hbox',
+								                        	padding:'0px 0px 0px 10px',
+								                        	items:[
+								                        		{
+															        xtype: 'label',
+															        //forId: 'myFieldId',
+															        text: 'EXCEPCIÓN:',
+															        style: 'font: normal 17px Sans-serif;font-weight: bold;',
+															        //padding:'15px 5px 5px 25px',
+															        width:'100%',
+										                            anchor:'100%'
+															    }
+								                        	]
+								                        },
+								                        {
+								                        	xtype:'panel',
+								                        	border:false,
+								                        	layout:'hbox',
+								                        	padding:'5px 0px 0px 0px',
+								                        	items:[
+								                        		{
+															        xtype: 'checkboxfield',
+															        name: 'checkbox1',
+															        fieldLabel: 'SI',
+															        labelWidth:40,
+															        //boxLabel: 'box label',
+															        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+															    },
+															    {
+															        xtype: 'checkboxfield',
+															        name: 'checkbox1',
+															        fieldLabel: 'NO',
+															        labelWidth:40,
+															        //boxLabel: 'box label',
+															        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+															    }
+								                        	]
+								                        }
+						                        	]
+						                        },
+						                        {
+											        xtype: 'datefield',
+											        //name: 'date1',
+											        labelAlign:'top',
+											        width:200,
+						                            height:60,
+											        labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+				                            		fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+											        fieldLabel: 'Date Field'
+											    }	
 											]
 										}
 									]
