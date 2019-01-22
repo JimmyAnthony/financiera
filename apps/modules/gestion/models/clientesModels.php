@@ -40,4 +40,14 @@ class clientesModels extends Adodb {
         $array = parent::ExecuteSPArray(array('sql_error', 'msn_error'));
         return $array;
     }
+
+    public function SP_UBIGEO_LIST($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_UBIGEO_LIST');
+        parent::SetParameterSP($p['VP_OP'], 'varchar');
+        parent::SetParameterSP($p['VP_VALUE'], 'varchar');
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
 }
