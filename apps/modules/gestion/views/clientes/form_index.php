@@ -462,6 +462,1759 @@
                                     tabPosition: 'left',
                                     bodyCls: 'transparent',
 									items:[
+										/*RESEÑA*/
+										{
+											layout:'border',
+											title:'RESEÑA',
+											border:false,
+											items:[
+												{
+													region:'center',
+													layout:'border',
+													items:[
+														{
+															region:'north',
+															xtype:'panel',
+															layout:'hbox',
+															border:false,
+															height:50,
+															bodyStyle: 'background: #F0EFEF;text-align:center;',
+															//layout:'fit',
+															items:[
+																{
+															        xtype: 'label',
+															        //forId: 'myFieldId',
+															        text: 'BREVE RESEÑA',
+															        style: 'font: normal 25px Sans-serif;font-weight: bold;',
+															        padding:'15px 5px 5px 25px',
+															        width:'100%',
+										                            anchor:'100%'
+															    }
+															]
+														},
+														{
+															region:'center',
+															layout:'border',
+															items:[
+																{
+																	region:'center',
+																	border:false,
+																	items:[
+														                {
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																                {
+														                            xtype: 'textarea',
+														                            fieldLabel: '',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:clientes.id+'-txt-dni',
+														                            labelWidth:50,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            //width:'100%',
+														                            flex:1,
+														                            height:200,
+														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:15px; text-align: left; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        }
+														                    ]
+														                }
+																	]
+																},
+																{
+																	region:'east',
+																	layout:'border',
+																	width:'50%',
+																	items:[
+																		{
+																			region:'north',
+																			hidden:true,
+																			xtype:'panel',
+																			layout:'hbox',
+																			border:false,
+																			height:50,
+																			bodyStyle: 'background: #F0EFEF;text-align:center;',
+																			//layout:'fit',
+																			items:[
+																				{
+																			        xtype: 'label',
+																			        //forId: 'myFieldId',
+																			        text: 'CROQUIS',
+																			        style: 'font: normal 25px Sans-serif;font-weight: bold;',
+																			        padding:'15px 5px 5px 25px',
+																			        width:'100%',
+														                            anchor:'100%'
+																			    }
+																			]
+																		},
+																		{
+																			region:'center',
+																			items:[]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										},
+										/*REFERENCIA*/
+										{
+											layout:'border',
+											title:'REFERENCIA',
+											border:false,
+											items:[
+												{
+													region:'center',
+													layout:'border',
+													items:[
+														{
+															region:'north',
+															xtype:'panel',
+															layout:'hbox',
+															border:false,
+															height:50,
+															bodyStyle: 'background: #F0EFEF;text-align:center;',
+															//layout:'fit',
+															items:[
+																{
+															        xtype: 'label',
+															        //forId: 'myFieldId',
+															        text: 'REFERENCIA PERSONAL',
+															        style: 'font: normal 25px Sans-serif;font-weight: bold;',
+															        padding:'15px 5px 5px 25px',
+															        width:'100%',
+										                            anchor:'100%'
+															    }
+															]
+														},
+														{
+															region:'center',
+															layout:'border',
+															items:[
+																{
+																	region:'center',
+																	border:false,
+																	items:[
+														                {
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																                {
+														                            xtype: 'textfield',
+														                            fieldLabel: 'Personal',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:clientes.id+'-txt-dni',
+														                            labelWidth:50,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            //width:'100%',
+														                            flex:1,
+														                            height:40,
+														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        },
+														                        {
+														                            xtype: 'textfield',
+														                            fieldLabel: 'Teléfono 1',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:clientes.id+'-txt-dni',
+														                            labelWidth:50,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            width:100,
+														                            //flex:1,
+														                            height:40,
+														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        },
+														                        {
+														                            xtype: 'textfield',
+														                            fieldLabel: 'Teléfono 2',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:clientes.id+'-txt-dni',
+														                            labelWidth:50,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            width:100,
+														                            //flex:1,
+														                            height:40,
+														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        }
+														                    ]
+														                },
+														                {
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																                {
+														                            xtype: 'textfield',
+														                            fieldLabel: 'Comercial',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:clientes.id+'-txt-dni',
+														                            labelWidth:50,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            //width:'100%',
+														                            flex:1,
+														                            height:40,
+														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        },
+														                        {
+														                            xtype: 'textfield',
+														                            fieldLabel: 'Teléfono 1',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:clientes.id+'-txt-dni',
+														                            labelWidth:50,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            width:100,
+														                            //flex:1,
+														                            height:40,
+														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        },
+														                        {
+														                            xtype: 'textfield',
+														                            fieldLabel: 'Teléfono 2',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:clientes.id+'-txt-dni',
+														                            labelWidth:50,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            width:100,
+														                            //flex:1,
+														                            height:40,
+														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        }
+														                    ]
+														                }
+																	]
+																},
+																{
+																	region:'east',
+																	layout:'border',
+																	width:'50%',
+																	items:[
+																		{
+																			region:'north',
+																			hidden:true,
+																			xtype:'panel',
+																			layout:'hbox',
+																			border:false,
+																			height:50,
+																			bodyStyle: 'background: #F0EFEF;text-align:center;',
+																			//layout:'fit',
+																			items:[
+																				{
+																			        xtype: 'label',
+																			        //forId: 'myFieldId',
+																			        text: 'CROQUIS',
+																			        style: 'font: normal 25px Sans-serif;font-weight: bold;',
+																			        padding:'15px 5px 5px 25px',
+																			        width:'100%',
+														                            anchor:'100%'
+																			    }
+																			]
+																		},
+																		{
+																			region:'center',
+																			items:[]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										},
+										/*GARANTE*/
+										{
+											layout:'border',
+											title:'GARANTE',
+											border:false,
+											items:[
+												{
+													region:'west',
+													layout:'border',
+													width:'50%',
+													items:false,
+													items:[
+														{
+															region:'north',
+															xtype:'panel',
+															layout:'hbox',
+															border:false,
+															height:50,
+															bodyStyle: 'background: #F0EFEF;text-align:center;',
+															//layout:'fit',
+															items:[
+																{
+															        xtype: 'label',
+															        //forId: 'myFieldId',
+															        text: 'INFORMACIÓN DEL GARANTE',
+															        style: 'font: normal 18px Sans-serif;font-weight: bold;',
+															        padding:'15px 5px 5px 25px',
+															        width:'100%',
+										                            anchor:'100%'
+															    }
+															]
+														},
+														{
+															region:'center',
+															//layout:'border',
+															items:[
+																{
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+																		{
+												                            xtype: 'textfield',
+												                            fieldLabel: 'Apellido Paterno',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            width:'50%',
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'BAZÁN',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Apellido Materno',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            width:'50%',
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'SOLIS',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        }
+												                    ]
+												                },
+												                {
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+														                {
+												                            xtype: 'textfield',
+												                            fieldLabel: 'Nombres',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            width:'100%',
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'JIMMY ANTHONY',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        }
+												                    ]
+												                },
+												                {
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'DNI',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'44949730',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'CE',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'CIP',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'RUC',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'CM',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        }/*
+														                {
+												                            xtype: 'textfield',
+												                            fieldLabel: 'DNI/CE/CIP/RUC/CM',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'100%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'10449497304',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        }*/
+												                    ]
+												                },
+												                {
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+																		{
+												                            xtype:'combo',
+												                            fieldLabel: 'Estado Civil',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-cmb-estado-civil',
+												                            store: store_estado_civil,
+												                            queryMode: 'local',
+												                            triggerAction: 'all',
+												                            valueField: 'code',
+												                            displayField: 'name',
+												                            emptyText: '[Seleccione]',
+												                            labelAlign:'right',
+												                            //allowBlank: false,
+												                            labelAlign:'top',
+												                            labelWidth: 50,
+												                            width:150,
+												                            anchor:'100%',
+												                            //readOnly: true,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                    // obj.getStore().load();
+												                                    obj.setValue(1);
+												                                },
+												                                select:function(obj, records, eOpts){
+												                        
+												                                }
+												                            }
+												                        },
+																		{
+																	        xtype: 'datefield',
+																	        padding:'5px 5px 5px 5px',
+																	        //name: 'date1',
+																	        labelAlign:'top',
+																	        flex:1,
+												                            height:40,
+																	        labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+																	        fieldLabel: 'Fecha de Nacimiento',
+																	        value:'22/01/2019'
+																	    },
+												                        {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Teléfono Fijo/N° Celular',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'987827171',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        }
+												                    ]
+												                },
+												                {
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+																		{
+																	        xtype: 'label',
+																	        //forId: 'myFieldId',
+																	        text: 'Domicilio Actual:',
+																	        style: 'font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
+																	        padding:'26px 10px 5px 5px',
+																	        width:170,
+																	        //flex:1,
+												                            anchor:'100%'
+																	    },
+																		{
+																	        xtype: 'checkboxfield',
+																	        name: 'checkbox1',
+																	        fieldLabel: 'Propio',
+																	        labelAlign:'top',
+																	        padding:'5px 10px 5px 5px',
+																	        labelWidth:100,
+																	        flex:1,
+																	        //boxLabel: 'Domicilio Actual',
+																	        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																	    },
+																	    {
+																	        xtype: 'checkboxfield',
+																	        name: 'checkbox1',
+																	        fieldLabel: 'Pagandolo',
+																	        labelAlign:'top',
+																	        padding:'5px 5px 5px 5px',
+																	        labelWidth:40,
+																	        flex:1,
+																	        //boxLabel: 'box label',
+																	        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																	    },
+																	    {
+																	        xtype: 'checkboxfield',
+																	        name: 'checkbox1',
+																	        fieldLabel: 'Alquilado',
+																	        labelAlign:'top',
+																	        padding:'5px 5px 5px 5px',
+																	        labelWidth:40,
+																	        flex:1,
+																	        //boxLabel: 'box label',
+																	        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																	    },
+																	    {
+																	        xtype: 'checkboxfield',
+																	        name: 'checkbox1',
+																	        fieldLabel: 'Familiar',
+																	        labelAlign:'top',
+																	        padding:'5px 5px 5px 5px',
+																	        labelWidth:40,
+																	        flex:1,
+																	        //boxLabel: 'box label',
+																	        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																	    }
+												                    ]
+												                },
+												                {
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Profesión',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Centro de Trabajo Actual',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        }
+												                    ]
+												                },
+												                {
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Cargo que Ocupa',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+																	    {
+																	        xtype: 'datefield',
+																	        padding:'5px 5px 5px 5px',
+																	        //name: 'date1',
+																	        labelAlign:'top',
+																	        width:200,
+												                            height:40,
+																	        labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+																	        fieldLabel: 'Fecha de Ingreso',
+																	        value:'22/01/2019'
+																	    }
+												                    ]
+												                },
+												                {
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+														                {
+												                            xtype: 'textfield',
+												                            fieldLabel: 'Avenida/Calle/Jirón/Pasaje',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'100%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',
+												                            fieldLabel: 'N°',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            width:50,
+												                            //flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',
+												                            fieldLabel: 'MZ',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            width:50,
+												                            //flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',
+												                            fieldLabel: 'LT',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            width:50,
+												                            //flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',
+												                            fieldLabel: 'DPTO',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            width:50,
+												                            //flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',
+												                            fieldLabel: 'INT.',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            width:50,
+												                            //flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        }
+												                    ]
+												                },
+												                {
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+														                {
+												                            xtype: 'textfield',
+												                            fieldLabel: 'Urbanización/AA.HH/PJ/ASOC',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'100%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',
+												                            fieldLabel: 'Referencia de Domicilio',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'100%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        }
+												                    ]
+												                },
+												                {
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+																		{
+						                                                    xtype:'combo',
+						                                                    fieldLabel: 'Departamento',
+						                                                    //id:clientes.id+'-txt-departamento',
+						                                                    store: store_ubigeo,
+						                                                    queryMode: 'local',
+						                                                    triggerAction: 'all',
+						                                                    valueField: 'cod_ubi',
+						                                                    displayField: 'Departamento',
+						                                                    emptyText: '[Seleccione]',
+						                                                    labelAlign:'right',
+						                                                    //allowBlank: false,
+						                                                    labelAlign:'top',
+												                            //width:'100%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+						                                                    anchor:'100%',
+						                                                    padding:'5px 10px 5px 5px',
+						                                                    //readOnly: true,
+						                                                    listeners:{
+						                                                        afterrender:function(obj, e){
+						                                                			Ext.getCmp(clientes.id+'-txt-provincia').getStore().removeAll();
+						                                                			Ext.getCmp(clientes.id+'-txt-Distrito').getStore().removeAll();
+						                                                        	clientes.getUbigeo({VP_OP:'D',VP_VALUE:''},obj,'100101');
+						                                                            // obj.getStore().load();
+						                                                            //Ext.getCmp(clientes.id+'-txt-estado-filter').setValue('U');
+						                                                        },
+						                                                        select:function(obj, records, eOpts){
+						                                                			var pro = Ext.getCmp(clientes.id+'-txt-provincia');
+						                                                			Ext.getCmp(clientes.id+'-txt-provincia').setValue('');
+						                                                			Ext.getCmp(clientes.id+'-txt-Distrito').getStore().removeAll();
+						                                                			Ext.getCmp(clientes.id+'-txt-Distrito').setValue('');
+						                                                        	clientes.getUbigeo({VP_OP:'P',VP_VALUE:obj.getValue()},pro,'');
+						                                                        }
+						                                                    }
+						                                                },
+						                                                {
+						                                                    xtype:'combo',
+						                                                    fieldLabel: 'Provincia',
+						                                                    //id:clientes.id+'-txt-provincia',
+						                                                    store: store_ubigeo2,
+						                                                    queryMode: 'local',
+						                                                    triggerAction: 'all',
+						                                                    valueField: 'cod_ubi',
+						                                                    displayField: 'Provincia',
+						                                                    emptyText: '[Seleccione]',
+						                                                    labelAlign:'right',
+						                                                    //allowBlank: false,
+						                                                    labelAlign:'top',
+												                            //width:'100%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+						                                                    anchor:'100%',
+						                                                    padding:'5px 10px 5px 5px',
+						                                                    //readOnly: true,
+						                                                    listeners:{
+						                                                        afterrender:function(obj, e){
+						                                                			Ext.getCmp(clientes.id+'-txt-Distrito').getStore().removeAll();
+						                                                        	clientes.getUbigeo({VP_OP:'P',VP_VALUE:'100101'},obj,'100601');
+						                                                        },
+						                                                        select:function(obj, records, eOpts){
+						                                                			var dis=Ext.getCmp(clientes.id+'-txt-Distrito');
+						                                                        	clientes.getUbigeo({VP_OP:'X',VP_VALUE:obj.getValue()},dis,'');
+						                                                        }
+						                                                    }
+						                                                },
+						                                                {
+						                                                    xtype:'combo',
+						                                                    fieldLabel: 'Distrito',
+						                                                    //id:clientes.id+'-txt-Distrito',
+						                                                    store: store_ubigeo3,
+						                                                    queryMode: 'local',
+						                                                    triggerAction: 'all',
+						                                                    valueField: 'cod_ubi',
+						                                                    displayField: 'Distrito',
+						                                                    emptyText: '[Seleccione]',
+						                                                    labelAlign:'right',
+						                                                    //allowBlank: false,
+						                                                    labelAlign:'top',
+												                            //width:'100%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+						                                                    anchor:'100%',
+						                                                    padding:'5px 10px 5px 5px',
+						                                                    //readOnly: true,
+						                                                    listeners:{
+						                                                        afterrender:function(obj, e){
+						                                                        	clientes.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                            // obj.getStore().load();
+						                                                            //Ext.getCmp(clientes.id+'-txt-estado-filter').setValue('U');
+						                                                        },
+						                                                        select:function(obj, records, eOpts){
+						                                                
+						                                                        }
+						                                                    }
+						                                                }
+																	]
+																}
+															]
+														}
+													]
+												},
+												{
+													region:'center',
+													layout:'border',
+													border:false,
+													items:[
+														{
+															region:'north',
+															xtype:'panel',
+															layout:'hbox',
+															border:false,
+															height:50,
+															bodyStyle: 'background: #F0EFEF;text-align:center;',
+															//layout:'fit',
+															items:[
+																{
+															        xtype: 'label',
+															        //forId: 'myFieldId',
+															        text: 'DOCUMENTOS ADJUNTOS',
+															        style: 'font: normal 18px Sans-serif;font-weight: bold;',
+															        padding:'15px 5px 5px 25px',
+															        width:'100%',
+										                            anchor:'100%'
+															    }
+															]
+														},
+														{
+															region:'center',
+															layout:'fit',
+															items:[
+																{
+														            xtype: 'dataview',
+														            tpl: [
+														                '<tpl for=".">',
+														                    '<div class="dataview-multisort-item">',
+														                        '<img src="resources/images/touch-icons/{thumb}" />',
+														                        '<h3>{name}</h3>',
+														                    '</div>',
+														                '</tpl>'
+														            ],
+														            /*plugins: {
+														                xclass: 'Ext.ux.DataView.Animated'
+														            },*/
+														            itemSelector: 'div.dataview-multisort-item',
+														            store:store_search,
+														            /*store: Ext.create('Ext.data.Store', {
+														                autoLoad: true,
+														                sortOnLoad: true,
+														                fields: ['name', 'thumb', 'url', 'type'],
+														                proxy: {
+														                    type: 'ajax',
+														                    url : 'resources/data/sencha-touch-examples.json',
+														                    reader: {
+														                        type: 'json',
+														                        rootProperty: ''
+														                    }
+														                }
+														            })*/
+														        }
+															]
+														}
+													]
+												}
+											]
+										},
+										/*CONYUGUE*/
+										{
+											layout:'border',
+											title:'CONYUGUE',
+											border:false,
+											items:[
+												{
+													region:'west',
+													layout:'border',
+													width:'50%',
+													items:false,
+													items:[
+														{
+															region:'north',
+															xtype:'panel',
+															layout:'hbox',
+															border:false,
+															height:50,
+															bodyStyle: 'background: #F0EFEF;text-align:center;',
+															//layout:'fit',
+															items:[
+																{
+															        xtype: 'label',
+															        //forId: 'myFieldId',
+															        text: 'INFORMACIÓN DE CONYUGUE',
+															        style: 'font: normal 18px Sans-serif;font-weight: bold;',
+															        padding:'15px 5px 5px 25px',
+															        width:'100%',
+										                            anchor:'100%'
+															    }
+															]
+														},
+														{
+															region:'center',
+															//layout:'border',
+															items:[
+																{
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+																		{
+												                            xtype: 'textfield',
+												                            fieldLabel: 'Apellido Paterno',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            width:'50%',
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'BAZÁN',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Apellido Materno',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            width:'50%',
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'SOLIS',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        }
+												                    ]
+												                },
+												                {
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+														                {
+												                            xtype: 'textfield',
+												                            fieldLabel: 'Nombres',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            width:'100%',
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'JIMMY ANTHONY',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        }
+												                    ]
+												                },
+												                {
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'DNI',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'44949730',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'CE',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'CIP',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'RUC',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'CM',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        }/*
+														                {
+												                            xtype: 'textfield',
+												                            fieldLabel: 'DNI/CE/CIP/RUC/CM',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'100%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'10449497304',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        }*/
+												                    ]
+												                },
+												                {
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+																		{
+												                            xtype:'combo',
+												                            fieldLabel: 'Estado Civil',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-cmb-estado-civil',
+												                            store: store_estado_civil,
+												                            queryMode: 'local',
+												                            triggerAction: 'all',
+												                            valueField: 'code',
+												                            displayField: 'name',
+												                            emptyText: '[Seleccione]',
+												                            labelAlign:'right',
+												                            //allowBlank: false,
+												                            labelAlign:'top',
+												                            labelWidth: 50,
+												                            width:150,
+												                            anchor:'100%',
+												                            //readOnly: true,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                    // obj.getStore().load();
+												                                    obj.setValue(1);
+												                                },
+												                                select:function(obj, records, eOpts){
+												                        
+												                                }
+												                            }
+												                        },
+																		{
+																	        xtype: 'datefield',
+																	        padding:'5px 5px 5px 5px',
+																	        //name: 'date1',
+																	        labelAlign:'top',
+																	        flex:1,
+												                            height:40,
+																	        labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+																	        fieldLabel: 'Fecha de Nacimiento',
+																	        value:'22/01/2019'
+																	    },
+												                        {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Teléfono Fijo/N° Celular',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'987827171',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        }
+												                    ]
+												                },
+												                {
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+																		/*{
+																	        xtype: 'label',
+																	        //forId: 'myFieldId',
+																	        text: 'Domicilio Actual:',
+																	        style: 'font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
+																	        padding:'26px 10px 5px 5px',
+																	        width:170,
+																	        //flex:1,
+												                            anchor:'100%'
+																	    },*/
+																		{
+																	        xtype: 'checkboxfield',
+																	        name: 'checkbox1',
+																	        fieldLabel: 'Contratado',
+																	        labelAlign:'top',
+																	        padding:'5px 10px 5px 5px',
+																	        labelWidth:100,
+																	        flex:1,
+																	        //boxLabel: 'Domicilio Actual',
+																	        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																	    },
+																	    {
+																	        xtype: 'checkboxfield',
+																	        name: 'checkbox1',
+																	        fieldLabel: 'Dependiente',
+																	        labelAlign:'top',
+																	        padding:'5px 5px 5px 5px',
+																	        labelWidth:40,
+																	        flex:1,
+																	        //boxLabel: 'box label',
+																	        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																	    },
+																	    {
+																	        xtype: 'checkboxfield',
+																	        name: 'checkbox1',
+																	        fieldLabel: 'Independiente',
+																	        labelAlign:'top',
+																	        padding:'5px 5px 5px 5px',
+																	        labelWidth:40,
+																	        flex:1,
+																	        //boxLabel: 'box label',
+																	        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																	    },
+																	    {
+																	        xtype: 'checkboxfield',
+																	        name: 'checkbox1',
+																	        fieldLabel: 'Otros',
+																	        labelAlign:'top',
+																	        padding:'5px 5px 5px 5px',
+																	        labelWidth:40,
+																	        flex:1,
+																	        //boxLabel: 'box label',
+																	        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																	    }
+												                    ]
+												                },
+												                {
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+																		/*{
+																	        xtype: 'label',
+																	        //forId: 'myFieldId',
+																	        text: 'Domicilio Actual:',
+																	        style: 'font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
+																	        padding:'26px 10px 5px 5px',
+																	        width:170,
+																	        //flex:1,
+												                            anchor:'100%'
+																	    },*/
+																		{
+																	        xtype: 'checkboxfield',
+																	        name: 'checkbox1',
+																	        fieldLabel: 'Bachiller',
+																	        labelAlign:'top',
+																	        padding:'5px 10px 5px 5px',
+																	        labelWidth:100,
+																	        flex:1,
+																	        //boxLabel: 'Domicilio Actual',
+																	        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																	    },
+																	    {
+																	        xtype: 'checkboxfield',
+																	        name: 'checkbox1',
+																	        fieldLabel: 'Tecnología',
+																	        labelAlign:'top',
+																	        padding:'5px 5px 5px 5px',
+																	        labelWidth:40,
+																	        flex:1,
+																	        //boxLabel: 'box label',
+																	        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																	    },
+																	    {
+																	        xtype: 'checkboxfield',
+																	        name: 'checkbox1',
+																	        fieldLabel: 'Titulado',
+																	        labelAlign:'top',
+																	        padding:'5px 5px 5px 5px',
+																	        labelWidth:40,
+																	        flex:1,
+																	        //boxLabel: 'box label',
+																	        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																	    },
+																	    {
+																	        xtype: 'checkboxfield',
+																	        name: 'checkbox1',
+																	        fieldLabel: 'Magister',
+																	        labelAlign:'top',
+																	        padding:'5px 5px 5px 5px',
+																	        labelWidth:40,
+																	        flex:1,
+																	        //boxLabel: 'box label',
+																	        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																	    }
+												                    ]
+												                },
+												                {
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Profesión',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'44949730',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Centro de Trabajo Actual',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        }
+												                    ]
+												                },
+												                {
+																	layout:'hbox',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Cargo que Ocupa',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:clientes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:'50%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+												                            value:'44949730',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+																	    {
+																	        xtype: 'datefield',
+																	        padding:'5px 5px 5px 5px',
+																	        //name: 'date1',
+																	        labelAlign:'top',
+																	        width:200,
+												                            height:40,
+																	        labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+																	        fieldLabel: 'Fecha de Ingreso',
+																	        value:'22/01/2019'
+																	    }
+												                    ]
+												                }
+															]
+														}
+													]
+												},
+												{
+													region:'center',
+													layout:'border',
+													border:false,
+													items:[
+														{
+															region:'north',
+															xtype:'panel',
+															layout:'hbox',
+															border:false,
+															height:50,
+															bodyStyle: 'background: #F0EFEF;text-align:center;',
+															//layout:'fit',
+															items:[
+																{
+															        xtype: 'label',
+															        //forId: 'myFieldId',
+															        text: 'DOCUMENTOS ADJUNTOS',
+															        style: 'font: normal 18px Sans-serif;font-weight: bold;',
+															        padding:'15px 5px 5px 25px',
+															        width:'100%',
+										                            anchor:'100%'
+															    }
+															]
+														},
+														{
+															region:'center',
+															layout:'fit',
+															items:[
+																{
+														            xtype: 'dataview',
+														            tpl: [
+														                '<tpl for=".">',
+														                    '<div class="dataview-multisort-item">',
+														                        '<img src="resources/images/touch-icons/{thumb}" />',
+														                        '<h3>{name}</h3>',
+														                    '</div>',
+														                '</tpl>'
+														            ],
+														            /*plugins: {
+														                xclass: 'Ext.ux.DataView.Animated'
+														            },*/
+														            itemSelector: 'div.dataview-multisort-item',
+														            store:store_search,
+														            /*store: Ext.create('Ext.data.Store', {
+														                autoLoad: true,
+														                sortOnLoad: true,
+														                fields: ['name', 'thumb', 'url', 'type'],
+														                proxy: {
+														                    type: 'ajax',
+														                    url : 'resources/data/sencha-touch-examples.json',
+														                    reader: {
+														                        type: 'json',
+														                        rootProperty: ''
+														                    }
+														                }
+														            })*/
+														        }
+															]
+														}
+													]
+												}
+											]
+										},
+										/*LABORAL*/
 										{
 											layout:'border',
 											title:'LABORAL',
