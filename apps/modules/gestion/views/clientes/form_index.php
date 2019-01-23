@@ -462,6 +462,512 @@
                                     tabPosition: 'left',
                                     bodyCls: 'transparent',
 									items:[
+										/*ANÁLISIS*/
+										{
+											layout:'border',
+											title:'ANÁLISIS',
+											border:false,
+											items:[
+												{
+													region:'center',
+													layout:'border',
+													items:[
+														{
+															region:'north',
+															xtype:'panel',
+															layout:'hbox',
+															border:false,
+															height:50,
+															bodyStyle: 'background: #F0EFEF;text-align:center;',
+															//layout:'fit',
+															items:[
+																{
+															        xtype: 'label',
+															        //forId: 'myFieldId',
+															        text: 'ANÁLISIS DEL EVALUADOR',
+															        style: 'font: normal 25px Sans-serif;font-weight: bold;',
+															        padding:'15px 5px 5px 25px',
+															        width:'100%',
+										                            anchor:'100%'
+															    }
+															]
+														},
+														{
+															region:'center',
+															layout:'border',
+															items:[
+																{
+																	region:'center',
+																	border:false,
+																	items:[
+																		{
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																				{
+																			        xtype: 'label',
+																			        //forId: 'myFieldId',
+																			        text: 'SERVICIOS CON LA QUE CUENTA LA CASA:',
+																			        style: 'font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: left;font-weight: bold',
+																			        padding:'26px 10px 5px 5px',
+																			        //width:220,
+																			        flex:1,
+														                            anchor:'100%'
+																			    }
+														                    ]
+														                },
+														                {
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																				{
+																			        xtype: 'checkboxfield',
+																			        name: 'checkbox1',
+																			        fieldLabel: 'LUZ',
+																			        labelAlign:'top',
+																			        padding:'5px 10px 5px 5px',
+																			        labelWidth:100,
+																			        flex:1,
+																			        //boxLabel: 'Domicilio Actual',
+																			        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: left;font-weight: bold",
+														                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																			    },
+																			    {
+																			        xtype: 'checkboxfield',
+																			        name: 'checkbox1',
+																			        fieldLabel: 'AGUA',
+																			        labelAlign:'top',
+																			        padding:'5px 5px 5px 5px',
+																			        labelWidth:40,
+																			        flex:1,
+																			        //boxLabel: 'box label',
+																			        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: left;font-weight: bold",
+														                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																			    },
+																			    {
+																			        xtype: 'checkboxfield',
+																			        name: 'checkbox1',
+																			        fieldLabel: 'CABLE',
+																			        labelAlign:'top',
+																			        padding:'5px 5px 5px 5px',
+																			        labelWidth:40,
+																			        flex:1,
+																			        //boxLabel: 'box label',
+																			        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: left;font-weight: bold",
+														                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																			    },
+																			    {
+																			        xtype: 'checkboxfield',
+																			        name: 'checkbox1',
+																			        fieldLabel: 'INTERNET',
+																			        labelAlign:'top',
+																			        padding:'5px 5px 5px 5px',
+																			        labelWidth:40,
+																			        flex:1,
+																			        //boxLabel: 'box label',
+																			        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: left;font-weight: bold",
+														                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																			    }
+														                    ]
+														                },
+														                {
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																				{
+																			        xtype: 'label',
+																			        //forId: 'myFieldId',
+																			        text: 'DESCRIPCIÓN DE LA CASA:',
+																			        style: 'font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: left;font-weight: bold',
+																			        padding:'26px 10px 5px 5px',
+																			        //width:220,
+																			        flex:1,
+														                            anchor:'100%'
+																			    }
+														                    ]
+														                },
+														                {
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																                {
+														                            xtype: 'textarea',
+														                            fieldLabel: '',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:clientes.id+'-txt-dni',
+														                            labelWidth:50,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            //width:'100%',
+														                            flex:1,
+														                            height:200,
+														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:15px; text-align: left; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        }
+														                    ]
+														                },
+														                {
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																				{
+																			        xtype: 'label',
+																			        //forId: 'myFieldId',
+																			        text: 'APROBADO POR:',
+																			        style: 'font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: left;font-weight: bold',
+																			        padding:'26px 10px 5px 5px',
+																			        //width:220,
+																			        flex:1,
+														                            anchor:'100%'
+																			    }
+														                    ]
+														                },
+														                {
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																				{
+																			        xtype: 'checkboxfield',
+																			        name: 'checkbox1',
+																			        fieldLabel: 'V° B° APROBACIÓN',
+																			        labelAlign:'top',
+																			        padding:'5px 10px 5px 5px',
+																			        labelWidth:100,
+																			        flex:1,
+																			        //boxLabel: 'Domicilio Actual',
+																			        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: left;font-weight: bold",
+														                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																			    }
+														                    ]
+														                },
+														                {
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																			    {
+																			        xtype: 'checkboxfield',
+																			        name: 'checkbox1',
+																			        fieldLabel: 'V° B° ASESOR COMERCIAL',
+																			        labelAlign:'top',
+																			        padding:'5px 5px 5px 5px',
+																			        labelWidth:40,
+																			        flex:1,
+																			        //boxLabel: 'box label',
+																			        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: left;font-weight: bold",
+														                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																			    }
+														                    ]
+														                }
+																	]
+																},
+																{
+																	region:'east',
+																	layout:'border',
+																	width:'50%',
+																	items:[
+																		{
+																			region:'north',
+																			//hidden:true,
+																			xtype:'panel',
+																			layout:'hbox',
+																			border:false,
+																			height:50,
+																			bodyStyle: 'background: #F0EFEF;text-align:center;',
+																			//layout:'fit',
+																			items:[
+																				{
+																			        xtype: 'label',
+																			        //forId: 'myFieldId',
+																			        text: 'CROQUIS',
+																			        style: 'font: normal 25px Sans-serif;font-weight: bold;',
+																			        padding:'15px 5px 5px 25px',
+																			        width:'100%',
+														                            anchor:'100%'
+																			    }
+																			]
+																		},
+																		{
+																			region:'center',
+																			items:[
+
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										},
+										/*MOTIVO*/
+										{
+											layout:'border',
+											title:'MOTIVO',
+											border:false,
+											items:[
+												{
+													region:'center',
+													layout:'border',
+													items:[
+														{
+															region:'north',
+															xtype:'panel',
+															layout:'hbox',
+															border:false,
+															height:50,
+															bodyStyle: 'background: #F0EFEF;text-align:center;',
+															//layout:'fit',
+															items:[
+																{
+															        xtype: 'label',
+															        //forId: 'myFieldId',
+															        text: 'MOTIVO DEL PRESTAMO',
+															        style: 'font: normal 25px Sans-serif;font-weight: bold;',
+															        padding:'15px 5px 5px 25px',
+															        width:'100%',
+										                            anchor:'100%'
+															    }
+															]
+														},
+														{
+															region:'center',
+															layout:'border',
+															items:[
+																{
+																	region:'center',
+																	border:false,
+																	items:[
+														                {
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																				{
+																			        xtype: 'checkboxfield',
+																			        name: 'checkbox1',
+																			        fieldLabel: 'Adquisición de Mercadería',
+																			        //labelAlign:'top',
+																			        padding:'5px 10px 5px 5px',
+																			        labelWidth:330,
+																			        flex:1,
+																			        //boxLabel: 'Domicilio Actual',
+																			        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: right;font-weight: bold",
+														                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																			    }
+														                    ]
+														                },
+														                {
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																				{
+																			        xtype: 'checkboxfield',
+																			        name: 'checkbox1',
+																			        fieldLabel: 'Ampliar o Mejorar su Negocio',
+																			        //labelAlign:'top',
+																			        padding:'5px 10px 5px 5px',
+																			        labelWidth:330,
+																			        flex:1,
+																			        //boxLabel: 'Domicilio Actual',
+																			        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: right;font-weight: bold",
+														                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																			    }
+														                    ]
+														                },
+														                {
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																				{
+																			        xtype: 'checkboxfield',
+																			        name: 'checkbox1',
+																			        fieldLabel: 'Compra de accesorios y/o Insumos',
+																			        //labelAlign:'top',
+																			        padding:'5px 10px 5px 5px',
+																			        labelWidth:330,
+																			        flex:1,
+																			        //boxLabel: 'Domicilio Actual',
+																			        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: right;font-weight: bold",
+														                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																			    }
+														                    ]
+														                },
+														                {
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																				{
+																			        xtype: 'checkboxfield',
+																			        name: 'checkbox1',
+																			        fieldLabel: 'Otros',
+																			        //labelAlign:'top',
+																			        padding:'5px 10px 5px 5px',
+																			        labelWidth:330,
+																			        flex:1,
+																			        //boxLabel: 'Domicilio Actual',
+																			        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: right;font-weight: bold",
+														                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																			    }
+														                    ]
+														                },
+														                {
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																				{
+																			        xtype: 'datefield',
+																			        padding:'5px 5px 5px 5px',
+																			        //name: 'date1',
+																			        labelAlign:'top',
+																			        //flex:1,
+																			        width:200,
+														                            height:40,
+																			        labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+																			        fieldLabel: 'Fecha',
+																			        value:'22/01/2019'
+																			    }
+														                    ]
+														                },
+														                {
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																				{
+														                            xtype:'combo',
+														                            fieldLabel: 'Promotor Financiero',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:clientes.id+'-cmb-moneda',
+														                            store: store_moneda,
+														                            queryMode: 'local',
+														                            triggerAction: 'all',
+														                            valueField: 'code',
+														                            displayField: 'name',
+														                            emptyText: '[Seleccione]',
+														                            labelAlign:'right',
+														                            //allowBlank: false,
+														                            labelAlign:'top',
+														                            labelWidth: 50,
+														                            //width:150,
+														                            flex:1,
+														                            anchor:'100%',
+														                            height:40,
+														                            //readOnly: true,
+														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:15px; text-align: left; font-weight: bold',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                    // obj.getStore().load();
+														                                    obj.setValue('SOL');
+														                                },
+														                                select:function(obj, records, eOpts){
+														                        
+														                                }
+														                            }
+														                        }
+														                    ]
+														                },
+														                {
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																				{
+														                            xtype:'combo',
+														                            fieldLabel: 'Agencia',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:clientes.id+'-cmb-moneda',
+														                            store: store_moneda,
+														                            queryMode: 'local',
+														                            triggerAction: 'all',
+														                            valueField: 'code',
+														                            displayField: 'name',
+														                            emptyText: '[Seleccione]',
+														                            labelAlign:'right',
+														                            //allowBlank: false,
+														                            labelAlign:'top',
+														                            labelWidth: 50,
+														                            //width:150,
+														                            flex:1,
+														                            anchor:'100%',
+														                            height:40,
+														                            //readOnly: true,
+														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:15px; text-align: left; font-weight: bold',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                    // obj.getStore().load();
+														                                    obj.setValue('SOL');
+														                                },
+														                                select:function(obj, records, eOpts){
+														                        
+														                                }
+														                            }
+														                        }
+														                    ]
+														                }
+																	]
+																},
+																{
+																	region:'east',
+																	layout:'border',
+																	width:'50%',
+																	items:[
+																		{
+																			region:'north',
+																			hidden:true,
+																			xtype:'panel',
+																			layout:'hbox',
+																			border:false,
+																			height:50,
+																			bodyStyle: 'background: #F0EFEF;text-align:center;',
+																			//layout:'fit',
+																			items:[
+																				{
+																			        xtype: 'label',
+																			        //forId: 'myFieldId',
+																			        text: 'CROQUIS',
+																			        style: 'font: normal 25px Sans-serif;font-weight: bold;',
+																			        padding:'15px 5px 5px 25px',
+																			        width:'100%',
+														                            anchor:'100%'
+																			    }
+																			]
+																		},
+																		{
+																			region:'center',
+																			items:[]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										},
 										/*SOLICITUD*/
 										{
 											layout:'border',
