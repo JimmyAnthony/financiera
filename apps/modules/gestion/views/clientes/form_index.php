@@ -677,33 +677,140 @@
 																{
 																	region:'east',
 																	layout:'border',
-																	width:'50%',
+																	width:'60%',
 																	items:[
 																		{
-																			region:'north',
-																			//hidden:true,
-																			xtype:'panel',
-																			layout:'hbox',
-																			border:false,
-																			height:50,
-																			bodyStyle: 'background: #F0EFEF;text-align:center;',
-																			//layout:'fit',
+																			region:'center',
+																			layout:'border',
+																			width:'50%',
 																			items:[
 																				{
-																			        xtype: 'label',
-																			        //forId: 'myFieldId',
-																			        text: 'CROQUIS',
-																			        style: 'font: normal 25px Sans-serif;font-weight: bold;',
-																			        padding:'15px 5px 5px 25px',
-																			        width:'100%',
-														                            anchor:'100%'
-																			    }
+																					region:'north',
+																					//hidden:true,
+																					xtype:'panel',
+																					layout:'hbox',
+																					border:false,
+																					height:50,
+																					bodyStyle: 'background: #F0EFEF;text-align:center;',
+																					//layout:'fit',
+																					items:[
+																						{
+																					        xtype: 'label',
+																					        //forId: 'myFieldId',
+																					        text: 'CROQUIS',
+																					        style: 'font: normal 20px Sans-serif;font-weight: bold;',
+																					        padding:'15px 5px 5px 25px',
+																					        width:'100%',
+																                            anchor:'100%'
+																					    }
+																					]
+																				},
+																				{
+																					region:'center',
+																					items:[
+
+																					]
+																				}
 																			]
 																		},
 																		{
-																			region:'center',
+																			region:'south',
+																			layout:'border',
+																			height:'40%',
 																			items:[
-
+																				{
+																					region:'center',
+																					layout:'border',
+																					items:[
+																						{
+																							region:'north',
+																							//hidden:true,
+																							xtype:'panel',
+																							layout:'hbox',
+																							border:false,
+																							height:50,
+																							bodyStyle: 'background: #F0EFEF;text-align:center;',
+																							//layout:'fit',
+																							items:[
+																								{
+																							        xtype: 'label',
+																							        //forId: 'myFieldId',
+																							        text: 'FIRMA TITULAR',
+																							        style: 'font: normal 15px Sans-serif;font-weight: bold;',
+																							        padding:'15px 5px 5px 25px',
+																							        width:'100%',
+																		                            anchor:'100%'
+																							    }
+																							]
+																						},
+																						{
+																							region:'center',
+																							layout:'border',
+																							items:[
+																								{
+																									region:'east',
+																									width:'40%',
+																									items:[
+																										
+																									]
+																								},
+																								{
+																									region:'center',
+																									items:[
+																										
+																									]
+																								}
+																							]
+																						}
+																					]
+																				},
+																				{
+																					region:'west',
+																					width:'50%',
+																					layout:'border',
+																					items:[
+																						{
+																							region:'north',
+																							//hidden:true,
+																							xtype:'panel',
+																							layout:'hbox',
+																							border:false,
+																							height:50,
+																							bodyStyle: 'background: #F0EFEF;text-align:center;',
+																							//layout:'fit',
+																							items:[
+																								{
+																							        xtype: 'label',
+																							        //forId: 'myFieldId',
+																							        text: 'FIRMA CONYUGUE',
+																							        style: 'font: normal 15px Sans-serif;font-weight: bold;',
+																							        padding:'15px 5px 5px 25px',
+																							        width:'100%',
+																		                            anchor:'100%'
+																							    }
+																							]
+																						},
+																						{
+																							region:'center',
+																							layout:'border',
+																							items:[
+																								{
+																									region:'east',
+																									width:'40%',
+																									items:[
+																										
+																									]
+																								},
+																								{
+																									region:'center',
+																									items:[
+																										
+																									]
+																								}
+																							]
+																						}
+																					]
+																				}
 																			]
 																		}
 																	]
