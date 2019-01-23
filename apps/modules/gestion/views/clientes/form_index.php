@@ -462,6 +462,177 @@
                                     tabPosition: 'left',
                                     bodyCls: 'transparent',
 									items:[
+										/*SOLICITUD*/
+										{
+											layout:'border',
+											title:'SOLICITUD',
+											border:false,
+											items:[
+												{
+													region:'center',
+													layout:'border',
+													items:[
+														{
+															region:'north',
+															xtype:'panel',
+															layout:'hbox',
+															border:false,
+															height:50,
+															bodyStyle: 'background: #F0EFEF;text-align:center;',
+															//layout:'fit',
+															items:[
+																{
+															        xtype: 'label',
+															        //forId: 'myFieldId',
+															        text: 'SOLICITUD DE FINANCIAMIENTO / INFORMACIÓN DE CRÉDITO',
+															        style: 'font: normal 25px Sans-serif;font-weight: bold;',
+															        padding:'15px 5px 5px 25px',
+															        width:'100%',
+										                            anchor:'100%'
+															    }
+															]
+														},
+														{
+															region:'center',
+															layout:'border',
+															items:[
+																{
+																	region:'center',
+																	border:false,
+																	items:[
+														                {
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																				{
+														                            xtype:'combo',
+														                            fieldLabel: 'Moneda',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:clientes.id+'-cmb-moneda',
+														                            store: store_moneda,
+														                            queryMode: 'local',
+														                            triggerAction: 'all',
+														                            valueField: 'code',
+														                            displayField: 'name',
+														                            emptyText: '[Seleccione]',
+														                            labelAlign:'right',
+														                            //allowBlank: false,
+														                            labelAlign:'top',
+														                            labelWidth: 50,
+														                            width:150,
+														                            anchor:'100%',
+														                            height:40,
+														                            //readOnly: true,
+														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                    // obj.getStore().load();
+														                                    obj.setValue('SOL');
+														                                },
+														                                select:function(obj, records, eOpts){
+														                        
+														                                }
+														                            }
+														                        },
+																                {
+														                            xtype: 'textfield',
+														                            fieldLabel: 'N° Cuotas',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:clientes.id+'-txt-dni',
+														                            labelWidth:50,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            //width:'100%',
+														                            flex:1,
+														                            height:40,
+														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        },
+														                        {
+																			        xtype: 'datefield',
+																			        padding:'5px 5px 5px 5px',
+																			        //name: 'date1',
+																			        labelAlign:'top',
+																			        flex:1,
+														                            height:40,
+																			        labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+																			        fieldLabel: 'Fecha de la 1° Letra',
+																			        value:'22/01/2019'
+																			    },
+														                        {
+														                            xtype: 'textfield',
+														                            fieldLabel: 'Importe Aprobado',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:clientes.id+'-txt-dni',
+														                            labelWidth:50,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            width:100,
+														                            flex:1,
+														                            //height:40,
+														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        }
+														                    ]
+														                }
+																	]
+																},
+																{
+																	region:'east',
+																	layout:'border',
+																	width:'40%',
+																	items:[
+																		{
+																			region:'north',
+																			hidden:true,
+																			xtype:'panel',
+																			layout:'hbox',
+																			border:false,
+																			height:50,
+																			bodyStyle: 'background: #F0EFEF;text-align:center;',
+																			//layout:'fit',
+																			items:[
+																				{
+																			        xtype: 'label',
+																			        //forId: 'myFieldId',
+																			        text: 'CROQUIS',
+																			        style: 'font: normal 25px Sans-serif;font-weight: bold;',
+																			        padding:'15px 5px 5px 25px',
+																			        width:'100%',
+														                            anchor:'100%'
+																			    }
+																			]
+																		},
+																		{
+																			region:'center',
+																			items:[]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										},
 										/*RESEÑA*/
 										{
 											layout:'border',
