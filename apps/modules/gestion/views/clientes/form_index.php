@@ -341,6 +341,8 @@
 					                        {
 					                            xtype:'MenuViewVert',
 					                            id:clientes.id,
+					                            mode:2,
+					                            tab:clientes.id+'-tabContent',
 					                            url:clientes.url+'getDataMenu/',
 					                            params:{sis_id:2}
 					                        }
@@ -465,6 +467,7 @@
 										/*ANÁLISIS*/
 										{
 											layout:'border',
+											id:clientes.id+'-tab-evaluador',
 											title:'ANÁLISIS',
 											border:false,
 											items:[
@@ -824,6 +827,7 @@
 										/*MOTIVO*/
 										{
 											layout:'border',
+											id:clientes.id+'-tab-motivo',
 											title:'MOTIVO',
 											border:false,
 											items:[
@@ -1078,6 +1082,7 @@
 										/*SOLICITUD*/
 										{
 											layout:'border',
+											id:clientes.id+'-tab-credito',
 											title:'SOLICITUD',
 											border:false,
 											items:[
@@ -1249,6 +1254,7 @@
 										/*RESEÑA*/
 										{
 											layout:'border',
+											id:clientes.id+'-tab-resena',
 											title:'RESEÑA',
 											border:false,
 											items:[
@@ -1355,6 +1361,7 @@
 										/*REFERENCIA*/
 										{
 											layout:'border',
+											id:clientes.id+'-tab-referencia',
 											title:'REFERENCIA',
 											border:false,
 											items:[
@@ -1573,6 +1580,7 @@
 										/*GARANTE*/
 										{
 											layout:'border',
+											id:clientes.id+'-tab-garante',
 											title:'GARANTE',
 											border:false,
 											items:[
@@ -2400,6 +2408,7 @@
 										/*CONYUGUE*/
 										{
 											layout:'border',
+											id:clientes.id+'-tab-conyuge',
 											title:'CONYUGUE',
 											border:false,
 											items:[
@@ -3001,6 +3010,7 @@
 										/*LABORAL*/
 										{
 											layout:'border',
+											id:clientes.id+'-tab-laboral',
 											title:'LABORAL',
 											border:false,
 											items:[
@@ -3446,6 +3456,7 @@
 										/*PRINCIPAL*/
 										{
 											layout:'border',
+											id:clientes.id+'-tab-solicitante',
 											title:'INFORMACIÓN',
 											border:false,
 											items:[
@@ -4351,7 +4362,12 @@
 												}
 											]
 										}
-									]
+									],
+									listeners:{
+                                        afterrender: function(obj){
+                                            obj.getTabBar().hide();
+                                        }
+                                    }
 								}
 							]
 						}
