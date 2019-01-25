@@ -58,7 +58,7 @@ content-panel-grid-background #e8e8e8
     box-shadow 3px 43px 7px rgba(0, 0, 0, 0.5)
     
 .menu_vert_list_menu 
-    background #fff
+    background transparent !important
     font-size 13px
     color #333
     border 1px solid #e3e3e3
@@ -84,18 +84,19 @@ content-panel-grid-background #e8e8e8
 
     
 .menu_vert_list_menu:hover 
-    background none repeat scroll 0 0 #eceff5
+    //background none repeat scroll 0 0 #eceff5 !important
     cursor pointer  
     
 .menu_vert_list_menu_select.x-item-selected
-    //background  #e3e3e3 
-    //border-bottom 2px solid #CD7054
-    //border-left 5px solid #F08080
+    //background  #1a1a1a !important
+    background-color: #e8e8e8 !important
+    //border-bottom 2px solid #1a1a1a !important
+    border-left 5px solid #1a1a1a !important
         
 .menu_vert_list_menu_select.x-view-item-focused
-    outline: 0px dashed #ccc !important
+    outline: 0px dashed #fff !important
     outline-offset -0px
-    //background  #e3e3e3  !important
+    background-color: #e8e8e8 !important
     border-bottom 0px solid red_fondo
     border-left 0px solid red_fondo
 

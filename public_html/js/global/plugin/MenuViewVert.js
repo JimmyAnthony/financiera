@@ -106,8 +106,15 @@ Ext.define('Ext.global.plugin.MenuViewVert',{
                                 var record = this.getStore().getAt(idx);
                                 var val =record.data;
                                 var menu_class = val.menu_class == null || val.menu_class == '' ? '' : val.menu_class;
-                                if(val.nivel!=0)
-                                win.show({vurl: val.url, id_menu: idx, class: menu_class});//obj.getItemId().split('-')[1]  
+                                if(val.nivel!=0){
+                                    if(me.config_.mode==1){
+                                        win.show({vurl: val.url, id_menu: idx, class: menu_class});//obj.getItemId().split('-')[1]  
+                                    }else{
+                                        var tab=Ext.getCmp(me.config_.tab);
+                                        var active=Ext.getCmp(me.config_.id+val.url);
+                                        tab.setActiveTab(active);
+                                    }
+                                }
                                 
                             }
                         }
