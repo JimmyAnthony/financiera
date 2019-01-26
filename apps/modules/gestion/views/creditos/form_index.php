@@ -318,35 +318,157 @@
 					items:[
 						{
 							region:'west',
-							layout:'fit',
+							layout:'border',
 							width:200,
 							border:false,
 							items:[
 								{
-					                id:creditos.id+'-contentMenuClient',
-					                layout:'fit',
-					                floatable: false,
-					                collapsible: false,
-					                //split: true,
-					                border:false,
-					                //bodyPadding: 10,
-					                //margin: '5 0 0 0',
-					                //width: 0,
-					                //hidden:true,
-					                //cls: 'cmp_menu',
-					                //bodyCls: 'cmp_menu',
-					                html:'<div id="menu_spinner" class="spinner"><div class="cube1"></div><div class="cube2"></div></div>',
-					                items:[
-					                        {
-					                            xtype:'MenuViewVert',
-					                            id:creditos.id,
-					                            mode:2,
-					                            tab:creditos.id+'-tabContent',
-					                            url:inicio.url+'getDataMenuView/',
-					                            params:{sis_id:2}
-					                        }
-					                    ]
-				                }
+									region:'north',
+									height:220,
+									layout:'fit',
+									border:false,
+									padding:'5px 5px 5px 5px',
+									html: '<img src="/images/menu/usuario.png" style="width:100%; padding:20px;" >'
+								},
+								{
+									region:'center',
+									layout:'border',
+									border:false,
+									items:[
+										{
+											region:'north',
+											height:68,
+											border:false,
+											layout:'hbox',
+											padding:'5px 5px 5px 5px',
+											items:[
+												{
+								                    xtype: 'button',
+								                    margin:'2px 2px 2px 2px',
+								                    icon: '/images/icon/save.png',
+								                    //glyph: 72,
+								                    flex:1,
+								                    text: 'Guardar',
+								                    scale: 'medium',
+								                    iconAlign: 'top',
+								                    listeners:{
+							                            beforerender: function(obj, opts){
+							                                /*global.permisos({
+							                                    id: 15,
+							                                    id_btn: obj.getId(), 
+							                                    id_menu: gestion_devolucion.id_menu,
+							                                    fn: ['panel_asignar_gestion.limpiar']
+							                                });*/
+							                            },
+							                            click: function(obj, e){	  
+							                            	creditos.setSaveSolicitud('I');
+							                            }
+							                        }
+								                },
+								                {
+								                    xtype: 'button',
+								                    margin:'2px 2px 2px 2px',
+								                    icon: '/images/icon/Note-Add.png',
+								                    //glyph: 72,
+								                    flex:1,
+								                    text: 'Nuevo',
+								                    scale: 'medium',
+								                    iconAlign: 'top'
+								                }/*,
+								                {
+								                    xtype: 'button',
+								                    margin:'2px 2px 2px 2px',
+								                    icon: '/images/icon/Note-Remove.png',
+								                    //glyph: 72,
+								                    flex:1,
+								                    text: 'Desactivar',
+								                    scale: 'medium',
+								                    iconAlign: 'top'
+								                }*/
+											]
+										},
+										{
+											region:'center',
+											border:false,
+											layout:'vbox',
+											//border:false,
+											items:[
+												/*{
+											        xtype: 'label',
+											        //forId: 'myFieldId',
+											        padding:'5px 5px 5px 2px',
+											        text: 'My Awesome Field',
+											        margin: '0 0 0 10'
+											    },
+                                                {
+											        xtype: 'label',
+											        //forId: 'myFieldId',
+											        padding:'0px 5px 5px 2px',
+											        text: 'My Awesome Field',
+											        margin: '0 0 0 10'
+											    },*/
+												{
+						                            xtype: 'textfield',	
+						                            fieldLabel: 'DNI',
+						                            bodyStyle: 'background: transparent',
+								                    padding:'15px 5px 5px 5px',
+						                            id:creditos.id+'-txt-dni',
+						                            labelWidth:40,
+						                            //readOnly:true,
+						                            labelAlign:'left',
+						                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;",
+						                            fieldStyle: 'font-size:25px; text-align: center;font-weight: bold ',
+						                            emptyText: 'ENTER',
+						                            allowOnlyWhitespace: false,
+						                            allowDecimals: false,
+						                            allowExponential: false,
+						                            allowBlank: true,
+						                            maxLength: 8,
+						                            width:180,
+						                            height:50,
+						                            maxLength : 8,
+													enforceMaxLength : true,
+													maskRe:/[0-9]/,
+						                            //anchor:'100%',
+						                            listeners:{
+						                                afterrender:function(obj, e){
+						                                }
+						                            }
+						                        },
+						                        {
+											        xtype: 'label',
+											        //forId: 'myFieldId',
+											        padding:'15px 5px 5px 2px',
+											        text: 'Nombres:',
+											        margin: '0 0 0 10'
+											    },
+						                        {
+											        xtype: 'label',
+											        //forId: 'myFieldId',
+											        padding:'5px 5px 5px 2px',
+											        text: 'Jimmy Anthony',
+											        style: 'font: normal 17px Sans-serif;font-weight: bold',
+											        margin: '0 0 0 10'
+											    },
+											    {
+											        xtype: 'label',
+											        //forId: 'myFieldId',
+											        padding:'10px 5px 5px 2px',
+											        text: 'Apellidos:',
+											        margin: '0 0 0 10'
+											    },
+						                        {
+											        xtype: 'label',
+											        //forId: 'myFieldId',
+											        padding:'5px 5px 5px 2px',
+											        text: 'Bazán Solis',
+											        style: 'font: normal 17px Sans-serif;font-weight: bold;',
+											        margin: '0 0 0 10'
+											    }
+											]
+										}
+									]
+								}
 							]
 						},
 						{
@@ -356,158 +478,36 @@
 							items:[
 								{
 									region:'west',
-									layout:'border',
+									layout:'fit',
 									//hidden:true,
 									width:200,
 									border:false,
 									items:[
 										{
-											region:'north',
-											height:220,
-											layout:'fit',
-											border:false,
-											padding:'5px 5px 5px 5px',
-											html: '<img src="/images/menu/usuario.png" style="width:100%; padding:20px;" >'
-										},
-										{
-											region:'center',
-											layout:'border',
-											border:false,
-											items:[
-												{
-													region:'north',
-													height:68,
-													border:false,
-													layout:'hbox',
-													padding:'5px 5px 5px 5px',
-													items:[
-														{
-										                    xtype: 'button',
-										                    margin:'2px 2px 2px 2px',
-										                    icon: '/images/icon/save.png',
-										                    //glyph: 72,
-										                    flex:1,
-										                    text: 'Guardar',
-										                    scale: 'medium',
-										                    iconAlign: 'top',
-										                    listeners:{
-									                            beforerender: function(obj, opts){
-									                                /*global.permisos({
-									                                    id: 15,
-									                                    id_btn: obj.getId(), 
-									                                    id_menu: gestion_devolucion.id_menu,
-									                                    fn: ['panel_asignar_gestion.limpiar']
-									                                });*/
-									                            },
-									                            click: function(obj, e){	  
-									                            	creditos.setSaveSolicitud('I');
-									                            }
-									                        }
-										                },
-										                {
-										                    xtype: 'button',
-										                    margin:'2px 2px 2px 2px',
-										                    icon: '/images/icon/Note-Add.png',
-										                    //glyph: 72,
-										                    flex:1,
-										                    text: 'Nuevo',
-										                    scale: 'medium',
-										                    iconAlign: 'top'
-										                }/*,
-										                {
-										                    xtype: 'button',
-										                    margin:'2px 2px 2px 2px',
-										                    icon: '/images/icon/Note-Remove.png',
-										                    //glyph: 72,
-										                    flex:1,
-										                    text: 'Desactivar',
-										                    scale: 'medium',
-										                    iconAlign: 'top'
-										                }*/
-													]
-												},
-												{
-													region:'center',
-													border:false,
-													layout:'vbox',
-													//border:false,
-													items:[
-														/*{
-													        xtype: 'label',
-													        //forId: 'myFieldId',
-													        padding:'5px 5px 5px 2px',
-													        text: 'My Awesome Field',
-													        margin: '0 0 0 10'
-													    },
-		                                                {
-													        xtype: 'label',
-													        //forId: 'myFieldId',
-													        padding:'0px 5px 5px 2px',
-													        text: 'My Awesome Field',
-													        margin: '0 0 0 10'
-													    },*/
-														{
-								                            xtype: 'textfield',	
-								                            fieldLabel: 'DNI',
-								                            bodyStyle: 'background: transparent',
-										                    padding:'15px 5px 5px 5px',
-								                            id:creditos.id+'-txt-dni',
-								                            labelWidth:40,
-								                            //readOnly:true,
-								                            labelAlign:'left',
-								                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;",
-								                            fieldStyle: 'font-size:25px; text-align: center;font-weight: bold ',
-								                            emptyText: 'ENTER',
-								                            allowOnlyWhitespace: false,
-								                            allowDecimals: false,
-								                            allowExponential: false,
-								                            allowBlank: true,
-								                            maxLength: 8,
-								                            width:180,
-								                            height:50,
-								                            maxLength : 8,
-															enforceMaxLength : true,
-															maskRe:/[0-9]/,
-								                            //anchor:'100%',
-								                            listeners:{
-								                                afterrender:function(obj, e){
-								                                }
-								                            }
-								                        },
-								                        {
-													        xtype: 'label',
-													        //forId: 'myFieldId',
-													        padding:'15px 5px 5px 2px',
-													        text: 'Nombres:',
-													        margin: '0 0 0 10'
-													    },
-								                        {
-													        xtype: 'label',
-													        //forId: 'myFieldId',
-													        padding:'5px 5px 5px 2px',
-													        text: 'Jimmy Anthony',
-													        style: 'font: normal 17px Sans-serif;font-weight: bold',
-													        margin: '0 0 0 10'
-													    },
-													    {
-													        xtype: 'label',
-													        //forId: 'myFieldId',
-													        padding:'10px 5px 5px 2px',
-													        text: 'Apellidos:',
-													        margin: '0 0 0 10'
-													    },
-								                        {
-													        xtype: 'label',
-													        //forId: 'myFieldId',
-													        padding:'5px 5px 5px 2px',
-													        text: 'Bazán Solis',
-													        style: 'font: normal 17px Sans-serif;font-weight: bold;',
-													        margin: '0 0 0 10'
-													    }
-													]
-												}
-											]
-										}
+							                id:creditos.id+'-contentMenuClient',
+							                layout:'fit',
+							                floatable: false,
+							                collapsible: false,
+							                //split: true,
+							                border:false,
+							                //bodyPadding: 10,
+							                //margin: '5 0 0 0',
+							                //width: 0,
+							                //hidden:true,
+							                //cls: 'cmp_menu',
+							                //bodyCls: 'cmp_menu',
+							                html:'<div id="menu_spinner" class="spinner"><div class="cube1"></div><div class="cube2"></div></div>',
+							                items:[
+							                        {
+							                            xtype:'MenuViewVert',
+							                            id:creditos.id,
+							                            mode:2,
+							                            tab:creditos.id+'-tabContent',
+							                            url:inicio.url+'getDataMenuView/',
+							                            params:{sis_id:2}
+							                        }
+							                    ]
+						                }
 									]
 								},
 								{
