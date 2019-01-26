@@ -353,98 +353,160 @@
 						{
 							region:'center',
 							layout:'border',
+							border:false,
 							items:[
 								{
 									region:'west',
 									layout:'border',
 									//hidden:true,
 									width:200,
-									//border:false,
+									border:false,
 									items:[
 										{
 											region:'north',
 											height:220,
 											layout:'fit',
+											border:false,
 											padding:'5px 5px 5px 5px',
 											html: '<img src="/images/menu/usuario.png" style="width:100%; padding:20px;" >'
 										},
 										{
 											region:'center',
-											layout:'vbox',
-											//border:false,
+											layout:'border',
+											border:false,
 											items:[
-												/*{
-											        xtype: 'label',
-											        //forId: 'myFieldId',
-											        padding:'5px 5px 5px 2px',
-											        text: 'My Awesome Field',
-											        margin: '0 0 0 10'
-											    },
-                                                {
-											        xtype: 'label',
-											        //forId: 'myFieldId',
-											        padding:'0px 5px 5px 2px',
-											        text: 'My Awesome Field',
-											        margin: '0 0 0 10'
-											    },*/
 												{
-						                            xtype: 'textfield',	
-						                            fieldLabel: 'DNI',
-						                            bodyStyle: 'background: transparent',
-								                    padding:'15px 5px 5px 5px',
-						                            id:clientes.id+'-txt-dni',
-						                            labelWidth:40,
-						                            //readOnly:true,
-						                            labelAlign:'left',
-						                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;",
-						                            fieldStyle: 'font-size:25px; text-align: center;font-weight: bold ',
-						                            emptyText: 'ENTER',
-						                            allowOnlyWhitespace: false,
-						                            allowDecimals: false,
-						                            allowExponential: false,
-						                            allowBlank: true,
-						                            maxLength: 8,
-						                            width:180,
-						                            height:50,
-						                            maxLength : 8,
-													enforceMaxLength : true,
-													maskRe:/[0-9]/,
-						                            //anchor:'100%',
-						                            listeners:{
-						                                afterrender:function(obj, e){
-						                                }
-						                            }
-						                        },
-						                        {
-											        xtype: 'label',
-											        //forId: 'myFieldId',
-											        padding:'15px 5px 5px 2px',
-											        text: 'Nombres:',
-											        margin: '0 0 0 10'
-											    },
-						                        {
-											        xtype: 'label',
-											        //forId: 'myFieldId',
-											        padding:'5px 5px 5px 2px',
-											        text: 'Jimmy Anthony',
-											        style: 'font: normal 17px Sans-serif;font-weight: bold',
-											        margin: '0 0 0 10'
-											    },
-											    {
-											        xtype: 'label',
-											        //forId: 'myFieldId',
-											        padding:'10px 5px 5px 2px',
-											        text: 'Apellidos:',
-											        margin: '0 0 0 10'
-											    },
-						                        {
-											        xtype: 'label',
-											        //forId: 'myFieldId',
-											        padding:'5px 5px 5px 2px',
-											        text: 'Bazán Solis',
-											        style: 'font: normal 17px Sans-serif;font-weight: bold;',
-											        margin: '0 0 0 10'
-											    }
+													region:'north',
+													height:68,
+													border:false,
+													layout:'hbox',
+													padding:'5px 5px 5px 5px',
+													items:[
+														{
+										                    xtype: 'button',
+										                    margin:'2px 2px 2px 2px',
+										                    icon: '/images/icon/save.png',
+										                    //glyph: 72,
+										                    flex:1,
+										                    text: 'Guardar',
+										                    scale: 'medium',
+										                    iconAlign: 'top',
+										                    listeners:{
+									                            beforerender: function(obj, opts){
+									                                /*global.permisos({
+									                                    id: 15,
+									                                    id_btn: obj.getId(), 
+									                                    id_menu: gestion_devolucion.id_menu,
+									                                    fn: ['panel_asignar_gestion.limpiar']
+									                                });*/
+									                            },
+									                            click: function(obj, e){	  
+									                            	clientes.setSaveSolicitud('I');
+									                            }
+									                        }
+										                },
+										                {
+										                    xtype: 'button',
+										                    margin:'2px 2px 2px 2px',
+										                    icon: '/images/icon/Note-Add.png',
+										                    //glyph: 72,
+										                    flex:1,
+										                    text: 'Nuevo',
+										                    scale: 'medium',
+										                    iconAlign: 'top'
+										                }/*,
+										                {
+										                    xtype: 'button',
+										                    margin:'2px 2px 2px 2px',
+										                    icon: '/images/icon/Note-Remove.png',
+										                    //glyph: 72,
+										                    flex:1,
+										                    text: 'Desactivar',
+										                    scale: 'medium',
+										                    iconAlign: 'top'
+										                }*/
+													]
+												},
+												{
+													region:'center',
+													border:false,
+													layout:'vbox',
+													//border:false,
+													items:[
+														/*{
+													        xtype: 'label',
+													        //forId: 'myFieldId',
+													        padding:'5px 5px 5px 2px',
+													        text: 'My Awesome Field',
+													        margin: '0 0 0 10'
+													    },
+		                                                {
+													        xtype: 'label',
+													        //forId: 'myFieldId',
+													        padding:'0px 5px 5px 2px',
+													        text: 'My Awesome Field',
+													        margin: '0 0 0 10'
+													    },*/
+														{
+								                            xtype: 'textfield',	
+								                            fieldLabel: 'DNI',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'15px 5px 5px 5px',
+								                            id:clientes.id+'-txt-dni',
+								                            labelWidth:40,
+								                            //readOnly:true,
+								                            labelAlign:'left',
+								                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;",
+								                            fieldStyle: 'font-size:25px; text-align: center;font-weight: bold ',
+								                            emptyText: 'ENTER',
+								                            allowOnlyWhitespace: false,
+								                            allowDecimals: false,
+								                            allowExponential: false,
+								                            allowBlank: true,
+								                            maxLength: 8,
+								                            width:180,
+								                            height:50,
+								                            maxLength : 8,
+															enforceMaxLength : true,
+															maskRe:/[0-9]/,
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
+								                        {
+													        xtype: 'label',
+													        //forId: 'myFieldId',
+													        padding:'15px 5px 5px 2px',
+													        text: 'Nombres:',
+													        margin: '0 0 0 10'
+													    },
+								                        {
+													        xtype: 'label',
+													        //forId: 'myFieldId',
+													        padding:'5px 5px 5px 2px',
+													        text: 'Jimmy Anthony',
+													        style: 'font: normal 17px Sans-serif;font-weight: bold',
+													        margin: '0 0 0 10'
+													    },
+													    {
+													        xtype: 'label',
+													        //forId: 'myFieldId',
+													        padding:'10px 5px 5px 2px',
+													        text: 'Apellidos:',
+													        margin: '0 0 0 10'
+													    },
+								                        {
+													        xtype: 'label',
+													        //forId: 'myFieldId',
+													        padding:'5px 5px 5px 2px',
+													        text: 'Bazán Solis',
+													        style: 'font: normal 17px Sans-serif;font-weight: bold;',
+													        margin: '0 0 0 10'
+													    }
+													]
+												}
 											]
 										}
 									]
@@ -4729,7 +4791,7 @@
 	                }
 	            }).show().center();
 			},
-			setSaveSolicitud:function(){
+			setSaveSolicitud:function(op){
 				var sol_moneda = Ext.getCmp(clientes.id+'-sol-cmb-moneda').getValue();
 				var sol_monto = Ext.getCmp(clientes.id+'-sol-txt-monto').getValue();
 				var sol_tipo_cliente = Ext.getCmp(clientes.id+'-sol-txt-tipo-cliente').getValue();
@@ -4863,6 +4925,185 @@
 				var ana_descripcion = Ext.getCmp(clientes.id+'-ana-txt-descripcion').getValue();
 				var ana_apro_aprobado = Ext.getCmp(clientes.id+'-ana-chk-apro-aprobado').getValue();
 				var ana_apro_asesor = Ext.getCmp(clientes.id+'-ana-chk-apro-asesor-comercial').getValue();
+
+
+				global.Msg({
+                    msg: '¿Seguro de guardar?',
+                    icon: 3,
+                    buttons: 3,
+                    fn: function(btn){
+                    	if (btn == 'yes'){
+                    		Ext.getCmp(clientes.id+'-tabContent').el.mask('Salvando Información…', 'x-mask-loading');
+	                        //scanning.getLoader(true);
+			                Ext.Ajax.request({
+			                    url:clientes.url+'set_save/',
+			                    params:{
+			                    	vp_op:op,
+			                    	vp_sol_moneda:sol_moneda,
+									vp_sol_monto:sol_monto,
+									vp_sol_tipo_cliente:sol_tipo_cliente,
+									vp_sol_excep_si:sol_excep_si,
+									vp_sol_excep_no:sol_excep_no,
+									vp_sol_fecha:sol_fecha,
+									vp_sol_ape_pat:sol_ape_pat,
+									vp_sol_ape_mat:sol_ape_mat,
+									vp_sol_nombres:sol_nombres,
+									vp_sol_doc_dni:sol_doc_dni,
+									vp_sol_doc_ce:sol_doc_ce,
+									vp_sol_doc_cip:sol_doc_cip,
+									vp_sol_doc_ruc:sol_doc_ruc,
+									vp_sol_doc_cm:sol_doc_cm,
+									vp_sol_estado_civil:sol_estado_civil,
+									vp_sol_fecha_nac:sol_fecha_nac,
+									vp_sol_tel_cel:sol_tel_cel,
+									vp_sol_domi_propio:sol_domi_propio,
+									vp_sol_domi_pagando:sol_domi_pagando,
+									vp_sol_domi_alquilado:sol_domi_alquilado,
+									vp_sol_domi_familiar:sol_domi_familiar,
+									vp_sol_dir_direccion:sol_dir_direccion,
+									vp_sol_dir_numero:sol_dir_numero,
+									vp_sol_dir_mz:sol_dir_mz,
+									vp_sol_dir_lt:sol_dir_lt,
+									vp_sol_dir_dpto:sol_dir_dpto,
+									vp_sol_dir_interior:sol_dir_interior,
+									vp_sol_dir_urb:sol_dir_urb,
+									vp_sol_dir_referencia:sol_dir_referencia,
+									vp_sol_departamento:sol_departamento,
+									vp_sol_provincia:sol_provincia,
+									vp_sol_distrito:sol_distrito,
+
+
+									vp_lab_dir_direccion:lab_dir_direccion,
+									vp_lab_dir_numero:lab_dir_numero,
+									vp_lab_dir_mz:lab_dir_mz,
+									vp_lab_dir_lt:lab_dir_lt,
+									vp_lab_dir_dpto:lab_dir_dpto,
+									vp_lab_dir_interior:lab_dir_interior,
+									vp_lab_dir_urb:lab_dir_urb,
+									vp_lab_dir_referencia:lab_dir_referencia,
+									vp_lab_departamento:lab_departamento,
+									vp_lab_provincia:lab_provincia,
+									vp_lab_distrito:lab_distrito,
+									vp_lab_negocio:lab_negocio,
+									vp_lab_ant_negocio:lab_ant_negocio,
+									vp_lab_obs:lab_obs,
+
+									vp_conyu_ape_pater:conyu_ape_pater,
+									vp_conyu_ape_mater:conyu_ape_mater,
+									vp_conyu_nombres:conyu_nombres,
+									vp_conyu_dni:conyu_dni,
+									vp_conyu_ce:conyu_ce,
+									vp_conyu_cip:conyu_cip,
+									vp_conyu_ruc:conyu_ruc,
+									vp_conyu_cm:conyu_cm,
+									vp_conyu_estado_civil:conyu_estado_civil,
+									vp_conyu_fecha_nacimiento:conyu_fecha_nacimiento,
+									vp_conyu_telefonos:conyu_telefonos,
+									vp_conyu_contratado:conyu_contratado,
+									vp_conyu_dependiente:conyu_dependiente,
+									vp_conyu_independiente:conyu_independiente,
+									vp_conyu_otros:conyu_otros,
+									vp_conyu_bachiller:conyu_bachiller,
+									vp_conyu_tecnologia:conyu_tecnologia,
+									vp_conyu_titulado:conyu_titulado,
+									vp_conyu_magister:conyu_magister,
+									vp_conyu_profesion:conyu_profesion,
+									vp_conyu_centro_trab:conyu_centro_trab,
+									vp_conyu_cargo:conyu_cargo,
+									vp_conyu_fecha_ingreso:conyu_fecha_ingreso,
+
+									vp_garan_ape_pate:garan_ape_pate,
+									vp_garan_ape_mate:garan_ape_mate,
+									vp_garan_ape_nombres:garan_ape_nombres,
+									vp_garan_doc_dni:garan_doc_dni,
+									vp_garan_doc_ce:garan_doc_ce,
+									vp_garan_doc_cip:garan_doc_cip,
+									vp_garan_doc_ruc:garan_doc_ruc,
+									vp_garan_doc_cm:garan_doc_cm,
+									vp_garan_estado_civil:garan_estado_civil,
+									vp_garan_fecha_nac:garan_fecha_nac,
+									vp_garan_telefonos:garan_telefonos,
+									vp_garan_domi_propio:garan_domi_propio,
+									vp_garan_domi_pagando:garan_domi_pagando,
+									vp_garan_domi_alquilado:garan_domi_alquilado,
+									vp_garan_domi_familiar:garan_domi_familiar,
+									vp_garan_profesion:garan_profesion,
+									vp_garan_centro_lab:garan_centro_lab,
+									vp_garan_cargo:garan_cargo,
+									vp_garan_fecha_ingreso:garan_fecha_ingreso,
+									vp_garan_dir_direccion:garan_dir_direccion,
+									vp_garan_dir_numero:garan_dir_numero,
+									vp_garan_dir_mz:garan_dir_mz,
+									vp_garan_dir_lt:garan_dir_lt,
+									vp_garan_dir_dpto:garan_dir_dpto,
+									vp_garan_dir_interior:garan_dir_interior,
+									vp_garan_dir_ubr:garan_dir_ubr,
+									vp_garan_dir_ref:garan_dir_ref,
+									vp_garan_departamento:garan_departamento,
+									vp_garan_provincia:garan_provincia,
+									vp_garan_distrito:garan_distrito,
+
+									vp_garan_personal:garan_personal,
+									vp_garan_personal_telf_1:garan_personal_telf_1,
+									vp_garan_personal_telf_2:garan_personal_telf_2,
+									vp_garan_comercial:garan_comercial,
+									vp_garan_comercial_telf_1:garan_comercial_telf_1,
+									vp_garan_comercial_telf_2:garan_comercial_telf_2,
+
+									vp_rese_resena:rese_resena,
+
+									vp_sol_moneda:sol_moneda,
+									vp_sol_nro_cuota:sol_nro_cuota,
+									vp_sol_fecha_1_letra:sol_fecha_1_letra,
+									vp_sol_importe_aprobado:sol_importe_aprobado,
+
+									vp_mot_adqui_merca:mot_adqui_merca,
+									vp_mot_ampliar_neg:mot_ampliar_neg,
+									vp_mot_compra_acc_insu:mot_compra_acc_insu,
+									vp_mot_otros:mot_otros,
+									vp_mot_fecha:mot_fecha,
+									vp_mot_cod_asesor:mot_cod_asesor,
+									vp_mot_cod_agencia:mot_cod_agencia,
+
+									vp_ana_serv_luz:ana_serv_luz,
+									vp_ana_serv_agua:ana_serv_agua,
+									vp_ana_serv_cable:ana_serv_cable,
+									vp_ana_serv_internet:ana_serv_internet,
+									vp_ana_descripcion:ana_descripcion,
+									vp_ana_apro_aprobado:ana_apro_aprobado,
+									vp_ana_apro_asesor:ana_apro_asesor
+			                    },
+			                    timeout: 30000000,
+			                    success: function(response, options){
+			                        Ext.getCmp(clientes.id+'-tabContent').el.unmask();
+			                        var res = Ext.JSON.decode(response.responseText);
+			                        control.getLoader(false);
+			                        if (res.error == 'OK'){
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 1,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	//clientes.getHistory();
+			                                	Ext.getCmp(clientes.id+'-win-form').close();
+			                                }
+			                            });
+			                        } else{
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 0,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	 
+			                                }
+			                            });
+			                        }
+			                    }
+			                });
+						}
+					}
+				});
+
 			},
 			setSaveclientes:function(op){
 
