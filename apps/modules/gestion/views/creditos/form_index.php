@@ -4935,7 +4935,7 @@
                     		Ext.getCmp(creditos.id+'-tabContent').el.mask('Salvando Información…', 'x-mask-loading');
 	                        //scanning.getLoader(true);
 			                Ext.Ajax.request({
-			                    url:creditos.url+'set_save/',
+			                    url:creditos.url+'setSaveInfoCredito/',
 			                    params:{
 			                    	vp_op:op,
 			                    	vp_sol_moneda:sol_moneda,

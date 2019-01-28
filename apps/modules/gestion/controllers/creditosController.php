@@ -26,7 +26,20 @@ class creditosController extends AppController {
         $this->view('creditos/form_keep.php', $p);
     }
 
-   public function get_credit_list($p){
+    public function setSaveInfoCredito($p){
+        $rs = $this->objDatos->SP_CREDITO_SAVE($p);
+        $rs = $rs[0];
+        $data = array(
+            'success' => true,
+            'error' => $rs['RESPONSE'],
+            'msn' => utf8_encode(trim($rs['MESSAGE_TEXT'])),
+            'cod_credito' => trim($rs['COD_CREDITO']),
+            'id_dev' => $rs['id_dev']
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+    public function get_credit_list($p){
         $rs = $this->objDatos->get_credit_list($p);
         //var_export($rs);
         $array = array();

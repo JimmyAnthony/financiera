@@ -15,6 +15,29 @@ class creditosModels extends Adodb {
         $this->dsn = Common::read_ini(PATH.'config/config.ini', 'server_main');
     }
 
+    public function SP_CREDITO_SAVE($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_CREDITOS_SAVE');
+        parent::SetParameterSP($p['vp_op'], 'varchar');
+        parent::SetParameterSP($p['vp_cod_credito'], 'int');
+        parent::SetParameterSP($p['vp_cod_cli'], 'int');
+        parent::SetParameterSP($p['vp_cod_tipo'], 'int');
+        parent::SetParameterSP($p['vp_cod_metodo'], 'int');
+        parent::SetParameterSP($p['vp_cod_entrega'], 'int');
+        parent::SetParameterSP($p['vp_fecha'], 'varchar');
+        parent::SetParameterSP($p['vp_tasa_interes'], 'varchar');
+        parent::SetParameterSP($p['vp_prestamo'], 'varchar');
+        parent::SetParameterSP($p['vp_cuotas'], 'int');
+        parent::SetParameterSP($p['vp_valor_cuota'], 'varchar');
+        parent::SetParameterSP($p['vp_fecha_calculo'], 'varchar');
+        parent::SetParameterSP($p['vp_total_credito'], 'varchar');
+        parent::SetParameterSP($p['vp_limite_cred'], 'varchar');
+        parent::SetParameterSP($this->strip_carriage_returns(utf8_decode($p['vp_nota'])), 'varchar');
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+
     public function get_credit_list($p){
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_CREDITOS_LIST');
