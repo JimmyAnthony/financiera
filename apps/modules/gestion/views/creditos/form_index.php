@@ -562,6 +562,27 @@
 															layout:'hbox',
 															items:[
 																{
+										                            xtype: 'textfield',	
+										                            fieldLabel: 'N° Solicitud',
+										                            id:creditos.id+'-sol-txt-nro-solicitud',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'15px 5px 5px 25px',
+										                            //id:creditos.id+'-txt-dni',
+										                            labelWidth:50,
+										                            readOnly:true,
+										                            labelAlign:'top',
+										                            width:120,
+										                            height:60,
+										                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+										                            value:'0',
+										                            //anchor:'100%',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                }
+										                            }
+										                        },
+																{
 										                            xtype:'combo',
 										                            fieldLabel: 'Moneda',
 										                            bodyStyle: 'background: transparent',
@@ -606,7 +627,8 @@
 										                            height:60,
 										                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
 										                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-										                            value:'1,444.40',
+										                            value:'1444.40',
+										                            maskRe: new RegExp("[0-9.]+"),
 										                            //anchor:'100%',
 										                            listeners:{
 										                                afterrender:function(obj, e){
@@ -614,23 +636,33 @@
 										                            }
 										                        },
 										                        {
-										                            xtype: 'textfield',	
+										                            xtype:'combo',
 										                            fieldLabel: 'Tipo de Cliente',
-										                            id:creditos.id+'-sol-txt-tipo-cliente',
 										                            bodyStyle: 'background: transparent',
 												                    padding:'15px 5px 5px 25px',
-										                            //id:creditos.id+'-txt-dni',
-										                            labelWidth:50,
-										                            //readOnly:true,
+										                            id:creditos.id+'-sol-txt-tipo-cliente',
+										                            store: store_moneda,
+										                            queryMode: 'local',
+										                            triggerAction: 'all',
+										                            valueField: 'code',
+										                            displayField: 'name',
+										                            emptyText: '[Seleccione]',
+										                            labelAlign:'right',
+										                            //allowBlank: false,
 										                            labelAlign:'top',
+										                            labelWidth: 50,
 										                            width:200,
-										                            height:60,
+										                            anchor:'100%',
+										                            //readOnly: true,
 										                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
 										                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-										                            value:'',
-										                            //anchor:'100%',
 										                            listeners:{
 										                                afterrender:function(obj, e){
+										                                    // obj.getStore().load();
+										                                    //obj.setValue('SOL');
+										                                },
+										                                select:function(obj, records, eOpts){
+										                        
 										                                }
 										                            }
 										                        },
@@ -667,24 +699,37 @@
 												                        	padding:'5px 0px 0px 0px',
 												                        	items:[
 												                        		{
-																			        xtype: 'checkboxfield',
+																			        xtype: 'radio',
 																			        id:creditos.id+'-sol-chk-excepcion-si',
 																			        name: 'checkbox1',
+																			        checked: true,
 																			        fieldLabel: 'SI',
+																			        inputValue: 'S',
 																			        labelWidth:40,
 																			        //boxLabel: 'box label',
 																			        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-														                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+														                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+														                            listeners:{
+														                            	change:function(obj){
+														                            		//Ext.getCmp(reditos.id+'-sol-chk-excepcion-no').setValue(!obj.getValue());
+														                            	}
+														                            }
 																			    },
 																			    {
-																			        xtype: 'checkboxfield',
+																			        xtype: 'radio',
 																			        id:creditos.id+'-sol-chk-excepcion-no',
 																			        name: 'checkbox1',
 																			        fieldLabel: 'NO',
+																			        inputValue: 'N',
 																			        labelWidth:40,
 																			        //boxLabel: 'box label',
 																			        labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-														                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+														                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+														                            listeners:{
+														                            	change:function(obj){
+														                            		//Ext.getCmp(creditos.id+'-sol-chk-excepcion-si').setValue(!obj.getValue());
+														                            	}
+														                            }
 																			    }
 												                        	]
 												                        }
@@ -742,6 +787,28 @@
 																	padding:'5px 5px 5px 5px',
 																	border:false,
 																	items:[
+																		{
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'IDCLI',
+												                            id:creditos.id+'-sol-txt-id-cli',
+												                            hidden:true,
+												                            bodyStyle: 'background: transparent',
+														                    padding:'15px 5px 5px 25px',
+												                            //id:creditos.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:120,
+												                            //height:60,
+												                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+												                            value:'0',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
 																		{
 												                            xtype: 'textfield',
 												                            id:creditos.id+'-sol-txt-apellido-paterno',
@@ -952,6 +1019,45 @@
 												                        }*/
 												                    ]
 												                },
+											                	{
+										                            xtype:'combo',
+										                            fieldLabel: 'Estado Civil',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'5px 5px 5px 5px',
+										                            id:creditos.id+'-sol-cmb-estado-civil',
+										                            store: Ext.create('Ext.data.ArrayStore', {
+																        //storeId: 'estado',
+																        autoLoad: true,
+																        data: [
+																			['M','MASCULINO'],
+																		    ['F','FEMENINO']
+																		],
+																        fields: ['code', 'name']
+																    }),
+										                            queryMode: 'local',
+										                            triggerAction: 'all',
+										                            valueField: 'code',
+										                            displayField: 'name',
+										                            emptyText: '[Seleccione]',
+										                            labelAlign:'right',
+										                            //allowBlank: false,
+										                            labelAlign:'top',
+										                            labelWidth: 50,
+										                            width:150,
+										                            anchor:'100%',
+										                            //readOnly: true,
+										                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                    // obj.getStore().load();
+										                                    obj.setValue(1);
+										                                },
+										                                select:function(obj, records, eOpts){
+										                        
+										                                }
+										                            }
+										                        },
 												                {
 																	layout:'hbox',
 																	padding:'5px 5px 5px 5px',
@@ -1001,6 +1107,28 @@
 																	        fieldLabel: 'Fecha de Nacimiento',
 																	        value:'22/01/2019'
 																	    },
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'IDTEL',
+												                            id:creditos.id+'-sol-txt-id-tel',
+												                            hidden:true,
+												                            bodyStyle: 'background: transparent',
+														                    padding:'15px 5px 5px 25px',
+												                            //id:creditos.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:120,
+												                            //height:60,
+												                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+												                            value:'0',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
 												                        {
 												                            xtype: 'textfield',	
 												                            id:creditos.id+'-sol-txt-tel-cel',
@@ -1099,6 +1227,28 @@
 																	padding:'5px 5px 5px 5px',
 																	border:false,
 																	items:[
+																		{
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'IDdir',
+												                            id:creditos.id+'-sol-txt-id-dir',
+												                            hidden:true,
+												                            bodyStyle: 'background: transparent',
+														                    padding:'15px 5px 5px 25px',
+												                            //id:creditos.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:120,
+												                            //height:60,
+												                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+												                            value:'0',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
 														                {
 												                            xtype: 'textfield',
 												                            fieldLabel: 'Avenida/Calle/Jirón/Pasaje',
@@ -1505,6 +1655,28 @@
 																			padding:'5px 5px 5px 5px',
 																			border:false,
 																			items:[
+																				{
+														                            xtype: 'textfield',	
+														                            fieldLabel: 'IDDIR',
+														                            id:creditos.id+'-lab-txt-id-dir',
+														                            hidden:true,
+														                            bodyStyle: 'background: transparent',
+																                    padding:'15px 5px 5px 25px',
+														                            //id:creditos.id+'-txt-dni',
+														                            labelWidth:50,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            //width:120,
+														                            //height:60,
+														                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+														                            value:'0',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        },
 																                {
 														                            xtype: 'textfield',
 														                            id:creditos.id+'-lab-txt-dir-direccion',
@@ -1804,6 +1976,28 @@
 																			padding:'5px 5px 5px 5px',
 																			border:false,
 																			items:[
+																				{
+														                            xtype: 'textfield',	
+														                            fieldLabel: 'IDNEG',
+														                            id:creditos.id+'-lab-txt-id-neg',
+														                            hidden:true,
+														                            bodyStyle: 'background: transparent',
+																                    padding:'15px 5px 5px 25px',
+														                            //id:creditos.id+'-txt-dni',
+														                            labelWidth:50,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            //width:120,
+														                            //height:60,
+														                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+														                            value:'0',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        },
 																                {
 														                            xtype: 'textfield',
 														                            id:creditos.id+'-lab-txt-giro-negocio',
@@ -1960,6 +2154,28 @@
 																	padding:'5px 5px 5px 5px',
 																	border:false,
 																	items:[
+																		{
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'IDCLI',
+												                            id:creditos.id+'-conyu-txt-id-cli',
+												                            hidden:true,
+												                            bodyStyle: 'background: transparent',
+														                    padding:'15px 5px 5px 25px',
+												                            //id:creditos.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:120,
+												                            //height:60,
+												                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+												                            value:'0',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
 																		{
 												                            xtype: 'textfield',
 												                            id:creditos.id+'-conyu-txt-apellido-paterno',
@@ -2220,6 +2436,28 @@
 																	        fieldLabel: 'Fecha de Nacimiento',
 																	        value:'22/01/2019'
 																	    },
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'IDCEL',
+												                            id:creditos.id+'-conyu-txt-id-cel',
+												                            hidden:true,
+												                            bodyStyle: 'background: transparent',
+														                    padding:'15px 5px 5px 25px',
+												                            //id:creditos.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:120,
+												                            //height:60,
+												                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+												                            value:'0',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
 												                        {
 												                            xtype: 'textfield',	
 												                            id:creditos.id+'-conyu-txt-telefonos',
@@ -2409,6 +2647,30 @@
 												                                }
 												                            }
 												                        },
+
+												                        {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'IDLAB',
+												                            id:creditos.id+'-conyu-txt-id-lab',
+												                            hidden:true,
+												                            bodyStyle: 'background: transparent',
+														                    padding:'15px 5px 5px 25px',
+												                            //id:creditos.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:120,
+												                            //height:60,
+												                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+												                            value:'0',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+
 																	    {
 												                            xtype: 'textfield',	
 												                            id:creditos.id+'-conyu-txt-centro-trab',
@@ -2585,6 +2847,28 @@
 																	padding:'5px 5px 5px 5px',
 																	border:false,
 																	items:[
+																		{
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'IDCLI',
+												                            id:creditos.id+'-garan-txt-id-cli',
+												                            hidden:true,
+												                            bodyStyle: 'background: transparent',
+														                    padding:'15px 5px 5px 25px',
+												                            //id:creditos.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:120,
+												                            //height:60,
+												                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+												                            value:'0',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
 																		{
 												                            xtype: 'textfield',
 												                            id:creditos.id+'-garan-txt-apellido-paterno',
@@ -2845,6 +3129,30 @@
 																	        fieldLabel: 'Fecha de Nacimiento',
 																	        value:'22/01/2019'
 																	    },
+
+																	    {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'IDTEL',
+												                            id:creditos.id+'-garan-txt-id-tel',
+												                            hidden:true,
+												                            bodyStyle: 'background: transparent',
+														                    padding:'15px 5px 5px 25px',
+												                            //id:creditos.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:120,
+												                            //height:60,
+												                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+												                            value:'0',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+
 												                        {
 												                            xtype: 'textfield',	
 												                            id:creditos.id+'-garan-cmb-telefonos',
@@ -2965,6 +3273,30 @@
 												                                }
 												                            }
 												                        },
+
+												                        {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'IDLAB',
+												                            id:creditos.id+'-garan-txt-id-lab',
+												                            hidden:true,
+												                            bodyStyle: 'background: transparent',
+														                    padding:'15px 5px 5px 25px',
+												                            //id:creditos.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:120,
+												                            //height:60,
+												                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+												                            value:'0',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+
 																	    {
 												                            xtype: 'textfield',	
 												                            id:creditos.id+'-garan-txt-centro-trab',
@@ -3036,6 +3368,29 @@
 																	padding:'5px 5px 5px 5px',
 																	border:false,
 																	items:[
+																		{
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'IDDIR',
+												                            id:creditos.id+'-garan-txt-id-dir',
+												                            hidden:true,
+												                            bodyStyle: 'background: transparent',
+														                    padding:'15px 5px 5px 25px',
+												                            //id:creditos.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:120,
+												                            //height:60,
+												                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+												                            value:'0',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+
 														                {
 												                            xtype: 'textfield',
 												                            id:creditos.id+'-garan-txt-dir-direccion',
@@ -3780,7 +4135,7 @@
 																			items:[
 																				{
 														                            xtype:'combo',
-														                            id:creditos.id+'-sol-cmb-moneda',
+														                            id:creditos.id+'-sol-info-cmb-moneda',
 														                            fieldLabel: 'Moneda',
 														                            bodyStyle: 'background: transparent',
 																                    padding:'5px 10px 5px 5px',
@@ -3812,8 +4167,8 @@
 														                            }
 														                        },
 																                {
-														                            xtype: 'textfield',
-														                            id:creditos.id+'-sol-txt-numero-cuotas',
+														                            xtype: 'textfield', 
+														                            id:creditos.id+'-sol-txt-numero-cuotas', 
 														                            fieldLabel: 'N° Cuotas',
 														                            bodyStyle: 'background: transparent',
 																                    padding:'5px 10px 5px 5px',
@@ -3823,10 +4178,11 @@
 														                            labelAlign:'top',
 														                            //width:'100%',
 														                            flex:1,
+														                            maskRe: new RegExp("[0-9]+"),
 														                            height:40,
 														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
-														                            value:'',
+														                            value:'0',
 														                            //anchor:'100%',
 														                            listeners:{
 														                                afterrender:function(obj, e){
@@ -3858,10 +4214,11 @@
 														                            labelAlign:'top',
 														                            width:100,
 														                            flex:1,
+														                            maskRe: new RegExp("[0-9.]+"),
 														                            //height:40,
 														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
-														                            value:'',
+														                            value:'0',
 														                            //anchor:'100%',
 														                            listeners:{
 														                                afterrender:function(obj, e){
@@ -4791,12 +5148,18 @@
 	            }).show().center();
 			},
 			setSaveSolicitud:function(op){
+				var sol_id_sol = Ext.getCmp(creditos.id+'-sol-txt-nro-solicitud').getValue(); 
 				var sol_moneda = Ext.getCmp(creditos.id+'-sol-cmb-moneda').getValue();
 				var sol_monto = Ext.getCmp(creditos.id+'-sol-txt-monto').getValue();
 				var sol_tipo_cliente = Ext.getCmp(creditos.id+'-sol-txt-tipo-cliente').getValue();
+
 				var sol_excep_si = Ext.getCmp(creditos.id+'-sol-chk-excepcion-si').getValue();
 				var sol_excep_no = Ext.getCmp(creditos.id+'-sol-chk-excepcion-no').getValue();
-				var sol_fecha = Ext.getCmp(creditos.id+'-sol-date-fecha').getValue();
+				
+				var vp_sol_excep =  sol_excep_si?'S':'N';
+
+				var sol_fecha = Ext.getCmp(creditos.id+'-sol-date-fecha').getRawValue();
+				var vp_sol_id_cli = Ext.getCmp(creditos.id+'-sol-txt-id-cli').getValue();
 				var sol_ape_pat = Ext.getCmp(creditos.id+'-sol-txt-apellido-paterno').getValue();
 				var sol_ape_mat = Ext.getCmp(creditos.id+'-sol-txt-apellido-materno').getValue();
 				var sol_nombres = Ext.getCmp(creditos.id+'-sol-txt-nombres').getValue();
@@ -4806,12 +5169,20 @@
 				var sol_doc_ruc = Ext.getCmp(creditos.id+'-sol-txt-doc-ruc').getValue();
 				var sol_doc_cm = Ext.getCmp(creditos.id+'-sol-txt-doc-cm').getValue();
 				var sol_estado_civil = Ext.getCmp(creditos.id+'-sol-cmb-estado-civil').getValue();
-				var sol_fecha_nac = Ext.getCmp(creditos.id+'-sol-date-fecha-nac').getValue();
+				var sol_fecha_nac = Ext.getCmp(creditos.id+'-sol-date-fecha-nac').getRawValue();
+
+				var vp_sol_id_tel = Ext.getCmp(creditos.id+'-sol-txt-id-tel').getValue();
 				var sol_tel_cel = Ext.getCmp(creditos.id+'-sol-txt-tel-cel').getValue();
 				var sol_domi_propio = Ext.getCmp(creditos.id+'-sol-chk-domi-propio').getValue();
+				sol_domi_propio = sol_domi_propio?'S':'N';
 				var sol_domi_pagando = Ext.getCmp(creditos.id+'-sol-chk-domi-pagando').getValue();
+				sol_domi_pagando = sol_domi_pagando?'S':'N';
 				var sol_domi_alquilado = Ext.getCmp(creditos.id+'-sol-chk-domi-alquilado').getValue();
+				sol_domi_alquilado = sol_domi_alquilado?'S':'N';
 				var sol_domi_familiar = Ext.getCmp(creditos.id+'-sol-chk-domi-familiar').getValue();
+				sol_domi_familiar = sol_domi_familiar?'S':'N';
+
+				var vp_sol_id_dir = Ext.getCmp(creditos.id+'-sol-txt-id-dir').getValue();
 				var sol_dir_direccion = Ext.getCmp(creditos.id+'-sol-txt-dir-direccion').getValue();
 				var sol_dir_numero = Ext.getCmp(creditos.id+'-sol-txt-dir-numero').getValue();
 				var sol_dir_mz = Ext.getCmp(creditos.id+'-sol-txt-dir-mz').getValue();
@@ -4825,6 +5196,7 @@
 				var sol_distrito = Ext.getCmp(creditos.id+'-sol-cmb-Distrito').getValue();
 
 
+				var vp_lab_id_dir = Ext.getCmp(creditos.id+'-lab-txt-id-dir').getValue();
 				var lab_dir_direccion = Ext.getCmp(creditos.id+'-lab-txt-dir-direccion').getValue();
 				var lab_dir_numero = Ext.getCmp(creditos.id+'-lab-txt-dir-numero').getValue();
 				var lab_dir_mz = Ext.getCmp(creditos.id+'-lab-txt-dir-mz').getValue();
@@ -4836,10 +5208,13 @@
 				var lab_departamento = Ext.getCmp(creditos.id+'-lab-cmb-departamento').getValue();
 				var lab_provincia = Ext.getCmp(creditos.id+'-lab-cmb-provincia').getValue();
 				var lab_distrito = Ext.getCmp(creditos.id+'-lab-cmb-Distrito').getValue();
+
+				var vp_lab_id_negocio = Ext.getCmp(creditos.id+'-lab-txt-id-neg').getValue();
 				var lab_negocio = Ext.getCmp(creditos.id+'-lab-txt-giro-negocio').getValue();
 				var lab_ant_negocio = Ext.getCmp(creditos.id+'-lab-txt-ant-negocio').getValue();
 				var lab_obs = Ext.getCmp(creditos.id+'-lab-txt-obs').getValue();
 
+				var vp_conyu_id_cli = Ext.getCmp(creditos.id+'-conyu-txt-id-cli').getRawValue();
 				var conyu_ape_pater = Ext.getCmp(creditos.id+'-conyu-txt-apellido-paterno').getValue();
 				var conyu_ape_mater = Ext.getCmp(creditos.id+'-conyu-txt-apellido-materno').getValue();
 				var conyu_nombres = Ext.getCmp(creditos.id+'-conyu-txt-nombres').getValue();
@@ -4849,21 +5224,36 @@
 				var conyu_ruc = Ext.getCmp(creditos.id+'-conyu-txt-ruc').getValue();
 				var conyu_cm = Ext.getCmp(creditos.id+'-conyu-txt-cm').getValue();
 				var conyu_estado_civil = Ext.getCmp(creditos.id+'-conyu-cmb-estado-civil').getValue();
-				var conyu_fecha_nacimiento = Ext.getCmp(creditos.id+'-conyu-date-fecha-nacimiento').getValue();
+				var conyu_fecha_nacimiento = Ext.getCmp(creditos.id+'-conyu-date-fecha-nacimiento').getRawValue();
+
+				var vp_conyu_id_tel = Ext.getCmp(creditos.id+'-conyu-txt-id-cel').getValue();
 				var conyu_telefonos = Ext.getCmp(creditos.id+'-conyu-txt-telefonos').getValue();
+
 				var conyu_contratado = Ext.getCmp(creditos.id+'-conyu-chk-sts-contratado').getValue();
+				conyu_contratado = conyu_contratado?'S':'N';
 				var conyu_dependiente = Ext.getCmp(creditos.id+'-conyu-chk-sts-dependiente').getValue();
+				conyu_dependiente = conyu_dependiente?'S':'N';
 				var conyu_independiente = Ext.getCmp(creditos.id+'-conyu-chk-sts-independiente').getValue();
+				conyu_independiente = conyu_independiente?'S':'N';
 				var conyu_otros = Ext.getCmp(creditos.id+'-conyu-chk-sts-otros').getValue();
+				conyu_otros = conyu_otros?'S':'N';
 				var conyu_bachiller = Ext.getCmp(creditos.id+'-conyu-chk-estu-bachiller').getValue();
+				conyu_bachiller = conyu_bachiller?'S':'N';
 				var conyu_tecnologia = Ext.getCmp(creditos.id+'-conyu-chk-estu-tecnologia').getValue();
+				conyu_tecnologia = conyu_tecnologia?'S':'N';
 				var conyu_titulado = Ext.getCmp(creditos.id+'-conyu-chk-estu-titulado').getValue();
+				conyu_titulado = conyu_titulado?'S':'N';
 				var conyu_magister = Ext.getCmp(creditos.id+'-conyu-chk-estu-magister').getValue();
+				conyu_magister = conyu_magister?'S':'N';
+
+				var vp_conyu_id_lab = Ext.getCmp(creditos.id+'-conyu-txt-id-lab').getValue();
+				var vp_conyu_sueldo =0;
 				var conyu_profesion = Ext.getCmp(creditos.id+'-conyu-txt-profesion').getValue();
 				var conyu_centro_trab = Ext.getCmp(creditos.id+'-conyu-txt-centro-trab').getValue();
 				var conyu_cargo = Ext.getCmp(creditos.id+'-conyu-txt-cargo').getValue();
-				var conyu_fecha_ingreso = Ext.getCmp(creditos.id+'-conyu-date-fecha-ingreso').getValue();
+				var conyu_fecha_ingreso = Ext.getCmp(creditos.id+'-conyu-date-fecha-ingreso').getRawValue();
 
+				var vp_garan_id_cli= Ext.getCmp(creditos.id+'-garan-txt-id-cli').getValue();
 				var garan_ape_pate = Ext.getCmp(creditos.id+'-garan-txt-apellido-paterno').getValue();
 				var garan_ape_mate = Ext.getCmp(creditos.id+'-garan-txt-apellido-materno').getValue();
 				var garan_ape_nombres = Ext.getCmp(creditos.id+'-garan-txt-nombres').getValue();
@@ -4873,16 +5263,27 @@
 				var garan_doc_ruc = Ext.getCmp(creditos.id+'-garan-txt-doc-ruc').getValue();
 				var garan_doc_cm = Ext.getCmp(creditos.id+'-garan-txt-doc-cm').getValue();
 				var garan_estado_civil = Ext.getCmp(creditos.id+'-garan-cmb-estado-civil').getValue();
-				var garan_fecha_nac = Ext.getCmp(creditos.id+'-garan-date-fecha-nacimiento').getValue();
+				var garan_fecha_nac = Ext.getCmp(creditos.id+'-garan-date-fecha-nacimiento').getRawValue();
+
+				var vp_garan_id_tel = Ext.getCmp(creditos.id+'-garan-txt-id-tel').getValue();
 				var garan_telefonos = Ext.getCmp(creditos.id+'-garan-cmb-telefonos').getValue();
+
 				var garan_domi_propio = Ext.getCmp(creditos.id+'-garan-chk-domi-propio').getValue();
+				garan_domi_propio = garan_domi_propio?'S':'N';
 				var garan_domi_pagando = Ext.getCmp(creditos.id+'-garan-chk-domi-pagando').getValue();
+				garan_domi_pagando = garan_domi_pagando?'S':'N';
 				var garan_domi_alquilado = Ext.getCmp(creditos.id+'-garan-chk-domi-alquilado').getValue();
+				garan_domi_alquilado = garan_domi_alquilado?'S':'N';
 				var garan_domi_familiar = Ext.getCmp(creditos.id+'-garan-chk-domi-familiar').getValue();
+				garan_domi_familiar = garan_domi_familiar?'S':'N';
 				var garan_profesion = Ext.getCmp(creditos.id+'-garan-txt-profesion').getValue();
+
+				var vp_garan_id_lab = Ext.getCmp(creditos.id+'-garan-txt-id-lab').getValue();
 				var garan_centro_lab = Ext.getCmp(creditos.id+'-garan-txt-centro-trab').getValue();
 				var garan_cargo = Ext.getCmp(creditos.id+'-garan-txt-cargo').getValue();
-				var garan_fecha_ingreso = Ext.getCmp(creditos.id+'-garan-date-fecha-ingreso').getValue();
+				var garan_fecha_ingreso = Ext.getCmp(creditos.id+'-garan-date-fecha-ingreso').getRawValue();
+
+				var vp_garan_id_dir = Ext.getCmp(creditos.id+'-garan-txt-id-dir').getValue();
 				var garan_dir_direccion = Ext.getCmp(creditos.id+'-garan-txt-dir-direccion').getValue();
 				var garan_dir_numero = Ext.getCmp(creditos.id+'-garan-txt-dir-numero').getValue();
 				var garan_dir_mz = Ext.getCmp(creditos.id+'-garan-txt-dir-mz').getValue();
@@ -4904,26 +5305,36 @@
 
 				var rese_resena = Ext.getCmp(creditos.id+'-res-txt-resena').getValue();
 
-				var sol_moneda = Ext.getCmp(creditos.id+'-sol-cmb-moneda').getValue();
+				var sol_moneda = Ext.getCmp(creditos.id+'-sol-info-cmb-moneda').getValue();
 				var sol_nro_cuota = Ext.getCmp(creditos.id+'-sol-txt-numero-cuotas').getValue();
-				var sol_fecha_1_letra = Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').getValue();
+				var sol_fecha_1_letra = Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').getRawValue();
 				var sol_importe_aprobado = Ext.getCmp(creditos.id+'-sol-txt-import-aprobado').getValue();
 
 				var mot_adqui_merca = Ext.getCmp(creditos.id+'-mot-chk-adqui-merca').getValue();
+				mot_adqui_merca = mot_adqui_merca?'S':'N';
 				var mot_ampliar_neg = Ext.getCmp(creditos.id+'-mot-chk-ampliar-neg').getValue();
+				mot_ampliar_neg = mot_ampliar_neg?'S':'N';
 				var mot_compra_acc_insu = Ext.getCmp(creditos.id+'-mot-chk-compra-acc-insu').getValue();
+				mot_compra_acc_insu = mot_compra_acc_insu?'S':'N';
 				var mot_otros = Ext.getCmp(creditos.id+'-mot-chk-otros').getValue();
-				var mot_fecha = Ext.getCmp(creditos.id+'-mot-date-fecha').getValue();
+				mot_otros = mot_otros?'S':'N';
+				var mot_fecha = Ext.getCmp(creditos.id+'-mot-date-fecha').getRawValue();
 				var mot_cod_asesor = Ext.getCmp(creditos.id+'-mot-cmb-promotor').getValue();
 				var mot_cod_agencia = Ext.getCmp(creditos.id+'-mot-cmb-agencia').getValue();
 
 				var ana_serv_luz = Ext.getCmp(creditos.id+'-ana-chk-serv-luz').getValue();
+				ana_serv_luz = ana_serv_luz?'S':'N';
 				var ana_serv_agua = Ext.getCmp(creditos.id+'-ana-chk-serv-agua').getValue();
+				ana_serv_agua = ana_serv_agua?'S':'N';
 				var ana_serv_cable = Ext.getCmp(creditos.id+'-ana-chk-serv-cable').getValue();
+				ana_serv_cable = ana_serv_cable?'S':'N';
 				var ana_serv_internet = Ext.getCmp(creditos.id+'-ana-chk-serv-internet').getValue();
+				ana_serv_internet = ana_serv_internet?'S':'N';
 				var ana_descripcion = Ext.getCmp(creditos.id+'-ana-txt-descripcion').getValue();
 				var ana_apro_aprobado = Ext.getCmp(creditos.id+'-ana-chk-apro-aprobado').getValue();
+				ana_apro_aprobado = ana_apro_aprobado?'S':'N';
 				var ana_apro_asesor = Ext.getCmp(creditos.id+'-ana-chk-apro-asesor-comercial').getValue();
+				ana_apro_asesor = ana_apro_asesor?'S':'N';
 
 
 				global.Msg({
@@ -4938,12 +5349,13 @@
 			                    url:creditos.url+'setSaveInfoCredito/',
 			                    params:{
 			                    	vp_op:op,
+			                    	vp_sol_id_sol:sol_id_sol,
 			                    	vp_sol_moneda:sol_moneda,
 									vp_sol_monto:sol_monto,
 									vp_sol_tipo_cliente:sol_tipo_cliente,
-									vp_sol_excep_si:sol_excep_si,
-									vp_sol_excep_no:sol_excep_no,
+									vp_sol_excep:vp_sol_excep,
 									vp_sol_fecha:sol_fecha,
+									vp_sol_id_cli:vp_sol_id_cli,
 									vp_sol_ape_pat:sol_ape_pat,
 									vp_sol_ape_mat:sol_ape_mat,
 									vp_sol_nombres:sol_nombres,
@@ -4954,11 +5366,16 @@
 									vp_sol_doc_cm:sol_doc_cm,
 									vp_sol_estado_civil:sol_estado_civil,
 									vp_sol_fecha_nac:sol_fecha_nac,
+									vp_sol_id_tel:vp_sol_id_tel,
 									vp_sol_tel_cel:sol_tel_cel,
 									vp_sol_domi_propio:sol_domi_propio,
 									vp_sol_domi_pagando:sol_domi_pagando,
 									vp_sol_domi_alquilado:sol_domi_alquilado,
 									vp_sol_domi_familiar:sol_domi_familiar,
+
+									vp_sol_img:'',
+
+									vp_sol_id_dir:vp_sol_id_dir,
 									vp_sol_dir_direccion:sol_dir_direccion,
 									vp_sol_dir_numero:sol_dir_numero,
 									vp_sol_dir_mz:sol_dir_mz,
@@ -4971,7 +5388,7 @@
 									vp_sol_provincia:sol_provincia,
 									vp_sol_distrito:sol_distrito,
 
-
+									vp_lab_id_dir:vp_lab_id_dir,
 									vp_lab_dir_direccion:lab_dir_direccion,
 									vp_lab_dir_numero:lab_dir_numero,
 									vp_lab_dir_mz:lab_dir_mz,
@@ -4983,10 +5400,13 @@
 									vp_lab_departamento:lab_departamento,
 									vp_lab_provincia:lab_provincia,
 									vp_lab_distrito:lab_distrito,
+
+									vp_lab_id_negocio:vp_lab_id_negocio,
 									vp_lab_negocio:lab_negocio,
 									vp_lab_ant_negocio:lab_ant_negocio,
 									vp_lab_obs:lab_obs,
 
+									vp_conyu_id_cli:vp_conyu_id_cli,
 									vp_conyu_ape_pater:conyu_ape_pater,
 									vp_conyu_ape_mater:conyu_ape_mater,
 									vp_conyu_nombres:conyu_nombres,
@@ -4997,7 +5417,11 @@
 									vp_conyu_cm:conyu_cm,
 									vp_conyu_estado_civil:conyu_estado_civil,
 									vp_conyu_fecha_nacimiento:conyu_fecha_nacimiento,
+
+									vp_conyu_id_tel:vp_conyu_id_tel,
 									vp_conyu_telefonos:conyu_telefonos,
+									vp_conyu_img:'',
+
 									vp_conyu_contratado:conyu_contratado,
 									vp_conyu_dependiente:conyu_dependiente,
 									vp_conyu_independiente:conyu_independiente,
@@ -5007,10 +5431,15 @@
 									vp_conyu_titulado:conyu_titulado,
 									vp_conyu_magister:conyu_magister,
 									vp_conyu_profesion:conyu_profesion,
+
+									vp_conyu_id_lab:vp_conyu_id_lab,
+									vp_conyu_sueldo:vp_conyu_sueldo,
 									vp_conyu_centro_trab:conyu_centro_trab,
+									vp_conyu_antiguedad:0,
 									vp_conyu_cargo:conyu_cargo,
 									vp_conyu_fecha_ingreso:conyu_fecha_ingreso,
 
+									vp_garan_id_cli:vp_garan_id_cli,
 									vp_garan_ape_pate:garan_ape_pate,
 									vp_garan_ape_mate:garan_ape_mate,
 									vp_garan_ape_nombres:garan_ape_nombres,
@@ -5021,15 +5450,23 @@
 									vp_garan_doc_cm:garan_doc_cm,
 									vp_garan_estado_civil:garan_estado_civil,
 									vp_garan_fecha_nac:garan_fecha_nac,
+
+									vp_garan_id_tel:vp_garan_id_tel,
 									vp_garan_telefonos:garan_telefonos,
+
 									vp_garan_domi_propio:garan_domi_propio,
 									vp_garan_domi_pagando:garan_domi_pagando,
 									vp_garan_domi_alquilado:garan_domi_alquilado,
 									vp_garan_domi_familiar:garan_domi_familiar,
 									vp_garan_profesion:garan_profesion,
+
+									vp_garan_id_lab:vp_garan_id_lab,
+									vp_garan_sueldo:0,
 									vp_garan_centro_lab:garan_centro_lab,
 									vp_garan_cargo:garan_cargo,
 									vp_garan_fecha_ingreso:garan_fecha_ingreso,
+
+									vp_garan_id_dir:vp_garan_id_dir,
 									vp_garan_dir_direccion:garan_dir_direccion,
 									vp_garan_dir_numero:garan_dir_numero,
 									vp_garan_dir_mz:garan_dir_mz,
@@ -5070,7 +5507,8 @@
 									vp_ana_serv_internet:ana_serv_internet,
 									vp_ana_descripcion:ana_descripcion,
 									vp_ana_apro_aprobado:ana_apro_aprobado,
-									vp_ana_apro_asesor:ana_apro_asesor
+									vp_ana_apro_asesor:ana_apro_asesor,
+									vp_flag:'A'
 			                    },
 			                    timeout: 30000000,
 			                    success: function(response, options){

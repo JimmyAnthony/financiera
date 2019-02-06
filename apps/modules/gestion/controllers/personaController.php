@@ -4,7 +4,7 @@
  * @version 2.0
  */
 
-class asesorController extends AppController {
+class personaController extends AppController {
 
     private $objDatos;
     private $arrayMenu;
@@ -15,11 +15,11 @@ class asesorController extends AppController {
          */
         $this->valida();
 
-        $this->objDatos = new asesorModels();
+        $this->objDatos = new personaModels();
     }
 
     public function index($p){        
-        $this->view('asesor/form_index.php', $p);
+        $this->view('persona/form_index.php', $p);
     }
 
    public function get_list_client($p){

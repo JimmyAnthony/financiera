@@ -1,22 +1,24 @@
 <script type="text/javascript">
 	var tab = Ext.getCmp(inicio.id+'-tabContent');
-	if(!Ext.getCmp('user-tab')){
-		var user = {
-			id:'user',
+	if(!Ext.getCmp('asesores-tab')){
+		var asesores = {
+			id:'asesores',
 			id_menu:'<?php echo $p["id_menu"];?>',
-			url:'/gestion/user/',
+			url:'/gestion/asesor/',
+			url_per:'/gestion/persona/',
 			opcion:'I',
 			id_lote:0,
 			shi_codigo:0,
 			fac_cliente:0,
 			lote:0,
 			paramsStore:{},
+			back:'NONE',
 			init:function(){
 				Ext.tip.QuickTipManager.init();
 
-				var store_user = Ext.create('Ext.data.Store',{
+				var store_asesores = Ext.create('Ext.data.Store',{
 	                fields: [
-	                    {name: 'id_user', type: 'string'},
+	                    {name: 'id_asesores', type: 'string'},
 	                    {name: 'usr_codigo', type: 'string'},
 	                    {name: 'usr_tipo', type: 'string'},
 	                    {name: 'usr_nombre', type: 'string'},                    
@@ -31,7 +33,7 @@
 	                autoLoad:true,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: user.url+'get_list_user/',
+	                    url: asesores.url+'get_list_asesores/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -51,13 +53,13 @@
 	                    {name: 'shi_logo', type: 'string'},
 	                    {name: 'fec_ingreso', type: 'string'},                    
 	                    {name: 'shi_estado', type: 'string'},
-	                    {name: 'id_user', type: 'string'},
+	                    {name: 'id_asesores', type: 'string'},
 	                    {name: 'fecha_actual', type: 'string'}
 	                ],
 	                autoLoad:true,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: user.url+'get_list_shipper/',
+	                    url: asesores.url+'get_list_shipper/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -78,7 +80,7 @@
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: user.url+'get_list_contratos/',
+	                    url: asesores.url+'get_list_contratos/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -116,7 +118,7 @@
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: user.url+'get_ocr_plantillas/',
+	                    url: asesores.url+'get_ocr_plantillas/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -149,7 +151,7 @@
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: user.url+'get_ocr_trazos/',
+	                    url: asesores.url+'get_ocr_trazos/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -175,10 +177,11 @@
 			    
 
 			    var myDataLote = [
-					['U','Usuario'],
-				    ['N','Nombre Usuario']
+					['C','CÓDIGO'],
+				    ['D','DNI'],
+				    ['N','NOMBRE']
 				];
-				var store_estado_lote = Ext.create('Ext.data.ArrayStore', {
+				var store_filtro = Ext.create('Ext.data.ArrayStore', {
 			        storeId: 'estado',
 			        autoLoad: true,
 			        data: myDataLote,
@@ -198,8 +201,125 @@
 			        data: myDataSearch,
 			        fields: ['code', 'name']
 			    });
+
+			    var myDataEstadoCivil = [
+					['S','Soltero'],
+				    ['C','Casado'],
+				    ['V','Viudo']
+				];
+				asesores.store_estado_civil = Ext.create('Ext.data.ArrayStore', {
+			        storeId: 'estado',
+			        autoLoad: true,
+			        data: myDataEstadoCivil,
+			        fields: ['code', 'name']
+			    });
+
+			    var myDataTipoTel = [
+					['CE','Celular'],
+				    ['FI','Fijo']
+				];
+				asesores.store_tipo_tel = Ext.create('Ext.data.ArrayStore', {
+			        storeId: 'tel',
+			        autoLoad: true,
+			        data: myDataTipoTel,
+			        fields: ['code', 'name']
+			    });
+
+			    var myDataLineaTel = [
+					['C','Claro'],
+				    ['M','Movistar'],
+				    ['F','Fijo']
+				];
+				asesores.store_linea_tel = Ext.create('Ext.data.ArrayStore', {
+			        storeId: 'tel',
+			        autoLoad: true,
+			        data: myDataLineaTel,
+			        fields: ['code', 'name']
+			    });
+
+			    asesores.store_ubigeo = Ext.create('Ext.data.Store',{
+	                fields: [
+	                    {name: 'cod_ubi', type: 'string'},
+	                    {name: 'Distrito', type: 'string'},
+	                    {name: 'Provincia', type: 'string'},
+	                    {name: 'Departamento', type: 'string'},                    
+	                    {name: 'Poblacion', type: 'string'},
+	                    {name: 'Superficie', type: 'string'},
+	                    {name: 'Y', type: 'string'},
+	                    {name: 'X', type: 'string'}
+	                ],
+	                autoLoad:false,
+	                proxy:{
+	                    type: 'ajax',
+	                    url: asesores.url+'get_list_ubigeo/',
+	                    reader:{
+	                        type: 'json',
+	                        rootProperty: 'data'
+	                    }
+	                },
+	                listeners:{
+	                    load: function(obj, records, successful, opts){
+	                        
+	                    }
+	                }
+	            });
+
+	            asesores.store_ubigeo2 = Ext.create('Ext.data.Store',{
+	                fields: [
+	                    {name: 'cod_ubi', type: 'string'},
+	                    {name: 'Distrito', type: 'string'},
+	                    {name: 'Provincia', type: 'string'},
+	                    {name: 'Departamento', type: 'string'},                    
+	                    {name: 'Poblacion', type: 'string'},
+	                    {name: 'Superficie', type: 'string'},
+	                    {name: 'Y', type: 'string'},
+	                    {name: 'X', type: 'string'}
+	                ],
+	                autoLoad:false,
+	                proxy:{
+	                    type: 'ajax',
+	                    url: asesores.url+'get_list_ubigeo/',
+	                    reader:{
+	                        type: 'json',
+	                        rootProperty: 'data'
+	                    }
+	                },
+	                listeners:{
+	                    load: function(obj, records, successful, opts){
+	                        
+	                    }
+	                }
+	            });
+
+	            asesores.store_ubigeo3 = Ext.create('Ext.data.Store',{
+	                fields: [
+	                    {name: 'cod_ubi', type: 'string'},
+	                    {name: 'Distrito', type: 'string'},
+	                    {name: 'Provincia', type: 'string'},
+	                    {name: 'Departamento', type: 'string'},                    
+	                    {name: 'Poblacion', type: 'string'},
+	                    {name: 'Superficie', type: 'string'},
+	                    {name: 'Y', type: 'string'},
+	                    {name: 'X', type: 'string'}
+	                ],
+	                autoLoad:false,
+	                proxy:{
+	                    type: 'ajax',
+	                    url: asesores.url+'get_list_ubigeo/',
+	                    reader:{
+	                        type: 'json',
+	                        rootProperty: 'data'
+	                    }
+	                },
+	                listeners:{
+	                    load: function(obj, records, successful, opts){
+	                        
+	                    }
+	                }
+	            });
+
 				var panel = Ext.create('Ext.form.Panel',{
-					id:user.id+'-form',
+					id:asesores.id+'-form',
 					bodyStyle: 'background: transparent',
 					border:false,
 					layout:'border',
@@ -212,521 +332,400 @@
 				});
 
 				tab.add({
-					id:user.id+'-tab',
+					id:asesores.id+'-tab',
+					bodyStyle: 'background: transparent',
+					bodyCls: 'transparent',
 					border:false,
 					autoScroll:true,
 					closable:true,
 					layout:'border',
 					items:[
 						{
-                            region:'north',
-                            layout:'border',
-                            border:false,
-                            height:90,
-                            items:[
-		                        {
-		                            region:'center',
-		                            border:false,
-		                            xtype: 'uePanelS',
-		                            logo: 'DC',
-		                            title: 'Busqueda de Documentos',
-		                            legend: 'Búsqueda de Lotes registrados',
-		                            width:1100,
-		                            height:90,
-		                            items:[
-		                                {
-		                                    xtype:'panel',
-		                                    border:false,
-		                                    bodyStyle: 'background: transparent',
-		                                    padding:'2px 5px 1px 5px',
-		                                    layout:'column',
-
-		                                    items: [
-		                                    	{
-			                                   		width: 200,border:false,
-			                                    	padding:'0px 2px 0px 0px',  
-			                                    	bodyStyle: 'background: transparent',
-			                                 		items:[
-			                                                {
-			                                                    xtype:'combo',
-			                                                    fieldLabel: 'Filtro',
-			                                                    id:user.id+'-txt-estado-filter',
-			                                                    store: store_estado_lote,
-			                                                    queryMode: 'local',
-			                                                    triggerAction: 'all',
-			                                                    valueField: 'code',
-			                                                    displayField: 'name',
-			                                                    emptyText: '[Seleccione]',
-			                                                    labelAlign:'right',
-			                                                    //allowBlank: false,
-			                                                    labelWidth: 50,
-			                                                    width:'100%',
-			                                                    anchor:'100%',
-			                                                    //readOnly: true,
-			                                                    listeners:{
-			                                                        afterrender:function(obj, e){
-			                                                            // obj.getStore().load();
-			                                                            Ext.getCmp(user.id+'-txt-estado-filter').setValue('U');
-			                                                        },
-			                                                        select:function(obj, records, eOpts){
-			                                                
-			                                                        }
-			                                                    }
-			                                                }
-			                                 		]
-			                                    },
-		                                        {
-		                                            width:200,border:false,
-		                                            padding:'0px 2px 0px 0px',  
-		                                            bodyStyle: 'background: transparent',
-		                                            items:[
-		                                                {
-		                                                    xtype: 'textfield',	
-		                                                    fieldLabel: '',
-		                                                    id:user.id+'-txt-user',
-		                                                    labelWidth:0,
-		                                                    //readOnly:true,
-		                                                    labelAlign:'right',
-		                                                    width:'100%',
-		                                                    anchor:'100%'
-		                                                }
-		                                            ]
-		                                        },
-		                                        {
-			                                        width: 140,border:false,
-			                                        hidden:true,
-			                                        padding:'0px 2px 0px 0px',  
-			                                    	bodyStyle: 'background: transparent',
-			                                        items:[
-			                                            {
-			                                                xtype:'datefield',
-			                                                id:user.id+'-txt-fecha-filtro',
-			                                                fieldLabel:'Fecha',
-			                                                labelWidth:50,
-			                                                labelAlign:'right',
-			                                                value:new Date(),
-			                                                format: 'Ymd',
-			                                                //readOnly:true,
-			                                                width: '100%',
-			                                                anchor:'100%'
-			                                            }
-			                                        ]
-			                                    },
-		                                        {
-		                                            width: 80,border:false,
-		                                            padding:'0px 2px 0px 0px',  
-		                                            bodyStyle: 'background: transparent',
-		                                            items:[
-		                                                {
-									                        xtype:'button',
-									                        text: 'Buscar',
-									                        icon: '/images/icon/binocular.png',
-									                        listeners:{
-									                            beforerender: function(obj, opts){
-									                                /*global.permisos({
-									                                    id: 15,
-									                                    id_btn: obj.getId(), 
-									                                    id_menu: gestion_devolucion.id_menu,
-									                                    fn: ['panel_asignar_gestion.limpiar']
-									                                });*/
-									                            },
-									                            click: function(obj, e){	             	
-		                               					            user.getHistory();
-									                            }
-									                        }
-									                    }
-		                                            ]
-		                                        },
-		                                        {
-		                                            width: 80,border:false,
-		                                            padding:'0px 2px 0px 0px',  
-		                                            bodyStyle: 'background: transparent',
-		                                            items:[
-		                                                {
-									                        xtype:'button',
-									                        text: 'Nuevo',
-									                        icon: '/images/icon/call_user_01.png',
-									                        listeners:{
-									                            beforerender: function(obj, opts){
-									                                /*global.permisos({
-									                                    id: 15,
-									                                    id_btn: obj.getId(), 
-									                                    id_menu: gestion_devolucion.id_menu,
-									                                    fn: ['panel_asignar_gestion.limpiar']
-									                                });*/
-									                            },
-									                            click: function(obj, e){	             	
-		                               					            user.getNew();
-									                            }
-									                        }
-									                    }
-		                                            ]
-		                                        }
-		                                    ]
-		                                }
-		                            ]
-		                        }
-		                    ]
-		                },
+							region:'west',
+							bodyStyle: 'background: transparent',
+							bodyCls: 'transparent',
+							border:false,
+							width:'15%'
+						},
+						{
+							region:'east',
+							bodyStyle: 'background: transparent',
+							bodyCls: 'transparent',
+							border:false,
+							width:'15%'
+						},
 						{
 							region:'center',
-							layout:'fit',
+							layout:'border',
+							border:false,
+							bodyStyle: 'background: transparent',
+							bodyCls: 'transparent',
 							items:[
 								{
-			                        xtype: 'grid',
-			                        id: user.id + '-grid-user',
-			                        store: store_user, 
-			                        columnLines: true,
-			                        columns:{
-			                            items:[
-			                            	{
-			                            		text: 'N°',
-											    xtype: 'rownumberer',
-											    width: 40,
-											    sortable: false,
-											    locked: true
-											},
-			                                {
-			                                    text: 'Usuario',
-			                                    dataIndex: 'usr_codigo',
-			                                    width: 200
-			                                },
-			                                {
-			                                    text: 'Nombre',
-			                                    dataIndex: 'usr_nombre',
-			                                    flex: 1
-			                                },
-			                                {
-			                                    text: 'Perfil',
-			                                    dataIndex: 'usr_perfil',
-			                                    width: 100,
-			                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
-			                                        //console.log(record);
-			                                        metaData.style = "padding: 0px; margin: 0px";
-			                                        var perfil = 'Básico';
-			                                        if(parseInt(record.get('usr_perfil'))==2){
-			                                        	perfil = 'Consultor';
-			                                        }
-			                                        if(parseInt(record.get('usr_perfil'))==3){
-			                                        	perfil = 'Intermedio';
-			                                        }
-			                                        if(parseInt(record.get('usr_perfil'))==4){
-			                                        	perfil = 'Supervisor';
-			                                        }
-			                                        if(parseInt(record.get('usr_perfil'))==5){
-			                                        	perfil = 'Administrador';
-			                                        }
-			                                        return perfil;
-			                                    }
-			                                },
-			                                {
-			                                    text: 'Fecha',
-			                                    dataIndex: 'fecact',
-			                                    width: 100
-			                                },
-			                                {
-			                                    text: 'hora',
-			                                    dataIndex: 'hora',
-			                                    width: 100
-			                                },
-											{
-			                                    text: 'ST',
-			                                    dataIndex: 'usr_estado',
-			                                    //loocked : true,
-			                                    width: 40,
-			                                    align: 'center',
-			                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
-			                                        //console.log(record);
-			                                        var estado = 'check-circle-green-16.png';
-			                                        if(parseInt(record.get('usr_estado'))==0){
-			                                        	estado = 'check-circle-black-16.png';
-			                                        }
-			                                        metaData.style = "padding: 0px; margin: 0px";
-			                                        return global.permisos({
-			                                            type: 'link',
-			                                            id_menu: user.id_menu,
-			                                            icons:[
-			                                                {id_serv: 10, img: estado, qtip: 'Estado.', js: ""}
+		                            region:'north',
+		                            layout:'border',
+		                            bodyStyle: 'background: transparent',
+		                            bodyCls: 'transparent',
+		                            border:false,
+		                            height:125,
+		                            items:[
+				                        {
+				                            region:'center',
+				                            border:false,
+				                            xtype: 'uePanelS',
+				                            bodyStyle: 'background: transparent',
+				                            logo: 'AS',
+				                            title: 'LISTADO DE ASESORES',
+				                            legend: 'Gestión de Créditos',
+				                            width:1100,
+				                            height:115,
+				                            items:[
+				                                {
+				                                    xtype:'panel',
+				                                    border:false,
+				                                    bodyStyle: 'background: transparent',
+				                                    padding:'2px 5px 1px 5px',
+				                                    layout:'column',
 
-			                                            ]
-			                                        });
-			                                    }
-			                                },
-			                                {
-			                                    text: 'EDT',
-			                                    dataIndex: 'usr_estado',
-			                                    //loocked : true,
-			                                    width: 40,
-			                                    align: 'center',
-			                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
-			                                        //console.log(record);
-			                                        metaData.style = "padding: 0px; margin: 0px";
-			                                        return global.permisos({
-			                                            type: 'link',
-			                                            id_menu: user.id_menu,
-			                                            icons:[
-			                                                {id_serv: 10, img: 'edit.png', qtip: 'Editar.', js: "user.getEdit("+rowIndex+")"}
-
-			                                            ]
-			                                        });
-			                                    }
-			                                }
-			                            ],
-			                            defaults:{
-			                                menuDisabled: true
-			                            }
-			                        },
-			                        multiSelect: true,
-			                        trackMouseOver: false,
-			                        listeners:{
-			                            afterrender: function(obj){
-			                                
-			                            },
-			                            beforeselect:function(obj, record, index, eOpts ){
-			                            	//scanning.setImageFile(record.get('path'),record.get('file'));
-			                            }
-			                        }
-			                    }	
+				                                    items: [
+				                                    	{
+					                                   		width: 320,border:false,
+					                                    	padding:'15px 5px 5px 20px',
+					                                    	bodyStyle: 'background: transparent',
+					                                 		items:[
+					                                                {
+					                                                    xtype:'combo',
+					                                                    fieldLabel: 'BUSCAR POR',
+					                                                    bodyStyle: 'background: transparent',
+														                labelStyle: "font-size:18px;font-weight:bold;padding:6px 0px 0px 0px;text-align: center;font-weight: bold",
+												                        fieldStyle: 'font-size:20px; text-align: center; font-weight: bold',
+					                                                    id:asesores.id+'-txt-estado-filter',
+					                                                    store: store_filtro,
+					                                                    queryMode: 'local',
+					                                                    triggerAction: 'all',
+					                                                    valueField: 'code',
+					                                                    displayField: 'name',
+					                                                    emptyText: '[Seleccione]',
+					                                                    labelAlign:'right',
+					                                                    //allowBlank: false,
+					                                                    labelWidth: 150,
+					                                                    width:'95%',
+					                                                    anchor:'100%',
+					                                                    //readOnly: true,
+					                                                    listeners:{
+					                                                        afterrender:function(obj, e){
+					                                                            // obj.getStore().load();
+					                                                            Ext.getCmp(asesores.id+'-txt-estado-filter').setValue('C');
+					                                                        },
+					                                                        select:function(obj, records, eOpts){
+					                                                
+					                                                        }
+					                                                    }
+					                                                }
+					                                 		]
+					                                    },
+				                                        {
+				                                            width:200,border:false,
+				                                            padding:'15px 5px 5px 5px',
+				                                            bodyStyle: 'background: transparent',
+				                                            items:[
+				                                                {
+				                                                    xtype: 'textfield',	
+				                                                    fieldLabel: '',
+				                                                    id:asesores.id+'-txt-asesores',
+				                                                    labelWidth:0,
+				                                                    //readOnly:true,
+				                                                    labelAlign:'right',
+				                                                    height:30,
+										                            labelStyle: "font-size:20px;font-weight:bold;padding:4px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:20px; text-align: center; font-weight: bold',
+				                                                    width:'100%',
+				                                                    anchor:'100%'
+				                                                }
+				                                            ]
+				                                        },/*
+				                                        {
+					                                        width: 140,border:false,
+					                                        hidden:true,
+					                                        padding:'0px 2px 0px 0px',  
+					                                    	bodyStyle: 'background: transparent',
+					                                        items:[
+					                                            {
+					                                                xtype:'datefield',
+					                                                id:asesores.id+'-txt-fecha-filtro',
+					                                                fieldLabel:'Fecha',
+					                                                labelWidth:50,
+					                                                labelAlign:'right',
+					                                                value:new Date(),
+					                                                format: 'Ymd',
+					                                                //readOnly:true,
+					                                                width: '100%',
+					                                                anchor:'100%'
+					                                            }
+					                                        ]
+					                                    },*/
+				                                        {
+				                                            width: 90,border:false,
+				                                            padding:'15px 5px 5px 5px',
+				                                            bodyStyle: 'background: transparent',
+				                                            items:[
+				                                                {
+											                        xtype:'button',
+											                        flex:1,
+											                        scale: 'medium',
+											                        text: 'Buscar',
+											                        icon: '/images/icon/binocular.png',
+											                        listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){
+											                            	asesores.getAsesores();
+											                            }
+											                        }
+											                    }
+				                                            ]
+				                                        },
+				                                        {
+				                                            width: 90,border:false,
+				                                            padding:'15px 5px 5px 5px',
+				                                            bodyStyle: 'background: transparent',
+				                                            items:[
+				                                                {
+											                        xtype:'button',
+											                        text: 'Nuevo',
+											                        flex:1,
+											                        scale: 'medium',
+											                        icon: '/images/icon/Draft.png',
+											                        listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	             	
+				                               					            //asesores.getNew();
+				                               					            win.show({vurl: asesores.url_per, id_menu: asesores.id_menu, class: ''});
+											                            }
+											                        }
+											                    }
+				                                            ]
+				                                        },
+				                                        {
+				                                            width: 90,border:false,
+				                                            padding:'15px 5px 5px 5px',
+				                                            bodyStyle: 'background: transparent',
+				                                            items:[
+				                                                {
+											                        xtype:'button',
+											                        text: 'Atrás',
+											                        flex:1,
+											                        scale: 'medium',
+											                        icon: '/images/icon/get_back.png',
+											                        listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	             	
+				                               					            asesores.setBack();
+											                            }
+											                        }
+											                    }
+				                                            ]
+				                                        }
+				                                    ]
+				                                }
+				                            ]
+				                        }
+				                    ]
+				                },
+				                {
+				                	region:'center',
+				                	layout:'fit',
+				                	bodyStyle: 'background: transparent',
+				                	bodyCls: 'transparent',
+				                	border:false,
+				                	items:[
+					                	{
+											xtype: 'tabpanel',
+											//region:'center',
+											bodyStyle: 'background: transparent',
+		                                    id: asesores.id+'-tabContent',
+		                                    activeItem: 0,
+		                                    autoScroll: false,
+		                                    defaults:{
+		                                        closable: true,
+		                                        autoScroll: true
+		                                    },
+		                                    border: false,
+		                                    layout: 'fit',
+		                                    tabPosition: 'left',
+		                                    bodyCls: 'transparent',
+											items:[
+						                		{
+									                id:asesores.id+'-contentAsesores',
+									                bodyStyle: 'background: transparent',
+									                layout:'fit',
+									                floatable: false,
+									                collapsible: false,
+									                //split: true,
+									                border:false,
+									                //bodyPadding: 10,
+									                //margin: '5 0 0 0',
+									                //width: 0,
+									                //hidden:true,
+									                //cls: 'cmp_menu',
+									                //bodyCls: 'cmp_menu',
+									                html:'<div id="menu_spinner" class="spinner"><div class="cube1"></div><div class="cube2"></div></div>',
+									                items:[
+								                        {
+								                            xtype:'GridViewVertAS',
+								                            id:asesores.id,
+								                            mode:2,
+								                            tab:asesores.id+'-tabContent',
+								                            url:asesores.url+'getDataMenuView/',
+								                            back:'-contentAsesores',
+								                            params:{sis_id:2}
+								                        }
+								                    ]
+								                },
+								                {
+									                id:asesores.id+'-contentClientes',
+									                bodyStyle: 'background: transparent',
+									                layout:'fit',
+									                floatable: false,
+									                collapsible: false,
+									                //split: true,
+									                border:false,
+									                //bodyPadding: 10,
+									                //margin: '5 0 0 0',
+									                //width: 0,
+									                //hidden:true,
+									                //cls: 'cmp_menu',
+									                //bodyCls: 'cmp_menu',
+									                /*html:'<div id="menu_spinner" class="spinner"><div class="cube1"></div><div class="cube2"></div></div>',*/
+									                items:[
+								                        {
+								                            xtype:'GridViewVertCLI',
+								                            id:asesores.id,
+								                            mode:2,
+								                            tab:asesores.id+'-tabContent',
+								                            url:asesores.url+'getDataListClientes/',
+								                            back:'-contentClientes',
+								                            params:{sis_id:2}
+								                        }
+								                    ]
+								                }
+								            ],
+											listeners:{
+		                                        afterrender: function(obj){
+		                                            obj.getTabBar().hide();
+		                                        }
+		                                    }
+							        	}
+				                	]
+				                }
 							]
 						}
 					],
 					listeners:{
-						/*beforerender: function(obj, opts){
-	                        global.state_item_menu(user.id_menu, true);
+						beforerender: function(obj, opts){
+	                        global.state_item_menu(asesores.id_menu, true);
 	                    },
 	                    afterrender: function(obj, e){
-	                    	//user.getReloadGriduser('');
+	                    	//asesores.getReloadGridasesores('');
 	                        tab.setActiveTab(obj);
-	                        global.state_item_menu_config(obj,user.id_menu);
+	                        global.state_item_menu_config(obj,asesores.id_menu);
+	                        asesores.getAsesores();
 	                    },
 	                    beforeclose:function(obj,opts){
-	                    	global.state_item_menu(user.id_menu, false);
-	                    }*/
+	                    	global.state_item_menu(asesores.id_menu, false);
+	                    }
 					}
 
 				}).show();
 			},
+			getUbigeo:function(json,obj,value){
+				console.log(obj);
+		    	obj.getStore().removeAll();
+				obj.getStore().load(
+	                {params: json,
+	                callback:function(){
+	                	//Ext.getCmp(creditos.id+'-form').el.unmask();
+	                	obj.setValue(value);
+	                }
+	            });
+			},
+			setBack:function(){
+				var tab=Ext.getCmp(asesores.id+'-tabContent');
+				var active=Ext.getCmp(asesores.id+asesores.back);
+				tab.setActiveTab(active);
+			},
+			getAsesores:function(){
+				var vp_op=Ext.getCmp(asesores.id+'-txt-estado-filter').getValue();
+            	var vp_nombre=Ext.getCmp(asesores.id+'-txt-asesores').getValue();
+		            Ext.getCmp(asesores.id+'-menu-view').getStore().removeAll();
+				Ext.getCmp(asesores.id+'-menu-view').getStore().load(
+	                {params: {vp_op:vp_op,vp_nombre:vp_nombre},
+	                callback:function(){
+	                	//Ext.getCmp(asesores.id+'-form').el.unmask();
+	                }
+	            });
+			},
+			getClientes:function(vp_id){
+				var vp_op=Ext.getCmp(asesores.id+'-txt-estado-filter').getValue();
+            	var vp_nombre=Ext.getCmp(asesores.id+'-txt-asesores').getValue();
+		        Ext.getCmp(asesores.id+'-list-clientes').getStore().removeAll();
+				Ext.getCmp(asesores.id+'-list-clientes').getStore().load(
+	                {params: {vp_op:vp_op,vp_id:vp_id},
+	                callback:function(){
+	                	//Ext.getCmp(asesores.id+'-form').el.unmask();
+	                }
+	            });
+			},
 			getEdit:function(index){
-				var rec = Ext.getCmp(user.id + '-grid-user').getStore().getAt(index);
-				user.setForm('U',rec.data);
+				var rec = Ext.getCmp(asesores.id + '-grid-asesores').getStore().getAt(index);
+				asesores.setForm('U',rec.data);
 			},
 			getNew:function(){
-				user.setForm('I',{id_user:0,usr_codigo:'',usr_nombre:'',usr_perfil:1,usr_estado:1});
+				asesores.setForm('I',{id_asesores:0,usr_codigo:'',usr_nombre:'',usr_perfil:1,usr_estado:1});
 			},
 			setForm:function(op,data){
 
-                var myDataPerfil = [
-					[1,'Básico'], 
-				    [2,'Consultor'],
-				    [3,'Intermedio'],
-				    [4,'Supervisor'],
-				    [5,'Administrador']
-				];
-				var store_perfil = Ext.create('Ext.data.ArrayStore', {
-			        storeId: 'perfil',
-			        autoLoad: true,
-			        data: myDataPerfil,
-			        fields: ['code', 'name']
-			    });
-
-			    var myDataUser = [
-					[1,'Activo'], 
-				    [0,'Inactivo']
-				];
-				var store_estado_user = Ext.create('Ext.data.ArrayStore', {
-			        storeId: 'perfil',
-			        autoLoad: true,
-			        data: myDataUser,
-			        fields: ['code', 'name']
-			    });
-
-                Ext.create('Ext.window.Window',{
-	                id:user.id+'-win-form',
-	                plain: true,
-	                title:'Mantenimiento Usuario',
-	                icon: '/images/icon/default-avatar_man.png',
-	                height: 300,
-	                width: 400,
-	                resizable:false,
-	                modal: true,
-	                border:false,
-	                closable:true,
-	                padding:20,
-	                //layout:'fit',
-	                items:[
-	                	{
-                            xtype: 'textfield',	
-                            disabled:true,
-                            bodyStyle: 'background: transparent',
-		                    padding:'5px 5px 5px 5px',
-                            fieldLabel: 'Código',
-                            id:user.id+'-txt-codigo',
-                            labelWidth:50,
-                            //readOnly:true,
-                            labelAlign:'right',
-                            width:'50%',
-                            anchor:'100%',
-                            listeners:{
-                                afterrender:function(obj, e){
-                                    // obj.getStore().load();
-                                    obj.setValue(data.id_user);
-                                }
-                            }
-                        },
-                        {
-                            xtype: 'textfield',	
-                            fieldLabel: 'Usuario',
-                            bodyStyle: 'background: transparent',
-		                    padding:'5px 5px 5px 5px',
-                            id:user.id+'-txt-usuario-user',
-                            labelWidth:50,
-                            //readOnly:true,
-                            labelAlign:'right',
-                            width:'90%',
-                            anchor:'100%',
-                            listeners:{
-                                afterrender:function(obj, e){
-                                    // obj.getStore().load();
-                                    obj.setValue(data.usr_codigo);
-                                }
-                            }
-                        },
-                        {
-                            xtype: 'textfield',	
-                            fieldLabel: 'Clave',
-                            bodyStyle: 'background: transparent',
-		                    padding:'5px 5px 5px 5px',
-                            inputType: 'password',
-                            id:user.id+'-txt-clave',
-                            labelWidth:50,
-                            //readOnly:true,
-                            labelAlign:'right',
-                            width:'90%',
-                            anchor:'100%'
-                        },
-                        {
-                            xtype: 'textfield',
-                            bodyStyle: 'background: transparent',
-		                    padding:'5px 5px 5px 5px',
-                            fieldLabel: 'Nombre',
-                            id:user.id+'-txt-nombre-user',
-                            labelWidth:50,
-                            //readOnly:true,
-                            labelAlign:'right',
-                            width:'90%',
-                            anchor:'100%',
-                            listeners:{
-                                afterrender:function(obj, e){
-                                    // obj.getStore().load();
-                                    obj.setValue(data.usr_nombre);
-                                }
-                            }
-                        },
-                        {
-                            xtype:'combo',
-                            fieldLabel: 'Perfil',
-                            bodyStyle: 'background: transparent',
-		                    padding:'5px 5px 5px 5px',
-                            id:user.id+'-cmb-perfil',
-                            store: store_perfil,
-                            queryMode: 'local',
-                            triggerAction: 'all',
-                            valueField: 'code',
-                            displayField: 'name',
-                            emptyText: '[Seleccione]',
-                            labelAlign:'right',
-                            //allowBlank: false,
-                            labelWidth: 50,
-                            width:'90%',
-                            anchor:'100%',
-                            //readOnly: true,
-                            listeners:{
-                                afterrender:function(obj, e){
-                                    // obj.getStore().load();
-                                    Ext.getCmp(user.id+'-cmb-perfil').setValue(data.usr_perfil);
-                                },
-                                select:function(obj, records, eOpts){
-                        
-                                }
-                            }
-                        },
-                        {
-                            xtype:'combo',
-                            fieldLabel: 'Estado',
-                            bodyStyle: 'background: transparent',
-		                    padding:'5px 5px 5px 5px',
-                            id:user.id+'-cmb-estado-user',
-                            store: store_estado_user,
-                            queryMode: 'local',
-                            triggerAction: 'all',
-                            valueField: 'code',
-                            displayField: 'name',
-                            emptyText: '[Seleccione]',
-                            labelAlign:'right',
-                            //allowBlank: false,
-                            labelWidth: 50,
-                            width:'90%',
-                            anchor:'100%',
-                            //readOnly: true,
-                            listeners:{
-                                afterrender:function(obj, e){
-                                    // obj.getStore().load();
-                                    Ext.getCmp(user.id+'-cmb-estado-user').setValue(data.usr_estado);
-                                },
-                                select:function(obj, records, eOpts){
-                        
-                                }
-                            }
-                        }
-	                ],
-	                bbar:[       
-	                    '->',
-	                    '-',
-	                    {
-	                        xtype:'button',
-	                        text: 'Grabar',
-	                        icon: '/images/icon/save.png',
-	                        listeners:{
-	                            beforerender: function(obj, opts){
-								},
-	                            click: function(obj, e){
-	                            	user.setSaveUser(op);
-	                            }
-	                        }
-	                    },
-	                    '-',
-	                    {
-	                        xtype:'button',
-	                        text: 'Salir',
-	                        icon: '/images/icon/get_back.png',
-	                        listeners:{
-	                            beforerender: function(obj, opts){
-	                            },
-	                            click: function(obj, e){
-	                                Ext.getCmp(user.id+'-win-form').close();
-	                            }
-	                        }
-	                    },
-	                    '-'
-	                ],
-	                listeners:{
-	                    'afterrender':function(obj, e){ 
-
-	                    },
-	                    'close':function(){
-
-	                    }
-	                }
-	            }).show().center();
+                
 			},
-			setSaveUser:function(op){
+			getUbigeo:function(json,obj,value){
+				console.log(obj);
+		    	obj.getStore().removeAll();
+				obj.getStore().load(
+	                {params: json,
+	                callback:function(){
+	                	//Ext.getCmp(agencias.id+'-form').el.unmask();
+	                	obj.setValue(value);
+	                }
+	            });
+			},
+			setSaveasesores:function(op){
 
-		    	var codigo = Ext.getCmp(user.id+'-txt-codigo').getValue();
-		    	var usuario = Ext.getCmp(user.id+'-txt-usuario-user').getValue();
-		    	var clave = Ext.getCmp(user.id+'-txt-clave').getValue();
-		    	var nombre = Ext.getCmp(user.id+'-txt-nombre-user').getValue();
-		    	var perfil = Ext.getCmp(user.id+'-cmb-perfil').getValue();
-		    	var estado = Ext.getCmp(user.id+'-cmb-estado-user').getValue();
+		    	var codigo = Ext.getCmp(asesores.id+'-txt-codigo').getValue();
+		    	var usuario = Ext.getCmp(asesores.id+'-txt-usuario-asesores').getValue();
+		    	var clave = Ext.getCmp(asesores.id+'-txt-clave').getValue();
+		    	var nombre = Ext.getCmp(asesores.id+'-txt-nombre-asesores').getValue();
+		    	var perfil = Ext.getCmp(asesores.id+'-cmb-perfil').getValue();
+		    	var estado = Ext.getCmp(asesores.id+'-cmb-estado-asesores').getValue();
 
 				if(usuario==''){ 
 					global.Msg({msg:"Ingrese Usuario.",icon:2,fn:function(){}});
@@ -756,13 +755,13 @@
                     buttons: 3,
                     fn: function(btn){
                     	if (btn == 'yes'){
-                    		Ext.getCmp(user.id+'-tab').el.mask('Elinando Páginas…', 'x-mask-loading');
+                    		Ext.getCmp(asesores.id+'-tab').el.mask('Elinando Páginas…', 'x-mask-loading');
 	                        scanning.getLoader(true);
 			                Ext.Ajax.request({
 			                    url:control.url+'set_save/',
 			                    params:{
 			                    	vp_op:op,
-			                    	vp_id_user:codigo,
+			                    	vp_id_asesores:codigo,
 			                    	vp_usr_codigo:usuario,
 			                    	vp_usr_passwd:clave,
 			                    	vp_usr_nombre:nombre,
@@ -771,7 +770,7 @@
 			                    },
 			                    timeout: 300000,
 			                    success: function(response, options){
-			                        Ext.getCmp(user.id+'-tab').el.unmask();
+			                        Ext.getCmp(asesores.id+'-tab').el.unmask();
 			                        var res = Ext.JSON.decode(response.responseText);
 			                        control.getLoader(false);
 			                        if (res.error == 'OK'){
@@ -780,8 +779,8 @@
 			                                icon: 1,
 			                                buttons: 1,
 			                                fn: function(btn){
-			                                	user.getHistory();
-			                                	Ext.getCmp(user.id+'-win-form').close();
+			                                	asesores.getHistory();
+			                                	Ext.getCmp(asesores.id+'-win-form').close();
 			                                }
 			                            });
 			                        } else{
@@ -801,33 +800,33 @@
 				});
 			},
 		    getHistory:function(){
-		    	var vp_op = Ext.getCmp(user.id+'-txt-estado-filter').getValue();
-				var nombre = Ext.getCmp(user.id+'-txt-user').getValue();
+		    	var vp_op = Ext.getCmp(asesores.id+'-txt-estado-filter').getValue();
+				var nombre = Ext.getCmp(asesores.id+'-txt-asesores').getValue();
 
-		    	Ext.getCmp(user.id + '-grid-user').getStore().removeAll();
-				Ext.getCmp(user.id + '-grid-user').getStore().load(
+		    	Ext.getCmp(asesores.id + '-grid-asesores').getStore().removeAll();
+				Ext.getCmp(asesores.id + '-grid-asesores').getStore().load(
 	                {params: {vp_op:vp_op,vp_nombre:nombre},
 	                callback:function(){
-	                	//Ext.getCmp(user.id+'-form').el.unmask();
+	                	//Ext.getCmp(asesores.id+'-form').el.unmask();
 	                }
 	            });
 	            
 		    },
 			getImagen:function(param){
-				win.getGalery({container:'GaleryFull',width:390,height:250,params:{forma:'F',img_path:'/images/icon/'+param}});///user/
+				win.getGalery({container:'GaleryFull',width:390,height:250,params:{forma:'F',img_path:'/images/icon/'+param}});///asesores/
 			},
 			getContratos:function(shi_codigo){
-				Ext.getCmp(user.id+'-cbx-contrato').getStore().removeAll();
-				Ext.getCmp(user.id+'-cbx-contrato').getStore().load(
+				Ext.getCmp(asesores.id+'-cbx-contrato').getStore().removeAll();
+				Ext.getCmp(asesores.id+'-cbx-contrato').getStore().load(
 	                {params: {vp_shi_codigo:shi_codigo},
 	                callback:function(){
-	                	//Ext.getCmp(user.id+'-form').el.unmask();
+	                	//Ext.getCmp(asesores.id+'-form').el.unmask();
 	                }
 	            });
 			}
 		}
-		Ext.onReady(user.init,user);
+		Ext.onReady(asesores.init,asesores);
 	}else{
-		tab.setActiveTab(user.id+'-tab');
+		tab.setActiveTab(asesores.id+'-tab');
 	}
 </script>

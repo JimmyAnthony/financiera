@@ -7,7 +7,7 @@
  * @version 2.0
  */
 
-class asesorModels extends Adodb {
+class personaModels extends Adodb {
 
     private $dsn;
 

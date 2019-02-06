@@ -98,6 +98,8 @@
             '*',
             'Ext.global.plugin.MenuView',
             'Ext.global.plugin.MenuViewVert',
+            'Ext.global.plugin.GridViewVertAS',
+            'Ext.global.plugin.GridViewVertCLI',
             'Ext.global.uePanelS',
             'Ext.global.uePanel',
             'Ext.global.SubTable',
@@ -196,6 +198,7 @@
                         }
                     },
                     layout: 'border',
+                    bodyStyle: 'background: transparent',
                     //bodyCls: 'fondo_cuadros',
                     items:[
                         {
@@ -573,6 +576,7 @@
                             id: inicio.id+'-region-content',
                             border:false,
                             bodyCls: 'transparent',
+                            bodyStyle: 'background: transparent',
                             items:[
                                 {
                                     region:'west',
@@ -601,6 +605,7 @@
                                     border: false,
                                     layout: 'fit',
                                     tabPosition: 'left',
+                                    bodyStyle: 'background: transparent',
                                     bodyCls: 'transparent',
                                     // tabRotation: 0,
                                     items:[
