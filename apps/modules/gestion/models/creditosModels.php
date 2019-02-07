@@ -36,6 +36,7 @@ class creditosModels extends Adodb {
         parent::SetParameterSP($p['vp_sol_ape_pat'], 'varchar');//9
         parent::SetParameterSP($p['vp_sol_ape_mat'], 'varchar');//10
         parent::SetParameterSP($p['vp_sol_nombres'], 'varchar');//11
+        parent::SetParameterSP($p['vp_sol_sexo'], 'varchar');//--------------------------------
         parent::SetParameterSP($p['vp_sol_doc_dni'], 'varchar');//12
         parent::SetParameterSP($p['vp_sol_doc_ce'], 'varchar');//13
         parent::SetParameterSP($p['vp_sol_doc_cip'], 'varchar');//14
@@ -98,6 +99,7 @@ class creditosModels extends Adodb {
         parent::SetParameterSP($p['vp_conyu_ape_pater'], 'varchar');//52
         parent::SetParameterSP($p['vp_conyu_ape_mater'], 'varchar');//53
         parent::SetParameterSP($p['vp_conyu_nombres'], 'varchar');//54
+        parent::SetParameterSP($p['vp_conyu_sexo'], 'varchar');//--------------------------------
         parent::SetParameterSP($p['vp_conyu_dni'], 'varchar');//55
         parent::SetParameterSP($p['vp_conyu_ce'], 'varchar');//56
         parent::SetParameterSP($p['vp_conyu_cip'], 'varchar');//57
@@ -138,6 +140,7 @@ class creditosModels extends Adodb {
         parent::SetParameterSP($p['vp_garan_ape_pate'], 'varchar');//81
         parent::SetParameterSP($p['vp_garan_ape_mate'], 'varchar');//82
         parent::SetParameterSP($p['vp_garan_ape_nombres'], 'varchar');//83
+        parent::SetParameterSP($p['vp_garan_sexo'], 'varchar');//--------------------------------
         parent::SetParameterSP($p['vp_garan_doc_dni'], 'varchar');//84
         parent::SetParameterSP($p['vp_garan_doc_ce'], 'varchar');//85
         parent::SetParameterSP($p['vp_garan_doc_cip'], 'varchar');//86

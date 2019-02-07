@@ -48,6 +48,19 @@ class personaController extends AppController {
         return $this->response($data);
     }
 
+    public function setSavePersona($p){
+        $rs = $this->objDatos->SP_CREDITO_PERSONA($p);
+        $rs = $rs[0];
+        $data = array(
+            'success' => true,
+            'error' => $rs['RESPONSE'],
+            'msn' => utf8_encode(trim($rs['MESSAGE_TEXT'])),
+            'CODIGO' => trim($rs['CODIGO'])
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+
     public function getDataMenuView($p){
         //session_start();
         //$_SESSION['sis_id'] = $p['sis_id'];

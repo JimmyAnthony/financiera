@@ -4,7 +4,7 @@
 		var persona = {
 			id:'persona',
 			id_menu:'<?php echo $p["id_menu"];?>',
-			url:'/gestion/asesor/',
+			url:'/gestion/persona/',
 			opcion:'I',
 			id_lote:0,
 			shi_codigo:0,
@@ -409,8 +409,8 @@
 	                plain: true,
 	                title:'Mantenimiento',
 	                icon: '/images/icon/default-avatar_man.png',
-	                height: 500,
-	                width: 420,
+	                height: 530,
+	                width: 450,
 	                resizable:false,
 	                modal: true,
 	                border:false,
@@ -438,282 +438,146 @@
                             bodyStyle: 'background: transparent',
 							items:[
 								{
-									xtype:'panel',
+									xtype:'tabpanel',
 									title:'Datos',
 									bodyStyle: 'background: transparent',
-									border:false,
+		                            id: persona.id+'-tabContentDatos',
+		                            activeItem: 0,
+		                            autoScroll: false,
+
+		                            defaults:{
+		                                closable: true,
+		                                autoScroll: true,
+		                                closable:false
+		                            },
+		                            border: false,
+		                            //layout: 'fit',
+		                            tabPosition: 'right',
+		                            bodyCls: 'transparent',
+		                            bodyStyle: 'background: transparent',
+		                            autoScroll:false,
 									items:[
 										{
-											layout:'hbox',
+											xtype:'panel',
 											bodyStyle: 'background: transparent',
-											padding:'5px 5px 5px 5px',
+											title:'Registro',
 											border:false,
 											items:[
 												{
-						                            xtype: 'textfield',	
-						                            fieldLabel: 'IDCLI',
-						                            id:persona.id+'-sol-txt-id-cli',
-						                            hidden:true,
-						                            bodyStyle: 'background: transparent',
-								                    padding:'15px 5px 5px 25px',
-						                            //id:persona.id+'-txt-dni',
-						                            labelWidth:50,
-						                            //readOnly:true,
-						                            labelAlign:'top',
-						                            //width:120,
-						                            //height:60,
-						                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-						                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-						                            value:'0',
-						                            //anchor:'100%',
-						                            listeners:{
-						                                afterrender:function(obj, e){
-						                                }
-						                            }
-						                        },
-												{
-						                            xtype: 'textfield',
-						                            id:persona.id+'-sol-txt-apellido-paterno',
-						                            fieldLabel: 'Apellido Paterno',
-						                            bodyStyle: 'background: transparent',
-								                    padding:'5px 5px 5px 5px',
-						                            //id:persona.id+'-txt-dni',
-						                            labelWidth:50,
-						                            //readOnly:true,
-						                            labelAlign:'top',
-						                            width:'50%',
-						                            height:40,
-						                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-						                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-						                            value:'BAZÁN',
-						                            //anchor:'100%',
-						                            listeners:{
-						                                afterrender:function(obj, e){
-						                                }
-						                            }
-						                        },
-						                        {
-						                            xtype: 'textfield',	
-						                            id:persona.id+'-sol-txt-apellido-materno',
-						                            fieldLabel: 'Apellido Materno',
-						                            bodyStyle: 'background: transparent',
-								                    padding:'5px 5px 5px 5px',
-						                            //id:persona.id+'-txt-dni',
-						                            labelWidth:50,
-						                            //readOnly:true,
-						                            labelAlign:'top',
-						                            width:'50%',
-						                            height:40,
-						                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-						                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-						                            value:'SOLIS',
-						                            //anchor:'100%',
-						                            listeners:{
-						                                afterrender:function(obj, e){
-						                                }
-						                            }
-						                        }
-						                    ]
-						                },
-						                {
-											layout:'hbox',
-											bodyStyle: 'background: transparent',
-											padding:'5px 5px 5px 5px',
-											border:false,
-											items:[
+													layout:'hbox',
+													bodyStyle: 'background: transparent',
+													padding:'5px 5px 5px 5px',
+													border:false,
+													items:[
+														{
+								                            xtype: 'textfield',	
+								                            fieldLabel: 'IDCLI',
+								                            id:persona.id+'-sol-txt-id-cli',
+								                            hidden:true,
+								                            bodyStyle: 'background: transparent',
+										                    padding:'15px 5px 5px 25px',
+								                            //id:persona.id+'-txt-dni',
+								                            labelWidth:50,
+								                            //readOnly:true,
+								                            labelAlign:'top',
+								                            //width:120,
+								                            //height:60,
+								                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+								                            value:'0',
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
+														{
+								                            xtype: 'textfield',
+								                            id:persona.id+'-sol-txt-apellido-paterno',
+								                            fieldLabel: 'Apellido Paterno',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 5px 5px',
+								                            //id:persona.id+'-txt-dni',
+								                            labelWidth:50,
+								                            //readOnly:true,
+								                            labelAlign:'top',
+								                            width:'50%',
+								                            height:40,
+								                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                            value:'',
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
+								                        {
+								                            xtype: 'textfield',	
+								                            id:persona.id+'-sol-txt-apellido-materno',
+								                            fieldLabel: 'Apellido Materno',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 5px 5px',
+								                            //id:persona.id+'-txt-dni',
+								                            labelWidth:50,
+								                            //readOnly:true,
+								                            labelAlign:'top',
+								                            width:'50%',
+								                            height:40,
+								                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                            value:'',
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        }
+								                    ]
+								                },
 								                {
-						                            xtype: 'textfield',
-						                            fieldLabel: 'Nombres',
-						                            id:persona.id+'-sol-txt-nombres',
-						                            bodyStyle: 'background: transparent',
-								                    padding:'5px 5px 5px 5px',
-						                            //id:persona.id+'-txt-dni',
-						                            labelWidth:50,
-						                            //readOnly:true,
-						                            labelAlign:'top',
-						                            width:'100%',
-						                            height:40,
-						                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-						                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-						                            value:'JIMMY ANTHONY',
-						                            //anchor:'100%',
-						                            listeners:{
-						                                afterrender:function(obj, e){
-						                                }
-						                            }
-						                        }
-						                    ]
-						                },
-						                {
-				                            xtype:'combo',
-				                            fieldLabel: 'Sexo',
-				                            bodyStyle: 'background: transparent',
-				                            id:persona.id+'-sol-cmb-sexo',
-				                            store: Ext.create('Ext.data.ArrayStore', {
-										        //storeId: 'estado',
-										        autoLoad: true,
-										        data: [
-													['M','MASCULINO'],
-												    ['F','FEMENINO']
-												],
-										        fields: ['code', 'name']
-										    }),
-				                            queryMode: 'local',
-				                            triggerAction: 'all',
-				                            valueField: 'code',
-				                            displayField: 'name',
-				                            emptyText: '[Seleccione]',
-				                            labelAlign:'right',
-				                            //allowBlank: false,
-				                            width:'92%',
-				                            flex:1,
-				                            //height:30,
-				                            labelStyle: "font-size:12px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-				                            fieldStyle: 'font-size:12px; text-align: center; font-weight: bold',
-                                            anchor:'100%',
-                                            labelWidth:50,
-                                            padding:'15px 5px 5px 10px',
-				                            listeners:{
-				                                afterrender:function(obj, e){
-				                                    // obj.getStore().load();
-				                                    obj.setValue('M');
-				                                },
-				                                select:function(obj, records, eOpts){
-				                        
-				                                }
-				                            }
-				                        },
-						                {
-											layout:'hbox',
-											bodyStyle: 'background: transparent',
-											padding:'5px 5px 5px 5px',
-											border:false,
-											items:[
-											    {
-						                            xtype: 'textfield',	
-						                            id:persona.id+'-sol-txt-doc-dni',
-						                            fieldLabel: 'DNI',
-						                            bodyStyle: 'background: transparent',
-								                    padding:'5px 5px 5px 5px',
-						                            //id:persona.id+'-txt-dni',
-						                            labelWidth:50,
-						                            //readOnly:true,
-						                            labelAlign:'top',
-						                            //width:'50%',
-						                            flex:1,
-						                            height:40,
-						                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-						                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-						                            value:'',
-						                            //anchor:'100%',
-						                            listeners:{
-						                                afterrender:function(obj, e){
-						                                }
-						                            }
-						                        },
-						                        {
-						                            xtype: 'textfield',	
-						                            id:persona.id+'-sol-txt-doc-ce',
-						                            fieldLabel: 'CE',
-						                            bodyStyle: 'background: transparent',
-								                    padding:'5px 5px 5px 5px',
-						                            //id:persona.id+'-txt-dni',
-						                            labelWidth:50,
-						                            //readOnly:true,
-						                            labelAlign:'top',
-						                            //width:'50%',
-						                            flex:1,
-						                            height:40,
-						                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-						                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-						                            value:'',
-						                            //anchor:'100%',
-						                            listeners:{
-						                                afterrender:function(obj, e){
-						                                }
-						                            }
-						                        },
-											    {
-						                            xtype: 'textfield',	
-						                            id:persona.id+'-sol-txt-doc-cip',
-						                            fieldLabel: 'CIP',
-						                            bodyStyle: 'background: transparent',
-								                    padding:'5px 5px 5px 5px',
-						                            //id:persona.id+'-txt-dni',
-						                            labelWidth:50,
-						                            //readOnly:true,
-						                            labelAlign:'top',
-						                            //width:'50%',
-						                            flex:1,
-						                            height:40,
-						                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-						                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-						                            value:'',
-						                            //anchor:'100%',
-						                            listeners:{
-						                                afterrender:function(obj, e){
-						                                }
-						                            }
-						                        },
-											    {
-						                            xtype: 'textfield',	
-						                            id:persona.id+'-sol-txt-doc-ruc',
-						                            fieldLabel: 'RUC',
-						                            bodyStyle: 'background: transparent',
-								                    padding:'5px 5px 5px 5px',
-						                            //id:persona.id+'-txt-dni',
-						                            labelWidth:50,
-						                            //readOnly:true,
-						                            labelAlign:'top',
-						                            //width:'50%',
-						                            flex:1,
-						                            height:40,
-						                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-						                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-						                            value:'',
-						                            //anchor:'100%',
-						                            listeners:{
-						                                afterrender:function(obj, e){
-						                                }
-						                            }
-						                        },
-											    {
-						                            xtype: 'textfield',	
-						                            id:persona.id+'-sol-txt-doc-cm',
-						                            fieldLabel: 'CM',
-						                            bodyStyle: 'background: transparent',
-								                    padding:'5px 5px 5px 5px',
-						                            //id:persona.id+'-txt-dni',
-						                            labelWidth:50,
-						                            //readOnly:true,
-						                            labelAlign:'top',
-						                            //width:'50%',
-						                            flex:1,
-						                            height:40,
-						                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-						                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-						                            value:'',
-						                            //anchor:'100%',
-						                            listeners:{
-						                                afterrender:function(obj, e){
-						                                }
-						                            }
-						                        }
-						                    ]
-						                },
-						                {
-											layout:'hbox',
-											bodyStyle: 'background: transparent',
-											padding:'5px 5px 5px 5px',
-											border:false,
-											items:[
-												{
+													layout:'hbox',
+													bodyStyle: 'background: transparent',
+													padding:'5px 5px 5px 5px',
+													border:false,
+													items:[
+										                {
+								                            xtype: 'textfield',
+								                            fieldLabel: 'Nombres',
+								                            id:persona.id+'-sol-txt-nombres',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 5px 5px',
+								                            //id:persona.id+'-txt-dni',
+								                            labelWidth:50,
+								                            //readOnly:true,
+								                            labelAlign:'top',
+								                            width:'100%',
+								                            height:40,
+								                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                            value:'',
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        }
+								                    ]
+								                },
+								                {
 						                            xtype:'combo',
-						                            fieldLabel: 'Estado Civil',
+						                            fieldLabel: 'Sexo',
 						                            bodyStyle: 'background: transparent',
-								                    padding:'5px 5px 5px 5px',
-						                            id:persona.id+'-sol-cmb-estado-civil',
-						                            store: persona.store_estado_civil,
+						                            id:persona.id+'-sol-cmb-sexo',
+						                            store: Ext.create('Ext.data.ArrayStore', {
+												        //storeId: 'estado',
+												        autoLoad: true,
+												        data: [
+															['M','MASCULINO'],
+														    ['F','FEMENINO']
+														],
+												        fields: ['code', 'name']
+												    }),
 						                            queryMode: 'local',
 						                            triggerAction: 'all',
 						                            valueField: 'code',
@@ -721,108 +585,428 @@
 						                            emptyText: '[Seleccione]',
 						                            labelAlign:'right',
 						                            //allowBlank: false,
-						                            labelAlign:'top',
-						                            labelWidth: 50,
-						                            width:150,
-						                            anchor:'100%',
-						                            //readOnly: true,
-						                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-						                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                            width:'92%',
+						                            flex:1,
+						                            //height:30,
+						                            labelStyle: "font-size:12px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+						                            fieldStyle: 'font-size:12px; text-align: center; font-weight: bold',
+		                                            anchor:'100%',
+		                                            labelWidth:50,
+		                                            padding:'15px 5px 5px 10px',
 						                            listeners:{
 						                                afterrender:function(obj, e){
 						                                    // obj.getStore().load();
-						                                    obj.setValue('S');
+						                                    obj.setValue('M');
 						                                },
 						                                select:function(obj, records, eOpts){
 						                        
 						                                }
 						                            }
 						                        },
-												{
-											        xtype: 'datefield',
-											        id:persona.id+'-sol-date-fecha-nac',
-											        padding:'5px 5px 5px 5px',
-											        //name: 'date1',
-											        labelAlign:'top',
-											        flex:1,
-						                            height:40,
-											        labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-						                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-											        fieldLabel: 'Fecha de Nacimiento',
-											        value:'22/01/2019'
-											    }
-						                    ]
-						                },
-						                {
-											layout:'hbox',
+								                {
+													layout:'hbox',
+													bodyStyle: 'background: transparent',
+													padding:'5px 5px 5px 5px',
+													border:false,
+													items:[
+													    {
+								                            xtype: 'textfield',	
+								                            id:persona.id+'-sol-txt-doc-dni',
+								                            fieldLabel: 'DNI',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 5px 5px',
+								                            //id:persona.id+'-txt-dni',
+								                            labelWidth:50,
+								                            //readOnly:true,
+								                            labelAlign:'top',
+								                            //width:'50%',
+								                            flex:1,
+								                            height:40,
+								                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                            value:'',
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
+								                        {
+								                            xtype: 'textfield',	
+								                            id:persona.id+'-sol-txt-doc-ce',
+								                            fieldLabel: 'CE',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 5px 5px',
+								                            //id:persona.id+'-txt-dni',
+								                            labelWidth:50,
+								                            //readOnly:true,
+								                            labelAlign:'top',
+								                            //width:'50%',
+								                            flex:1,
+								                            height:40,
+								                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                            value:'',
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
+													    {
+								                            xtype: 'textfield',	
+								                            id:persona.id+'-sol-txt-doc-cip',
+								                            fieldLabel: 'CIP',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 5px 5px',
+								                            //id:persona.id+'-txt-dni',
+								                            labelWidth:50,
+								                            //readOnly:true,
+								                            labelAlign:'top',
+								                            //width:'50%',
+								                            flex:1,
+								                            height:40,
+								                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                            value:'',
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
+													    {
+								                            xtype: 'textfield',	
+								                            id:persona.id+'-sol-txt-doc-ruc',
+								                            fieldLabel: 'RUC',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 5px 5px',
+								                            //id:persona.id+'-txt-dni',
+								                            labelWidth:50,
+								                            //readOnly:true,
+								                            labelAlign:'top',
+								                            //width:'50%',
+								                            flex:1,
+								                            height:40,
+								                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                            value:'',
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
+													    {
+								                            xtype: 'textfield',	
+								                            id:persona.id+'-sol-txt-doc-cm',
+								                            fieldLabel: 'CM',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 5px 5px',
+								                            //id:persona.id+'-txt-dni',
+								                            labelWidth:50,
+								                            //readOnly:true,
+								                            labelAlign:'top',
+								                            //width:'50%',
+								                            flex:1,
+								                            height:40,
+								                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                            value:'',
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        }
+								                    ]
+								                },
+								                {
+													layout:'hbox',
+													bodyStyle: 'background: transparent',
+													padding:'5px 5px 5px 5px',
+													border:false,
+													items:[
+														{
+								                            xtype:'combo',
+								                            fieldLabel: 'Estado Civil',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 5px 5px',
+								                            id:persona.id+'-sol-cmb-estado-civil',
+								                            store: persona.store_estado_civil,
+								                            queryMode: 'local',
+								                            triggerAction: 'all',
+								                            valueField: 'code',
+								                            displayField: 'name',
+								                            emptyText: '[Seleccione]',
+								                            labelAlign:'right',
+								                            //allowBlank: false,
+								                            labelAlign:'top',
+								                            labelWidth: 50,
+								                            width:150,
+								                            anchor:'100%',
+								                            //readOnly: true,
+								                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                    // obj.getStore().load();
+								                                    obj.setValue('S');
+								                                },
+								                                select:function(obj, records, eOpts){
+								                        
+								                                }
+								                            }
+								                        },
+														{
+													        xtype: 'datefield',
+													        id:persona.id+'-sol-date-fecha-nac',
+													        padding:'5px 5px 5px 5px',
+													        //name: 'date1',
+													        labelAlign:'top',
+													        format:'Y-m-d',
+													        flex:1,
+								                            height:40,
+													        labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+													        fieldLabel: 'Fecha de Nacimiento',
+													        value:''
+													    }
+								                    ]
+								                },
+								                {
+													layout:'hbox',
+													bodyStyle: 'background: transparent',
+													padding:'5px 5px 5px 5px',
+													border:false,
+													items:[
+														{
+													        xtype: 'label',
+													        //forId: 'myFieldId',
+													        text: 'Domicilio Actual:',
+													        style: 'font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
+													        padding:'26px 10px 5px 5px',
+													        width:80,
+													        //flex:1,
+								                            anchor:'100%'
+													    },
+														{
+													        xtype: 'checkboxfield',
+													        id:persona.id+'-sol-chk-domi-propio',
+													        name: 'checkbox1',
+													        fieldLabel: 'Propio',
+													        labelAlign:'top',
+													        padding:'5px 10px 5px 5px',
+													        labelWidth:100,
+													        flex:1,
+													        //boxLabel: 'Domicilio Actual',
+													        style: 'font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
+								                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+													    },
+													    {
+													        xtype: 'checkboxfield',
+													        id:persona.id+'-sol-chk-domi-pagando',
+													        name: 'checkbox1',
+													        fieldLabel: 'Pagandolo',
+													        labelAlign:'top',
+													        padding:'5px 5px 5px 5px',
+													        labelWidth:40,
+													        flex:1,
+													        //boxLabel: 'box label',
+													        style: 'font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
+								                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+													    },
+													    {
+													        xtype: 'checkboxfield',
+													        id:persona.id+'-sol-chk-domi-alquilado',
+													        name: 'checkbox1',
+													        fieldLabel: 'Alquilado',
+													        labelAlign:'top',
+													        padding:'5px 5px 5px 5px',
+													        labelWidth:40,
+													        flex:1,
+													        //boxLabel: 'box label',
+													        style: 'font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
+								                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+													    },
+													    {
+													        xtype: 'checkboxfield',
+													        id:persona.id+'-sol-chk-domi-familiar',
+													        name: 'checkbox1',
+													        fieldLabel: 'Familiar',
+													        labelAlign:'top',
+													        padding:'5px 5px 5px 5px',
+													        labelWidth:40,
+													        flex:1,
+													        //boxLabel: 'box label',
+													        style: 'font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
+								                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+													    }
+								                    ]
+								                },
+								                {
+							                        layout:'hbox',
+							                        bodyStyle: 'background: transparent',
+													padding:'5px 5px 5px 5px',
+													height:70,
+													border:false,
+													items:[
+								                        {
+									                        xtype:'button',
+									                        margin:'20px 5px 5px 5px',
+									                        height:30,
+									                        //text: 'Grabar',
+									                        icon: '/images/icon/save.png',
+									                        listeners:{
+									                            beforerender: function(obj, opts){
+																},
+									                            click: function(obj, e){
+									                            	persona.setSavePersona();
+									                            }
+									                        }
+									                    },
+									                    {
+									                        xtype:'button',
+									                        height:30,
+									                        margin:'20px 5px 5px 5px',
+									                        //text: 'Grabar',
+									                        icon: '/images/icon/Document.png',
+									                        listeners:{
+									                            beforerender: function(obj, opts){
+																},
+									                            click: function(obj, e){
+									                            	//persona.setSavepersona(op);
+									                            }
+									                        }
+									                    },
+									                    {
+									                        xtype:'button',
+									                        height:30,
+									                        margin:'20px 5px 5px 5px',
+									                        //text: 'Grabar',
+									                        icon: '/images/icon/Trash.png',
+									                        listeners:{
+									                            beforerender: function(obj, opts){
+																},
+									                            click: function(obj, e){
+									                            	//persona.setSavepersona(op);
+									                            }
+									                        }
+									                    }
+								                    ]
+								                }
+							            	]
+							            },
+							            {
+											xtype:'panel',
 											bodyStyle: 'background: transparent',
-											padding:'5px 5px 5px 5px',
+											title:'Foto',
 											border:false,
+											layout:'border',
 											items:[
 												{
-											        xtype: 'label',
-											        //forId: 'myFieldId',
-											        text: 'Domicilio Actual:',
-											        style: 'font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
-											        padding:'26px 10px 5px 5px',
-											        width:80,
-											        //flex:1,
-						                            anchor:'100%'
-											    },
+													region:'center',
+													border:false,
+													layout:'fit',
+													bodyStyle: 'background: transparent',
+													items:[
+														{
+									                        layout:'hbox',
+									                        bodyStyle: 'background: transparent',
+															padding:'5px 5px 5px 5px',
+															//height:70,
+															flex:1,
+															border:true,
+															padding:'20px 20px 20px 20px',
+															margin:'20px 20px 20px 20px',
+															items:[
+
+															]
+														}
+													]
+												},
 												{
-											        xtype: 'checkboxfield',
-											        id:persona.id+'-sol-chk-domi-propio',
-											        name: 'checkbox1',
-											        fieldLabel: 'Propio',
-											        labelAlign:'top',
-											        padding:'5px 10px 5px 5px',
-											        labelWidth:100,
-											        flex:1,
-											        //boxLabel: 'Domicilio Actual',
-											        style: 'font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
-						                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
-											    },
-											    {
-											        xtype: 'checkboxfield',
-											        id:persona.id+'-sol-chk-domi-pagando',
-											        name: 'checkbox1',
-											        fieldLabel: 'Pagandolo',
-											        labelAlign:'top',
-											        padding:'5px 5px 5px 5px',
-											        labelWidth:40,
-											        flex:1,
-											        //boxLabel: 'box label',
-											        style: 'font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
-						                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
-											    },
-											    {
-											        xtype: 'checkboxfield',
-											        id:persona.id+'-sol-chk-domi-alquilado',
-											        name: 'checkbox1',
-											        fieldLabel: 'Alquilado',
-											        labelAlign:'top',
-											        padding:'5px 5px 5px 5px',
-											        labelWidth:40,
-											        flex:1,
-											        //boxLabel: 'box label',
-											        style: 'font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
-						                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
-											    },
-											    {
-											        xtype: 'checkboxfield',
-											        id:persona.id+'-sol-chk-domi-familiar',
-											        name: 'checkbox1',
-											        fieldLabel: 'Familiar',
-											        labelAlign:'top',
-											        padding:'5px 5px 5px 5px',
-											        labelWidth:40,
-											        flex:1,
-											        //boxLabel: 'box label',
-											        style: 'font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
-						                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
-											    }
-						                    ]
-						                }
+													region:'south',
+													height:95,
+													border:false,
+													bodyStyle: 'background: transparent',
+													items:[
+														{
+									                        layout:'hbox',
+									                        bodyStyle: 'background: transparent',
+															padding:'5px 5px 5px 5px',
+															height:45,
+															border:false,
+															items:[
+																{
+														            xtype: 'filefield',
+														            labelWidth:40,
+														            flex:1,
+														            emptyText: 'Seleccione una imagen',
+														            fieldLabel: 'Foto',
+														            name: 'photo-path',
+														            buttonText: '',
+														            buttonConfig: {
+														                iconCls: 'upload-icon'
+														            }
+														        }
+															]
+														},
+														{
+									                        layout:'hbox',
+									                        bodyStyle: 'background: transparent',
+															padding:'5px 5px 5px 5px',
+															height:45,
+															border:false,
+															items:[
+										                        {
+											                        xtype:'button',
+											                        margin:'5px 5px 5px 5px',
+											                        height:30,
+											                        //text: 'Grabar',
+											                        icon: '/images/icon/save.png',
+											                        listeners:{
+											                            beforerender: function(obj, opts){
+																		},
+											                            click: function(obj, e){
+											                            	//persona.setSavepersona(op);
+											                            }
+											                        }
+											                    },
+											                    {
+											                        xtype:'button',
+											                        height:30,
+											                        margin:'5px 5px 5px 5px',
+											                        //text: 'Grabar',
+											                        icon: '/images/icon/Document.png',
+											                        listeners:{
+											                            beforerender: function(obj, opts){
+																		},
+											                            click: function(obj, e){
+											                            	//persona.setSavepersona(op);
+											                            }
+											                        }
+											                    },
+											                    {
+											                        xtype:'button',
+											                        height:30,
+											                        margin:'5px 5px 5px 5px',
+											                        //text: 'Grabar',
+											                        icon: '/images/icon/Trash.png',
+											                        listeners:{
+											                            beforerender: function(obj, opts){
+																		},
+											                            click: function(obj, e){
+											                            	//persona.setSavepersona(op);
+											                            }
+											                        }
+											                    }
+										                    ]
+										                }
+													]
+												}
+											]
+										}
 									]
 								},
 								{
@@ -1420,7 +1604,58 @@
 		                                        
 		                                                }
 		                                            }
-		                                        }
+		                                        },
+		                                        {
+							                        layout:'hbox',
+							                        bodyStyle: 'background: transparent',
+													padding:'5px 5px 5px 5px',
+													height:70,
+													border:false,
+													items:[
+								                        {
+									                        xtype:'button',
+									                        margin:'20px 5px 5px 5px',
+									                        height:30,
+									                        //text: 'Grabar',
+									                        icon: '/images/icon/save.png',
+									                        listeners:{
+									                            beforerender: function(obj, opts){
+																},
+									                            click: function(obj, e){
+									                            	//persona.setSavepersona(op);
+									                            }
+									                        }
+									                    },
+									                    {
+									                        xtype:'button',
+									                        height:30,
+									                        margin:'20px 5px 5px 5px',
+									                        //text: 'Grabar',
+									                        icon: '/images/icon/Document.png',
+									                        listeners:{
+									                            beforerender: function(obj, opts){
+																},
+									                            click: function(obj, e){
+									                            	//persona.setSavepersona(op);
+									                            }
+									                        }
+									                    },
+									                    {
+									                        xtype:'button',
+									                        height:30,
+									                        margin:'20px 5px 5px 5px',
+									                        //text: 'Grabar',
+									                        icon: '/images/icon/Trash.png',
+									                        listeners:{
+									                            beforerender: function(obj, opts){
+																},
+									                            click: function(obj, e){
+									                            	//persona.setSavepersona(op);
+									                            }
+									                        }
+									                    }
+								                    ]
+								                }
 											]
 										},
 										{
@@ -1641,7 +1876,7 @@
 								}
 		                    ]
 		                }
-	                ],
+	                ],/*
 	                bbar:[       
 	                    '->',
 	                    '-',
@@ -1671,7 +1906,7 @@
 	                        }
 	                    },
 	                    '-'
-	                ],
+	                ],*/
 	                listeners:{
 	                    'afterrender':function(obj, e){ 
 
@@ -1683,47 +1918,227 @@
 	            }).show().center();
 			},
 			setSavePersona:function(){
-				var vp_sol_id_cli = Ext.getCmp(creditos.id+'-sol-txt-id-cli').getValue();
-				var sol_ape_pat = Ext.getCmp(creditos.id+'-sol-txt-apellido-paterno').getValue();
-				var sol_ape_mat = Ext.getCmp(creditos.id+'-sol-txt-apellido-materno').getValue();
-				var sol_nombres = Ext.getCmp(creditos.id+'-sol-txt-nombres').getValue();
-				var sol_doc_dni = Ext.getCmp(creditos.id+'-sol-txt-doc-dni').getValue();
-				var sol_doc_ce = Ext.getCmp(creditos.id+'-sol-txt-doc-ce').getValue();
-				var sol_doc_cip = Ext.getCmp(creditos.id+'-sol-txt-doc-cip').getValue();
-				var sol_doc_ruc = Ext.getCmp(creditos.id+'-sol-txt-doc-ruc').getValue();
-				var sol_doc_cm = Ext.getCmp(creditos.id+'-sol-txt-doc-cm').getValue();
-				var sol_estado_civil = Ext.getCmp(creditos.id+'-sol-cmb-estado-civil').getValue();
-				var sol_fecha_nac = Ext.getCmp(creditos.id+'-sol-date-fecha-nac').getRawValue();
+				var vp_sol_id_cli = Ext.getCmp(persona.id+'-sol-txt-id-cli').getValue();
+				var op = vp_sol_id_cli!=0?'U':'I';
+				var sol_ape_pat = Ext.getCmp(persona.id+'-sol-txt-apellido-paterno').getValue();
+				var sol_ape_mat = Ext.getCmp(persona.id+'-sol-txt-apellido-materno').getValue();
+				var sol_nombres = Ext.getCmp(persona.id+'-sol-txt-nombres').getValue();
+				var sol_sexo = Ext.getCmp(persona.id+'-sol-cmb-sexo').getValue();
+				var sol_doc_dni = Ext.getCmp(persona.id+'-sol-txt-doc-dni').getValue();
+				var sol_doc_ce = Ext.getCmp(persona.id+'-sol-txt-doc-ce').getValue();
+				var sol_doc_cip = Ext.getCmp(persona.id+'-sol-txt-doc-cip').getValue();
+				var sol_doc_ruc = Ext.getCmp(persona.id+'-sol-txt-doc-ruc').getValue();
+				var sol_doc_cm = Ext.getCmp(persona.id+'-sol-txt-doc-cm').getValue();
+				var sol_estado_civil = Ext.getCmp(persona.id+'-sol-cmb-estado-civil').getValue();
+				var sol_fecha_nac = Ext.getCmp(persona.id+'-sol-date-fecha-nac').getRawValue();
 
-				var sol_domi_propio = Ext.getCmp(creditos.id+'-sol-chk-domi-propio').getValue();
+				var sol_domi_propio = Ext.getCmp(persona.id+'-sol-chk-domi-propio').getValue();
 				sol_domi_propio = sol_domi_propio?'S':'N';
-				var sol_domi_pagando = Ext.getCmp(creditos.id+'-sol-chk-domi-pagando').getValue();
+				var sol_domi_pagando = Ext.getCmp(persona.id+'-sol-chk-domi-pagando').getValue();
 				sol_domi_pagando = sol_domi_pagando?'S':'N';
-				var sol_domi_alquilado = Ext.getCmp(creditos.id+'-sol-chk-domi-alquilado').getValue();
+				var sol_domi_alquilado = Ext.getCmp(persona.id+'-sol-chk-domi-alquilado').getValue();
 				sol_domi_alquilado = sol_domi_alquilado?'S':'N';
-				var sol_domi_familiar = Ext.getCmp(creditos.id+'-sol-chk-domi-familiar').getValue();
+				var sol_domi_familiar = Ext.getCmp(persona.id+'-sol-chk-domi-familiar').getValue();
 				sol_domi_familiar = sol_domi_familiar?'S':'N';
 
+				var vp_sol_id_tel = Ext.getCmp(persona.id+'-sol-txt-id-tel').getValue();
+				var vp_sol_id_dir = Ext.getCmp(persona.id+'-sol-txt-id-dir').getValue();
+
+				global.Msg({
+                    msg: '¿Seguro de guardar?',
+                    icon: 3,
+                    buttons: 3,
+                    fn: function(btn){
+                    	if (btn == 'yes'){
+                    		Ext.getCmp(persona.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
+	                        //scanning.getLoader(true);
+			                Ext.Ajax.request({
+			                    url:persona.url+'setSavePersona/',
+			                    params:{
+			                    	vp_op:op,
+			                    	
+									vp_sol_id_cli:vp_sol_id_cli,
+									vp_sol_ape_pat:sol_ape_pat,
+									vp_sol_ape_mat:sol_ape_mat,
+									vp_sol_nombres:sol_nombres,
+									vp_sol_sexo:sol_sexo,
+									vp_sol_doc_dni:sol_doc_dni,
+									vp_sol_doc_ce:sol_doc_ce,
+									vp_sol_doc_cip:sol_doc_cip,
+									vp_sol_doc_ruc:sol_doc_ruc,
+									vp_sol_doc_cm:sol_doc_cm,
+									vp_sol_estado_civil:sol_estado_civil,
+									vp_sol_fecha_nac:sol_fecha_nac,
+									vp_sol_domi_propio:sol_domi_propio,
+									vp_sol_domi_pagando:sol_domi_pagando,
+									vp_sol_domi_alquilado:sol_domi_alquilado,
+									vp_sol_domi_familiar:sol_domi_familiar,
+									vp_id_tel:vp_sol_id_tel,
+									vp_id_dir:vp_sol_id_dir,
+
+									vp_sol_img:'',
+									vp_flag:'A'
+			                    },
+			                    timeout: 30000000,
+			                    success: function(response, options){
+			                        Ext.getCmp(persona.id+'-win-form').el.unmask();
+			                        var res = Ext.JSON.decode(response.responseText);
+			                        //control.getLoader(false);
+			                        if (res.error == 'OK'){
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 1,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	//persona.getHistory();
+			                                	Ext.getCmp(persona.id+'-sol-txt-id-cli').setValue(res.CODIGO);
+			                                }
+			                            });
+			                        }else{
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 0,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	 
+			                                }
+			                            });
+			                        }
+			                    }
+			                });
+						}
+					}
+				});
+
+			},
+			setSavePersonaIMG:function(){
+				var vp_sol_id_cli = Ext.getCmp(persona.id+'-sol-txt-id-cli').getValue();
 
 			},
 			setSaveTelefono:function(){
-				var vp_sol_id_tel = Ext.getCmp(creditos.id+'-sol-txt-id-tel').getValue();
-				var sol_tel_cel = Ext.getCmp(creditos.id+'-sol-txt-tel-cel').getValue();
+				var vp_sol_id_cli = Ext.getCmp(persona.id+'-sol-txt-id-cli').getValue();
+				var vp_sol_id_tel = Ext.getCmp(persona.id+'-sol-txt-id-tel').getValue();
+				var sol_tel_cel = Ext.getCmp(persona.id+'-sol-txt-tel-cel').getValue();
+
+				global.Msg({
+                    msg: '¿Seguro de guardar?',
+                    icon: 3,
+                    buttons: 3,
+                    fn: function(btn){
+                    	if (btn == 'yes'){
+                    		Ext.getCmp(persona.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
+	                        //scanning.getLoader(true);
+			                Ext.Ajax.request({
+			                    url:persona.url+'setSaveInfoCredito/',
+			                    params:{
+			                    	vp_op:op,
+									vp_sol_id_tel:vp_sol_id_tel,
+									vp_sol_tel_cel:sol_tel_cel,
+									vp_flag:'A'
+			                    },
+			                    timeout: 30000000,
+			                    success: function(response, options){
+			                        Ext.getCmp(persona.id+'-win-form').el.unmask();
+			                        var res = Ext.JSON.decode(response.responseText);
+			                        control.getLoader(false);
+			                        if (res.error == 'OK'){
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 1,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	//persona.getHistory();
+			                                	Ext.getCmp(persona.id+'-win-form').close();
+			                                }
+			                            });
+			                        } else{
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 0,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	 
+			                                }
+			                            });
+			                        }
+			                    }
+			                });
+						}
+					}
+				});
 
 			},
 			setSaveDireccion:function(){
-				var vp_sol_id_dir = Ext.getCmp(creditos.id+'-sol-txt-id-dir').getValue();
-				var sol_dir_direccion = Ext.getCmp(creditos.id+'-sol-txt-dir-direccion').getValue();
-				var sol_dir_numero = Ext.getCmp(creditos.id+'-sol-txt-dir-numero').getValue();
-				var sol_dir_mz = Ext.getCmp(creditos.id+'-sol-txt-dir-mz').getValue();
-				var sol_dir_lt = Ext.getCmp(creditos.id+'-sol-txt-dir-lt').getValue();
-				var sol_dir_dpto = Ext.getCmp(creditos.id+'-sol-txt-dir-dpto').getValue();
-				var sol_dir_interior = Ext.getCmp(creditos.id+'-sol-txt-dir-interior').getValue();
-				var sol_dir_urb = Ext.getCmp(creditos.id+'-sol-txt-dir-urb').getValue();
-				var sol_dir_referencia = Ext.getCmp(creditos.id+'-sol-txt-dir-referencia').getValue();
-				var sol_departamento = Ext.getCmp(creditos.id+'-sol-cmb-departamento').getValue();
-				var sol_provincia = Ext.getCmp(creditos.id+'-sol-cmb-provincia').getValue();
-				var sol_distrito = Ext.getCmp(creditos.id+'-sol-cmb-Distrito').getValue();
+				var vp_sol_id_cli = Ext.getCmp(persona.id+'-sol-txt-id-cli').getValue();
+				var vp_sol_id_dir = Ext.getCmp(persona.id+'-sol-txt-id-dir').getValue();
+				var sol_dir_direccion = Ext.getCmp(persona.id+'-sol-txt-dir-direccion').getValue();
+				var sol_dir_numero = Ext.getCmp(persona.id+'-sol-txt-dir-numero').getValue();
+				var sol_dir_mz = Ext.getCmp(persona.id+'-sol-txt-dir-mz').getValue();
+				var sol_dir_lt = Ext.getCmp(persona.id+'-sol-txt-dir-lt').getValue();
+				var sol_dir_dpto = Ext.getCmp(persona.id+'-sol-txt-dir-dpto').getValue();
+				var sol_dir_interior = Ext.getCmp(persona.id+'-sol-txt-dir-interior').getValue();
+				var sol_dir_urb = Ext.getCmp(persona.id+'-sol-txt-dir-urb').getValue();
+				var sol_dir_referencia = Ext.getCmp(persona.id+'-sol-txt-dir-referencia').getValue();
+				var sol_departamento = Ext.getCmp(persona.id+'-sol-cmb-departamento').getValue();
+				var sol_provincia = Ext.getCmp(persona.id+'-sol-cmb-provincia').getValue();
+				var sol_distrito = Ext.getCmp(persona.id+'-sol-cmb-Distrito').getValue();
+
+				global.Msg({
+                    msg: '¿Seguro de guardar?',
+                    icon: 3,
+                    buttons: 3,
+                    fn: function(btn){
+                    	if (btn == 'yes'){
+                    		Ext.getCmp(persona.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
+	                        //scanning.getLoader(true);
+			                Ext.Ajax.request({
+			                    url:persona.url+'setSaveInfoCredito/',
+			                    params:{
+			                    	vp_op:op,
+									vp_sol_id_dir:vp_sol_id_dir,
+									vp_sol_dir_direccion:sol_dir_direccion,
+									vp_sol_dir_numero:sol_dir_numero,
+									vp_sol_dir_mz:sol_dir_mz,
+									vp_sol_dir_lt:sol_dir_lt,
+									vp_sol_dir_dpto:sol_dir_dpto,
+									vp_sol_dir_interior:sol_dir_interior,
+									vp_sol_dir_urb:sol_dir_urb,
+									vp_sol_dir_referencia:sol_dir_referencia,
+									vp_sol_departamento:sol_departamento,
+									vp_sol_provincia:sol_provincia,
+									vp_sol_distrito:sol_distrito,
+									vp_flag:'A'
+			                    },
+			                    timeout: 30000000,
+			                    success: function(response, options){
+			                        Ext.getCmp(persona.id+'-win-form').el.unmask();
+			                        var res = Ext.JSON.decode(response.responseText);
+			                        control.getLoader(false);
+			                        if (res.error == 'OK'){
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 1,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	//persona.getHistory();
+			                                	Ext.getCmp(persona.id+'-win-form').close();
+			                                }
+			                            });
+			                        } else{
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 0,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	 
+			                                }
+			                            });
+			                        }
+			                    }
+			                });
+						}
+					}
+				});
 			},
 			getUbigeo:function(json,obj,value){
 				console.log(obj);

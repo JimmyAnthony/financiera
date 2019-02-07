@@ -620,6 +620,8 @@
 									                items:[
 								                        {
 								                            xtype:'GridViewVertCLI',
+								                            bodyStyle: 'background: transparent',
+                        									bodyCls: 'transparent',
 								                            id:asesores.id,
 								                            mode:2,
 								                            tab:asesores.id+'-tabContent',

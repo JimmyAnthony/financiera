@@ -117,7 +117,8 @@
             'Ext.grid.*',
             'Ext.tree.*',
             'Ext.ux.CheckColumn',
-            'Ext.ProgressBar'
+            'Ext.ProgressBar',
+            'Ext.toolbar.Paging'
             //'Ext.ux.GMapPanel'
             
         ]);

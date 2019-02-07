@@ -173,7 +173,7 @@ Ext.define('Ext.global.plugin.GridViewVertAS',{
                         id: config.id+'-menu-view',
                         bodyStyle: 'background: transparent',
                         bodyCls: 'transparent',
-                        layout:'fit',
+                        //layout:'fit',
                         store: store,
                         autoScroll: true,
                         loadMask:true,
@@ -207,7 +207,17 @@ Ext.define('Ext.global.plugin.GridViewVertAS',{
                             }
                         }
                     }
-                ]
+                ],
+                bbar: ['->',{
+                            xtype: 'pagingtoolbar',
+                            pageSize: 10,
+                            store: store,
+                            displayInfo: true,
+                            displayMsg: '{0} - {1} de {2} Registros',
+                            emptyMsg: 'No existe registros',
+                            pageSize: 50
+                            //plugins: new Ext.ux.ProgressBar()
+                        },'->']
             }
         ];
         me.callParent();
