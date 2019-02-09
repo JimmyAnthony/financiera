@@ -98,8 +98,8 @@ class asesorController extends AppController {
         return $this->response($data);
     }
     public function getDataListClientes($p){
-        session_start();
-        $_SESSION['sis_id'] = $p['sis_id'];
+        //session_start();
+        //$_SESSION['sis_id'] = $p['sis_id'];
 
         //$this->objDatos->usr_sis_change_first_sistema($p);
         //$p['vp_mod_id'] = 1;

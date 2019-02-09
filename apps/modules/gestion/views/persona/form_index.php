@@ -214,8 +214,8 @@
 			    });
 
 			    var myDataTipoTel = [
-					['CE','Celular'],
-				    ['FI','Fijo']
+					['C','Celular'],
+				    ['F','Fijo']
 				];
 				persona.store_tipo_tel = Ext.create('Ext.data.ArrayStore', {
 			        storeId: 'tel',
@@ -225,9 +225,9 @@
 			    });
 
 			    var myDataLineaTel = [
-					['C','Claro'],
-				    ['M','Movistar'],
-				    ['F','Fijo']
+					['CA','Claro'],
+				    ['MO','Movistar'],
+				    ['FI','Fijo']
 				];
 				persona.store_linea_tel = Ext.create('Ext.data.ArrayStore', {
 			        storeId: 'tel',
@@ -399,7 +399,7 @@
 		            listeners:{
 		                load: function(obj, records, successful, opts){
 		                    console.log(records);
-		                    document.getElementById("menu_spinner").innerHTML = "";
+		                    //document.getElementById("menu_spinner").innerHTML = "";
 		                }
 		            }
 		        });
@@ -473,6 +473,28 @@
 								                            xtype: 'textfield',	
 								                            fieldLabel: 'IDCLI',
 								                            id:persona.id+'-sol-txt-id-cli',
+								                            hidden:true,
+								                            bodyStyle: 'background: transparent',
+										                    padding:'15px 5px 5px 25px',
+								                            //id:persona.id+'-txt-dni',
+								                            labelWidth:50,
+								                            //readOnly:true,
+								                            labelAlign:'top',
+								                            //width:120,
+								                            //height:60,
+								                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+								                            value:'0',
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
+														{
+								                            xtype: 'textfield',	
+								                            fieldLabel: 'IDPER',
+								                            id:persona.id+'-sol-txt-id-per',
 								                            hidden:true,
 								                            bodyStyle: 'background: transparent',
 										                    padding:'15px 5px 5px 25px',
@@ -1158,7 +1180,7 @@
 									                            beforerender: function(obj, opts){
 																},
 									                            click: function(obj, e){
-									                            	persona.setSavepersona(op);
+									                            	persona.setSaveTelefono();
 									                            }
 									                        }
 									                    },
@@ -1918,7 +1940,9 @@
 	            }).show().center();
 			},
 			setSavePersona:function(){
+				
 				var vp_sol_id_cli = Ext.getCmp(persona.id+'-sol-txt-id-cli').getValue();
+				var vp_sol_id_per = Ext.getCmp(persona.id+'-sol-txt-id-per').getValue();
 				var op = vp_sol_id_cli!=0?'U':'I';
 				var sol_ape_pat = Ext.getCmp(persona.id+'-sol-txt-apellido-paterno').getValue();
 				var sol_ape_mat = Ext.getCmp(persona.id+'-sol-txt-apellido-materno').getValue();
@@ -1956,8 +1980,8 @@
 			                    url:persona.url+'setSavePersona/',
 			                    params:{
 			                    	vp_op:op,
-			                    	
-									vp_sol_id_cli:vp_sol_id_cli,
+			                    	vp_sol_id_cli:vp_sol_id_cli,
+									vp_sol_id_per:vp_sol_id_per,
 									vp_sol_ape_pat:sol_ape_pat,
 									vp_sol_ape_mat:sol_ape_mat,
 									vp_sol_nombres:sol_nombres,
@@ -1992,6 +2016,8 @@
 			                                fn: function(btn){
 			                                	//persona.getHistory();
 			                                	Ext.getCmp(persona.id+'-sol-txt-id-cli').setValue(res.CODIGO);
+			                                	Ext.getCmp(persona.id+'-sol-txt-id-per').setValue(res.ID_PER);
+			                                	//callback
 			                                }
 			                            });
 			                        }else{
@@ -2013,11 +2039,21 @@
 			},
 			setSavePersonaIMG:function(){
 				var vp_sol_id_cli = Ext.getCmp(persona.id+'-sol-txt-id-cli').getValue();
+				var vp_sol_id_per = Ext.getCmp(persona.id+'-sol-txt-id-per').getValue();
+
+
 
 			},
 			setSaveTelefono:function(){
 				var vp_sol_id_cli = Ext.getCmp(persona.id+'-sol-txt-id-cli').getValue();
+				var vp_sol_id_per = Ext.getCmp(persona.id+'-sol-txt-id-per').getValue();
 				var vp_sol_id_tel = Ext.getCmp(persona.id+'-sol-txt-id-tel').getValue();
+
+				var vp_sol_tipo_tel = Ext.getCmp(persona.id+'-sol-cmb-tipo-tel').getValue();
+				var vp_sol_line_tel = Ext.getCmp(persona.id+'-sol-cmb-line-tel').getValue();
+
+
+				var op = vp_sol_id_tel!=0?'U':'I';
 				var sol_tel_cel = Ext.getCmp(persona.id+'-sol-txt-tel-cel').getValue();
 
 				global.Msg({
@@ -2029,11 +2065,14 @@
                     		Ext.getCmp(persona.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
 	                        //scanning.getLoader(true);
 			                Ext.Ajax.request({
-			                    url:persona.url+'setSaveInfoCredito/',
+			                    url:persona.url+'setSavePhone/',
 			                    params:{
 			                    	vp_op:op,
+			                    	vp_sol_id_per:vp_sol_id_per,
 									vp_sol_id_tel:vp_sol_id_tel,
 									vp_sol_tel_cel:sol_tel_cel,
+									vp_sol_tipo_tel:vp_sol_tipo_tel,
+									vp_sol_line_tel:vp_sol_line_tel,
 									vp_flag:'A'
 			                    },
 			                    timeout: 30000000,
@@ -2048,7 +2087,7 @@
 			                                buttons: 1,
 			                                fn: function(btn){
 			                                	//persona.getHistory();
-			                                	Ext.getCmp(persona.id+'-win-form').close();
+			                                	Ext.getCmp(persona.id+'-sol-txt-id-tel').setValue(res.CODIGO);
 			                                }
 			                            });
 			                        } else{
@@ -2070,6 +2109,7 @@
 			},
 			setSaveDireccion:function(){
 				var vp_sol_id_cli = Ext.getCmp(persona.id+'-sol-txt-id-cli').getValue();
+				var vp_sol_id_per = Ext.getCmp(persona.id+'-sol-txt-id-per').getValue();
 				var vp_sol_id_dir = Ext.getCmp(persona.id+'-sol-txt-id-dir').getValue();
 				var sol_dir_direccion = Ext.getCmp(persona.id+'-sol-txt-dir-direccion').getValue();
 				var sol_dir_numero = Ext.getCmp(persona.id+'-sol-txt-dir-numero').getValue();
@@ -2095,6 +2135,8 @@
 			                    url:persona.url+'setSaveInfoCredito/',
 			                    params:{
 			                    	vp_op:op,
+			                    	vp_sol_id_cli:vp_sol_id_cli,
+			                    	vp_sol_id_per:vp_sol_id_per,
 									vp_sol_id_dir:vp_sol_id_dir,
 									vp_sol_dir_direccion:sol_dir_direccion,
 									vp_sol_dir_numero:sol_dir_numero,

@@ -119,7 +119,7 @@ Ext.define('Ext.global.plugin.GridViewVertCLI',{
         );
         var store = Ext.create('Ext.data.Store',{
             fields: [
-                {name: 'id_asesor', type: 'string'},
+                {name: 'id_per', type: 'string'},
                 {name: 'nombres', type: 'string'},
                 {name: 'ape_pat', type: 'string'},
                 {name: 'ape_mat', type: 'string'},
@@ -140,7 +140,7 @@ Ext.define('Ext.global.plugin.GridViewVertCLI',{
                 {name: 'clase', type: 'string'},
                 {name: 'flag', type: 'string'}
             ],
-            autoLoad:true,
+            autoLoad:false,
             proxy:{
                 type: 'ajax',
                 url: config.url,
@@ -153,7 +153,7 @@ Ext.define('Ext.global.plugin.GridViewVertCLI',{
             listeners:{
                 load: function(obj, records, successful, opts){
                     console.log(records);
-                    document.getElementById("menu_spinner").innerHTML = "";
+                    //document.getElementById("menu_spinner").innerHTML = "";
                 }
             }
         });
@@ -205,7 +205,17 @@ Ext.define('Ext.global.plugin.GridViewVertCLI',{
                             }
                         }
                     }
-                ]
+                ],
+                bbar: ['->',{
+                            xtype: 'pagingtoolbar',
+                            pageSize: 10,
+                            store: store,
+                            displayInfo: true,
+                            displayMsg: '{0} - {1} de {2} Registros',
+                            emptyMsg: 'No existe registros',
+                            pageSize: 50
+                            //plugins: new Ext.ux.ProgressBar()
+                        },'->']
             }
         ];
         me.callParent();

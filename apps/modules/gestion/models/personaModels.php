@@ -16,9 +16,10 @@ class personaModels extends Adodb {
     }
     public function SP_CREDITO_PERSONA($p){
         parent::ReiniciarSQL();
-        parent::ConnectionOpen($this->dsn, 'SP_CLIENTE_MANT');
+        parent::ConnectionOpen($this->dsn, 'SP_PERSONA_MANT');
         parent::SetParameterSP($p['vp_op'], 'varchar');//1
         parent::SetParameterSP($p['vp_sol_id_cli'], 'int');//8
+        parent::SetParameterSP($p['vp_sol_id_per'], 'int');//8
 
         parent::SetParameterSP(utf8_decode($p['vp_sol_ape_pat']), 'varchar');//9
         parent::SetParameterSP(utf8_decode($p['vp_sol_ape_mat']), 'varchar');//10
@@ -47,22 +48,28 @@ class personaModels extends Adodb {
         parent::SetParameterSP('@OUT', 'int');//140
         parent::SetParameterSP('@OUT', 'int');//140
         parent::SetParameterSP('@OUT', 'int');//140
-
+        parent::SetParameterSP('@OUT', 'int');//140
         // echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
         return $array;
     }
-    public function SP_CREDITO_TEL($p){
+    public function SP_TELEFONO_MANT($p){
         parent::ReiniciarSQL();
-        parent::ConnectionOpen($this->dsn, 'SP_CREDITO_SAVE');
+        parent::ConnectionOpen($this->dsn, 'SP_TELEFONO_MANT');
         parent::SetParameterSP($p['vp_op'], 'varchar');//1
-        parent::SetParameterSP($p['vp_sol_id_cli'], 'int');//8
+        parent::SetParameterSP($p['vp_sol_id_per'], 'int');//8
         parent::SetParameterSP($p['vp_sol_id_tel'], 'int');//19
         parent::SetParameterSP($p['vp_sol_tel_cel'], 'varchar');//20
+
+        parent::SetParameterSP($p['vp_sol_tipo_tel'], 'varchar');//20
+        parent::SetParameterSP($p['vp_sol_line_tel'], 'varchar');//20
+
         parent::SetParameterSP($p['vp_flag'], 'varchar');//140
         parent::SetParameterSP(USR_ID, 'int');//141
-
-         echo '=>' . parent::getSql().'<br>'; exit();
+        parent::SetParameterSP('@OUT', 'int');//140
+        parent::SetParameterSP('@OUT', 'int');//140
+        parent::SetParameterSP('@OUT', 'int');//140
+        // echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
         return $array;
     }
@@ -71,7 +78,7 @@ class personaModels extends Adodb {
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_CREDITO_SAVE');
         parent::SetParameterSP($p['vp_op'], 'varchar');//1
-        parent::SetParameterSP($p['vp_sol_id_cli'], 'int');//8
+        parent::SetParameterSP($p['vp_sol_id_per'], 'int');//8
         parent::SetParameterSP($p['vp_sol_id_dir'], 'int');//26
 
         parent::SetParameterSP(utf8_decode($p['vp_sol_dir_direccion']), 'varchar');//27
@@ -96,7 +103,7 @@ class personaModels extends Adodb {
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_CREDITO_SAVE');
         parent::SetParameterSP($p['vp_op'], 'varchar');//1
-        parent::SetParameterSP($p['vp_sol_id_cli'], 'int');//8
+        parent::SetParameterSP($p['vp_sol_id_per'], 'int');//8
         parent::SetParameterSP($p['vp_mot_cod_agencia'], 'varchar');//132
         
         parent::SetParameterSP($p['vp_flag'], 'varchar');//140

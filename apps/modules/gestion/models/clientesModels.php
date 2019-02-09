@@ -14,14 +14,27 @@ class clientesModels extends Adodb {
     public function __construct(){
         $this->dsn = Common::read_ini(PATH.'config/config.ini', 'server_main');
     }
-
+    public function SP_ASESORES_LIST($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_ASESORES_LIST');
+      // parent::SetParameterSP($p['vp_shi_codigo'], 'int');
+      //  parent::SetParameterSP($p['vp_fac_cliente'], 'int');
+        parent::SetParameterSP($p['vp_op'], 'varchar');
+        parent::SetParameterSP($p['vp_id'], 'int');
+        parent::SetParameterSP($p['vp_dni'], 'varchar');
+        parent::SetParameterSP($p['vp_nombres'], 'varchar');
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+    
     public function SP_CLIENTES_LIST($p){
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_CLIENTES_LIST');
-      // parent::SetParameterSP($p['vp_shi_codigo'], 'int');
-      //  parent::SetParameterSP($p['vp_fac_cliente'], 'int');
-        parent::SetParameterSP($p['vp_filtro'], 'varchar');
-        parent::SetParameterSP($p['vp_value'], 'varchar');
+        parent::SetParameterSP($p['vp_op'], 'varchar');
+        parent::SetParameterSP($p['vp_id'], 'int');
+        parent::SetParameterSP($p['vp_dni'], 'varchar');
+        parent::SetParameterSP($p['vp_nombres'], 'varchar');
         // echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
         return $array;

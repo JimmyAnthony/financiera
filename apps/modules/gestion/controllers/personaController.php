@@ -55,7 +55,21 @@ class personaController extends AppController {
             'success' => true,
             'error' => $rs['RESPONSE'],
             'msn' => utf8_encode(trim($rs['MESSAGE_TEXT'])),
-            'CODIGO' => trim($rs['CODIGO'])
+            'CODIGO' => trim($rs['CODIGO']),
+            'ID_PER' => trim($rs['ID_PER'])
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+    public function setSavePhone($p){
+        $rs = $this->objDatos->SP_TELEFONO_MANT($p);
+        $rs = $rs[0];
+        $data = array(
+            'success' => true,
+            'error' => $rs['RESPONSE'],
+            'msn' => utf8_encode(trim($rs['MESSAGE_TEXT'])),
+            'CODIGO' => trim($rs['CODIGO']),
+            'ID_PER' => trim($rs['ID_PER'])
         );
         header('Content-Type: application/json');
         return $this->response($data);

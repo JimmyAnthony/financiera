@@ -25,7 +25,55 @@ class clientesController extends AppController {
     public function getSearchClient($p){        
         $this->view('clientes/form_search_client.php', $p);
     }
+   public function getDataListClientes($p){
+        //session_start();
+        //$_SESSION['sis_id'] = $p['sis_id'];
 
+        //$this->objDatos->usr_sis_change_first_sistema($p);
+        //$p['vp_mod_id'] = 1;
+        //$p['vp_menu_id'] = 0;
+        // $this->objServicios = $this->objDatos->usr_sis_servicios($p);
+
+        $this->arrayMenu = $this->objDatos->SP_CLIENTES_LIST($p);
+        //var_export($this->arrayMenu);
+        $array = array();
+        foreach ($this->arrayMenu as $index => $value){
+                //$p['id_per'] = intval($value['id_per']);
+                $value_['id_per'] = intval($value['id_per']);
+                $value_['icono'] = 'default_user.png';
+                $value_['nombres'] =utf8_encode(trim($value['nombres']));
+                $value_['ape_pat'] =utf8_encode(trim($value['ape_pat']));
+                $value_['ape_mat'] =utf8_encode(trim($value['ape_mat']));
+                $value_['dni'] =trim($value['doc_dni']);
+                $value_['numero'] =trim($value['numero']);
+
+                $value_['id_dir'] =trim($value['id_dir']);
+                $value_['dir_direccion'] =utf8_encode(trim($value['dir_direccion']));
+                $value_['dir_numero'] =utf8_encode(trim($value['dir_numero']));
+                $value_['dir_mz'] =utf8_encode(trim($value['dir_mz']));
+                $value_['dir_lt'] =utf8_encode(trim($value['dir_lt']));
+                $value_['dir_dpto'] =utf8_encode(trim($value['dir_dpto']));
+                $value_['dir_interior'] =utf8_encode(trim($value['dir_interior']));
+                $value_['dir_urb'] =utf8_encode(trim($value['dir_urb']));
+                $value_['dir_referencia'] =utf8_encode(trim($value['dir_referencia']));
+                $value_['fecha'] =trim($value['fecha']);
+                $value_['cod_ubi'] =utf8_encode(trim($value['cod_ubi']));
+                $value_['clase'] = $value['flag']=='A'?'databox_list_menu':'databox_list_menu_disabled';
+                $value_['solicitudes'] =trim($value['solicitudes']);
+                $value_['sol_monto'] =trim($value['sol_monto']);
+                $value_['flag'] =trim($value['flag']);
+                $value_['tab'] =trim($value['tab']);
+                //$value_['permisos'] = $this->objDatos->usr_sis_servicios($p);
+                $array[]=$value_;
+        }
+        $data = array(
+            'success' => true,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
    public function SP_CLIENTES_LIST($p){
         $rs = $this->objDatos->SP_CLIENTES_LIST($p);
         //var_export($rs);
