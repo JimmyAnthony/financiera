@@ -39,6 +39,7 @@ class clientesController extends AppController {
         $array = array();
         foreach ($this->arrayMenu as $index => $value){
                 //$p['id_per'] = intval($value['id_per']);
+                $value_['id_cli'] = intval($value['id_per']);
                 $value_['id_per'] = intval($value['id_per']);
                 $value_['icono'] = 'default_user.png';
                 $value_['nombres'] =utf8_encode(trim($value['nombres']));

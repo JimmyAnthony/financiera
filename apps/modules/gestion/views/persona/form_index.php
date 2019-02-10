@@ -6,10 +6,8 @@
 			id_menu:'<?php echo $p["id_menu"];?>',
 			url:'/gestion/persona/',
 			opcion:'I',
-			id_lote:0,
-			shi_codigo:0,
-			fac_cliente:0,
-			lote:0,
+			id_per:'<?php echo $p["id_per"];?>',
+			id_id:'<?php echo $p["id_id"];?>',
 			paramsStore:{},
 			back:'NONE',
 			init:function(){
@@ -214,8 +212,8 @@
 			    });
 
 			    var myDataTipoTel = [
-					['C','Celular'],
-				    ['F','Fijo']
+					['CE','Celular'],
+				    ['FI','Fijo']
 				];
 				persona.store_tipo_tel = Ext.create('Ext.data.ArrayStore', {
 			        storeId: 'tel',
@@ -225,9 +223,12 @@
 			    });
 
 			    var myDataLineaTel = [
-					['CA','Claro'],
+					['CL','Claro'],
 				    ['MO','Movistar'],
-				    ['FI','Fijo']
+				    ['EN','Entel'],
+				    ['BI','Bitel'],
+				    ['FI','Fijo'],
+				    ['OT','Otros']
 				];
 				persona.store_linea_tel = Ext.create('Ext.data.ArrayStore', {
 			        storeId: 'tel',
@@ -377,24 +378,71 @@
 		            '</tpl>'
 		        );
 
+		        var imageTplTelefonos = new Ext.XTemplate(
+		            '<tpl for=".">',
+		                '<div class="list_grid_as__list_menu_select" >',
+		                    '<div class="list_grid_as__list_menu" >',
+		                        '<div class="list_grid_as__menu_bx" >',
+		                            '<div class="">',
+		                                '<img src="/images/icon/{icono}" />',
+		                            '</div>',
+		                        '</div>',
+		                        '<div class="list_grid_as__menu_line" style="width:100px;">',
+		                            '<div class="list_grid_as__menu_bar">',
+		                                '<div class="list_grid_as__menu_title_A">',
+		                                '<span>Número:</span>',
+		                                '</div>',
+		                                '<div class="list_grid_as__menu_title">',
+		                                    '<span>{numero}</span>',
+		                                '</div>',
+		                            '</div>',
+		                        '</div>',
+		                        '<div class="list_grid_as__menu_line" style="width:80px;">',
+		                            '<div class="list_grid_as__menu_bar">',
+		                                '<div class="list_grid_as__menu_title_A">',
+		                                '<span>Tipo:</span>',
+		                                '</div>',
+		                                '<div class="list_grid_as__menu_title">',
+		                                    '<span>{tnombre}</span>',
+		                                '</div>',
+		                            '</div>',
+		                        '</div>',
+		                        '<div class="list_grid_as__menu_line" style="width:80px;">',
+		                            '<div class="list_grid_as__menu_bar">',
+		                                '<div class="list_grid_as__menu_title_A">',
+		                                '<span>Operador:</span>',
+		                                '</div>',
+		                                '<div class="list_grid_as__menu_title">',
+		                                    '<span>{toperador}</span>',
+		                                '</div>',
+		                            '</div>',
+		                        '</div>',
+		                    '</div>',
+		                '</div>',
+		            '</tpl>'
+		        );
+
 		        var store_telefonos = Ext.create('Ext.data.Store',{
 		            fields: [
-		                {name: 'id_asesor', type: 'string'},
-		                {name: 'nombres', type: 'string'},
-		                {name: 'ape_pat', type: 'string'},
-		                {name: 'ape_mat', type: 'string'},
-		                {name: 'dni', type: 'string'},
-		                {name: 'numero', type: 'string'}
+		                {name: 'id_per', type: 'string'},
+		                {name: 'id_tel', type: 'string'},
+		                {name: 'numero', type: 'string'},
+		                {name: 'tipo', type: 'string'},
+		                {name: 'tnombre', type: 'string'},
+		                {name: 'operador', type: 'string'},
+		                {name: 'toperador', type: 'string'},
+		                {name: 'fecha', type: 'string'},
+		                {name: 'flag', type: 'string'}
 		            ],
-		            autoLoad:true, 
+		            autoLoad:false, 
 		            proxy:{
 		                type: 'ajax',
-		                url: persona.url+'getDataMenuView/',
+		                url: persona.url+'get_list_telefonos/',
 		                reader:{
 		                    type: 'json',
 		                    rootProperty: 'data'
 		                },
-		                extraParams:{vp_op:'C'}
+		                extraParams:{vp_op:'P',vp_id:0,vp_flag:'A'}
 		            },
 		            listeners:{
 		                load: function(obj, records, successful, opts){
@@ -409,7 +457,7 @@
 	                plain: true,
 	                title:'Mantenimiento',
 	                icon: '/images/icon/default-avatar_man.png',
-	                height: 530,
+	                height: 540,
 	                width: 450,
 	                resizable:false,
 	                modal: true,
@@ -883,7 +931,7 @@
 									                            beforerender: function(obj, opts){
 																},
 									                            click: function(obj, e){
-									                            	persona.setSavePersona();
+									                            	persona.setSavePersona('I');
 									                            }
 									                        }
 									                    },
@@ -897,7 +945,7 @@
 									                            beforerender: function(obj, opts){
 																},
 									                            click: function(obj, e){
-									                            	//persona.setSavepersona(op);
+									                            	persona.setClearPersona();
 									                            }
 									                        }
 									                    },
@@ -911,7 +959,7 @@
 									                            beforerender: function(obj, opts){
 																},
 									                            click: function(obj, e){
-									                            	//persona.setSavepersona(op);
+									                            	persona.setSavePersona('D');
 									                            }
 									                        }
 									                    }
@@ -1131,7 +1179,47 @@
 								                            listeners:{
 								                                afterrender:function(obj, e){
 								                                    // obj.getStore().load();
-								                                    obj.setValue('C');
+								                                    obj.setValue('CL');
+								                                },
+								                                select:function(obj, records, eOpts){
+								                        
+								                                }
+								                            }
+								                        },
+								                        {
+								                            xtype:'combo',
+								                            fieldLabel: 'Estado',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 5px 5px',
+								                            id:persona.id+'-sol-cmb-tel-estado',
+								                            store: Ext.create('Ext.data.ArrayStore', {
+														        //storeId: 'tel',
+														        autoLoad: true,
+														        data: [
+																	['A','Activo'],
+																    ['I','Inactivo']
+																],
+														        fields: ['code', 'name']
+														    }),
+								                            queryMode: 'local',
+								                            triggerAction: 'all',
+								                            valueField: 'code',
+								                            displayField: 'name',
+								                            emptyText: '[Seleccione]',
+								                            labelAlign:'right',
+								                            //allowBlank: false,
+								                            labelAlign:'top',
+								                            labelWidth: 50,
+								                            //width:150,
+								                            flex:1,
+								                            anchor:'100%',
+								                            //readOnly: true,
+								                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                    // obj.getStore().load();
+								                                    obj.setValue('A');
 								                                },
 								                                select:function(obj, records, eOpts){
 								                        
@@ -1180,7 +1268,7 @@
 									                            beforerender: function(obj, opts){
 																},
 									                            click: function(obj, e){
-									                            	persona.setSaveTelefono();
+									                            	persona.setSaveTelefono('I');
 									                            }
 									                        }
 									                    },
@@ -1194,7 +1282,7 @@
 									                            beforerender: function(obj, opts){
 																},
 									                            click: function(obj, e){
-									                            	//persona.setSavepersona(op);
+									                            	persona.setClearTelefono();
 									                            }
 									                        }
 									                    },
@@ -1208,7 +1296,7 @@
 									                            beforerender: function(obj, opts){
 																},
 									                            click: function(obj, e){
-									                            	persona.setSavepersona(op);
+									                            	persona.setSaveTelefono('D');
 									                            }
 									                        }
 									                    }
@@ -1231,7 +1319,7 @@
 							                        autoScroll: true,
 							                        loadMask:true,
 							                        autoHeight: false,
-							                        tpl: imageTplPointer,
+							                        tpl: imageTplTelefonos,
 							                        multiSelect: false,
 							                        singleSelect: false,
 							                        loadingText:'Cargando Lista de Teléfono...',
@@ -1241,7 +1329,7 @@
 							                        overItemCls: 'list_grid_as__list_menu-hover',
 							                        listeners: {
 							                            'itemdblclick': function(view, record, item, idx, event, opts) {
-							                                me.idx=idx;
+							                                /*me.idx=idx;
 							                                var record = this.getStore().getAt(idx);
 							                                var val =record.data;
 							                                var menu_class = val.menu_class == null || val.menu_class == '' ? '' : val.menu_class;
@@ -1253,8 +1341,20 @@
 							                                        var active=Ext.getCmp(me.config_.id+val.url);
 							                                        tab.setActiveTab(active);
 							                                    }
-							                                }
+							                                }*/
+
+							                                var record = this.getStore().getAt(idx);
+							                                var val =record.data;
+
+							                                Ext.getCmp(persona.id+'-sol-txt-id-tel').setValue(val.id_tel);
+															Ext.getCmp(persona.id+'-sol-cmb-tipo-tel').setValue(val.tipo);
+															Ext.getCmp(persona.id+'-sol-cmb-line-tel').setValue(val.operador);
+															Ext.getCmp(persona.id+'-sol-txt-tel-cel').setValue(val.numero);
+															Ext.getCmp(persona.id+'-sol-cmb-tel-estado').setValue(val.flag);
 							                                
+							                            },
+							                            afterrender:function(obj){
+							                            	
 							                            }
 							                        }
 							                    }
@@ -1644,7 +1744,7 @@
 									                            beforerender: function(obj, opts){
 																},
 									                            click: function(obj, e){
-									                            	//persona.setSavepersona(op);
+									                            	persona.setSaveDireccion();
 									                            }
 									                        }
 									                    },
@@ -1658,7 +1758,7 @@
 									                            beforerender: function(obj, opts){
 																},
 									                            click: function(obj, e){
-									                            	//persona.setSavepersona(op);
+									                            	persona.setClearDireccion();
 									                            }
 									                        }
 									                    },
@@ -1875,7 +1975,7 @@
 							                        overItemCls: 'list_grid_as__list_menu-hover',
 							                        listeners: {
 							                            'itemdblclick': function(view, record, item, idx, event, opts) {
-							                                me.idx=idx;
+							                                /*me.idx=idx;
 							                                var record = this.getStore().getAt(idx);
 							                                var val =record.data;
 							                                var menu_class = val.menu_class == null || val.menu_class == '' ? '' : val.menu_class;
@@ -1887,7 +1987,7 @@
 							                                        var active=Ext.getCmp(me.config_.id+val.url);
 							                                        tab.setActiveTab(active);
 							                                    }
-							                                }
+							                                }*/
 							                                
 							                            }
 							                        }
@@ -1930,8 +2030,8 @@
 	                    '-'
 	                ],*/
 	                listeners:{
-	                    'afterrender':function(obj, e){ 
-
+	                    'afterrender':function(obj, e){
+	                    	if(persona.id_per!=0)persona.getPersona();
 	                    },
 	                    'close':function(){
 
@@ -1939,11 +2039,12 @@
 	                }
 	            }).show().center();
 			},
-			setSavePersona:function(){
+			setSavePersona:function(forma){
 				
 				var vp_sol_id_cli = Ext.getCmp(persona.id+'-sol-txt-id-cli').getValue();
 				var vp_sol_id_per = Ext.getCmp(persona.id+'-sol-txt-id-per').getValue();
-				var op = vp_sol_id_cli!=0?'U':'I';
+
+
 				var sol_ape_pat = Ext.getCmp(persona.id+'-sol-txt-apellido-paterno').getValue();
 				var sol_ape_mat = Ext.getCmp(persona.id+'-sol-txt-apellido-materno').getValue();
 				var sol_nombres = Ext.getCmp(persona.id+'-sol-txt-nombres').getValue();
@@ -1968,8 +2069,93 @@
 				var vp_sol_id_tel = Ext.getCmp(persona.id+'-sol-txt-id-tel').getValue();
 				var vp_sol_id_dir = Ext.getCmp(persona.id+'-sol-txt-id-dir').getValue();
 
+				var op =forma;
+				if(op!='D'){
+					op = vp_sol_id_cli!=0?'U':'I';
+
+					if(sol_ape_pat==''){
+						global.Msg({msg:"Ingrese el Apellido Paterno.",icon:2,fn:function(){}});
+						return false;
+					}
+
+					if(sol_ape_mat==''){
+						global.Msg({msg:"Ingrese el Apellido Materno.",icon:2,fn:function(){}});
+						return false;
+					}
+
+					if(sol_nombres==''){
+						global.Msg({msg:"Ingrese el Nombre.",icon:2,fn:function(){}});
+						return false;
+					}
+
+					if(sol_sexo==''){
+						global.Msg({msg:"Ingrese el Sexo.",icon:2,fn:function(){}});
+						return false;
+					}
+
+					if(sol_doc_dni==''){
+						global.Msg({msg:"Ingrese el DNI.",icon:2,fn:function(){}});
+						return false;
+					}
+					if(sol_estado_civil==''){
+						global.Msg({msg:"Ingrese el Estado Civil.",icon:2,fn:function(){}});
+						return false;
+					}
+					if(sol_fecha_nac==''){
+						global.Msg({msg:"Ingrese la fecha de nacimiento.",icon:2,fn:function(){}});
+						return false;
+					}
+
+					if(vp_sol_id_tel==''){
+						vp_sol_id_tel = 0;
+					}
+
+					if(vp_sol_id_dir==''){
+						vp_sol_id_dir = 0;
+					}
+
+				}else{
+					if(vp_sol_id_cli==0){
+						global.Msg({msg:"No es posible Eliminar, aun no existe un registro en la base datos.",icon:2,fn:function(){}});
+						return false;
+					}
+					if(vp_sol_id_per==0){
+						global.Msg({msg:"No es posible Eliminar, aun no existe un registro en la base datos.",icon:2,fn:function(){}});
+						return false;
+					}
+				}
+
+				persona.setSaveDataPersona(op=='D'?'¿Seguro de Eliminar?':'¿Seguro de guardar?',
+					{
+                    	vp_op:op,
+                    	vp_sol_id_cli:vp_sol_id_cli,
+						vp_sol_id_per:vp_sol_id_per,
+						vp_sol_ape_pat:sol_ape_pat,
+						vp_sol_ape_mat:sol_ape_mat,
+						vp_sol_nombres:sol_nombres,
+						vp_sol_sexo:sol_sexo,
+						vp_sol_doc_dni:sol_doc_dni,
+						vp_sol_doc_ce:sol_doc_ce,
+						vp_sol_doc_cip:sol_doc_cip,
+						vp_sol_doc_ruc:sol_doc_ruc,
+						vp_sol_doc_cm:sol_doc_cm,
+						vp_sol_estado_civil:sol_estado_civil,
+						vp_sol_fecha_nac:sol_fecha_nac,
+						vp_sol_domi_propio:sol_domi_propio,
+						vp_sol_domi_pagando:sol_domi_pagando,
+						vp_sol_domi_alquilado:sol_domi_alquilado,
+						vp_sol_domi_familiar:sol_domi_familiar,
+						vp_id_tel:vp_sol_id_tel,
+						vp_id_dir:vp_sol_id_dir,
+
+						vp_sol_img:'',
+						vp_flag:'A'
+                    }
+				);
+			},
+			setSaveDataPersona:function(msn,params){
 				global.Msg({
-                    msg: '¿Seguro de guardar?',
+                    msg: msn,
                     icon: 3,
                     buttons: 3,
                     fn: function(btn){
@@ -1978,31 +2164,7 @@
 	                        //scanning.getLoader(true);
 			                Ext.Ajax.request({
 			                    url:persona.url+'setSavePersona/',
-			                    params:{
-			                    	vp_op:op,
-			                    	vp_sol_id_cli:vp_sol_id_cli,
-									vp_sol_id_per:vp_sol_id_per,
-									vp_sol_ape_pat:sol_ape_pat,
-									vp_sol_ape_mat:sol_ape_mat,
-									vp_sol_nombres:sol_nombres,
-									vp_sol_sexo:sol_sexo,
-									vp_sol_doc_dni:sol_doc_dni,
-									vp_sol_doc_ce:sol_doc_ce,
-									vp_sol_doc_cip:sol_doc_cip,
-									vp_sol_doc_ruc:sol_doc_ruc,
-									vp_sol_doc_cm:sol_doc_cm,
-									vp_sol_estado_civil:sol_estado_civil,
-									vp_sol_fecha_nac:sol_fecha_nac,
-									vp_sol_domi_propio:sol_domi_propio,
-									vp_sol_domi_pagando:sol_domi_pagando,
-									vp_sol_domi_alquilado:sol_domi_alquilado,
-									vp_sol_domi_familiar:sol_domi_familiar,
-									vp_id_tel:vp_sol_id_tel,
-									vp_id_dir:vp_sol_id_dir,
-
-									vp_sol_img:'',
-									vp_flag:'A'
-			                    },
+			                    params:params,
 			                    timeout: 30000000,
 			                    success: function(response, options){
 			                        Ext.getCmp(persona.id+'-win-form').el.unmask();
@@ -2015,8 +2177,14 @@
 			                                buttons: 1,
 			                                fn: function(btn){
 			                                	//persona.getHistory();
-			                                	Ext.getCmp(persona.id+'-sol-txt-id-cli').setValue(res.CODIGO);
-			                                	Ext.getCmp(persona.id+'-sol-txt-id-per').setValue(res.ID_PER);
+			                                	if(params.vp_op!='D'){
+				                                	Ext.getCmp(persona.id+'-sol-txt-id-cli').setValue(res.CODIGO);
+				                                	Ext.getCmp(persona.id+'-sol-txt-id-per').setValue(res.ID_PER);
+				                            	}else{
+				                            		Ext.getCmp(persona.id+'-win-form').close();
+				                            	}
+				                            	var obj = Ext.getCmp(persona.id+'-list-telefonos');
+					                            persona.getReload(obj,{vp_op:'P',vp_id:res.ID_PER,vp_flag:'A'});
 			                                	//callback
 			                                }
 			                            });
@@ -2035,7 +2203,68 @@
 						}
 					}
 				});
+			},
+			getPersona:function(){
+				Ext.Ajax.request({
+                    url:persona.url+'getListPersona/',
+                    params:{
+                    	vp_op:'C',
+						vp_id:persona.id_per,
+						vp_dni:'',
+						vp_nombres:''
+                    },
+                    timeout: 30000000,
+                    success: function(response, options){
+                        Ext.getCmp(persona.id+'-win-form').el.unmask();
+                        var res = Ext.JSON.decode(response.responseText);
+                        console.log(res.data[0]);
+                        var data = res.data[0];
+                        Ext.getCmp(persona.id+'-sol-txt-id-cli').setValue(persona.id_id);
+                        Ext.getCmp(persona.id+'-sol-txt-id-per').setValue(data.id_per);
+						Ext.getCmp(persona.id+'-sol-txt-apellido-paterno').setValue(data.ape_pat);
+						Ext.getCmp(persona.id+'-sol-txt-apellido-materno').setValue(data.ape_mat);
+						Ext.getCmp(persona.id+'-sol-txt-nombres').setValue(data.nombres);
+						Ext.getCmp(persona.id+'-sol-cmb-sexo').setValue(data.sexo);
+						Ext.getCmp(persona.id+'-sol-txt-doc-dni').setValue(data.doc_dni);
+						Ext.getCmp(persona.id+'-sol-txt-doc-ce').setValue(data.doc_ce);
+						Ext.getCmp(persona.id+'-sol-txt-doc-cip').setValue(data.doc_cip);
+						Ext.getCmp(persona.id+'-sol-txt-doc-ruc').setValue(data.doc_ruc);
+						Ext.getCmp(persona.id+'-sol-txt-doc-cm').setValue(data.doc_cm);
+						Ext.getCmp(persona.id+'-sol-cmb-estado-civil').setValue(data.estado_civil);
+						Ext.getCmp(persona.id+'-sol-date-fecha-nac').setValue(data.fecha_nac);
 
+						
+						Ext.getCmp(persona.id+'-sol-chk-domi-propio').setValue(data.domi_propio=='S'?true:false);
+						Ext.getCmp(persona.id+'-sol-chk-domi-pagando').setValue(data.domi_pagando=='S'?true:false);
+						Ext.getCmp(persona.id+'-sol-chk-domi-alquilado').setValue(data.domi_alquilado=='S'?true:false);
+						Ext.getCmp(persona.id+'-sol-chk-domi-familiar').setValue(data.domi_familiar=='S'?true:false);
+
+						Ext.getCmp(persona.id+'-sol-txt-id-tel').setValue(data.id_tel);
+						Ext.getCmp(persona.id+'-sol-txt-id-dir').setValue(data.id_dir);
+						var obj = Ext.getCmp(persona.id+'-list-telefonos');
+						persona.getReload(obj,{vp_op:'P',vp_id:data.id_per,vp_flag:'A'});
+                    }
+                });
+			},
+			setClearPersona:function(){
+				//Ext.getCmp(persona.id+'-sol-txt-id-per').setValue(0);
+				Ext.getCmp(persona.id+'-sol-txt-apellido-paterno').setValue('');
+				Ext.getCmp(persona.id+'-sol-txt-apellido-materno').setValue('');
+				Ext.getCmp(persona.id+'-sol-txt-nombres').setValue('');
+				Ext.getCmp(persona.id+'-sol-cmb-sexo').setValue('M');
+				Ext.getCmp(persona.id+'-sol-txt-doc-dni').setValue('');
+				Ext.getCmp(persona.id+'-sol-txt-doc-ce').setValue('');
+				Ext.getCmp(persona.id+'-sol-txt-doc-cip').setValue('');
+				Ext.getCmp(persona.id+'-sol-txt-doc-ruc').setValue('');
+				Ext.getCmp(persona.id+'-sol-txt-doc-cm').setValue('');
+				Ext.getCmp(persona.id+'-sol-cmb-estado-civil').setValue('S');
+				Ext.getCmp(persona.id+'-sol-date-fecha-nac').setValue('');
+
+				
+				Ext.getCmp(persona.id+'-sol-chk-domi-propio').setValue(false);
+				Ext.getCmp(persona.id+'-sol-chk-domi-pagando').setValue(false);
+				Ext.getCmp(persona.id+'-sol-chk-domi-alquilado').setValue(false);
+				Ext.getCmp(persona.id+'-sol-chk-domi-familiar').setValue(false);
 			},
 			setSavePersonaIMG:function(){
 				var vp_sol_id_cli = Ext.getCmp(persona.id+'-sol-txt-id-cli').getValue();
@@ -2044,20 +2273,60 @@
 
 
 			},
-			setSaveTelefono:function(){
+			setClearTelefono:function(){
+				Ext.getCmp(persona.id+'-sol-txt-id-tel').setValue(0);
+				Ext.getCmp(persona.id+'-sol-cmb-tipo-tel').setValue('CE');
+				Ext.getCmp(persona.id+'-sol-cmb-line-tel').setValue('CL');
+				Ext.getCmp(persona.id+'-sol-txt-tel-cel').setValue('');
+				Ext.getCmp(persona.id+'-sol-cmb-tel-estado').setValue('A');
+			},
+			setSaveTelefono:function(forma){
 				var vp_sol_id_cli = Ext.getCmp(persona.id+'-sol-txt-id-cli').getValue();
 				var vp_sol_id_per = Ext.getCmp(persona.id+'-sol-txt-id-per').getValue();
 				var vp_sol_id_tel = Ext.getCmp(persona.id+'-sol-txt-id-tel').getValue();
 
+				if(vp_sol_id_per=='' || vp_sol_id_per == 0){
+					global.Msg({msg:"Debe guardar los datos de la persona antes.",icon:2,fn:function(){}});
+					return false;
+				}
+
 				var vp_sol_tipo_tel = Ext.getCmp(persona.id+'-sol-cmb-tipo-tel').getValue();
 				var vp_sol_line_tel = Ext.getCmp(persona.id+'-sol-cmb-line-tel').getValue();
-
-
-				var op = vp_sol_id_tel!=0?'U':'I';
+				var vp_flag = Ext.getCmp(persona.id+'-sol-cmb-tel-estado').getValue();
 				var sol_tel_cel = Ext.getCmp(persona.id+'-sol-txt-tel-cel').getValue();
 
+				var op =forma;
+				if(op!='D'){
+					var op = vp_sol_id_tel!=0?'U':'I';
+
+					if(vp_sol_tipo_tel==''){
+						global.Msg({msg:"Ingrese un tipo de teléfono.",icon:2,fn:function(){}});
+						return false;
+					}
+
+					if(vp_sol_line_tel==''){
+						global.Msg({msg:"Ingrese un operador de teléfono.",icon:2,fn:function(){}});
+						return false;
+					}
+
+					if(sol_tel_cel==''){
+						global.Msg({msg:"Ingrese un número de teléfono.",icon:2,fn:function(){}});
+						return false;
+					}
+				}else{
+					if(vp_sol_id_tel==''){
+						global.Msg({msg:"Seleccione un teléfono a eliminar dando doble Click en la lista.",icon:2,fn:function(){}});
+						return false;
+					}
+				}
+
+				
+
+				persona.setSaveTelefonoData({vp_op:op,vp_sol_id_per:vp_sol_id_per,vp_sol_id_tel:vp_sol_id_tel,vp_sol_tel_cel:sol_tel_cel,vp_sol_tipo_tel:vp_sol_tipo_tel,vp_sol_line_tel:vp_sol_line_tel,vp_flag:vp_flag},'¿Seguro de guardar?');
+			},
+			setSaveTelefonoData:function(params,msn){
 				global.Msg({
-                    msg: '¿Seguro de guardar?',
+                    msg: msn,
                     icon: 3,
                     buttons: 3,
                     fn: function(btn){
@@ -2066,20 +2335,12 @@
 	                        //scanning.getLoader(true);
 			                Ext.Ajax.request({
 			                    url:persona.url+'setSavePhone/',
-			                    params:{
-			                    	vp_op:op,
-			                    	vp_sol_id_per:vp_sol_id_per,
-									vp_sol_id_tel:vp_sol_id_tel,
-									vp_sol_tel_cel:sol_tel_cel,
-									vp_sol_tipo_tel:vp_sol_tipo_tel,
-									vp_sol_line_tel:vp_sol_line_tel,
-									vp_flag:'A'
-			                    },
+			                    params:params,
 			                    timeout: 30000000,
 			                    success: function(response, options){
 			                        Ext.getCmp(persona.id+'-win-form').el.unmask();
 			                        var res = Ext.JSON.decode(response.responseText);
-			                        control.getLoader(false);
+			                        //control.getLoader(false);
 			                        if (res.error == 'OK'){
 			                            global.Msg({
 			                                msg: res.msn,
@@ -2087,7 +2348,10 @@
 			                                buttons: 1,
 			                                fn: function(btn){
 			                                	//persona.getHistory();
-			                                	Ext.getCmp(persona.id+'-sol-txt-id-tel').setValue(res.CODIGO);
+			                                	//Ext.getCmp(persona.id+'-sol-txt-id-tel').setValue(res.CODIGO);
+			                                	persona.setClearTelefono();
+			                                	var obj = Ext.getCmp(persona.id+'-list-telefonos');
+				                            	persona.getReload(obj,{vp_op:'P',vp_id:params.vp_sol_id_per,vp_flag:'A'});
 			                                }
 			                            });
 			                        } else{
@@ -2107,9 +2371,22 @@
 				});
 
 			},
+			setClearDireccion:function(){
+				Ext.getCmp(persona.id+'-sol-txt-id-dir').setValue(0);
+				Ext.getCmp(persona.id+'-sol-txt-dir-direccion').setValue('');
+				Ext.getCmp(persona.id+'-sol-txt-dir-numero').setValue('');
+				Ext.getCmp(persona.id+'-sol-txt-dir-mz').setValue('');
+				Ext.getCmp(persona.id+'-sol-txt-dir-lt').setValue('');
+				Ext.getCmp(persona.id+'-sol-txt-dir-dpto').getValue();
+				Ext.getCmp(persona.id+'-sol-txt-dir-interior').setValue('');
+				Ext.getCmp(persona.id+'-sol-txt-dir-urb').setValue('');
+				Ext.getCmp(persona.id+'-sol-txt-dir-referencia').setValue('');
+			},
 			setSaveDireccion:function(){
+
 				var vp_sol_id_cli = Ext.getCmp(persona.id+'-sol-txt-id-cli').getValue();
 				var vp_sol_id_per = Ext.getCmp(persona.id+'-sol-txt-id-per').getValue();
+				var vp_op = vp_sol_id_per==0?'I':'U';
 				var vp_sol_id_dir = Ext.getCmp(persona.id+'-sol-txt-id-dir').getValue();
 				var sol_dir_direccion = Ext.getCmp(persona.id+'-sol-txt-dir-direccion').getValue();
 				var sol_dir_numero = Ext.getCmp(persona.id+'-sol-txt-dir-numero').getValue();
@@ -2123,6 +2400,11 @@
 				var sol_provincia = Ext.getCmp(persona.id+'-sol-cmb-provincia').getValue();
 				var sol_distrito = Ext.getCmp(persona.id+'-sol-cmb-Distrito').getValue();
 
+				if(vp_sol_id_per=='' || vp_sol_id_per == 0){
+					global.Msg({msg:"Debe guardar los datos de la persona antes.",icon:2,fn:function(){}});
+					return false;
+				}
+
 				global.Msg({
                     msg: '¿Seguro de guardar?',
                     icon: 3,
@@ -2132,9 +2414,9 @@
                     		Ext.getCmp(persona.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
 	                        //scanning.getLoader(true);
 			                Ext.Ajax.request({
-			                    url:persona.url+'setSaveInfoCredito/',
+			                    url:persona.url+'setSaveDireccion/',
 			                    params:{
-			                    	vp_op:op,
+			                    	vp_op:vp_op,
 			                    	vp_sol_id_cli:vp_sol_id_cli,
 			                    	vp_sol_id_per:vp_sol_id_per,
 									vp_sol_id_dir:vp_sol_id_dir,
@@ -2155,7 +2437,7 @@
 			                    success: function(response, options){
 			                        Ext.getCmp(persona.id+'-win-form').el.unmask();
 			                        var res = Ext.JSON.decode(response.responseText);
-			                        control.getLoader(false);
+			                        //control.getLoader(false);
 			                        if (res.error == 'OK'){
 			                            global.Msg({
 			                                msg: res.msn,
@@ -2163,7 +2445,7 @@
 			                                buttons: 1,
 			                                fn: function(btn){
 			                                	//persona.getHistory();
-			                                	Ext.getCmp(persona.id+'-win-form').close();
+			                                	//Ext.getCmp(persona.id+'-win-form').close();
 			                                }
 			                            });
 			                        } else{
@@ -2190,6 +2472,14 @@
 	                callback:function(){
 	                	//Ext.getCmp(persona.id+'-form').el.unmask();
 	                	obj.setValue(value);
+	                }
+	            });
+			},
+			getReload:function(obj,json){
+		    	obj.getStore().removeAll();
+				obj.getStore().load(
+	                {params: json,
+	                callback:function(){
 	                }
 	            });
 			},
@@ -2296,7 +2586,7 @@
 			                    success: function(response, options){
 			                        Ext.getCmp(persona.id+'-tab').el.unmask();
 			                        var res = Ext.JSON.decode(response.responseText);
-			                        control.getLoader(false);
+			                        //control.getLoader(false);
 			                        if (res.error == 'OK'){
 			                            global.Msg({
 			                                msg: res.msn,

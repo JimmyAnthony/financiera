@@ -53,6 +53,17 @@ class personaModels extends Adodb {
         $array = parent::ExecuteSPArray();
         return $array;
     }
+    
+    public function SP_TELEFONOS_LIST($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_TELEFONOS_LIST');
+        parent::SetParameterSP($p['vp_op'], 'varchar');//1
+        parent::SetParameterSP($p['vp_id'], 'int');//8
+        parent::SetParameterSP($p['vp_flag'], 'varchar');//19
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
     public function SP_TELEFONO_MANT($p){
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_TELEFONO_MANT');
@@ -80,7 +91,7 @@ class personaModels extends Adodb {
         parent::SetParameterSP($p['vp_op'], 'varchar');//1
         parent::SetParameterSP($p['vp_sol_id_per'], 'int');//8
         parent::SetParameterSP($p['vp_sol_id_dir'], 'int');//26
-
+        
         parent::SetParameterSP(utf8_decode($p['vp_sol_dir_direccion']), 'varchar');//27
         parent::SetParameterSP($p['vp_sol_dir_numero'], 'varchar');//28
         parent::SetParameterSP($p['vp_sol_dir_mz'], 'varchar');//29
@@ -113,7 +124,19 @@ class personaModels extends Adodb {
         $array = parent::ExecuteSPArray();
         return $array;
     }
-
+    public function SP_PERSONA_LIST($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_PERSONA_LIST');
+      // parent::SetParameterSP($p['vp_shi_codigo'], 'int');
+      //  parent::SetParameterSP($p['vp_fac_cliente'], 'int');
+        parent::SetParameterSP($p['vp_op'], 'varchar');
+        parent::SetParameterSP($p['vp_id'], 'int');
+        parent::SetParameterSP($p['vp_dni'], 'varchar');
+        parent::SetParameterSP($p['vp_nombres'], 'varchar');
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
     public function SP_ASESORES_LIST($p){
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_ASESORES_LIST');

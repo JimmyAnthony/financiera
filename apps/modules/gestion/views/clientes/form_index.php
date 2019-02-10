@@ -16,154 +16,6 @@
 			init:function(){
 				Ext.tip.QuickTipManager.init();
 
-				var store_clientes = Ext.create('Ext.data.Store',{
-	                fields: [
-	                    {name: 'id_cli', type: 'string'},
-	                    {name: 'usr_codigo', type: 'string'},
-	                    {name: 'usr_tipo', type: 'string'},
-	                    {name: 'usr_nombre', type: 'string'},                    
-	                    {name: 'per_id', type: 'string'},
-	                    {name: 'id_contacto', type: 'string'},
-	                    {name: 'usr_perfil', type: 'string'},
-	                    {name: 'usr_estado', type: 'string'},
-	                    {name: 'id_usuario', type: 'string'},
-	                    {name: 'fecact', type: 'string'},
-	                    {name: 'hora', type: 'string'}
-	                ],
-	                autoLoad:true,
-	                proxy:{
-	                    type: 'ajax',
-	                    url: clientes.url+'get_list_clientes/',
-	                    reader:{
-	                        type: 'json',
-	                        rootProperty: 'data'
-	                    }
-	                },
-	                listeners:{
-	                    load: function(obj, records, successful, opts){
-	                        
-	                    }
-	                }
-	            });
-				
-				var store_shipper = Ext.create('Ext.data.Store',{
-	                fields: [
-	                    {name: 'shi_codigo', type: 'string'},
-	                    {name: 'shi_nombre', type: 'string'},
-	                    {name: 'shi_logo', type: 'string'},
-	                    {name: 'fec_ingreso', type: 'string'},                    
-	                    {name: 'shi_estado', type: 'string'},
-	                    {name: 'id_clientes', type: 'string'},
-	                    {name: 'fecha_actual', type: 'string'}
-	                ],
-	                autoLoad:true,
-	                proxy:{
-	                    type: 'ajax',
-	                    url: clientes.url+'get_list_shipper/',
-	                    reader:{
-	                        type: 'json',
-	                        rootProperty: 'data'
-	                    }
-	                },
-	                listeners:{
-	                    load: function(obj, records, successful, opts){
-	                        
-	                    }
-	                }
-	            });
-	            var store_contratos = Ext.create('Ext.data.Store',{
-	                fields: [
-	                    {name: 'fac_cliente', type: 'string'},
-	                    {name: 'cod_contrato', type: 'string'},
-	                    {name: 'pro_descri', type: 'string'}
-	                ],
-	                autoLoad:false,
-	                proxy:{
-	                    type: 'ajax',
-	                    url: clientes.url+'get_list_contratos/',
-	                    reader:{
-	                        type: 'json',
-	                        rootProperty: 'data'
-	                    }
-	                },
-	                listeners:{
-	                    load: function(obj, records, successful, opts){
-	                        
-	                    }
-	                }
-	            });
-
-	            var store_plantillas = Ext.create('Ext.data.Store',{
-	                fields: [
-	                    {name: 'cod_plantilla', type: 'string'},
-				        {name: 'shi_codigo', type: 'string'},
-				        {name: 'fac_cliente', type: 'string'},
-				        {name: 'nombre', type: 'string'},
-	                    {name: 'cod_formato', type: 'string'},
-	                    {name: 'tot_trazos', type: 'string'},
-	                    {name: 'path', type: 'string'},
-	                    {name: 'img', type: 'string'},
-	                    {name: 'pathorigen', type: 'string'},
-	                    {name: 'imgorigen', type: 'string'},
-	                    {name: 'texto', type: 'string'},
-	                    {name: 'estado', type: 'string'},
-	                    {name: 'fecha', type: 'string'},
-	                    {name: 'usuario', type: 'string'},
-	                    {name: 'width', type: 'string'},
-	                    {name: 'height', type: 'string'},
-	                    {name: 'width_formato', type: 'string'},
-	                    {name: 'height_formato', type: 'string'},
-	                    {name: 'formato', type: 'string'}
-	                ],
-	                autoLoad:false,
-	                proxy:{
-	                    type: 'ajax',
-	                    url: clientes.url+'get_ocr_plantillas/',
-	                    reader:{
-	                        type: 'json',
-	                        rootProperty: 'data'
-	                    }
-	                },
-	                listeners:{
-	                    load: function(obj, records, successful, opts){
-	                        
-	                    }
-	                }
-	            });
-
-				var store_trazos = Ext.create('Ext.data.Store',{
-	                fields: [
-	                    {name: 'cod_trazo', type: 'string'},
-				        {name: 'cod_plantilla', type: 'string'},
-				        {name: 'nombre', type: 'string'},
-				        {name: 'tipo', type: 'string'},
-	                    {name: 'x', type: 'string'},
-	                    {name: 'y', type: 'string'},
-	                    {name: 'w', type: 'string'},
-	                    {name: 'h', type: 'string'},
-	                    {name: 'path', type: 'string'},
-	                    {name: 'img', type: 'string'},
-	                    {name: 'texto', type: 'string'},
-	                    {name: 'estado', type: 'string'},
-	                    {name: 'usuario', type: 'string'},
-	                    {name: 'fecha', type: 'string'}
-	                ],
-	                autoLoad:false,
-	                proxy:{
-	                    type: 'ajax',
-	                    url: clientes.url+'get_ocr_trazos/',
-	                    reader:{
-	                        type: 'json',
-	                        rootProperty: 'data'
-	                    }
-	                },
-	                listeners:{
-	                    load: function(obj, records, successful, opts){
-	                        
-	                    }
-	                }
-	            });
-
 				var myData = [
 				    ['databox_interno_color','databox_interno_color','databox_interno_color','databox_interno_color','databox_interno_color','databox_interno_color']
 				];
@@ -501,7 +353,40 @@
 											                            },
 											                            click: function(obj, e){	             	
 				                               					            //clientes.getNew();
-				                               					            win.show({vurl: clientes.url_per, id_menu: clientes.id_menu, class: ''});
+				                               					            win.show({vurl: clientes.url_per+'?id_id=0&id_per=0', id_menu: clientes.id_menu, class: ''});
+											                            }
+											                        }
+											                    }
+				                                            ]
+				                                        },
+				                                        {
+				                                            width: 90,border:false,
+				                                            padding:'15px 5px 5px 5px',
+				                                            bodyStyle: 'background: transparent',
+				                                            items:[
+				                                                {
+											                        xtype:'button',
+											                        text: 'Editar',
+											                        flex:1,
+											                        scale: 'medium',
+											                        icon: '/images/icon/edit.png',
+											                        listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	             	
+				                               					            //clientes.getNew();
+				                               					            try{
+					                               					            var data = Ext.getCmp(clientes.id+'-list-clientes').getSelectionModel().getSelected().items[0].data;
+					                               					            win.show({vurl: clientes.url_per+'?id_id='+data.id_cli+'&id_per='+data.id_per, id_menu: clientes.id_menu, class: ''});
+					                               					        }catch(e){
+					                               					        	global.Msg({msg:"Seleccione un registro en la lista para editar.",icon:2,fn:function(){}});	
+					                               					        }
 											                            }
 											                        }
 											                    }
