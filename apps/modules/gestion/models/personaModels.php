@@ -87,11 +87,11 @@ class personaModels extends Adodb {
 
     public function SP_CREDITO_DIREC($p){
         parent::ReiniciarSQL();
-        parent::ConnectionOpen($this->dsn, 'SP_CREDITO_SAVE');
+        parent::ConnectionOpen($this->dsn, 'SP_DIRECCION_MANT');
         parent::SetParameterSP($p['vp_op'], 'varchar');//1
         parent::SetParameterSP($p['vp_sol_id_per'], 'int');//8
         parent::SetParameterSP($p['vp_sol_id_dir'], 'int');//26
-        
+
         parent::SetParameterSP(utf8_decode($p['vp_sol_dir_direccion']), 'varchar');//27
         parent::SetParameterSP($p['vp_sol_dir_numero'], 'varchar');//28
         parent::SetParameterSP($p['vp_sol_dir_mz'], 'varchar');//29
@@ -106,7 +106,12 @@ class personaModels extends Adodb {
         parent::SetParameterSP($p['vp_flag'], 'varchar');//140
         parent::SetParameterSP(USR_ID, 'int');//141
 
-         echo '=>' . parent::getSql().'<br>'; exit();
+        parent::SetParameterSP('@OUT', 'int');//140
+        parent::SetParameterSP('@OUT', 'int');//140
+        parent::SetParameterSP('@OUT', 'int');//140
+        parent::SetParameterSP('@OUT', 'int');//140
+
+         //echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
         return $array;
     }
@@ -137,6 +142,18 @@ class personaModels extends Adodb {
         $array = parent::ExecuteSPArray();
         return $array;
     }
+    public function SP_DIRECCIONES_LIST($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_DIRECCIONES_LIST');
+      // parent::SetParameterSP($p['vp_shi_codigo'], 'int');
+      //  parent::SetParameterSP($p['vp_fac_cliente'], 'int');
+        parent::SetParameterSP($p['vp_op'], 'varchar');
+        parent::SetParameterSP($p['vp_id'], 'int');
+        parent::SetParameterSP($p['vp_nombre'], 'varchar');
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
     public function SP_ASESORES_LIST($p){
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_ASESORES_LIST');
@@ -155,6 +172,19 @@ class personaModels extends Adodb {
         parent::ConnectionOpen($this->dsn, 'SP_UBIGEO_LIST');
         parent::SetParameterSP($p['VP_OP'], 'varchar');
         parent::SetParameterSP($p['VP_VALUE'], 'varchar');
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+
+    public function get_list_agencias($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_AGENCIAS_LIST');
+      // parent::SetParameterSP($p['vp_shi_codigo'], 'int');
+      //  parent::SetParameterSP($p['vp_fac_cliente'], 'int');
+        parent::SetParameterSP($p['vp_cod_age'], 'int');
+        parent::SetParameterSP($p['vp_cod_ubi'], 'varchar');
+        parent::SetParameterSP($p['vp_nombre'], 'varchar');
         // echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
         return $array;

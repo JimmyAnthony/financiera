@@ -162,6 +162,41 @@ class personaController extends AppController {
         header('Content-Type: application/json');
         return $this->response($data);
     }
+
+    public function getListDirecciones($p){
+        
+        $this->array = $this->objDatos->SP_DIRECCIONES_LIST($p);
+        //var_export($this->arrayMenu);
+        $array = array();
+        foreach ($this->array as $index => $value){
+                //$p['id_asesor'] = intval($value['id_asesor']);
+                $value_['id_dir'] = intval($value['id_dir']);
+                
+                $value_['icono'] = $value['flag']=='A'?'home_delivery.png':'map-marker-24.png';
+                $value_['dir_direccion'] =utf8_encode(trim($value['dir_direccion']));
+                $value_['dir_numero'] =utf8_encode(trim($value['dir_numero']));
+                $value_['dir_mz'] =utf8_encode(trim($value['dir_mz']));
+                $value_['dir_lt'] =trim($value['dir_lt']);
+                $value_['dir_dpto'] =trim($value['dir_dpto']);
+
+                $value_['dir_interior'] =trim($value['dir_interior']);
+                $value_['dir_urb'] =trim($value['dir_urb']);
+                $value_['dir_referencia'] =trim($value['dir_referencia']);
+                $value_['cod_ubi_pro'] =trim($value['cod_ubi_pro']);
+                $value_['cod_ubi_dep'] =trim($value['cod_ubi_dep']);
+                $value_['cod_ubi'] =trim($value['cod_ubi']);
+                $value_['flag'] =trim($value['flag']);
+                //$value_['permisos'] = $this->objDatos->usr_sis_servicios($p);
+                $array[]=$value_;
+        }
+        $data = array(
+            'success' => true,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
     public function getDataMenuView($p){
         //session_start();
         //$_SESSION['sis_id'] = $p['sis_id'];
@@ -274,6 +309,41 @@ class personaController extends AppController {
             $value_['Superficie'] = trim($value['Superficie']);
             $value_['Y'] = trim($value['Y']);
             $value_['X'] = trim($value['X']);
+            $array[]=$value_;
+        }
+
+        $data = array(
+            'success' => true,
+            'error'=>0,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+
+    public function get_list_agencias($p){
+        $rs = $this->objDatos->get_list_agencias($p);
+        //var_export($rs);
+        $array = array();
+        $lote = 0;
+        foreach ($rs as $index => $value){
+            $value_['cod_age'] = intval($value['cod_age']);
+            $value_['nombre'] = utf8_encode(trim($value['nombre']));
+            $value_['descripcion'] = utf8_encode(trim($value['descripcion']));
+            //substr(trim($value['fec_ingreso']),0,10)
+            $value_['direccion'] = utf8_encode(trim($value['direccion']));
+            $value_['telefonos'] = trim($value['telefonos']);
+            $value_['cod_ubi'] = utf8_encode(trim($value['cod_ubi']));
+            $value_['x'] = utf8_encode(trim($value['x']));
+            $value_['y'] = utf8_encode(trim($value['y']));
+            $value_['fecha'] = utf8_encode(trim($value['fecha']));
+            $value_['estado'] = utf8_encode(trim($value['estado']));
+            $value_['Distrito'] = utf8_encode(trim($value['Distrito']));
+            $value_['Provincia'] = utf8_encode(trim($value['Provincia']));
+            $value_['Departamento'] = utf8_encode(trim($value['Departamento']));
+            $value_['cod_ubi_pro'] = trim($value['cod_ubi_pro']);
+            $value_['cod_ubi_dep'] = trim($value['cod_ubi_dep']);
             $array[]=$value_;
         }
 

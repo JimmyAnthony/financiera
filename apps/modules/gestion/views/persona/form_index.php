@@ -421,6 +421,38 @@
 		                '</div>',
 		            '</tpl>'
 		        );
+		        var imageTplPointerDirecciones = new Ext.XTemplate(
+		            '<tpl for=".">',
+		                '<div class="list_grid_as__list_menu_select" >',
+		                    '<div class="list_grid_as__list_menu" >',
+		                        '<div class="list_grid_as__menu_bx" >',
+		                            '<div class="">',
+		                                '<img src="/images/icon/{icono}" />',
+		                            '</div>',
+		                        '</div>',
+		                        '<div class="list_grid_as__menu_line" style="width:260px;">',
+		                            '<div class="list_grid_as__menu_bar">',
+		                                '<div class="list_grid_as__menu_title_A">',
+		                                	'<span>Dirección:</span>',
+		                                '</div>',
+		                                '<div class="list_grid_as__menu_title" >',
+		                                    '<span style="font-size:10px;">{dir_direccion} N°:{dir_numero} Mz:{dir_mz} Lt:{dir_lt} Dpto:{dir_dpto} Int:{dir_interior}</span>',
+		                                    '<span style="font-size:10px;">Urb:{dir_urb} Ref:{dir_referencia} </span>',
+		                                '</div>',
+		                            '</div>',
+		                        '</div>',
+		                        '<div class="list_grid_as__menu_line" style="width:10px;">',
+		                            '<div class="list_grid_as__menu_bar">',
+		                                
+		                                '<div class="list_grid_as__menu_title">',
+		                                    '<img src="/images/icon/Trash.png" onClick="persona.setDeleteDir({id_dir});"/>',
+		                                '</div>',
+		                            '</div>',
+		                        '</div>',
+		                    '</div>',
+		                '</div>',
+		            '</tpl>'
+		        );
 
 		        var store_telefonos = Ext.create('Ext.data.Store',{
 		            fields: [
@@ -451,6 +483,72 @@
 		                }
 		            }
 		        });
+
+		        var store_direcciones = Ext.create('Ext.data.Store',{
+		            fields: [
+		                {name: 'id_dir', type: 'string'},
+		                {name: 'dir_direccion', type: 'string'},
+		                {name: 'dir_numero', type: 'string'},
+		                {name: 'dir_mz', type: 'string'},
+		                {name: 'dir_lt', type: 'string'},
+		                {name: 'dir_dpto', type: 'string'},
+		                {name: 'dir_interior', type: 'string'},
+		                {name: 'dir_urb', type: 'string'},
+		                {name: 'dir_referencia', type: 'string'},
+		                {name: 'cod_ubi', type: 'string'},
+		                {name: 'flag', type: 'string'}
+		            ],
+		            autoLoad:false, 
+		            proxy:{
+		                type: 'ajax',
+		                url: persona.url+'getListDirecciones/',
+		                reader:{
+		                    type: 'json',
+		                    rootProperty: 'data'
+		                },
+		                extraParams:{vp_op:'P',vp_id:0,vp_nombre:''}
+		            },
+		            listeners:{
+		                load: function(obj, records, successful, opts){
+		                    console.log(records);
+		                    //document.getElementById("menu_spinner").innerHTML = "";
+		                }
+		            }
+		        });
+
+		        var store_agencias = Ext.create('Ext.data.Store',{
+	                fields: [
+	                    {name: 'cod_age', type: 'string'},
+	                    {name: 'nombre', type: 'string'},
+	                    {name: 'descripcion', type: 'string'},
+	                    {name: 'direccion', type: 'string'},                    
+	                    {name: 'telefonos', type: 'string'},
+	                    {name: 'cod_ubi', type: 'string'},
+	                    {name: 'x', type: 'string'},
+	                    {name: 'y', type: 'string'},
+	                    {name: 'fecha', type: 'string'},
+	                    {name: 'estado', type: 'string'},
+	                    {name: 'Distrito', type: 'string'},
+	                    {name: 'Provincia', type: 'string'},
+	                    {name: 'Departamento', type: 'string'},
+	                    {name: 'cod_ubi_pro', type: 'string'},
+	                    {name: 'cod_ubi_dep', type: 'string'}
+	                ],
+	                autoLoad:true,
+	                proxy:{
+	                    type: 'ajax',
+	                    url: persona.url+'get_list_agencias/',
+	                    reader:{
+	                        type: 'json',
+	                        rootProperty: 'data'
+	                    }
+	                },
+	                listeners:{
+	                    load: function(obj, records, successful, opts){
+	                        
+	                    }
+	                }
+	            });
 
                 Ext.create('Ext.window.Window',{
 	                id:persona.id+'-win-form',
@@ -1792,11 +1890,11 @@
 							                        bodyStyle: 'background: transparent',
 							                        bodyCls: 'transparent',
 							                        layout:'fit',
-							                        store: store_telefonos,
+							                        store: store_direcciones,
 							                        autoScroll: true,
 							                        loadMask:true,
 							                        autoHeight: false,
-							                        tpl: imageTplPointer,
+							                        tpl: imageTplPointerDirecciones,
 							                        multiSelect: false,
 							                        singleSelect: false,
 							                        loadingText:'Cargando Lista de Direcciones...',
@@ -1806,7 +1904,7 @@
 							                        overItemCls: 'list_grid_as__list_menu-hover',
 							                        listeners: {
 							                            'itemdblclick': function(view, record, item, idx, event, opts) {
-							                                me.idx=idx;
+							                                /*me.idx=idx;
 							                                var record = this.getStore().getAt(idx);
 							                                var val =record.data;
 							                                var menu_class = val.menu_class == null || val.menu_class == '' ? '' : val.menu_class;
@@ -1818,7 +1916,7 @@
 							                                        var active=Ext.getCmp(me.config_.id+val.url);
 							                                        tab.setActiveTab(active);
 							                                    }
-							                                }
+							                                }*/
 							                                
 							                            }
 							                        }
@@ -1877,11 +1975,11 @@
 								                            bodyStyle: 'background: transparent',
 										                    padding:'0px 5px 5px 5px',
 								                            id:persona.id+'-sol-cmb-agencia',
-								                            store: persona.store_tipo_tel,
+								                            store: store_agencias,
 								                            queryMode: 'local',
 								                            triggerAction: 'all',
-								                            valueField: 'code',
-								                            displayField: 'name',
+								                            valueField: 'cod_age',
+								                            displayField: 'nombre',
 								                            emptyText: '[Seleccione]',
 								                            labelAlign:'right',
 								                            //allowBlank: false,
@@ -2243,6 +2341,40 @@
 						Ext.getCmp(persona.id+'-sol-txt-id-dir').setValue(data.id_dir);
 						var obj = Ext.getCmp(persona.id+'-list-telefonos');
 						persona.getReload(obj,{vp_op:'P',vp_id:data.id_per,vp_flag:'A'});
+
+						if(data.id_dir!=0)persona.getDirecciones(data.id_dir);
+						var objd = Ext.getCmp(persona.id+'-list-direcciones');
+						persona.getReload(objd,{vp_op:'R',vp_id:data.id_per,vp_nombre:''});
+                    }
+                });
+			},
+			getDirecciones:function(id){
+				Ext.Ajax.request({
+                    url:persona.url+'getListDirecciones/',
+                    params:{
+                    	vp_op:'C',
+						vp_id:id,
+						vp_nombres:''
+                    },
+                    timeout: 30000000,
+                    success: function(response, options){
+                        Ext.getCmp(persona.id+'-win-form').el.unmask();
+                        var res = Ext.JSON.decode(response.responseText);
+                        console.log(res.data[0]);
+                        var data = res.data[0];
+
+                        Ext.getCmp(persona.id+'-sol-txt-id-dir').setValue(data.id_dir);
+						Ext.getCmp(persona.id+'-sol-txt-dir-direccion').setValue(data.dir_direccion);
+						Ext.getCmp(persona.id+'-sol-txt-dir-numero').setValue(data.dir_numero);
+						Ext.getCmp(persona.id+'-sol-txt-dir-mz').setValue(data.dir_mz);
+						Ext.getCmp(persona.id+'-sol-txt-dir-lt').setValue(data.dir_lt);
+						Ext.getCmp(persona.id+'-sol-txt-dir-dpto').setValue(data.dir_dpto);
+						Ext.getCmp(persona.id+'-sol-txt-dir-interior').setValue(data.dir_interior);
+						Ext.getCmp(persona.id+'-sol-txt-dir-urb').setValue(data.dir_urb);
+						Ext.getCmp(persona.id+'-sol-txt-dir-referencia').setValue(data.dir_referencia);
+						Ext.getCmp(persona.id+'-sol-cmb-departamento').setValue(data.cod_ubi_pro);
+						Ext.getCmp(persona.id+'-sol-cmb-provincia').setValue(data.cod_ubi_dep);
+						Ext.getCmp(persona.id+'-sol-cmb-Distrito').setValue(data.cod_ubi);
                     }
                 });
 			},
@@ -2377,7 +2509,7 @@
 				Ext.getCmp(persona.id+'-sol-txt-dir-numero').setValue('');
 				Ext.getCmp(persona.id+'-sol-txt-dir-mz').setValue('');
 				Ext.getCmp(persona.id+'-sol-txt-dir-lt').setValue('');
-				Ext.getCmp(persona.id+'-sol-txt-dir-dpto').getValue();
+				Ext.getCmp(persona.id+'-sol-txt-dir-dpto').setValue('');
 				Ext.getCmp(persona.id+'-sol-txt-dir-interior').setValue('');
 				Ext.getCmp(persona.id+'-sol-txt-dir-urb').setValue('');
 				Ext.getCmp(persona.id+'-sol-txt-dir-referencia').setValue('');
@@ -2386,8 +2518,9 @@
 
 				var vp_sol_id_cli = Ext.getCmp(persona.id+'-sol-txt-id-cli').getValue();
 				var vp_sol_id_per = Ext.getCmp(persona.id+'-sol-txt-id-per').getValue();
-				var vp_op = vp_sol_id_per==0?'I':'U';
+				
 				var vp_sol_id_dir = Ext.getCmp(persona.id+'-sol-txt-id-dir').getValue();
+				var vp_op = vp_sol_id_dir==0?'I':'U';
 				var sol_dir_direccion = Ext.getCmp(persona.id+'-sol-txt-dir-direccion').getValue();
 				var sol_dir_numero = Ext.getCmp(persona.id+'-sol-txt-dir-numero').getValue();
 				var sol_dir_mz = Ext.getCmp(persona.id+'-sol-txt-dir-mz').getValue();
@@ -2446,6 +2579,58 @@
 			                                fn: function(btn){
 			                                	//persona.getHistory();
 			                                	//Ext.getCmp(persona.id+'-win-form').close();
+			                                	var objd = Ext.getCmp(persona.id+'-list-direcciones');
+												persona.getReload(objd,{vp_op:'R',vp_id:vp_sol_id_per,vp_nombre:''});
+			                                }
+			                            });
+			                        } else{
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 0,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	 
+			                                }
+			                            });
+			                        }
+			                    }
+			                });
+						}
+					}
+				});
+			},
+			setDeleteDir:function(id_dir){
+				var vp_sol_id_per = Ext.getCmp(persona.id+'-sol-txt-id-per').getValue();
+				global.Msg({
+                    msg: '¿Seguro de Eliminar?',
+                    icon: 3,
+                    buttons: 3,
+                    fn: function(btn){
+                    	if (btn == 'yes'){
+                    		Ext.getCmp(persona.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
+	                        //scanning.getLoader(true);
+			                Ext.Ajax.request({
+			                    url:persona.url+'setSaveDireccion/',
+			                    params:{
+			                    	vp_op:'D',
+			                    	vp_sol_id_per:vp_sol_id_per,
+									vp_sol_id_dir:id_dir
+			                    },
+			                    timeout: 30000000,
+			                    success: function(response, options){
+			                        Ext.getCmp(persona.id+'-win-form').el.unmask();
+			                        var res = Ext.JSON.decode(response.responseText);
+			                        //control.getLoader(false);
+			                        if (res.error == 'OK'){
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 1,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	//persona.getHistory();
+			                                	//Ext.getCmp(persona.id+'-win-form').close();
+			                                	var objd = Ext.getCmp(persona.id+'-list-direcciones');
+												persona.getReload(objd,{vp_op:'R',vp_id:vp_sol_id_per,vp_nombre:''});
 			                                }
 			                            });
 			                        } else{
