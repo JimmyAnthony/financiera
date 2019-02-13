@@ -1275,7 +1275,7 @@
 					                	{
 					                		xtype:'tabpanel',
 					                		region:'south',
-					                		height:180,
+					                		height:205,
 											//title:'Datos',
 											bodyStyle: 'background: transparent',
 				                            id: persona.id+'-tabContentDatos',
