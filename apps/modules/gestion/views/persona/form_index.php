@@ -430,7 +430,7 @@
 		                                '<img src="/images/icon/{icono}" />',
 		                            '</div>',
 		                        '</div>',
-		                        '<div class="list_grid_as__menu_line" style="width:240px;">',
+		                        '<div class="list_grid_as__menu_line" style="width:300px;">',
 		                            '<div class="list_grid_as__menu_bar">',
 		                                '<div class="list_grid_as__menu_title_A">',
 		                                	'<span>Dirección:</span>',
@@ -441,14 +441,14 @@
 		                                '</div>',
 		                            '</div>',
 		                        '</div>',
-		                        '<div class="list_grid_as__menu_line" style="width:10px;">',
+		                        /*'<div class="list_grid_as__menu_line" style="width:10px;">',
 		                            '<div class="list_grid_as__menu_bar">',
 		                                
 		                                '<div class="list_grid_as__menu_title">',
 		                                    '<img src="/images/icon/Trash.png" onClick="persona.setDeleteDir({id_dir});"/>',
 		                                '</div>',
 		                            '</div>',
-		                        '</div>',
+		                        '</div>',*/
 		                    '</div>',
 		                '</div>',
 		            '</tpl>'
@@ -561,7 +561,7 @@
 	                modal: true,
 	                border:false,
 	                closable:true,
-	                padding:20,
+	                padding:5,
 	                layout:'border',
 	                bbar:[
 	                	'-',
@@ -694,6 +694,8 @@
 															bodyStyle: 'background: transparent',
 															items:[
 																{
+																	xtype: 'form',
+																	id: persona.id + '-win-form-upload',
 											                        layout:'hbox',
 											                        bodyStyle: 'background: transparent',
 																	padding:'5px 5px 5px 5px',
@@ -701,17 +703,25 @@
 																	border:false,
 																	items:[
 																		{
-																            xtype: 'filefield',
-																            labelWidth:40,
-																            flex:1,
-																            emptyText: 'Seleccione una imagen',
-																            fieldLabel: 'Foto',
-																            name: 'photo-path',
-																            buttonText: '',
-																            buttonConfig: {
-																                iconCls: 'upload-icon'
-																            }
-																        }
+										                                    xtype: 'filefield',
+										                                    id: persona.id + '-file',
+										                                    name: persona.id + '-filex',
+										                                    labelWidth: 30,
+										                                    fieldLabel: 'Foto',
+										                                    allowBlank: false,
+										                                    emptyText: 'Seleccione imagen',
+										                                    columnWidth: 1,
+										                                    buttonText: '',
+										                                    buttonConfig: {
+										                                        iconCls: 'upload-icon'
+										                                    },
+										                                    listeners: {
+										                                        change: function (fld, value) {
+										                                            var newValue = value.replace(/C:\\fakepath\\/g, '');
+										                                            fld.setRawValue(newValue);
+										                                        }
+										                                    }
+										                                }
 																	]
 																},
 																{
@@ -731,7 +741,27 @@
 													                            beforerender: function(obj, opts){
 																				},
 													                            click: function(obj, e){
-													                            	//persona.setSavepersona(op);
+													                            	var form = Ext.getCmp(persona.id + '-win-form-upload').getForm();
+																		                if (form.isValid()) {
+																		                    var mask = new Ext.LoadMask(Ext.getCmp(persona.id + '-win-form-upload'), {
+																		                        msg: 'Subiendo Archivo...'
+																		                    });
+																		                    mask.show();
+																		                    form.submit({
+																		                        url: persona.url + 'setFoto/',
+																		                        witMsg: 'Subiendo....',
+																		                        success: function (fp, o) {
+																		                            mask.hide();
+																		                            //window.open(Servicios.url + 'getExcelImpresion/?archivo='+o.result.archivo, "_blank");
+																		                            //Ext.getCmp(Servicios.id + '-win-carga').close();
+																		                            //console.log(o.result);
+																		                        },
+																		                        failure: function (fp, o) {
+																		                            mask.hide();
+																		                            //console.log(o.result);
+																		                        }
+																		                    });
+																		                }
 													                            }
 													                        }
 													                    },
@@ -1733,7 +1763,9 @@
 							                                        tab.setActiveTab(active);
 							                                    }
 							                                }*/
-							                                
+							                                var record = this.getStore().getAt(idx);
+							                                var val =record.data;
+							                                persona.getDirecciones(val.id_dir);
 							                            }
 							                        }
 							                    }

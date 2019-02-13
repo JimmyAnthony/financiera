@@ -356,4 +356,54 @@ class personaController extends AppController {
         header('Content-Type: application/json');
         return $this->response($data);
     }
+    public function setFoto($p){
+        ini_set("memory_limit", "-1");
+        set_time_limit(0);
+        sleep(1);
+        $array = array();
+
+        $nombre_archivo = $_FILES['Servicios-file']['name'];
+        $tipo_archivo = $_FILES['Servicios-file']['type'];
+        $tamano_archivo = $_FILES['Servicios-file']['size'];
+
+        $setTypeFile = array(
+            'xls' => 'application/vnd.ms-excel',
+            'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        );
+        $tipo = array_search($tipo_archivo, $setTypeFile);
+
+        $file_name = (string) rand();
+        
+        if (in_array($tipo_archivo, $setTypeFile)) {
+            if (@move_uploaded_file($_FILES['Servicios-file']['tmp_name'], $dir)) {
+                $respuesta = $this->procesar_Datos(
+                        array(
+                            'archivo_completo' => $dir,
+                            'tipo_archivo' => $tipo,
+                            'vp_filename' => $file_name
+                        )
+                );
+                //var_export($respuesta);
+                if ($respuesta[0] == 'ok') {
+                    $array[] = array('error_sql' => '1', 'error_info' => $comando . 'Archivo procesado correctamente');
+                    unlink($dir);
+                } else {
+                    $array[] = array('error_sql' => '-1', 'error_info' => $comando . $respuesta[0]);
+                    unlink($dir);
+                }
+            } else {
+                $array[] = array('error_sql' => '-1', 'error_info' => $comando . 'A ocurrido un error con la red.<br>No se logro cargar el archivo');
+            }
+        } else {
+            $array[] = array('error_sql' => '-1', 'error_info' => $comando . 'Extensión del archivo no valido<br>solo es valido "xls o xlsx" ');
+        }
+        $data = array(
+            'success' => true,
+            'total' => count($array),
+            'data' => $array,
+            'exec' => $comando,
+            'archivo' => $file
+        );
+        return $this->response($data);
+    }
 }
