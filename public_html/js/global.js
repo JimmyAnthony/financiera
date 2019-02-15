@@ -152,7 +152,7 @@ var LarSyrExt = function(){
     this.Msg = function(p){
         var icons = [Ext.Msg.ERROR, Ext.Msg.INFO, Ext.Msg.WARNING, Ext.Msg.QUESTION];
         var button = [Ext.Msg.CANCEL, Ext.Msg.OK, Ext.Msg.OKCANCEL, Ext.Msg.YESNO, Ext.Msg.YESNOCANCEL];
-        p.title = p.title==undefined?'.:CONDOMINIOS:.':p.title;
+        p.title = p.title==undefined?'.:TRASCENDER:.':p.title;
         p.msg = p.title==undefined?'':p.msg;
         p.buttons = p.buttons==undefined?1:p.buttons;
         p.icon = p.icon==undefined?1:p.icon;

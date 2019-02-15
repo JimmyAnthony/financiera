@@ -189,4 +189,30 @@ class personaModels extends Adodb {
         $array = parent::ExecuteSPArray();
         return $array;
     }
+
+    public function SP_PERSONA_IMG($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_PERSONA_IMG');
+        parent::SetParameterSP($p['vp_sol_id_per'], 'int');//8
+        parent::SetParameterSP($p['vp_name'], 'varchar');//8
+        parent::SetParameterSP(USR_ID, 'int');//141
+
+         //echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+    public function SP_PERSONA_DOCUMENTOS($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_PERSONA_DOCUMENTOS');
+        parent::SetParameterSP($p['vp_op'], 'varchar');//8
+        parent::SetParameterSP($p['vp_id_doc'], 'int');//8
+        parent::SetParameterSP($p['vp_id_per'], 'int');//8
+        parent::SetParameterSP($p['vp_nombre'], 'varchar');//8
+        parent::SetParameterSP($p['vp_img'], 'varchar');//8
+        parent::SetParameterSP(USR_ID, 'int');//141
+
+         //echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
 }

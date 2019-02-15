@@ -567,7 +567,7 @@
 	                	'-',
 	                	{
                             xtype:'combo',
-                            fieldLabel: 'Sexo',
+                            fieldLabel: 'Buscar por',
                             bodyStyle: 'background: transparent',
                             id:persona.id+'-cmb-buscar',
                             store: Ext.create('Ext.data.ArrayStore', {
@@ -590,13 +590,13 @@
                             emptyText: '[Seleccione]',
                             labelAlign:'right',
                             //allowBlank: false,
-                            width:140,
+                            width:170,
                             //flex:1,
                             //height:30,
                             labelStyle: "font-size:12px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
                             fieldStyle: 'font-size:12px; text-align: center; font-weight: bold',
                             anchor:'100%',
-                            labelWidth:50,
+                            labelWidth:80,
                             padding:'5px 5px 5px 5px',
                             listeners:{
                                 afterrender:function(obj, e){
@@ -668,31 +668,58 @@
 					                				items:[
 					                					{
 															region:'center',
+															id: persona.id + '-photo-center',
 															border:false,
 															layout:'fit',
 															bodyStyle: 'background: transparent',
 															items:[
 																{
-											                        layout:'hbox',
+											                        //layout:'hbox',
+											                        id: persona.id + '-photo-person',
 											                        bodyStyle: 'background: transparent',
 																	padding:'5px 5px 5px 5px',
 																	//height:70,
 																	flex:1,
 																	border:true,
-																	padding:'10px 10px 10px 10px',
+																	padding:'5px 5px 5px 5px',
 																	margin:'10px 10px 10px 10px',
 																	items:[
-
+																		{
+																			bodyStyle: 'background: transparent;text-align:center;',
+																			border:false,
+																			html:'<img id="imagen-persona" src="/images/photo.png" style="width:100%; height:"100%;overflow: scroll;" />'
+																		}
 																	]
 																}
 															]
 														},
 														{
 															region:'south',
-															height:95,
+															height:135,
 															border:false,
 															bodyStyle: 'background: transparent',
 															items:[
+																 {
+																	//region:'north',
+																	xtype:'panel',
+																	layout:'hbox',
+																	border:false,
+																	height:40,
+																	//bodyStyle: 'background: #F0EFEF;text-align:center;',
+																	bodyStyle: 'background: transparent;text-align:center;',
+																	//layout:'fit',
+																	items:[
+																		{
+																	        xtype: 'label',
+																	        //forId: 'myFieldId',
+																	        text: 'FOTO',
+																	        style: 'font: normal 15px Sans-serif;font-weight: bold;',
+																	        padding:'10px 5px 5px 5px',
+																	        width:'100%',
+												                            anchor:'100%'
+																	    }
+																	]
+																},
 																{
 																	xtype: 'form',
 																	id: persona.id + '-win-form-upload',
@@ -742,31 +769,48 @@
 																				},
 													                            click: function(obj, e){
 													                            	var form = Ext.getCmp(persona.id + '-win-form-upload').getForm();
-																		                if (form.isValid()) {
-																		                    var mask = new Ext.LoadMask(Ext.getCmp(persona.id + '-win-form-upload'), {
-																		                        msg: 'Subiendo Archivo...'
-																		                    });
-																		                    mask.show();
-																		                    form.submit({
-																		                        url: persona.url + 'setFoto/',
-																		                        witMsg: 'Subiendo....',
-																		                        success: function (fp, o) {
-																		                            mask.hide();
-																		                            //window.open(Servicios.url + 'getExcelImpresion/?archivo='+o.result.archivo, "_blank");
-																		                            //Ext.getCmp(Servicios.id + '-win-carga').close();
-																		                            //console.log(o.result);
-																		                        },
-																		                        failure: function (fp, o) {
-																		                            mask.hide();
-																		                            //console.log(o.result);
-																		                        }
-																		                    });
-																		                }
+													                            	var vp_sol_id_per = Ext.getCmp(persona.id+'-sol-txt-id-per').getValue();
+													                            	if(vp_sol_id_per==0){
+																						global.Msg({msg:"No es posible Subir una foto para esta persona, debe grabar antes sus datos principales.",icon:2,fn:function(){}});
+																						return false;
+																					}
+																	                if (form.isValid()) {
+																	                    var mask = new Ext.LoadMask(Ext.getCmp(persona.id + '-photo-center'), {
+																	                        msg: 'Subiendo Imagen...'
+																	                    });
+																	                    mask.show();
+																	                    form.submit({
+																	                        url: persona.url + 'setFoto/',
+																	                        params:{vp_sol_id_per:vp_sol_id_per},
+																	                        witMsg: 'Subiendo....',
+																	                        success: function (fp, o) {
+																	                            mask.hide();
+																	                            //window.open(Servicios.url + 'getExcelImpresion/?archivo='+o.result.archivo, "_blank");
+																	                            global.Msg({
+																	                                msg: o.result.MESSAGE_TEXT,
+																	                                icon: 1,
+																	                                buttons: 1,
+																	                                fn: function(btn){
+																	                                	 
+																	                                }
+																	                            });
+																	                            if(o.result.RESPONSE=='OK'){
+																	                            	var img = '/persona/'+vp_sol_id_per+'/PHOTO/'+o.result.FILE;
+																	                            	persona.setPhotoForm(img);
+																				                }
+																	                        },
+																	                        failure: function (fp, o) {
+																	                            mask.hide();
+																	                            console.log(o.result);
+																	                        }
+																	                    });
+																	                }
 													                            }
 													                        }
 													                    },
 													                    {
 													                        xtype:'button',
+													                        hidden:true,
 													                        height:30,
 													                        margin:'5px 5px 5px 5px',
 													                        //text: 'Grabar',
@@ -1301,7 +1345,165 @@
 													border:false,
 													layout:'border',
 													items:[
-														
+														{
+															region:'west',
+															width:200,
+															//layout:'fit',
+															items:[
+																{
+																	xtype: 'form',
+																	id: persona.id + '-win-form-upload-doc',
+											                        //layout:'fit',
+											                        bodyStyle: 'background: transparent',
+																	padding:'5px 5px 5px 5px',
+																	margin:'15px 0px 5px 0px',
+																	//height:45,
+																	border:false,
+																	items:[
+																		{
+										                                    xtype: 'filefield',
+										                                    id: persona.id + '-file-doc',
+										                                    name: persona.id + '-filex-doc',
+										                                    labelWidth:60,
+										                                    fieldLabel: 'Documento',
+										                                    allowBlank: false,
+										                                    emptyText: 'Seleccione imagen',
+										                                    //columnWidth: 1,
+										                                    buttonText: '',
+										                                    width:'90%',
+										                                    padding:'5px 5px 5px 5px',
+										                                    buttonConfig: {
+										                                        iconCls: 'upload-icon'
+										                                    },
+										                                    labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+										                                    listeners: {
+										                                        change: function (fld, value) {
+										                                            var newValue = value.replace(/C:\\fakepath\\/g, '');
+										                                            fld.setRawValue(newValue);
+										                                        }
+										                                    }
+										                                },
+										                                {
+												                            xtype: 'textfield',
+												                            fieldLabel: 'Nombre',
+												                            id:persona.id+'-sol-txt-nombre-doc',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:persona.id+'-txt-dni',
+												                            labelWidth:60,
+												                            //readOnly:true,
+												                            //labelAlign:'top',
+												                            width:'90%',
+												                            //height:60,
+												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        }
+																	]
+																},
+																{
+											                        layout:'hbox',
+											                        bodyStyle: 'background: transparent',
+																	padding:'5px 5px 5px 5px',
+																	height:45,
+																	border:false,
+																	items:[
+												                        {
+													                        xtype:'button',
+													                        margin:'5px 5px 5px 5px',
+													                        height:30,
+													                        //text: 'Grabar',
+													                        icon: '/images/icon/save.png',
+													                        listeners:{
+													                            beforerender: function(obj, opts){
+																				},
+													                            click: function(obj, e){
+													                            	var form = Ext.getCmp(persona.id + '-win-form-upload-doc').getForm();
+													                            	var vp_sol_id_per = Ext.getCmp(persona.id+'-sol-txt-id-per').getValue();
+													                            	 var vp_nombre_doc = Ext.getCmp(persona.id+'-sol-txt-nombre-doc').getValue();
+													                            	if(vp_sol_id_per==0){
+																						global.Msg({msg:"No es posible Subir una documentos para esta persona, debe grabar antes sus datos principales.",icon:2,fn:function(){}});
+																						return false;
+																					}
+																	                if (form.isValid()) {
+																	                    var mask = new Ext.LoadMask(Ext.getCmp(persona.id + '-photo-center'), {
+																	                        msg: 'Subiendo Documento...'
+																	                    });
+																	                    mask.show();
+																	                    form.submit({
+																	                        url: persona.url + 'setDocumento/',
+																	                        params:{vp_sol_id_per:vp_sol_id_per,vp_nombre_doc:vp_nombre_doc},
+																	                        witMsg: 'Subiendo....',
+																	                        success: function (fp, o) {
+																	                            mask.hide();
+																	                            //window.open(Servicios.url + 'getExcelImpresion/?archivo='+o.result.archivo, "_blank");
+																	                            global.Msg({
+																	                                msg: o.result.MESSAGE_TEXT,
+																	                                icon: 1,
+																	                                buttons: 1,
+																	                                fn: function(btn){
+																	                                	 
+																	                                }
+																	                            });
+																	                            if(o.result.RESPONSE=='OK'){
+																	                            	var img = '/persona/'+vp_sol_id_per+'/PHOTO/'+o.result.FILE;
+																	                            	persona.setPhotoForm(img);
+																				                }
+																	                        },
+																	                        failure: function (fp, o) {
+																	                            mask.hide();
+																	                            console.log(o.result);
+																	                        }
+																	                    });
+																	                }
+													                            }
+													                        }
+													                    },
+													                    {
+													                        xtype:'button',
+													                        hidden:true,
+													                        height:30,
+													                        margin:'5px 5px 5px 5px',
+													                        //text: 'Grabar',
+													                        icon: '/images/icon/Document.png',
+													                        listeners:{
+													                            beforerender: function(obj, opts){
+																				},
+													                            click: function(obj, e){
+													                            	//persona.setSavepersona(op);
+													                            }
+													                        }
+													                    },
+													                    {
+													                        xtype:'button',
+													                        height:30,
+													                        margin:'5px 5px 5px 5px',
+													                        //text: 'Grabar',
+													                        icon: '/images/icon/Trash.png',
+													                        listeners:{
+													                            beforerender: function(obj, opts){
+																				},
+													                            click: function(obj, e){
+													                            	//persona.setSavepersona(op);
+													                            }
+													                        }
+													                    }
+												                    ]
+												                }
+															]
+														},
+														{
+															region:'center',
+															items:[
+
+															]
+														}
 													]
 												}
 											]
@@ -2305,6 +2507,11 @@
 						if(data.id_dir!=0)persona.getDirecciones(data.id_dir);
 						var objd = Ext.getCmp(persona.id+'-list-direcciones');
 						persona.getReload(objd,{vp_op:'R',vp_id:data.id_per,vp_nombre:''});
+
+						if(data.img!==''){
+							var img = '/persona/'+data.id_per+'/PHOTO/'+data.img;
+							persona.setPhotoForm(img);
+						}
                     }
                 });
 			},
@@ -2782,6 +2989,32 @@
 	                	//Ext.getCmp(persona.id+'-form').el.unmask();
 	                }
 	            });
+			},
+			getAddMagicRefresh:function(url){
+			    var symbol = '?';//url.indexOf('?') == -1 ? '?' : '&';
+			    var magic = Math.random()*999999;
+			    return url + symbol + 'magic=' + magic;
+			},
+			setPhotoForm:function(img){
+				var img = persona.getAddMagicRefresh(img);
+				var panel = Ext.getCmp(persona.id + '-photo-person');
+				panel.removeAll();
+				panel.add({
+                    html: '<img id="imagen-persona" src="'+img+'" style="width:100%; height:"100%;overflow: scroll;" />',
+                    border:false,
+                    bodyStyle: 'background: transparent;text-align:center;'//style=""
+                });
+
+                panel.doLayout();
+
+                var image = document.getElementById('imagen-persona');
+				var downloadingImage = new Image();
+				downloadingImage.onload = function(){
+				    image.src = this.src;
+	                Ext.getCmp(persona.id + '-photo-person').doLayout();
+				};
+				downloadingImage.src = img;
+				console.log(img);
 			}
 		}
 		Ext.onReady(persona.init,persona);
