@@ -356,15 +356,41 @@ class personaController extends AppController {
         header('Content-Type: application/json');
         return $this->response($data);
     }
+    public function get_list_documentos($p){
+        $rs = $this->objDatos->get_list_documentos($p);
+        //var_export($rs);
+        $array = array();
+        $lote = 0;
+        foreach ($rs as $index => $value){
+            $value_['id_doc'] = intval($value['id_doc']);
+            $value_['id_per'] = intval($value['id_per']);
+            $value_['time'] = utf8_encode(trim($value['nombre']));
+            $value_['img_path'] = '/persona/'.$value['id_per'].'/DOCUMENTOS/'.trim($value['img']);
+            $value_['img_thumbs'] = '/persona/'.$value['id_per'].'/DOCUMENTOS/tumblr/'.trim($value['img']);
+            $value_['fecha'] = trim($value['fecha']);
+            $value_['flag'] = trim($value['flag']);
+            $value_['id_user'] = intval($value['id_user']);
+            $array[]=$value_;
+        }
+
+        $data = array(
+            'success' => true,
+            'error'=>0,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
     public function setFoto($p){
         ini_set("memory_limit", "-1");
         set_time_limit(0);
         sleep(1);
         $array = array();
         
-        $nombre_archivo = $_FILES['filex-doc']['name'];
-        $tipo_archivo = $_FILES['filex-doc']['type'];
-        $tamano_archivo = $_FILES['filex-doc']['size'];
+        $nombre_archivo = $_FILES['persona-filex-doc']['name'];
+        $tipo_archivo = $_FILES['persona-filex-doc']['type'];
+        $tamano_archivo = $_FILES['persona-filex-doc']['size'];
 
         $path_parts = pathinfo($nombre_archivo);
         $ext=$path_parts['extension'];
@@ -388,7 +414,7 @@ class personaController extends AppController {
         $file = $p['vp_name'];
         
         if (in_array($ext, $setTypeFile)) {
-            if (@move_uploaded_file($_FILES['filex-doc']['tmp_name'], $dir)) {
+            if (@move_uploaded_file($_FILES['persona-filex-doc']['tmp_name'], $dir)) {
 
                 $rs = $this->objDatos->SP_PERSONA_IMG($p);
                 $rs = $rs[0];
@@ -425,9 +451,9 @@ class personaController extends AppController {
         sleep(1);
         $array = array();
         
-        $nombre_archivo = $_FILES['filex-doc']['name'];
-        $tipo_archivo = $_FILES['filex-doc']['type'];
-        $tamano_archivo = $_FILES['filex-doc']['size'];
+        $nombre_archivo = $_FILES['persona-filex-doc']['name'];
+        $tipo_archivo = $_FILES['persona-filex-doc']['type'];
+        $tamano_archivo = $_FILES['persona-filex-doc']['size'];
 
         $path_parts = pathinfo($nombre_archivo);
         $ext=$path_parts['extension'];
@@ -438,40 +464,73 @@ class personaController extends AppController {
             'png' => 'png',
             'PNG' => 'PNG'
         );
+
         //$tipo = array_search($tipo_archivo, $setTypeFile);
 
-        if (!file_exists(PATH.'public_html/persona/'.$p['vp_sol_id_per'].'/DOCUMENTOS')) {
-            mkdir(PATH.'public_html/persona/'.$p['vp_sol_id_per'].'/DOCUMENTOS', 0777, true);
-        }
-
-
-        $p['vp_name']='per-'.$p['vp_sol_id_per'].'.'.$ext;
-
-        $dir = PATH.'public_html/persona/'.$p['vp_sol_id_per'].'/DOCUMENTOS/per-'.$p['vp_sol_id_per'].'.'.$ext;
-        $file = $p['vp_name'];
-        
         if (in_array($ext, $setTypeFile)) {
-            if (@move_uploaded_file($_FILES['filex-doc']['tmp_name'], $dir)) {
-                
-                $rs = $this->objDatos->SP_PERSONA_DOCUMENTOS($p);
-                $rs = $rs[0];
 
-                //var_export($respuesta);
+            if (!file_exists(PATH.'public_html/persona/'.$p['vp_sol_id_per'].'/DOCUMENTOS')) {
+                mkdir(PATH.'public_html/persona/'.$p['vp_sol_id_per'].'/DOCUMENTOS', 0777, true);
+            }
+
+            $p['vp_op']='I';
+            $rs = $this->objDatos->SP_PERSONA_DOCUMENTOS($p);
+            $rs = $rs[0];
+
+            if($rs['RESPONSE']=='OK'){
+                $p['vp_id_doc']=$rs['CODIGO'];
+                $file='doc-'.$rs['CODIGO'].'.'.$ext;
+                $p['vp_img'] =$file;
+                $dir = PATH.'public_html/persona/'.$p['vp_sol_id_per'].'/DOCUMENTOS/'.$file;
+                
+                
+                if (@move_uploaded_file($_FILES['persona-filex-doc']['tmp_name'], $dir)){
+                    $this->setResizeImage($p['vp_sol_id_per'],trim($file));
+                    $p['vp_op']='U';
+                    $rs = $this->objDatos->SP_PERSONA_DOCUMENTOS($p);
+                    $rs = $rs[0];
+                    //var_export($respuesta);
+                    if($rs['RESPONSE']=='OK'){
+                        $data = array(
+                            'success' => true,
+                            'RESPONSE' => $rs['RESPONSE'],
+                            'MESSAGE_TEXT' => $rs['MESSAGE_TEXT'],
+                            'FILE' => $file
+                        );
+                    }else{
+                        
+                        $data = array(
+                            'success' => true,
+                            'RESPONSE' => $rs['RESPONSE'],
+                            'MESSAGE_TEXT' => $rs['MESSAGE_TEXT'],
+                            'FILE' => $file
+                        );
+                        unlink($dir);
+                        $p['vp_op']='D';
+                        $rs = $this->objDatos->SP_PERSONA_DOCUMENTOS($p);
+                    }
+                } else {
+                    $data = array(
+                        'success' => true,
+                        'RESPONSE' => 'ER',
+                        'MESSAGE_TEXT' => 'A ocurrido un error con la red.<br>No se logro cargar el archivo',
+                        'FILE' => $file
+                    );
+                    unlink($dir);
+                    $p['vp_op']='D';
+                    $rs = $this->objDatos->SP_PERSONA_DOCUMENTOS($p);
+                }
+            
+            }else{
                 $data = array(
                     'success' => true,
                     'RESPONSE' => $rs['RESPONSE'],
                     'MESSAGE_TEXT' => $rs['MESSAGE_TEXT'],
                     'FILE' => $file
                 );
-            } else {
-                $data = array(
-                    'success' => true,
-                    'RESPONSE' => 'ER',
-                    'MESSAGE_TEXT' => 'A ocurrido un error con la red.<br>No se logro cargar el archivo',
-                    'FILE' => $file
-                );
             }
-        } else {
+
+        }else {
             $data = array(
                 'success' => true,
                 'RESPONSE' => 'ER',
@@ -481,5 +540,67 @@ class personaController extends AppController {
         }
         
         return $this->response($data);
+    }
+    public function setResizeImage($id_per,$nameimg){
+        $path_parts = pathinfo(PATH.'public_html/persona/'.$id_per.'/DOCUMENTOS/'.$nameimg);
+        $ext=$path_parts['extension'];
+        $w=60;
+        $y=60;
+        switch($ext){
+            #case 'bmp': $sourceImage = $img = $this->resize_imagejpg(PATH.'public_html/tmp/'.$nameimg, 50, 70); break;
+            case 'gif': 
+                $img = $this->resize_imagegif(PATH.'public_html/persona/'.$id_per.'/DOCUMENTOS/'.$nameimg, $w, $y); 
+            break;
+            case 'jpg': 
+                $img = $this->resize_imagejpg(PATH.'public_html/persona/'.$id_per.'/DOCUMENTOS/'.$nameimg, $w, $y); 
+            break;
+            case 'png': 
+                $img = $this->resize_imagepng(PATH.'public_html/persona/'.$id_per.'/DOCUMENTOS/'.$nameimg, $w, $y); 
+            break;
+            case 'tiff': 
+                $img = $this->resize_imagetiff(PATH.'public_html/persona/'.$id_per.'/DOCUMENTOS/'.$nameimg, $w, $y); 
+            break;
+            default : 
+                $img = $this->resize_imagejpg(PATH.'public_html/persona/'.$id_per.'/DOCUMENTOS/'.$nameimg, $w, $y); 
+            break;
+        }
+        if (!file_exists(PATH.'public_html/persona/'.$id_per.'/DOCUMENTOS/tumblr/')) {
+            mkdir(PATH.'public_html/persona/'.$id_per.'/DOCUMENTOS/tumblr/', 0777, true);
+        }
+        imagejpeg($img, PATH.'public_html/persona/'.$id_per.'/DOCUMENTOS/tumblr/'.$nameimg);
+    }
+    // for jpg 
+    public function resize_imagejpg($file, $w, $h) {
+       list($width, $height) = getimagesize($file);
+       $src = imagecreatefromjpeg($file);
+       $dst = imagecreatetruecolor($w, $h);
+       imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
+       return $dst;
+    }
+
+     // for png
+    public function resize_imagepng($file, $w, $h) {
+       list($width, $height) = getimagesize($file);
+       $src = imagecreatefrompng($file);
+       $dst = imagecreatetruecolor($w, $h);
+       imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
+       return $dst;
+    }
+
+    // for gif
+    public function resize_imagegif($file, $w, $h) {
+       list($width, $height) = getimagesize($file);
+       $src = imagecreatefromgif($file);
+       $dst = imagecreatetruecolor($w, $h);
+       imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
+       return $dst;
+    }
+    // for tiff
+    public function resize_imagetiff($file, $w, $h) {
+       list($width, $height) = getimagesize($file);
+       $src = imagecreatefromgif($file);
+       $dst = imagecreatetruecolor($w, $h);
+       imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
+       return $dst;
     }
 }

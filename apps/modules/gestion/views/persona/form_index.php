@@ -550,6 +550,33 @@
 	                }
 	            });
 
+	            var store_documentos = Ext.create('Ext.data.Store',{
+	                fields: [
+	                    {name: 'id_doc', type: 'string'},
+	                    {name: 'id_per', type: 'string'},
+	                    {name: 'nombre', type: 'string'},
+	                    {name: 'img', type: 'string'},
+	                    {name: 'thumb', type: 'string'},
+	                    {name: 'flag', type: 'string'},
+	                    {name: 'fecha', type: 'string'},
+	                    {name: 'id_user', type: 'string'}
+	                ],
+	                autoLoad:false,
+	                proxy:{
+	                    type: 'ajax',
+	                    url: persona.url+'get_list_documentos/',
+	                    reader:{
+	                        type: 'json',
+	                        rootProperty: 'data'
+	                    }
+	                },
+	                listeners:{
+	                    load: function(obj, records, successful, opts){
+	                        
+	                    }
+	                }
+	            });
+
                 Ext.create('Ext.window.Window',{
 	                id:persona.id+'-win-form',
 	                plain: true,
@@ -683,13 +710,8 @@
 																	border:true,
 																	padding:'5px 5px 5px 5px',
 																	margin:'10px 10px 10px 10px',
-																	items:[
-																		{
-																			bodyStyle: 'background: transparent;text-align:center;',
-																			border:false,
-																			html:'<img id="imagen-persona" src="/images/photo.png" style="width:100%; height:"100%;overflow: scroll;" />'
-																		}
-																	]
+																	html:'<div id="imagen-contenedor" ><img id="imagen-persona" src="/images/photo.png" style="width:100%; height:"100%;overflow: scroll;" /></div>'
+																	
 																}
 															]
 														},
@@ -1347,6 +1369,7 @@
 													items:[
 														{
 															region:'west',
+															id: persona.id + '-panel-west-doc',
 															width:200,
 															//layout:'fit',
 															items:[
@@ -1426,19 +1449,28 @@
 													                            click: function(obj, e){
 													                            	var form = Ext.getCmp(persona.id + '-win-form-upload-doc').getForm();
 													                            	var vp_sol_id_per = Ext.getCmp(persona.id+'-sol-txt-id-per').getValue();
-													                            	 var vp_nombre_doc = Ext.getCmp(persona.id+'-sol-txt-nombre-doc').getValue();
+													                            	var vp_img = Ext.getCmp(persona.id + '-file-doc').getValue();
+													                            	var vp_nombre_doc = Ext.getCmp(persona.id+'-sol-txt-nombre-doc').getValue(); 
 													                            	if(vp_sol_id_per==0){
 																						global.Msg({msg:"No es posible Subir una documentos para esta persona, debe grabar antes sus datos principales.",icon:2,fn:function(){}});
 																						return false;
 																					}
+																					if(vp_img==''){
+																						global.Msg({msg:"Seleccione una imagen a cargar.",icon:2,fn:function(){}});
+																						return false;
+																					}
+																					if(vp_nombre_doc==''){
+																						global.Msg({msg:"Ingrese un nombre para el documento.",icon:2,fn:function(){}});
+																						return false;
+																					}
 																	                if (form.isValid()) {
-																	                    var mask = new Ext.LoadMask(Ext.getCmp(persona.id + '-photo-center'), {
+																	                    var mask = new Ext.LoadMask(Ext.getCmp(persona.id + '-panel-west-doc'), {
 																	                        msg: 'Subiendo Documento...'
 																	                    });
 																	                    mask.show();
 																	                    form.submit({
 																	                        url: persona.url + 'setDocumento/',
-																	                        params:{vp_sol_id_per:vp_sol_id_per,vp_nombre_doc:vp_nombre_doc},
+																	                        params:{vp_sol_id_per:vp_sol_id_per,vp_nombre:vp_nombre_doc},
 																	                        witMsg: 'Subiendo....',
 																	                        success: function (fp, o) {
 																	                            mask.hide();
@@ -1452,8 +1484,11 @@
 																	                                }
 																	                            });
 																	                            if(o.result.RESPONSE=='OK'){
-																	                            	var img = '/persona/'+vp_sol_id_per+'/PHOTO/'+o.result.FILE;
-																	                            	persona.setPhotoForm(img);
+																	                            	//var img = '/persona/'+vp_sol_id_per+'/DOCUMENTOS/'+o.result.FILE;
+																	                            	//persona.setPhotoForm(img);
+																	                            	Ext.getCmp(persona.id+'-sol-txt-nombre-doc').setValue('');
+																	                            	var obj = Ext.getCmp(persona.id+'-sol-documentos-adjuntos');
+																									persona.getReload(obj,{vp_sol_id_per:vp_sol_id_per,vp_flag:'A'});
 																				                }
 																	                        },
 																	                        failure: function (fp, o) {
@@ -1500,8 +1535,33 @@
 														},
 														{
 															region:'center',
+															border:false,
+															autoScroll:true,
+															html:'<div id="contenedor-documentos" ></div>',
 															items:[
-
+																/*{
+														            xtype: 'dataview',
+														            id:persona.id+'-sol-documentos-adjuntos',
+														            tpl: [
+														                '<tpl for=".">',
+														                    '<div class="dataview-multisort-item">',
+														                        '<img src="{thumb}" />',
+														                        '<h3>{nombre}</h3>',
+														                    '</div>',
+														                '</tpl>'
+														            ],
+														            itemSelector: 'div.dataview-multisort-item',
+														            store:store_documentos,
+														            listeners: {
+											                            'itemdblclick': function(view, record, item, idx, event, opts) {
+											                                
+											                                
+											                            },
+											                            afterrender:function(obj){
+											                            	
+											                            }
+											                        }
+														        }*/
 															]
 														}
 													]
@@ -2504,6 +2564,12 @@
 						var obj = Ext.getCmp(persona.id+'-list-telefonos');
 						persona.getReload(obj,{vp_op:'P',vp_id:data.id_per,vp_flag:'A'});
 
+						
+
+						//var obj = Ext.getCmp(persona.id+'-sol-documentos-adjuntos');
+						//persona.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
+						win.getGalery({container:'contenedor-documentos',forma:'L',url:persona.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
+
 						if(data.id_dir!=0)persona.getDirecciones(data.id_dir);
 						var objd = Ext.getCmp(persona.id+'-list-direcciones');
 						persona.getReload(objd,{vp_op:'R',vp_id:data.id_per,vp_nombre:''});
@@ -2979,7 +3045,7 @@
 	            
 		    },
 			getImagen:function(param){
-				win.getGalery({container:'GaleryFull',width:390,height:250,params:{forma:'F',img_path:'/images/icon/'+param}});///persona/
+				win.getGalery({container:'GaleryFull',width:390,height:250,params:{forma:'F',img_path:'/persona/icon/'+param}});///persona/
 			},
 			getContratos:function(shi_codigo){
 				Ext.getCmp(persona.id+'-cbx-contrato').getStore().removeAll();
@@ -2997,6 +3063,8 @@
 			},
 			setPhotoForm:function(img){
 				var img = persona.getAddMagicRefresh(img);
+				win.getGalery({container:'imagen-contenedor',forma:'F',width:170,height:200,params:{img_path:img}});
+				/*
 				var panel = Ext.getCmp(persona.id + '-photo-person');
 				panel.removeAll();
 				panel.add({
@@ -3014,7 +3082,7 @@
 	                Ext.getCmp(persona.id + '-photo-person').doLayout();
 				};
 				downloadingImage.src = img;
-				console.log(img);
+				console.log(img);*/
 			}
 		}
 		Ext.onReady(persona.init,persona);

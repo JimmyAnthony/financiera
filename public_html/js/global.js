@@ -112,14 +112,14 @@ win = {
     },
     getGalery:function(params){
         Ext.get(params.container).update('');
-        switch(params.params.forma){
+        switch(params.forma){
             case 'L':
                 Ext.Ajax.request({
                     url:params.url,
                     params:params.params,
                     success:function(response,options){
                         var res = Ext.decode(response.responseText);
-                        console.log(res);
+                        //console.log(res);
                         var carouselLinks = [],
                         linksContainer = $('#'+params.container),
                         baseUrl;

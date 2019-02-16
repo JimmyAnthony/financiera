@@ -89,7 +89,7 @@
         Ext.Loader.setConfig({
             enabled: true,
             paths: {
-                'Ext.ux': '/js/ext-5.0.1/ux',
+                'Ext.ux': '/js/ext-5.1.0',
                 'Ext.global': '/js/global'
             }
         });
@@ -118,7 +118,8 @@
             'Ext.tree.*',
             'Ext.ux.CheckColumn',
             'Ext.ProgressBar',
-            'Ext.toolbar.Paging'
+            'Ext.toolbar.Paging',
+            //'Ext.ux.DataView.Animated'
             //'Ext.ux.GMapPanel'
             
         ]);
