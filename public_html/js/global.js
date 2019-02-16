@@ -141,6 +141,7 @@ win = {
                     .append($('<img>').prop('src', params.params.img_path).prop('width', params.width)
                     .prop('height', params.height))
                     .prop('href', params.params.img_path)
+                    .prop('title', params.params.title+"")
                     .attr('data-gallery', '')
                     .appendTo(linksContainer);
             break;

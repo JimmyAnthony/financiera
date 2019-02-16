@@ -818,7 +818,10 @@
 																	                            });
 																	                            if(o.result.RESPONSE=='OK'){
 																	                            	var img = '/persona/'+vp_sol_id_per+'/PHOTO/'+o.result.FILE;
-																	                            	persona.setPhotoForm(img);
+																	                            	var pater = Ext.getCmp(persona.id+'-sol-txt-apellido-paterno').getValue();
+																									var mater = Ext.getCmp(persona.id+'-sol-txt-apellido-materno').getValue();
+																									var nombr = Ext.getCmp(persona.id+'-sol-txt-nombres').getValue();
+																	                            	persona.setPhotoForm(img,pater+' '+mater+', '+nombr);
 																				                }
 																	                        },
 																	                        failure: function (fp, o) {
@@ -1370,7 +1373,7 @@
 														{
 															region:'west',
 															id: persona.id + '-panel-west-doc',
-															width:200,
+															width:230,
 															//layout:'fit',
 															items:[
 																{
@@ -1487,8 +1490,9 @@
 																	                            	//var img = '/persona/'+vp_sol_id_per+'/DOCUMENTOS/'+o.result.FILE;
 																	                            	//persona.setPhotoForm(img);
 																	                            	Ext.getCmp(persona.id+'-sol-txt-nombre-doc').setValue('');
-																	                            	var obj = Ext.getCmp(persona.id+'-sol-documentos-adjuntos');
-																									persona.getReload(obj,{vp_sol_id_per:vp_sol_id_per,vp_flag:'A'});
+																	                            	//var obj = Ext.getCmp(persona.id+'-sol-documentos-adjuntos');
+																									//persona.getReload(obj,{vp_sol_id_per:vp_sol_id_per,vp_flag:'A'});
+																									win.getGalery({container:'contenedor-documentos',forma:'L',url:persona.url+'get_list_documentos/',params:{vp_sol_id_per:vp_sol_id_per,vp_flag:'A'} });
 																				                }
 																	                        },
 																	                        failure: function (fp, o) {
@@ -2576,7 +2580,7 @@
 
 						if(data.img!==''){
 							var img = '/persona/'+data.id_per+'/PHOTO/'+data.img;
-							persona.setPhotoForm(img);
+							persona.setPhotoForm(img,data.ape_pat+' '+data.ape_mat +', '+data.nombres);
 						}
                     }
                 });
@@ -3061,9 +3065,9 @@
 			    var magic = Math.random()*999999;
 			    return url + symbol + 'magic=' + magic;
 			},
-			setPhotoForm:function(img){
+			setPhotoForm:function(img,nombre){
 				var img = persona.getAddMagicRefresh(img);
-				win.getGalery({container:'imagen-contenedor',forma:'F',width:170,height:200,params:{img_path:img}});
+				win.getGalery({container:'imagen-contenedor',forma:'F',width:170,height:200,params:{img_path:img,title:nombre}});
 				/*
 				var panel = Ext.getCmp(persona.id + '-photo-person');
 				panel.removeAll();
