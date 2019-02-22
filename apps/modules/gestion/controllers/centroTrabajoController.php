@@ -4,9 +4,7 @@
  * @version 2.0
  */
 
-set_time_limit(0);
-ini_set("memory_limit", "-1");
-class personaController extends AppController {
+class centroTrabajoController extends AppController {
 
     private $objDatos;
     private $arrayMenu;
@@ -17,11 +15,25 @@ class personaController extends AppController {
          */
         $this->valida();
 
-        $this->objDatos = new personaModels();
+        $this->objDatos = new centroTrabajoModels();
+    }
+    
+    public function get_centro_trabajo($p){        
+        $this->view('centro_trabajo/form_index.php', $p);
     }
 
-    public function index($p){        
-        $this->view('persona/form_index.php', $p);
+    public function setSaveEmpresa($p){
+        $rs = $this->objDatos->SP_CREDITO_EMPRESA($p);
+        $rs = $rs[0];
+        $data = array(
+            'success' => true,
+            'error' => $rs['RESPONSE'],
+            'msn' => utf8_encode(trim($rs['MESSAGE_TEXT'])),
+            'CODIGO' => trim($rs['CODIGO']),
+            'ID_DIR' => trim($rs['IDDIR'])
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
     }
 
     public function get_list_telefonos($p){
@@ -74,20 +86,6 @@ class personaController extends AppController {
             'error'=>0,
             'total' => count($array),
             'data' => $array
-        );
-        header('Content-Type: application/json');
-        return $this->response($data);
-    }
-
-    public function setSavePersona($p){
-        $rs = $this->objDatos->SP_CREDITO_PERSONA($p);
-        $rs = $rs[0];
-        $data = array(
-            'success' => true,
-            'error' => $rs['RESPONSE'],
-            'msn' => utf8_encode(trim($rs['MESSAGE_TEXT'])),
-            'CODIGO' => trim($rs['CODIGO']),
-            'ID_PER' => trim($rs['ID_PER'])
         );
         header('Content-Type: application/json');
         return $this->response($data);
@@ -147,7 +145,7 @@ class personaController extends AppController {
                 $value_['profesion'] =utf8_encode(trim($value['profesion']));
                 $value_['laboral'] =trim($value['laboral']);
                 $value_['cargo'] =utf8_encode(trim($value['cargo']));
-                $value_['id_empresa'] =trim($value['id_empresa']);
+                $value_['centro_trabajo'] =trim($value['centro_trabajo']);
                 $value_['fecha_ingreso'] =trim($value['fecha_ingreso']);
 
                 $value_['id_dir'] = intval($value['id_dir']);
@@ -212,14 +210,21 @@ class personaController extends AppController {
         return $this->response($data);
     }
 
-    public function getListDirecciones($p){
+    public function getListEmpresa($p){
         
-        $this->array = $this->objDatos->SP_DIRECCIONES_LIST($p);
+        $this->array = $this->objDatos->SP_EMPRESA_LIST($p);
         //var_export($this->arrayMenu);
         $array = array();
         foreach ($this->array as $index => $value){
                 //$p['id_asesor'] = intval($value['id_asesor']);
+                $value_['id_empresa'] = intval($value['id_empresa']);
                 $value_['id_dir'] = intval($value['id_dir']);
+
+                $value_['nombre'] =utf8_encode(trim($value['nombre']));
+                $value_['rubro'] =utf8_encode(trim($value['rubro']));
+                $value_['telefono'] =utf8_encode(trim($value['telefono']));
+                $value_['ruc'] =utf8_encode(trim($value['ruc']));
+                $value_['img'] =utf8_encode(trim($value['img']));
                 
                 $value_['icono'] = $value['flag']=='A'?'home_delivery.png':'map-marker-24.png';
                 $value_['dir_direccion'] =utf8_encode(trim($value['dir_direccion']));

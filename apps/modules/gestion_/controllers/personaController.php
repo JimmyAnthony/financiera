@@ -4,8 +4,6 @@
  * @version 2.0
  */
 
-set_time_limit(0);
-ini_set("memory_limit", "-1");
 class personaController extends AppController {
 
     private $objDatos;
@@ -141,65 +139,18 @@ class personaController extends AppController {
                 $value_['estado_civil'] =trim($value['estado_civil']);
                 $value_['fecha_nac'] =trim($value['fecha_nac']);
                 $value_['id_tel'] =intval($value['id_tel']);
+                $value_['domi_propio'] =trim($value['domi_propio']);
+                $value_['domi_pagando'] =trim($value['domi_pagando']);
+                $value_['domi_alquilado'] =trim($value['domi_alquilado']);
+                $value_['domi_familiar'] =trim($value['domi_familiar']);
 
-                $value_['domicilio'] =trim($value['domicilio']);
-                $value_['estudios'] =trim($value['estudios']);
                 $value_['profesion'] =utf8_encode(trim($value['profesion']));
-                $value_['laboral'] =trim($value['laboral']);
-                $value_['cargo'] =utf8_encode(trim($value['cargo']));
-                $value_['id_empresa'] =trim($value['id_empresa']);
-                $value_['fecha_ingreso'] =trim($value['fecha_ingreso']);
-
                 $value_['id_dir'] = intval($value['id_dir']);
 
                 $value_['img'] =trim($value['img']);
                 $value_['fecha_creacion'] =trim($value['fecha_creacion']);
                 $value_['flag'] =trim($value['flag']);
                 $value_['id_user'] =trim($value['id_user']);
-                //$value_['permisos'] = $this->objDatos->usr_sis_servicios($p);
-                $array[]=$value_;
-        }
-        $data = array(
-            'success' => true,
-            'total' => count($array),
-            'data' => $array
-        );
-        header('Content-Type: application/json');
-        return $this->response($data);
-    }
-
-    public function getDataListPersona($p){
-
-        $this->arrayMenu = $this->objDatos->SP_PERSONA_LIST($p);
-        //var_export($this->arrayMenu);
-        $array = array();
-        foreach ($this->arrayMenu as $index => $value){
-                //$p['id_per'] = intval($value['id_per']);
-                $value_['id_cli'] = intval($value['id_per']);
-                $value_['id_per'] = intval($value['id_per']);
-                $value_['icono'] = 'default_user.png';
-                $value_['nombres'] =utf8_encode(trim($value['nombres']));
-                $value_['ape_pat'] =utf8_encode(trim($value['ape_pat']));
-                $value_['ape_mat'] =utf8_encode(trim($value['ape_mat']));
-                $value_['dni'] =trim($value['doc_dni']);
-                $value_['numero'] =trim($value['numero']);
-
-                $value_['id_dir'] =trim($value['id_dir']);
-                $value_['dir_direccion'] =utf8_encode(trim($value['dir_direccion']));
-                $value_['dir_numero'] =utf8_encode(trim($value['dir_numero']));
-                $value_['dir_mz'] =utf8_encode(trim($value['dir_mz']));
-                $value_['dir_lt'] =utf8_encode(trim($value['dir_lt']));
-                $value_['dir_dpto'] =utf8_encode(trim($value['dir_dpto']));
-                $value_['dir_interior'] =utf8_encode(trim($value['dir_interior']));
-                $value_['dir_urb'] =utf8_encode(trim($value['dir_urb']));
-                $value_['dir_referencia'] =utf8_encode(trim($value['dir_referencia']));
-                $value_['fecha'] =trim($value['fecha']);
-                $value_['cod_ubi'] =utf8_encode(trim($value['cod_ubi']));
-                $value_['clase'] = $value['flag']=='A'?'databox_list_menu':'databox_list_menu_disabled';
-                $value_['solicitudes'] =trim($value['solicitudes']);
-                $value_['sol_monto'] =trim($value['sol_monto']);
-                $value_['flag'] =trim($value['flag']);
-                $value_['tab'] =trim($value['tab']);
                 //$value_['permisos'] = $this->objDatos->usr_sis_servicios($p);
                 $array[]=$value_;
         }
@@ -437,9 +388,9 @@ class personaController extends AppController {
         sleep(1);
         $array = array();
         
-        $nombre_archivo = $_FILES['persona-filex']['name'];
-        $tipo_archivo = $_FILES['persona-filex']['type'];
-        $tamano_archivo = $_FILES['persona-filex']['size'];
+        $nombre_archivo = $_FILES['persona-filex-doc']['name'];
+        $tipo_archivo = $_FILES['persona-filex-doc']['type'];
+        $tamano_archivo = $_FILES['persona-filex-doc']['size'];
 
         $path_parts = pathinfo($nombre_archivo);
         $ext=$path_parts['extension'];
@@ -452,18 +403,18 @@ class personaController extends AppController {
         );
         //$tipo = array_search($tipo_archivo, $setTypeFile);
 
+        if (!file_exists(PATH.'public_html/persona/'.$p['vp_sol_id_per'].'/DOCUMENTOS')) {
+            mkdir(PATH.'public_html/persona/'.$p['vp_sol_id_per'].'/DOCUMENTOS', 0777, true);
+        }
+
+
+        $p['vp_name']='per-'.$p['vp_sol_id_per'].'.'.$ext;
+
+        $dir = PATH.'public_html/persona/'.$p['vp_sol_id_per'].'/DOCUMENTOS/per-'.$p['vp_sol_id_per'].'.'.$ext;
+        $file = $p['vp_name'];
+        
         if (in_array($ext, $setTypeFile)) {
-
-            if (!file_exists(PATH.'public_html/persona/'.$p['vp_sol_id_per'].'/PHOTO')) {
-                mkdir(PATH.'public_html/persona/'.$p['vp_sol_id_per'].'/PHOTO', 0777, true);
-            }
-
-
-            $p['vp_name']='per-'.$p['vp_sol_id_per'].'.'.$ext;
-
-            $dir = PATH.'public_html/persona/'.$p['vp_sol_id_per'].'/PHOTO/per-'.$p['vp_sol_id_per'].'.'.$ext;
-            $file = $p['vp_name'];
-            if (@move_uploaded_file($_FILES['persona-filex']['tmp_name'], $dir)) {
+            if (@move_uploaded_file($_FILES['persona-filex-doc']['tmp_name'], $dir)) {
 
                 $rs = $this->objDatos->SP_PERSONA_IMG($p);
                 $rs = $rs[0];

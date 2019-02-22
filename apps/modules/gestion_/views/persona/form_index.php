@@ -5,7 +5,6 @@
 			id:'persona',
 			id_menu:'<?php echo $p["id_menu"];?>',
 			url:'/gestion/persona/',
-			url_ct:'/gestion/centroTrabajo/',
 			opcion:'I',
 			id_per:'<?php echo $p["id_per"];?>',
 			id_id:'<?php echo $p["id_id"];?>',
@@ -454,140 +453,7 @@
 		                '</div>',
 		            '</tpl>'
 		        );
-		        var imageTplPointerConyugue = new Ext.XTemplate(
-		            '<tpl for=".">',
-		                '<div class="list_grid_as__list_menu_select" >',
-		                    '<div class="list_grid_as__list_menu" >',
-		                        '<div class="list_grid_as__menu_bx" >',
-		                            '<div class="" >',
-		                                '<img src="/images/menu/{icono}"  />',
-		                            '</div>',
-		                        '</div>',
-		                        '<div class="list_grid_as__menu_line" style="width:240px;">',
-		                            '<div class="list_grid_as__menu_bar">',
-		                                '<div class="list_grid_as__menu_title_A">',
-		                                '<span>Nombres:</span>',
-		                                '</div>',
-		                                '<div class="list_grid_as__menu_title">',
-		                                    '<span>{nombres}, {ape_pat} {ape_mat}</span>',
-		                                '</div>',
-		                            '</div>',
-		                        '</div>',
-		                        '<div class="list_grid_as__menu_line" style="width:80px;">',
-		                            '<div class="list_grid_as__menu_bar">',
-		                                '<div class="list_grid_as__menu_title_A">',
-		                                '<span>DNI:</span>',
-		                                '</div>',
-		                                '<div class="list_grid_as__menu_title">',
-		                                    '<span>{dni}</span>',
-		                                '</div>',
-		                            '</div>',
-		                        '</div>',
-		                        '<div class="list_grid_as__menu_line" style="width:130px;">',
-		                            '<div class="list_grid_as__menu_bar">',
-		                                '<div class="list_grid_as__menu_title_A">',
-		                                '<span>Teléfonos:</span>',
-		                                '</div>',
-		                                '<div class="list_grid_as__menu_title">',
-		                                    '<span>{numero}</span>',
-		                                '</div>',
-		                            '</div>',
-		                        '</div>',
-		                        '<div class="list_grid_as__menu_line" style="width:550px; display: inline-flex;margin-top: 20px;">',
-		                            '<div class="list_grid_as__menu_bar">',
-		                                '<div class="list_grid_as__menu_title_A">',
-		                                '<span>Dirección:</span>',
-		                                '</div>',
-		                                '<div class="list_grid_as__menu_title" >',
-		                                    '<span style="font-size:10px;">{dir_direccion} N°:{dir_numero} Mz:{dir_mz} Lt:{dir_lt} Dpto:{dir_dpto} Int:{dir_interior}</span>',
-		                                    '<span style="font-size:10px;">Urb:{dir_urb} Ref:{dir_referencia} </span>',
-		                                '</div>',
-		                            '</div>',
-		                        '</div>',
-		                    '</div>',
-		                '</div>',
-		            '</tpl>'
-		        );
-				var store_conyugue = Ext.create('Ext.data.Store',{
-		            fields: [
-		                {name: 'id_per', type: 'string'},
-		                {name: 'nombres', type: 'string'},
-		                {name: 'ape_pat', type: 'string'},
-		                {name: 'ape_mat', type: 'string'},
-		                {name: 'dni', type: 'string'},
-		                {name: 'numero', type: 'string'},
 
-		                {name: 'id_dir', type: 'string'},
-		                {name: 'dir_direccion', type: 'string'},
-		                {name: 'dir_numero', type: 'string'},
-		                {name: 'dir_mz', type: 'string'},
-		                {name: 'dir_lt', type: 'string'},
-		                {name: 'dir_dpto', type: 'string'},
-		                {name: 'dir_interior', type: 'string'},
-		                {name: 'dir_urb', type: 'string'},
-		                {name: 'dir_referencia', type: 'string'},
-		                {name: 'cod_ubi', type: 'string'},
-		                {name: 'fecha', type: 'string'},
-		                {name: 'clase', type: 'string'},
-		                {name: 'flag', type: 'string'}
-		            ],
-		            autoLoad:false,
-		            proxy:{
-		                type: 'ajax',
-		                url: persona.url+'getDataListPersona/',
-		                reader:{
-		                    type: 'json',
-		                    rootProperty: 'data'
-		                }//,
-		                //extraParams:config.params
-		            },
-		            listeners:{
-		                load: function(obj, records, successful, opts){
-		                    console.log(records);
-		                    //document.getElementById("menu_spinner").innerHTML = "";
-		                }
-		            }
-		        });
-		        var store_garante = Ext.create('Ext.data.Store',{
-		            fields: [
-		                {name: 'id_per', type: 'string'},
-		                {name: 'nombres', type: 'string'},
-		                {name: 'ape_pat', type: 'string'},
-		                {name: 'ape_mat', type: 'string'},
-		                {name: 'dni', type: 'string'},
-		                {name: 'numero', type: 'string'},
-
-		                {name: 'id_dir', type: 'string'},
-		                {name: 'dir_direccion', type: 'string'},
-		                {name: 'dir_numero', type: 'string'},
-		                {name: 'dir_mz', type: 'string'},
-		                {name: 'dir_lt', type: 'string'},
-		                {name: 'dir_dpto', type: 'string'},
-		                {name: 'dir_interior', type: 'string'},
-		                {name: 'dir_urb', type: 'string'},
-		                {name: 'dir_referencia', type: 'string'},
-		                {name: 'cod_ubi', type: 'string'},
-		                {name: 'fecha', type: 'string'},
-		                {name: 'clase', type: 'string'},
-		                {name: 'flag', type: 'string'}
-		            ],
-		            autoLoad:false,
-		            proxy:{
-		                type: 'ajax',
-		                url: persona.url+'getDataListPersona/',
-		                reader:{
-		                    type: 'json',
-		                    rootProperty: 'data'
-		                }//,
-		                //extraParams:config.params
-		            },
-		            listeners:{
-		                load: function(obj, records, successful, opts){
-		                    console.log(records);
-		                    //document.getElementById("menu_spinner").innerHTML = "";
-		                }
-		            }
-		        });
 		        var store_telefonos = Ext.create('Ext.data.Store',{
 		            fields: [
 		                {name: 'id_per', type: 'string'},
@@ -710,52 +576,14 @@
 	                    }
 	                }
 	            });
-	            
-	            var store_centro_trabajo = Ext.create('Ext.data.Store',{
-		            fields: [
-		            	{name: 'id_empresa', type: 'string'},
-		                {name: 'nombre', type: 'string'},
-		                {name: 'rubro', type: 'string'},
-		                {name: 'telefono', type: 'string'},
-		                {name: 'ruc', type: 'string'},
-		                {name: 'img', type: 'string'},
-		                {name: 'id_dir', type: 'string'},
-		                {name: 'dir_direccion', type: 'string'},
-		                {name: 'dir_numero', type: 'string'},
-		                {name: 'dir_mz', type: 'string'},
-		                {name: 'dir_lt', type: 'string'},
-		                {name: 'dir_dpto', type: 'string'},
-		                {name: 'dir_interior', type: 'string'},
-		                {name: 'dir_urb', type: 'string'},
-		                {name: 'dir_referencia', type: 'string'},
-		                {name: 'cod_ubi', type: 'string'},
-		                {name: 'flag', type: 'string'}
-		            ],
-		            autoLoad:false, 
-		            proxy:{
-		                type: 'ajax',
-		                url: persona.url_ct+'getListEmpresa/',
-		                reader:{
-		                    type: 'json',
-		                    rootProperty: 'data'
-		                },
-		                extraParams:{vp_op:'P',vp_id:0,vp_nombre:''}
-		            },
-		            listeners:{
-		                load: function(obj, records, successful, opts){
-		                    console.log(records);
-		                    //document.getElementById("menu_spinner").innerHTML = "";
-		                }
-		            }
-		        });
 
                 Ext.create('Ext.window.Window',{
 	                id:persona.id+'-win-form',
 	                plain: true,
 	                title:'Mantenimiento',
 	                icon: '/images/icon/default-avatar_man.png',
-	                height: 740,
-	                width: 1300,
+	                height: 640,
+	                width: 1250,
 	                resizable:false,
 	                modal: true,
 	                border:false,
@@ -1114,7 +942,7 @@
 												                            width:'50%',
 												                            height:40,
 												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            fieldStyle: 'font-size:13px; text-align: center; font-weight: bold',
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
 												                            value:'',
 												                            //anchor:'100%',
 												                            listeners:{
@@ -1135,7 +963,7 @@
 												                            width:'50%',
 												                            height:40,
 												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            fieldStyle: 'font-size:13px; text-align: center; font-weight: bold',
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
 												                            value:'',
 												                            //anchor:'100%',
 												                            listeners:{
@@ -1161,114 +989,58 @@
 												                            labelWidth:50,
 												                            //readOnly:true,
 												                            //labelAlign:'top',
-												                            //width:'100%',
-												                            flex:2,
+												                            width:'100%',
 												                            //height:60,
 												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            fieldStyle: 'font-size:13px; text-align: center; font-weight: bold',
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
 												                            value:'',
 												                            //anchor:'100%',
 												                            listeners:{
 												                                afterrender:function(obj, e){
 												                                }
 												                            }
-												                        },
-																		{
-																	        xtype: 'datefield',
-																	        id:persona.id+'-sol-date-fecha-nac',
-																	        padding:'5px 5px 5px 5px',
-																	        //name: 'date1',
-																	        //labelAlign:'top',
-																	        format:'Y-m-d',
-																	        flex:1,
-												                            //height:40,
-												                            labelWidth: 50,
-																	        labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-																	        fieldLabel: 'Nacido',
-																	        value:''
-																	    }
-												                    ]
-												                },
-												                {
-																	layout:'hbox',
-																	bodyStyle: 'background: transparent',
-																	padding:'5px 5px 5px 5px',
-																	border:false,
-																	items:[
-																		{
-												                            xtype:'combo',
-												                            fieldLabel: 'Sexo',
-												                            bodyStyle: 'background: transparent',
-												                            id:persona.id+'-sol-cmb-sexo',
-												                            store: Ext.create('Ext.data.ArrayStore', {
-																		        //storeId: 'estado',
-																		        autoLoad: true,
-																		        data: [
-																					['M','MASCULINO'],
-																				    ['F','FEMENINO']
-																				],
-																		        fields: ['code', 'name']
-																		    }),
-												                            queryMode: 'local',
-												                            triggerAction: 'all',
-												                            valueField: 'code',
-												                            displayField: 'name',
-												                            emptyText: '[Seleccione]',
-												                            labelAlign:'right',
-												                            //allowBlank: false,
-												                            width:'95%',
-												                            flex:1,
-												                            //height:30,
-												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            fieldStyle: 'font-size:12px; text-align: center; font-weight: bold',
-								                                            anchor:'100%',
-								                                            labelWidth:50,
-								                                            padding:'5px 5px 5px 5px',
-												                            listeners:{
-												                                afterrender:function(obj, e){
-												                                    // obj.getStore().load();
-												                                    obj.setValue('M');
-												                                },
-												                                select:function(obj, records, eOpts){
-												                        
-												                                }
-												                            }
-												                        },
-																		{
-												                            xtype:'combo',
-												                            fieldLabel: 'Estado Civil',
-												                            bodyStyle: 'background: transparent',
-														                    padding:'5px 5px 5px 5px',
-												                            id:persona.id+'-sol-cmb-estado-civil',
-												                            store: persona.store_estado_civil,
-												                            queryMode: 'local',
-												                            triggerAction: 'all',
-												                            valueField: 'code',
-												                            displayField: 'name',
-												                            emptyText: '[Seleccione]',
-												                            labelAlign:'right',
-												                            //allowBlank: false,
-												                            //labelAlign:'top',
-												                            labelWidth: 80,
-												                            width:200,
-												                            anchor:'98%',
-												                            height:20,
-												                            //readOnly: true,
-												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            fieldStyle: 'font-size:12px; text-align: center; font-weight: bold',
-												                            listeners:{
-												                                afterrender:function(obj, e){
-												                                    // obj.getStore().load();
-												                                    obj.setValue('S');
-												                                },
-												                                select:function(obj, records, eOpts){
-												                        
-												                                }
-												                            }
 												                        }
 												                    ]
 												                },
+												                {
+										                            xtype:'combo',
+										                            fieldLabel: 'Sexo',
+										                            bodyStyle: 'background: transparent',
+										                            id:persona.id+'-sol-cmb-sexo',
+										                            store: Ext.create('Ext.data.ArrayStore', {
+																        //storeId: 'estado',
+																        autoLoad: true,
+																        data: [
+																			['M','MASCULINO'],
+																		    ['F','FEMENINO']
+																		],
+																        fields: ['code', 'name']
+																    }),
+										                            queryMode: 'local',
+										                            triggerAction: 'all',
+										                            valueField: 'code',
+										                            displayField: 'name',
+										                            emptyText: '[Seleccione]',
+										                            labelAlign:'right',
+										                            //allowBlank: false,
+										                            width:'92%',
+										                            flex:1,
+										                            //height:30,
+										                            labelStyle: "font-size:12px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:12px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            labelWidth:50,
+						                                            padding:'15px 5px 5px 10px',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                    // obj.getStore().load();
+										                                    obj.setValue('M');
+										                                },
+										                                select:function(obj, records, eOpts){
+										                        
+										                                }
+										                            }
+										                        },
 												                {
 																	layout:'hbox',
 																	bodyStyle: 'background: transparent',
@@ -1395,21 +1167,11 @@
 																	items:[
 																		{
 												                            xtype:'combo',
-												                            fieldLabel: 'Domicilio',
+												                            fieldLabel: 'Estado Civil',
 												                            bodyStyle: 'background: transparent',
 														                    padding:'5px 5px 5px 5px',
-												                            id:persona.id+'-sol-cmb-domicilio',
-												                            store: Ext.create('Ext.data.ArrayStore', {
-																		        storeId: 'estado',
-																		        autoLoad: true,
-																		        data: [
-																					['PRO','Propio'],
-																				    ['PAG','Pagado'],
-																				    ['ALQ','Alquilado'],
-																				    ['FAM','Familiar']
-																				],
-																		        fields: ['code', 'name']
-																		    }),
+												                            id:persona.id+'-sol-cmb-estado-civil',
+												                            store: persona.store_estado_civil,
 												                            queryMode: 'local',
 												                            triggerAction: 'all',
 												                            valueField: 'code',
@@ -1418,194 +1180,8 @@
 												                            labelAlign:'right',
 												                            //allowBlank: false,
 												                            //labelAlign:'top',
-												                            labelWidth: 50,
+												                            labelWidth: 80,
 												                            width:200,
-												                            anchor:'98%',
-												                            height:20,
-												                            //readOnly: true,
-												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            fieldStyle: 'font-size:12px; text-align: center; font-weight: bold',
-												                            listeners:{
-												                                afterrender:function(obj, e){
-												                                    // obj.getStore().load();
-												                                    obj.setValue('PRO');
-												                                },
-												                                select:function(obj, records, eOpts){
-												                        
-												                                }
-												                            }
-												                        }
-												                    ]
-												                },
-												                {
-																	layout:'hbox',
-																	bodyStyle: 'background: transparent',
-																	padding:'5px 5px 5px 5px',
-																	border:false,
-																	items:[
-																		{
-												                            xtype:'combo',
-												                            fieldLabel: 'Estudios',
-												                            bodyStyle: 'background: transparent',
-														                    padding:'5px 5px 5px 5px',
-												                            id:persona.id+'-sol-cmb-estudios',
-												                            store: Ext.create('Ext.data.ArrayStore', {
-																		        storeId: 'estado',
-																		        autoLoad: true,
-																		        data: [
-																					['BA','Bachiller'],
-																				    ['TI','Titulado'],
-																				    ['MA','Magister'],
-																				    ['TE','Tecnico'],
-																				    ['OT','Otros']
-																				],
-																		        fields: ['code', 'name']
-																		    }),
-												                            queryMode: 'local',
-												                            triggerAction: 'all',
-												                            valueField: 'code',
-												                            displayField: 'name',
-												                            emptyText: '[Seleccione]',
-												                            labelAlign:'right',
-												                            //allowBlank: false,
-												                            //labelAlign:'top',
-												                            labelWidth: 50,
-												                            width:200,
-												                            anchor:'98%',
-												                            height:20,
-												                            //readOnly: true,
-												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            fieldStyle: 'font-size:12px; text-align: center; font-weight: bold',
-												                            listeners:{
-												                                afterrender:function(obj, e){
-												                                    // obj.getStore().load();
-												                                    obj.setValue('OT');
-												                                },
-												                                select:function(obj, records, eOpts){
-												                        
-												                                }
-												                            }
-												                        },
-																	    {
-												                            xtype: 'textfield',	
-												                            id:persona.id+'-sol-txt-profesion',
-												                            fieldLabel: 'Profesión',
-												                            bodyStyle: 'background: transparent',
-														                    padding:'5px 5px 5px 5px',
-												                            //id:persona.id+'-txt-dni',
-												                            labelWidth:55,
-												                            //readOnly:true,
-												                            //labelAlign:'top',
-												                            //width:'50%',
-												                            flex:1,
-												                            //height:40,
-												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-												                            value:'',
-												                            //anchor:'100%',
-												                            listeners:{
-												                                afterrender:function(obj, e){
-												                                }
-												                            }
-												                        }
-												                    ]
-												                },
-												                {
-																	layout:'hbox',
-																	bodyStyle: 'background: transparent',
-																	padding:'5px 5px 5px 5px',
-																	border:false,
-																	items:[
-																		{
-												                            xtype:'combo',
-												                            fieldLabel: 'Laboral',
-												                            bodyStyle: 'background: transparent',
-														                    padding:'5px 5px 5px 5px',
-												                            id:persona.id+'-sol-cmb-laboral',
-												                            store: Ext.create('Ext.data.ArrayStore', {
-																		        storeId: 'estado',
-																		        autoLoad: true,
-																		        data: [
-																					['CO','Contratado'],
-																				    ['DE','Dependiente'],
-																				    ['IN','Independiente'],
-																				    ['OT','Otros']
-																				],
-																		        fields: ['code', 'name']
-																		    }),
-												                            queryMode: 'local',
-												                            triggerAction: 'all',
-												                            valueField: 'code',
-												                            displayField: 'name',
-												                            emptyText: '[Seleccione]',
-												                            labelAlign:'right',
-												                            //allowBlank: false,
-												                            //labelAlign:'top',
-												                            labelWidth: 50,
-												                            width:200,
-												                            anchor:'98%',
-												                            height:20,
-												                            //readOnly: true,
-												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            fieldStyle: 'font-size:12px; text-align: center; font-weight: bold',
-												                            listeners:{
-												                                afterrender:function(obj, e){
-												                                    // obj.getStore().load();
-												                                    obj.setValue('OT');
-												                                },
-												                                select:function(obj, records, eOpts){
-												                        
-												                                }
-												                            }
-												                        },
-												                        {
-												                            xtype: 'textfield',	
-												                            id:persona.id+'-sol-txt-cargo',
-												                            fieldLabel: 'Cargo',
-												                            bodyStyle: 'background: transparent',
-														                    padding:'5px 5px 5px 5px',
-												                            //id:persona.id+'-txt-dni',
-												                            labelWidth:55,
-												                            //readOnly:true,
-												                            //labelAlign:'top',
-												                            //width:'50%',
-												                            flex:1,
-												                            //height:40,
-												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-												                            value:'',
-												                            //anchor:'100%',
-												                            listeners:{
-												                                afterrender:function(obj, e){
-												                                }
-												                            }
-												                        }
-												                    ]
-												                },
-												                {
-																	layout:'hbox',
-																	bodyStyle: 'background: transparent',
-																	padding:'5px 5px 5px 5px',
-																	border:false,
-																	items:[
-																		{
-												                            xtype:'combo',
-												                            fieldLabel: 'Centro de Trabajo',
-												                            bodyStyle: 'background: transparent',
-														                    padding:'5px 5px 5px 5px',
-												                            id:persona.id+'-sol-txt-centro-trabajo',
-												                            store: store_centro_trabajo,
-												                            queryMode: 'local',
-												                            triggerAction: 'all',
-												                            valueField: 'id_empresa',
-												                            displayField: 'nombre',
-												                            emptyText: '[Seleccione]',
-												                            labelAlign:'right',
-												                            //allowBlank: false,
-												                            //labelAlign:'top',
-												                            labelWidth: 110,
-												                            //width:200,
-												                            flex:1,
 												                            anchor:'98%',
 												                            height:20,
 												                            //readOnly: true,
@@ -1621,20 +1197,21 @@
 												                                }
 												                            }
 												                        },
-													                    {
-													                        xtype:'button',
-													                        height:30,
-													                        //margin:'20px 5px 5px 5px',
-													                        //text: 'Grabar',
-													                        icon: '/images/icon/Document.png',
-													                        listeners:{
-													                            beforerender: function(obj, opts){
-																				},
-													                            click: function(obj, e){
-													                            	persona.getCentroTrabajo();
-													                            }
-													                        }
-													                    }
+																		{
+																	        xtype: 'datefield',
+																	        id:persona.id+'-sol-date-fecha-nac',
+																	        padding:'5px 5px 5px 5px',
+																	        //name: 'date1',
+																	        //labelAlign:'top',
+																	        format:'Y-m-d',
+																	        flex:1,
+												                            //height:40,
+												                            labelWidth: 50,
+																	        labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+																	        fieldLabel: 'Nacido',
+																	        value:''
+																	    }
 												                    ]
 												                },
 												                {
@@ -1643,21 +1220,67 @@
 																	padding:'5px 5px 5px 5px',
 																	border:false,
 																	items:[
-												                        {
-																	        xtype: 'datefield',
-																	        id:persona.id+'-sol-date-fecha-ingreso',
-																	        padding:'5px 5px 5px 5px',
-																	        //name: 'date1',
-																	        //labelAlign:'top',
-																	        format:'Y-m-d',
+																		{
+																	        xtype: 'label',
+																	        //forId: 'myFieldId',
+																	        text: 'Domicilio Actual:',
+																	        style: 'font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
+																	        padding:'26px 10px 5px 5px',
+																	        width:80,
 																	        //flex:1,
-												                            //height:40,
-												                            width:220,
-												                            labelWidth: 110,
-																	        labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-																	        fieldLabel: 'Fecha Ingreso',
-																	        value:''
+												                            anchor:'100%'
+																	    },
+																		{
+																	        xtype: 'checkboxfield',
+																	        id:persona.id+'-sol-chk-domi-propio',
+																	        name: 'checkbox1',
+																	        fieldLabel: 'Propio',
+																	        labelAlign:'top',
+																	        padding:'5px 10px 5px 5px',
+																	        labelWidth:100,
+																	        flex:1,
+																	        //boxLabel: 'Domicilio Actual',
+																	        style: 'font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																	    },
+																	    {
+																	        xtype: 'checkboxfield',
+																	        id:persona.id+'-sol-chk-domi-pagando',
+																	        name: 'checkbox1',
+																	        fieldLabel: 'Pagandolo',
+																	        labelAlign:'top',
+																	        padding:'5px 5px 5px 5px',
+																	        labelWidth:40,
+																	        flex:1,
+																	        //boxLabel: 'box label',
+																	        style: 'font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																	    },
+																	    {
+																	        xtype: 'checkboxfield',
+																	        id:persona.id+'-sol-chk-domi-alquilado',
+																	        name: 'checkbox1',
+																	        fieldLabel: 'Alquilado',
+																	        labelAlign:'top',
+																	        padding:'5px 5px 5px 5px',
+																	        labelWidth:40,
+																	        flex:1,
+																	        //boxLabel: 'box label',
+																	        style: 'font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
+																	    },
+																	    {
+																	        xtype: 'checkboxfield',
+																	        id:persona.id+'-sol-chk-domi-familiar',
+																	        name: 'checkbox1',
+																	        fieldLabel: 'Familiar',
+																	        labelAlign:'top',
+																	        padding:'5px 5px 5px 5px',
+																	        labelWidth:40,
+																	        flex:1,
+																	        //boxLabel: 'box label',
+																	        style: 'font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold',
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold'
 																	    }
 												                    ]
 												                },
@@ -1750,7 +1373,7 @@
 														{
 															region:'west',
 															id: persona.id + '-panel-west-doc',
-															width:220,
+															width:230,
 															//layout:'fit',
 															items:[
 																{
@@ -1945,250 +1568,6 @@
 														        }*/
 															]
 														}
-													]
-												},
-												{
-													xtype:'panel',
-													title:'Conyugue',
-													//bodyStyle: 'background: transparent',
-													border:false,
-													//layout:'border',
-													bbar:[
-														{
-								                            xtype: 'textfield',
-								                            id:persona.id+'-select-conyugue',
-								                            fieldLabel: 'DNI',
-								                            bodyStyle: 'background: transparent',
-										                    padding:'5px 10px 5px 5px',
-								                            //id:persona.id+'-txt-dni',
-								                            labelWidth:40,
-								                            //readOnly:true,
-								                            //labelAlign:'top',
-								                            width:120,
-								                            //flex:1,
-								                            //height:40,
-								                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-								                            value:'',
-								                            //anchor:'100%',
-								                            listeners:{
-								                                afterrender:function(obj, e){
-								                                },
-								                                change: function(field, newValue, oldValue){
-										                            field.setValue(newValue.toUpperCase());
-										                        }
-								                            }
-								                        },
-														{
-									                        xtype:'button',
-									                        //margin:'20px 5px 5px 5px',
-									                        height:30,
-									                        //text: 'Grabar',
-									                        icon: '/images/icon/add.gif',
-									                        listeners:{
-									                            beforerender: function(obj, opts){
-																},
-									                            click: function(obj, e){
-									                            	persona.setSavePersonaConyugue('Y');
-									                            }
-									                        }
-									                    },
-									                    {
-									                        xtype:'button',
-									                        height:30,
-									                        //margin:'20px 5px 5px 5px',
-									                        //text: 'Grabar',
-									                        icon: '/images/icon/Document.png',
-									                        listeners:{
-									                            beforerender: function(obj, opts){
-																},
-									                            click: function(obj, e){
-									                            	Ext.getCmp(persona.id+'-select-conyugue').setValue('');
-									                            }
-									                        }
-									                    },
-									                    {
-									                        xtype:'button',
-									                        height:30,
-									                        //margin:'20px 5px 5px 5px',
-									                        //text: 'Grabar',
-									                        icon: '/images/icon/Trash.png',
-									                        listeners:{
-									                            beforerender: function(obj, opts){
-																},
-									                            click: function(obj, e){
-									                            	persona.setSavePersonaConyugue('Z');
-									                            }
-									                        }
-									                    }
-													],
-													items:[
-														 {
-									                        xtype: 'dataview',
-									                        id: persona.id+'-list-Conyugues',
-									                        bodyStyle: 'background: transparent',
-									                        bodyCls: 'transparent',
-									                        layout:'fit',
-									                        store: store_conyugue,
-									                        autoScroll: true,
-									                        loadMask:true,
-									                        autoHeight: false,
-									                        tpl: imageTplPointerConyugue,
-									                        multiSelect: false,
-									                        singleSelect: false,
-									                        loadingText:'Cargando Lista de Conyugues...',
-									                        emptyText: '<div class="list_grid_as__list_menu"><div class="list_grid_as__none_data" ></div><div class="list_grid_as__title_clear_data">NO TIENE NINGUN Conyugue</div></div>',
-									                        itemSelector: 'div.list_grid_as__list_menu_select',
-									                        trackOver: true,
-									                        overItemCls: 'list_grid_as__list_menu-hover',
-									                        listeners: {
-									                            'itemdblclick': function(view, record, item, idx, event, opts) {
-									                                /*me.idx=idx;
-									                                var record = this.getStore().getAt(idx);
-									                                var val =record.data;
-									                                var menu_class = val.menu_class == null || val.menu_class == '' ? '' : val.menu_class;
-									                                if(val.nivel!=0){
-									                                    if(me.config_.mode==1){
-									                                        win.show({vurl: val.url, id_menu: idx, class: menu_class});//obj.getItemId().split('-')[1]  
-									                                    }else{
-									                                        var tab=Ext.getCmp(me.config_.tab);
-									                                        var active=Ext.getCmp(me.config_.id+val.url);
-									                                        tab.setActiveTab(active);
-									                                    }
-									                                }*/
-									                                
-									                                var record = this.getStore().getAt(idx);
-									                                var val =record.data;
-																	Ext.getCmp(persona.id+'-select-conyugue').setValue(val.dni);
-									                                
-									                            },
-									                            afterrender:function(obj){
-									                            	
-									                            }
-									                        }
-									                    }
-													]
-												},
-												{
-													xtype:'panel',
-													title:'Garante',
-													//bodyStyle: 'background: transparent',
-													border:false,
-													//layout:'border',
-													bbar:[
-														{
-								                            xtype: 'textfield',
-								                            id:persona.id+'-select-garante',
-								                            fieldLabel: 'DNI',
-								                            bodyStyle: 'background: transparent',
-										                    padding:'5px 10px 5px 5px',
-								                            //id:persona.id+'-txt-dni',
-								                            labelWidth:40,
-								                            //readOnly:true,
-								                            //labelAlign:'top',
-								                            width:120,
-								                            //flex:1,
-								                            //height:40,
-								                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-								                            value:'',
-								                            //anchor:'100%',
-								                            listeners:{
-								                                afterrender:function(obj, e){
-								                                },
-								                                change: function(field, newValue, oldValue){
-										                            field.setValue(newValue.toUpperCase());
-										                        }
-								                            }
-								                        },
-														{
-									                        xtype:'button',
-									                        //margin:'20px 5px 5px 5px',
-									                        height:30,
-									                        //text: 'Grabar',
-									                        icon: '/images/icon/add.gif',
-									                        listeners:{
-									                            beforerender: function(obj, opts){
-																},
-									                            click: function(obj, e){
-									                            	persona.setSavePersonaGarante('G');
-									                            }
-									                        }
-									                    },
-									                    {
-									                        xtype:'button',
-									                        height:30,
-									                        //margin:'20px 5px 5px 5px',
-									                        //text: 'Grabar',
-									                        icon: '/images/icon/Document.png',
-									                        listeners:{
-									                            beforerender: function(obj, opts){
-																},
-									                            click: function(obj, e){
-									                            	Ext.getCmp(persona.id+'-select-garante').setValue('');
-									                            }
-									                        }
-									                    },
-									                    {
-									                        xtype:'button',
-									                        height:30,
-									                        //margin:'20px 5px 5px 5px',
-									                        //text: 'Grabar',
-									                        icon: '/images/icon/Trash.png',
-									                        listeners:{
-									                            beforerender: function(obj, opts){
-																},
-									                            click: function(obj, e){
-									                            	persona.setSavePersonaGarante('H');
-									                            }
-									                        }
-									                    }
-													],
-													items:[
-														 {
-									                        xtype: 'dataview',
-									                        id: persona.id+'-list-garante',
-									                        bodyStyle: 'background: transparent',
-									                        bodyCls: 'transparent',
-									                        layout:'fit',
-									                        store: store_garante,
-									                        autoScroll: true,
-									                        loadMask:true,
-									                        autoHeight: false,
-									                        tpl: imageTplPointerConyugue,
-									                        multiSelect: false,
-									                        singleSelect: false,
-									                        loadingText:'Cargando Lista de Conyugues...',
-									                        emptyText: '<div class="list_grid_as__list_menu"><div class="list_grid_as__none_data" ></div><div class="list_grid_as__title_clear_data">NO TIENE NINGUN Conyugue</div></div>',
-									                        itemSelector: 'div.list_grid_as__list_menu_select',
-									                        trackOver: true,
-									                        overItemCls: 'list_grid_as__list_menu-hover',
-									                        listeners: {
-									                            'itemdblclick': function(view, record, item, idx, event, opts) {
-									                                /*me.idx=idx;
-									                                var record = this.getStore().getAt(idx);
-									                                var val =record.data;
-									                                var menu_class = val.menu_class == null || val.menu_class == '' ? '' : val.menu_class;
-									                                if(val.nivel!=0){
-									                                    if(me.config_.mode==1){
-									                                        win.show({vurl: val.url, id_menu: idx, class: menu_class});//obj.getItemId().split('-')[1]  
-									                                    }else{
-									                                        var tab=Ext.getCmp(me.config_.tab);
-									                                        var active=Ext.getCmp(me.config_.id+val.url);
-									                                        tab.setActiveTab(active);
-									                                    }
-									                                }*/
-									                                
-									                                var record = this.getStore().getAt(idx);
-									                                var val =record.data;
-																	Ext.getCmp(persona.id+'-select-garante').setValue(val.dni);
-									                                
-									                            },
-									                            afterrender:function(obj){
-									                            	
-									                            }
-									                        }
-									                    }
 													]
 												}
 											]
@@ -2475,9 +1854,11 @@
 				                                            //readOnly: true,
 				                                            listeners:{
 				                                                afterrender:function(obj, e){
-				                                        			/*Ext.getCmp(persona.id+'-sol-cmb-provincia').getStore().removeAll();
+				                                        			Ext.getCmp(persona.id+'-sol-cmb-provincia').getStore().removeAll();
 				                                        			Ext.getCmp(persona.id+'-sol-cmb-Distrito').getStore().removeAll();
-				                                                	persona.getUbigeo({VP_OP:'D',VP_VALUE:''},obj,'100101');*/
+				                                                	persona.getUbigeo({VP_OP:'D',VP_VALUE:''},obj,'100101');
+				                                                    // obj.getStore().load();
+				                                                    //Ext.getCmp(persona.id+'-txt-estado-filter').setValue('U');
 				                                                },
 				                                                select:function(obj, records, eOpts){
 				                                        			var pro = Ext.getCmp(persona.id+'-sol-cmb-provincia');
@@ -2512,8 +1893,8 @@
 				                                            //readOnly: true,
 				                                            listeners:{
 				                                                afterrender:function(obj, e){
-				                                        			/*Ext.getCmp(persona.id+'-sol-cmb-Distrito').getStore().removeAll();
-				                                                	persona.getUbigeo({VP_OP:'P',VP_VALUE:'100101'},obj,'100601');*/
+				                                        			Ext.getCmp(persona.id+'-sol-cmb-Distrito').getStore().removeAll();
+				                                                	persona.getUbigeo({VP_OP:'P',VP_VALUE:'100101'},obj,'100601');
 				                                                },
 				                                                select:function(obj, records, eOpts){
 				                                        			var dis=Ext.getCmp(persona.id+'-sol-cmb-Distrito');
@@ -2545,7 +1926,9 @@
 				                                            //readOnly: true,
 				                                            listeners:{
 				                                                afterrender:function(obj, e){
-				                                                	//persona.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+				                                                	persona.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+				                                                    // obj.getStore().load();
+				                                                    //Ext.getCmp(persona.id+'-txt-estado-filter').setValue('U');
 				                                                },
 				                                                select:function(obj, records, eOpts){
 				                                        
@@ -2609,7 +1992,7 @@
 			                			},
 			                			{
 			                				region:'south',
-			                				height:300,
+			                				height:180,
 			                				border:false,
 			                				layout:'fit',
 			                				items:[
@@ -2972,30 +2355,13 @@
 	                ],*/
 	                listeners:{
 	                    'afterrender':function(obj, e){
-	                    	var obj = Ext.getCmp(persona.id+'-sol-txt-centro-trabajo');
-							persona.getReload(obj,{vp_op:'N',vp_id:0,vp_nombre:''});
-	                    	if(persona.id_per!=0){
-	                    		persona.getPersona();
-	                    	}else{
-	                    		persona.getSelectUbi();
-	                    	}
+	                    	if(persona.id_per!=0)persona.getPersona();
 	                    },
 	                    'close':function(){
 
 	                    }
 	                }
 	            }).show().center();
-			},
-			getSelectUbi:function(){
-				var obj=Ext.getCmp(persona.id+'-sol-cmb-departamento');
-				Ext.getCmp(persona.id+'-sol-cmb-provincia').getStore().removeAll();
-				Ext.getCmp(persona.id+'-sol-cmb-Distrito').getStore().removeAll();
-				persona.getUbigeo({VP_OP:'D',VP_VALUE:''},obj,'100101');
-				var objp=Ext.getCmp(persona.id+'-sol-cmb-provincia');
-				Ext.getCmp(persona.id+'-sol-cmb-Distrito').getStore().removeAll();
-				persona.getUbigeo({VP_OP:'P',VP_VALUE:'100101'},objp,'100601');
-				var objd=Ext.getCmp(persona.id+'-sol-cmb-Distrito');
-				persona.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},objd,'100601');
 			},
 			setSavePersona:function(forma){
 				
@@ -3015,23 +2381,14 @@
 				var sol_estado_civil = Ext.getCmp(persona.id+'-sol-cmb-estado-civil').getValue();
 				var sol_fecha_nac = Ext.getCmp(persona.id+'-sol-date-fecha-nac').getRawValue();
 
-				/*var sol_domi_propio = Ext.getCmp(persona.id+'-sol-chk-domi-propio').getValue();
+				var sol_domi_propio = Ext.getCmp(persona.id+'-sol-chk-domi-propio').getValue();
 				sol_domi_propio = sol_domi_propio?'S':'N';
 				var sol_domi_pagando = Ext.getCmp(persona.id+'-sol-chk-domi-pagando').getValue();
 				sol_domi_pagando = sol_domi_pagando?'S':'N';
 				var sol_domi_alquilado = Ext.getCmp(persona.id+'-sol-chk-domi-alquilado').getValue();
 				sol_domi_alquilado = sol_domi_alquilado?'S':'N';
 				var sol_domi_familiar = Ext.getCmp(persona.id+'-sol-chk-domi-familiar').getValue();
-				sol_domi_familiar = sol_domi_familiar?'S':'N';*/
-
-				var sol_domicilio = Ext.getCmp(persona.id+'-sol-cmb-domicilio').getValue();
-				var sol_estudios = Ext.getCmp(persona.id+'-sol-cmb-estudios').getValue();
-				var sol_profesion = Ext.getCmp(persona.id+'-sol-txt-profesion').getValue();
-				var sol_laboral = Ext.getCmp(persona.id+'-sol-cmb-laboral').getValue();
-				var sol_cargo = Ext.getCmp(persona.id+'-sol-txt-cargo').getValue();
-				var sol_centro_trabajo = Ext.getCmp(persona.id+'-sol-txt-centro-trabajo').getValue();
-				var sol_fecha_ingreso = Ext.getCmp(persona.id+'-sol-date-fecha-ingreso').getRawValue();
-
+				sol_domi_familiar = sol_domi_familiar?'S':'N';
 
 				var vp_sol_id_tel = Ext.getCmp(persona.id+'-sol-txt-id-tel').getValue();
 				var vp_sol_id_dir = Ext.getCmp(persona.id+'-sol-txt-id-dir').getValue();
@@ -3108,15 +2465,10 @@
 						vp_sol_doc_cm:sol_doc_cm,
 						vp_sol_estado_civil:sol_estado_civil,
 						vp_sol_fecha_nac:sol_fecha_nac,
-
-						vp_sol_domicilio:sol_domicilio,
-						vp_sol_estudios:sol_estudios,
-						vp_sol_profesion:sol_profesion,
-						vp_sol_laboral:sol_laboral,
-						vp_sol_cargo:sol_cargo,
-						vp_sol_centro_trabajo:sol_centro_trabajo,
-						vp_sol_fecha_ingreso:sol_fecha_ingreso,
-
+						vp_sol_domi_propio:sol_domi_propio,
+						vp_sol_domi_pagando:sol_domi_pagando,
+						vp_sol_domi_alquilado:sol_domi_alquilado,
+						vp_sol_domi_familiar:sol_domi_familiar,
 						vp_id_tel:vp_sol_id_tel,
 						vp_id_dir:vp_sol_id_dir,
 
@@ -3124,142 +2476,6 @@
 						vp_flag:'A'
                     }
 				);
-			},
-			setSavePersonaConyugue:function(forma){
-				var vp_sol_id_per = Ext.getCmp(persona.id+'-sol-txt-id-per').getValue();
-
-				var sol_doc_dni = Ext.getCmp(persona.id+'-select-conyugue').getValue();
-				/*var sol_doc_ce = Ext.getCmp(persona.id+'-sol-txt-doc-ce').getValue();
-				var sol_doc_cip = Ext.getCmp(persona.id+'-sol-txt-doc-cip').getValue();
-				var sol_doc_ruc = Ext.getCmp(persona.id+'-sol-txt-doc-ruc').getValue();
-				var sol_doc_cm = Ext.getCmp(persona.id+'-sol-txt-doc-cm').getValue();*/
-
-				var op =forma;
-				if(vp_sol_id_per==0){
-					global.Msg({msg:"No es posible Eliminar, aun no existe un registro en la base datos.",icon:2,fn:function(){}});
-					return false;
-				}
-				if(sol_doc_dni==''){
-					global.Msg({msg:"Ingrese el DNI.",icon:2,fn:function(){}});
-					return false;
-				}
-
-				var msn=op=='Z'?'¿Seguro de quitar relación?':'¿Seguro de Relacionar Persona?';
-				global.Msg({
-                    msg: msn,
-                    icon: 3,
-                    buttons: 3,
-                    fn: function(btn){
-                    	if (btn == 'yes'){
-                    		Ext.getCmp(persona.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
-	                        //scanning.getLoader(true);
-			                Ext.Ajax.request({
-			                    url:persona.url+'setSavePersona/',
-			                    params:{
-			                    	vp_op:op,
-									vp_sol_id_per:vp_sol_id_per,
-									vp_sol_doc_dni:sol_doc_dni,
-									vp_flag:'A'
-			                    },
-			                    timeout: 30000000,
-			                    success: function(response, options){
-			                        Ext.getCmp(persona.id+'-win-form').el.unmask();
-			                        var res = Ext.JSON.decode(response.responseText);
-			                        //control.getLoader(false);
-			                        if (res.error == 'OK'){
-			                            global.Msg({
-			                                msg: res.msn,
-			                                icon: 1,
-			                                buttons: 1,
-			                                fn: function(btn){
-			                                	Ext.getCmp(persona.id+'-select-conyugue').setValue('');
-			                                	var objp = Ext.getCmp(persona.id+'-list-Conyugues');
-												persona.getReload(objp,{vp_op:'Y',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
-			                                }
-			                            });
-			                        }else{
-			                            global.Msg({
-			                                msg: res.msn,
-			                                icon: 0,
-			                                buttons: 1,
-			                                fn: function(btn){
-			                                	 
-			                                }
-			                            });
-			                        }
-			                    }
-			                });
-						}
-					}
-				});
-			},
-			setSavePersonaGarante:function(forma){
-				var vp_sol_id_per = Ext.getCmp(persona.id+'-sol-txt-id-per').getValue();
-
-				var sol_doc_dni = Ext.getCmp(persona.id+'-select-garante').getValue();
-				/*var sol_doc_ce = Ext.getCmp(persona.id+'-sol-txt-doc-ce').getValue();
-				var sol_doc_cip = Ext.getCmp(persona.id+'-sol-txt-doc-cip').getValue();
-				var sol_doc_ruc = Ext.getCmp(persona.id+'-sol-txt-doc-ruc').getValue();
-				var sol_doc_cm = Ext.getCmp(persona.id+'-sol-txt-doc-cm').getValue();*/
-
-				var op =forma;
-				if(vp_sol_id_per==0){
-					global.Msg({msg:"No es posible Eliminar, aun no existe un registro en la base datos.",icon:2,fn:function(){}});
-					return false;
-				}
-				if(sol_doc_dni==''){
-					global.Msg({msg:"Ingrese el DNI.",icon:2,fn:function(){}});
-					return false;
-				}
-
-				var msn=op=='G'?'¿Seguro de quitar relación?':'¿Seguro de Relacionar Persona?';
-				global.Msg({
-                    msg: msn,
-                    icon: 3,
-                    buttons: 3,
-                    fn: function(btn){
-                    	if (btn == 'yes'){
-                    		Ext.getCmp(persona.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
-	                        //scanning.getLoader(true);
-			                Ext.Ajax.request({
-			                    url:persona.url+'setSavePersona/',
-			                    params:{
-			                    	vp_op:op,
-									vp_sol_id_per:vp_sol_id_per,
-									vp_sol_doc_dni:sol_doc_dni,
-									vp_flag:'A'
-			                    },
-			                    timeout: 30000000,
-			                    success: function(response, options){
-			                        Ext.getCmp(persona.id+'-win-form').el.unmask();
-			                        var res = Ext.JSON.decode(response.responseText);
-			                        //control.getLoader(false);
-			                        if (res.error == 'OK'){
-			                            global.Msg({
-			                                msg: res.msn,
-			                                icon: 1,
-			                                buttons: 1,
-			                                fn: function(btn){
-			                                	Ext.getCmp(persona.id+'-select-garante').setValue('');
-			                                	var objp = Ext.getCmp(persona.id+'-list-garante');
-												persona.getReload(objp,{vp_op:'G',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
-			                                }
-			                            });
-			                        }else{
-			                            global.Msg({
-			                                msg: res.msn,
-			                                icon: 0,
-			                                buttons: 1,
-			                                fn: function(btn){
-			                                	 
-			                                }
-			                            });
-			                        }
-			                    }
-			                });
-						}
-					}
-				});
 			},
 			setSaveDataPersona:function(msn,params){
 				global.Msg({
@@ -3342,18 +2558,10 @@
 						Ext.getCmp(persona.id+'-sol-date-fecha-nac').setValue(data.fecha_nac);
 
 						
-						/*Ext.getCmp(persona.id+'-sol-chk-domi-propio').setValue(data.domi_propio=='S'?true:false);
+						Ext.getCmp(persona.id+'-sol-chk-domi-propio').setValue(data.domi_propio=='S'?true:false);
 						Ext.getCmp(persona.id+'-sol-chk-domi-pagando').setValue(data.domi_pagando=='S'?true:false);
 						Ext.getCmp(persona.id+'-sol-chk-domi-alquilado').setValue(data.domi_alquilado=='S'?true:false);
-						Ext.getCmp(persona.id+'-sol-chk-domi-familiar').setValue(data.domi_familiar=='S'?true:false);*/
-
-						Ext.getCmp(persona.id+'-sol-cmb-domicilio').setValue(data.domicilio);
-						Ext.getCmp(persona.id+'-sol-cmb-estudios').setValue(data.estudios);
-						Ext.getCmp(persona.id+'-sol-txt-profesion').setValue(data.profesion);
-						Ext.getCmp(persona.id+'-sol-cmb-laboral').setValue(data.laboral);
-						Ext.getCmp(persona.id+'-sol-txt-cargo').setValue(data.cargo);
-						Ext.getCmp(persona.id+'-sol-txt-centro-trabajo').setValue(data.id_empresa);
-						Ext.getCmp(persona.id+'-sol-date-fecha-ingreso').setValue(data.fecha_ingreso);
+						Ext.getCmp(persona.id+'-sol-chk-domi-familiar').setValue(data.domi_familiar=='S'?true:false);
 
 						Ext.getCmp(persona.id+'-sol-txt-id-tel').setValue(data.id_tel);
 						Ext.getCmp(persona.id+'-sol-txt-id-dir').setValue(data.id_dir);
@@ -3366,11 +2574,7 @@
 						//persona.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
 						win.getGalery({container:'contenedor-documentos',forma:'L',url:persona.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
 
-						if(data.id_dir!=0){
-							persona.getDirecciones(data.id_dir);
-						}else{
-							persona.getSelectUbi();
-						}
+						if(data.id_dir!=0)persona.getDirecciones(data.id_dir);
 						var objd = Ext.getCmp(persona.id+'-list-direcciones');
 						persona.getReload(objd,{vp_op:'R',vp_id:data.id_per,vp_nombre:''});
 
@@ -3378,12 +2582,6 @@
 							var img = '/persona/'+data.id_per+'/PHOTO/'+data.img;
 							persona.setPhotoForm(img,data.ape_pat+' '+data.ape_mat +', '+data.nombres);
 						}
-
-						var objp = Ext.getCmp(persona.id+'-list-Conyugues');
-						persona.getReload(objp,{vp_op:'Y',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
-
-						var objg = Ext.getCmp(persona.id+'-list-garante');
-						persona.getReload(objg,{vp_op:'G',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
                     }
                 });
 			},
@@ -3411,23 +2609,9 @@
 						Ext.getCmp(persona.id+'-sol-txt-dir-interior').setValue(data.dir_interior);
 						Ext.getCmp(persona.id+'-sol-txt-dir-urb').setValue(data.dir_urb);
 						Ext.getCmp(persona.id+'-sol-txt-dir-referencia').setValue(data.dir_referencia);
-
-						/*DIRECCIONES*/
-						var obj=Ext.getCmp(persona.id+'-sol-cmb-departamento');
-						Ext.getCmp(persona.id+'-sol-cmb-provincia').getStore().removeAll();
-						Ext.getCmp(persona.id+'-sol-cmb-Distrito').getStore().removeAll();
-						persona.getUbigeo({VP_OP:'D',VP_VALUE:''},obj,data.cod_ubi_dep); 
-
-						var objp=Ext.getCmp(persona.id+'-sol-cmb-provincia');
-						Ext.getCmp(persona.id+'-sol-cmb-Distrito').getStore().removeAll();
-						persona.getUbigeo({VP_OP:'P',VP_VALUE:data.cod_ubi_dep},objp,data.cod_ubi_pro);
-
-						var objd=Ext.getCmp(persona.id+'-sol-cmb-Distrito');
-						persona.getUbigeo({VP_OP:'X',VP_VALUE:data.cod_ubi_pro},objd,data.cod_ubi);
-
-						//Ext.getCmp(persona.id+'-sol-cmb-departamento').setValue(data.cod_ubi_dep);
-						//Ext.getCmp(persona.id+'-sol-cmb-provincia').setValue(data.cod_ubi_pro);
-						//Ext.getCmp(persona.id+'-sol-cmb-Distrito').setValue(data.cod_ubi);
+						Ext.getCmp(persona.id+'-sol-cmb-departamento').setValue(data.cod_ubi_pro);
+						Ext.getCmp(persona.id+'-sol-cmb-provincia').setValue(data.cod_ubi_dep);
+						Ext.getCmp(persona.id+'-sol-cmb-Distrito').setValue(data.cod_ubi);
                     }
                 });
 			},
@@ -3443,7 +2627,6 @@
 				Ext.getCmp(persona.id+'-sol-txt-doc-ruc').setValue('');
 				Ext.getCmp(persona.id+'-sol-txt-doc-cm').setValue('');
 				Ext.getCmp(persona.id+'-sol-cmb-estado-civil').setValue('S');
-				Ext.getCmp(persona.id+'-sol-txt-centro-trabajo').setValue('0');
 				Ext.getCmp(persona.id+'-sol-date-fecha-nac').setValue('');
 
 				
@@ -3904,12 +3087,6 @@
 				};
 				downloadingImage.src = img;
 				console.log(img);*/
-			},
-			getCentroTrabajo:function(){
-				win.show({vurl: persona.url_ct+'get_centro_trabajo/?rollback=persona.getReloadCentroTrabajo();', id_menu: clientes.id_menu, class: ''});
-			},
-			getReloadCentroTrabajo:function(){
-				
 			}
 		}
 		Ext.onReady(persona.init,persona);

@@ -3,7 +3,7 @@
 /**
  * Geekode php (http://jimmyanthony.com/)
  * @link    https://github.com/jbazan/geekcode_php
- * @author  Jimmy Anthony @jbazan (https://twitter.com/jbazan)
+ * @author  Jimmy Anthony Bazán Solis @remicioluis (https://twitter.com/jbazan)
  * @version 2.0
  */
 
@@ -33,16 +33,11 @@ class personaModels extends Adodb {
         parent::SetParameterSP($p['vp_sol_estado_civil'], 'varchar');//17
         parent::SetParameterSP($p['vp_sol_fecha_nac'], 'varchar');//18
         parent::SetParameterSP($p['vp_sol_id_tel'], 'int');//19
-
-
-        parent::SetParameterSP($p['vp_sol_domicilio'], 'varchar');//21
-        parent::SetParameterSP($p['vp_sol_estudios'], 'varchar');//22
-        parent::SetParameterSP(utf8_decode($p['vp_sol_profesion']), 'varchar');//24----------------------------
-        parent::SetParameterSP($p['vp_sol_laboral'], 'varchar');//23
-        parent::SetParameterSP($p['vp_sol_cargo'], 'varchar');//24
-        parent::SetParameterSP($p['vp_sol_centro_trabajo'], 'varchar');//24
-        parent::SetParameterSP($p['vp_sol_fecha_ingreso'], 'varchar');//24
-        
+        parent::SetParameterSP($p['vp_sol_domi_propio'], 'varchar');//21
+        parent::SetParameterSP($p['vp_sol_domi_pagando'], 'varchar');//22
+        parent::SetParameterSP($p['vp_sol_domi_alquilado'], 'varchar');//23
+        parent::SetParameterSP($p['vp_sol_domi_familiar'], 'varchar');//24
+        parent::SetParameterSP(utf8_decode($p['vp_profesion']), 'varchar');//24----------------------------
 
         parent::SetParameterSP($p['vp_sol_id_dir'], 'int');//26
         parent::SetParameterSP($p['vp_sol_img'], 'varchar');//25
@@ -106,8 +101,6 @@ class personaModels extends Adodb {
         parent::SetParameterSP($p['vp_sol_dir_urb'], 'varchar');//33
         parent::SetParameterSP(utf8_decode($p['vp_sol_dir_referencia']), 'varchar');//34
         
-        parent::SetParameterSP($p['vp_sol_departamento'], 'varchar');//35
-        parent::SetParameterSP($p['vp_sol_provincia'], 'varchar');//35
         parent::SetParameterSP($p['vp_sol_distrito'], 'varchar');//35
 
         parent::SetParameterSP($p['vp_flag'], 'varchar');//140
@@ -132,7 +125,7 @@ class personaModels extends Adodb {
         parent::SetParameterSP($p['vp_flag'], 'varchar');//140
         parent::SetParameterSP(USR_ID, 'int');//141
 
-         //echo '=>' . parent::getSql().'<br>'; exit();
+         echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
         return $array;
     }
