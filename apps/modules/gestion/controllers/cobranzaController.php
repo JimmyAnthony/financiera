@@ -4,7 +4,9 @@
  * @version 2.0
  */
 
-class creditosController extends AppController {
+set_time_limit(0);
+ini_set("memory_limit", "-1");
+class cobranzaController extends AppController {
 
     private $objDatos;
     private $arrayMenu;
@@ -15,11 +17,11 @@ class creditosController extends AppController {
          */
         $this->valida();
 
-        $this->objDatos = new creditosModels();
+        $this->objDatos = new cobranzaModels();
     }
 
     public function index($p){        
-        $this->view('creditos/form_index.php', $p);
+        $this->view('cobranza/form_index.php', $p);
     }
 
     public function get_list_telefonos($p){

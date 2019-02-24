@@ -3,18 +3,17 @@
 /**
  * Geekode php (http://jimmyanthony.com/)
  * @link    https://github.com/jbazan/geekcode_php
- * @author  Jimmy Anthony Bazán Solis @remicioluis (https://twitter.com/jbazan)
+ * @author  Jimmy Anthony @jbazan (https://twitter.com/jbazan)
  * @version 2.0
  */
 
-class creditosModels extends Adodb {
+class cobranzaModels extends Adodb {
 
     private $dsn;
 
     public function __construct(){
         $this->dsn = Common::read_ini(PATH.'config/config.ini', 'server_main');
     }
-
     public function SP_CREDITO_PERSONA($p){
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_PERSONA_MANT');
@@ -233,5 +232,4 @@ class creditosModels extends Adodb {
         $array = parent::ExecuteSPArray();
         return $array;
     }
-
 }
