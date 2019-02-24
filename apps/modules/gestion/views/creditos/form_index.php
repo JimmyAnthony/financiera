@@ -2710,7 +2710,7 @@
 														                        },
 														                        {
 														                        	xtype:'panel',
-														                        	width:100,
+														                        	width:140,
 														                        	border:false,
 														                        	layout:'vbox',
 														                        	bodyStyle: 'background: transparent',
@@ -2744,12 +2744,12 @@
 																							        xtype: 'radio',
 																							        id:creditos.id+'-sol-chk-excepcion-si',
 																							        name: 'checkbox1',
-																							        checked: true,
+																							        
 																							        fieldLabel: 'SI',
 																							        inputValue: 'S',
 																							        labelWidth:30,
 																							        //boxLabel: 'box label',
-																							        //labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+																							        labelStyle: "text-align: center;",
 																		                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
 																		                            listeners:{
 																		                            	change:function(obj){
@@ -2764,6 +2764,8 @@
 																							        fieldLabel: 'NO',
 																							        inputValue: 'N',
 																							        labelWidth:30,
+																							        checked: true,
+																							        labelStyle: "text-align: center;",
 																							        //boxLabel: 'box label',
 																							        //labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 																		                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
@@ -2836,20 +2838,21 @@
 														                                }
 														                            }
 														                        },*/
-																                {
-														                            xtype: 'textfield', 
-														                            id:creditos.id+'-sol-txt-numero-cuotas', 
-														                            fieldLabel: 'N° Cuotas',
+														                        
+														                        {
+														                            xtype: 'textfield',
+														                            id:creditos.id+'-sol-txt-import-aprobado',
+														                            fieldLabel: 'Imp. Aprobado',
 														                            bodyStyle: 'background: transparent',
 																                    padding:'5px 10px 5px 5px',
 														                            //id:creditos.id+'-txt-dni',
 														                            labelWidth:50,
 														                            //readOnly:true,
 														                            labelAlign:'top',
-														                            //width:'100%',
+														                            width:100,
 														                            flex:1,
-														                            maskRe: new RegExp("[0-9]+"),
-														                            height:40,
+														                            maskRe: new RegExp("[0-9.]+"),
+														                            //height:40,
 														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
 														                            value:'0',
@@ -2873,19 +2876,19 @@
 																			        value:'22/01/2019'
 																			    },
 														                        {
-														                            xtype: 'textfield',
-														                            id:creditos.id+'-sol-txt-import-aprobado',
-														                            fieldLabel: 'Imp. Aprobado',
+														                            xtype: 'textfield', 
+														                            id:creditos.id+'-sol-txt-numero-cuotas', 
+														                            fieldLabel: 'N° Cuotas',
 														                            bodyStyle: 'background: transparent',
 																                    padding:'5px 10px 5px 5px',
 														                            //id:creditos.id+'-txt-dni',
 														                            labelWidth:50,
 														                            //readOnly:true,
 														                            labelAlign:'top',
-														                            width:100,
+														                            //width:'100%',
 														                            flex:1,
-														                            maskRe: new RegExp("[0-9.]+"),
-														                            //height:40,
+														                            maskRe: new RegExp("[0-9]+"),
+														                            height:40,
 														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
 														                            value:'0',
