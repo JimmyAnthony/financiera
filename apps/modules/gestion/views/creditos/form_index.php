@@ -2606,6 +2606,28 @@
 																				{
 														                            xtype: 'textfield',	
 														                            fieldLabel: 'N° Solicitud',
+														                            id:creditos.id+'-sol-txt-id-solicitud',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'15px 5px 5px 25px',
+														                            //id:creditos.id+'-txt-dni',
+														                            labelWidth:50,
+														                            hidden:true,
+														                            readOnly:true,
+														                            labelAlign:'top',
+														                            width:70,
+														                            //height:60,
+														                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+														                            value:'0',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        },
+																				{
+														                            xtype: 'textfield',	
+														                            fieldLabel: 'N° Solicitud',
 														                            id:creditos.id+'-sol-txt-nro-solicitud',
 														                            bodyStyle: 'background: transparent',
 																                    padding:'15px 5px 5px 25px',
@@ -3176,6 +3198,111 @@
 				creditos.getUbigeo({VP_OP:'P',VP_VALUE:'100101'},objp,'100601');
 				var objd=Ext.getCmp(creditos.id+'-sol-cmb-Distrito');
 				creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},objd,'100601');
+			},
+			setSaveSolicitud:function(op){
+				var vp_id_solicitud = Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').getValue();
+				var vp_sol_id_cli = Ext.getCmp(creditos.id+'-sol-txt-id-cli').getValue();
+				var vp_sol_id_per = Ext.getCmp(creditos.id+'-sol-txt-id-per').getValue();
+
+				var nro_sol = Ext.getCmp(creditos.id+'-sol-txt-nro-solicitud').getValue();
+				var moneda = Ext.getCmp(creditos.id+'-sol-cmb-moneda').getValue();
+				var monto = Ext.getCmp(creditos.id+'-sol-txt-monto').getValue();
+				var tipo_cliente = Ext.getCmp(creditos.id+'-sol-txt-tipo-cliente').getValue();
+				var excepcion = Ext.getCmp(creditos.id+'-sol-chk-excepcion-si').getValue();
+				excepcion = excepcion?'S':'N';
+				//var sol_ape_pat = Ext.getCmp(creditos.id+'-sol-chk-excepcion-no').getValue();
+
+				var import_aprobado = Ext.getCmp(creditos.id+'-sol-txt-import-aprobado').getValue();
+				var fecha_1ra_letra = Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').getValue();
+				var nro_cuotas = Ext.getCmp(creditos.id+'-sol-txt-numero-cuotas').getValue();
+
+				if(moneda==''){
+					global.Msg({msg:"Seleccione la Moneda.",icon:2,fn:function(){}});
+					return false;
+				}
+
+				if(monto==''){
+					global.Msg({msg:"Ingrese el Monto Solicitado.",icon:2,fn:function(){}});
+					return false;
+				}
+
+				if(tipo_cliente==''){
+					global.Msg({msg:"Seleccione el tipo de cliente.",icon:2,fn:function(){}});
+					return false;
+				}
+
+				if(import_aprobado==''){
+					global.Msg({msg:"Ingrese Importe Aprobado.",icon:2,fn:function(){}});
+					return false;
+				}
+
+				if(fecha_1ra_letra==''){
+					global.Msg({msg:"Ingrese Fecha 1ra Letra.",icon:2,fn:function(){}});
+					return false;
+				}
+
+				if(nro_cuotas==''){
+					global.Msg({msg:"Ingrese El número de Cuotas.",icon:2,fn:function(){}});
+					return false;
+				}
+
+				var msn=op=='G'?'¿Seguro de quitar relación?':'¿Seguro de Relacionar creditos?';
+				global.Msg({
+                    msg: msn,
+                    icon: 3,
+                    buttons: 3,
+                    fn: function(btn){
+                    	if (btn == 'yes'){
+                    		Ext.getCmp(creditos.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
+	                        //scanning.getLoader(true);
+			                Ext.Ajax.request({
+			                    url:creditos.url+'setSavecreditos/',
+			                    params:{
+			                    	vp_op:op,
+			                    	vp_id_solicitud:vp_id_solicitud,
+			                    	vp_sol_id_cli:vp_sol_id_cli,
+									vp_sol_id_per:vp_sol_id_per,
+									vp_nro_sol:nro_sol,
+									vp_moneda:moneda,
+									vp_monto:monto,
+									vp_tipo_cliente:tipo_cliente,
+									vp_excepcion:excepcion,
+									vp_import_aprobado:import_aprobado,
+									vp_fecha_1ra_letra:fecha_1ra_letra,
+									vp_nro_cuotas:nro_cuotas,
+									vp_flag:'A'
+			                    },
+			                    timeout: 30000000,
+			                    success: function(response, options){
+			                        Ext.getCmp(creditos.id+'-win-form').el.unmask();
+			                        var res = Ext.JSON.decode(response.responseText);
+			                        //control.getLoader(false);
+			                        if (res.error == 'OK'){
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 1,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	Ext.getCmp(creditos.id+'-select-garante').setValue('');
+			                                	var objp = Ext.getCmp(creditos.id+'-list-garante');
+												creditos.getReload(objp,{vp_op:'G',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+			                                }
+			                            });
+			                        }else{
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 0,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	 
+			                                }
+			                            });
+			                        }
+			                    }
+			                });
+						}
+					}
+				});
 			},
 			setSavecreditos:function(forma){
 				
