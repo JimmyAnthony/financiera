@@ -908,7 +908,11 @@
 				        	items:[
 				        		{
 									layout:'border',
-						            width: 500,
+									title:'DATOS DEL SOLICITANTE',
+				         			split:true,
+				         			collapsible: true,
+				         			header:false,
+						            width: 470,
 						            border:false,
 						            region:'west',
 						            items:[
@@ -2072,6 +2076,10 @@
 						         		{
 						         			layout:'border',
 						         			region:'west',
+						         			title:'DIRECCIÓN',
+						         			split:true,
+						         			collapsible: true,
+						         			header:false,
 						         			width:340,
 						         			//border:false,
 						         			items:[
@@ -2588,363 +2596,435 @@
 												{
 													region:'center',
 													layout:'border',
+													bodyStyle: 'background: transparent',
 													items:[
 														{
 															layout:'border',
 															region:'north',
-															height:140,
+															bodyStyle: 'background: transparent',
+															height:220,
 															border:false,
 															items:[
 																{
 																	region:'north',
+																	layout:'hbox',
+																	bodyStyle: 'background: transparent',
+																	padding:'5px 5px 5px 5px',
 																	height:70,
-																	border:false,
+																	border:true,
 																	items:[
 																		{
-																			layout:'hbox',
-																			items:[
-																				{
-														                            xtype: 'textfield',	
-														                            fieldLabel: 'N° Solicitud',
-														                            id:creditos.id+'-sol-txt-id-solicitud',
-														                            bodyStyle: 'background: transparent',
-																                    padding:'15px 5px 5px 25px',
-														                            //id:creditos.id+'-txt-dni',
-														                            labelWidth:50,
-														                            hidden:true,
-														                            readOnly:true,
-														                            labelAlign:'top',
-														                            width:70,
-														                            //height:60,
-														                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-														                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-														                            value:'0',
-														                            //anchor:'100%',
-														                            listeners:{
-														                                afterrender:function(obj, e){
-														                                }
-														                            }
-														                        },
-																				{
-														                            xtype: 'textfield',	
-														                            fieldLabel: 'N° Solicitud',
-														                            id:creditos.id+'-sol-txt-nro-solicitud',
-														                            bodyStyle: 'background: transparent',
-																                    padding:'15px 5px 5px 25px',
-														                            //id:creditos.id+'-txt-dni',
-														                            labelWidth:50,
-														                            readOnly:true,
-														                            labelAlign:'top',
-														                            width:70,
-														                            //height:60,
-														                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-														                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-														                            value:'0',
-														                            //anchor:'100%',
-														                            listeners:{
-														                                afterrender:function(obj, e){
-														                                }
-														                            }
-														                        },
-																				{
-														                            xtype:'combo',
-														                            fieldLabel: 'Moneda',
-														                            bodyStyle: 'background: transparent',
-																                    padding:'15px 5px 5px 25px',
-														                            id:creditos.id+'-sol-cmb-moneda',
-														                            store: store_moneda,
-														                            queryMode: 'local',
-														                            triggerAction: 'all',
-														                            valueField: 'code',
-														                            displayField: 'name',
-														                            emptyText: '[Seleccione]',
-														                            labelAlign:'right',
-														                            //allowBlank: false,
-														                            labelAlign:'top',
-														                            labelWidth: 50,
-														                            width:80,
-														                            anchor:'100%',
-														                            //readOnly: true,
-														                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-														                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-														                            listeners:{
-														                                afterrender:function(obj, e){
-														                                    // obj.getStore().load();
-														                                    obj.setValue('SOL');
-														                                },
-														                                select:function(obj, records, eOpts){
-														                        
-														                                }
-														                            }
-														                        },
-																				{
-														                            xtype: 'textfield',	
-														                            fieldLabel: 'M.Solicitado',
-														                            id:creditos.id+'-sol-txt-monto',
-														                            bodyStyle: 'background: transparent',
-																                    padding:'15px 5px 5px 25px',
-														                            //id:creditos.id+'-txt-dni',
-														                            labelWidth:50,
-														                            //readOnly:true,
-														                            labelAlign:'top',
-														                            width:80,
-														                            //height:60,
-														                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-														                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-														                            value:'1444.40',
-														                            maskRe: new RegExp("[0-9.]+"),
-														                            //anchor:'100%',
-														                            listeners:{
-														                                afterrender:function(obj, e){
-														                                }
-														                            }
-														                        },
-														                        {
-														                            xtype:'combo',
-														                            fieldLabel: 'Tipo de Cliente',
-														                            bodyStyle: 'background: transparent',
-																                    padding:'15px 5px 5px 25px',
-														                            id:creditos.id+'-sol-txt-tipo-cliente',
-														                            store: store_moneda,
-														                            queryMode: 'local',
-														                            triggerAction: 'all',
-														                            valueField: 'code',
-														                            displayField: 'name',
-														                            emptyText: '[Seleccione]',
-														                            labelAlign:'right',
-														                            //allowBlank: false,
-														                            labelAlign:'top',
-														                            labelWidth: 50,
-														                            width:100,
-														                            anchor:'100%',
-														                            //readOnly: true,
-														                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-														                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-														                            listeners:{
-														                                afterrender:function(obj, e){
-														                                    // obj.getStore().load();
-														                                    //obj.setValue('SOL');
-														                                },
-														                                select:function(obj, records, eOpts){
-														                        
-														                                }
-														                            }
-														                        },
-														                        {
-														                        	xtype:'panel',
-														                        	width:140,
-														                        	border:false,
-														                        	layout:'vbox',
-														                        	bodyStyle: 'background: transparent',
-																                    padding:'20px 5px 5px 25px',
-																                    //width:200,
-														                        	items:[
-														                        		{
-																                        	xtype:'panel',
-																                        	border:false,
-																                        	layout:'hbox',
-																                        	padding:'0px 0px 0px 10px',
-																                        	items:[
-																                        		{
-																							        xtype: 'label',
-																							        //forId: 'myFieldId',
-																							        text: 'EXCEPCIÓN:',
-																							        style: 'font: normal 10px Sans-serif;font-weight: bold;',
-																							        //padding:'15px 5px 5px 25px',
-																							        width:'100%',
-																		                            anchor:'100%'
-																							    }
-																                        	]
-																                        },
-																                        {
-																                        	xtype:'panel',
-																                        	border:false,
-																                        	layout:'hbox',
-																                        	padding:'5px 0px 0px 0px',
-																                        	items:[
-																                        		{
-																							        xtype: 'radio',
-																							        id:creditos.id+'-sol-chk-excepcion-si',
-																							        name: 'checkbox1',
-																							        
-																							        fieldLabel: 'SI',
-																							        inputValue: 'S',
-																							        labelWidth:30,
-																							        //boxLabel: 'box label',
-																							        labelStyle: "text-align: center;",
-																		                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-																		                            listeners:{
-																		                            	change:function(obj){
-																		                            		//Ext.getCmp(reditos.id+'-sol-chk-excepcion-no').setValue(!obj.getValue());
-																		                            	}
-																		                            }
-																							    },
-																							    {
-																							        xtype: 'radio',
-																							        id:creditos.id+'-sol-chk-excepcion-no',
-																							        name: 'checkbox1',
-																							        fieldLabel: 'NO',
-																							        inputValue: 'N',
-																							        labelWidth:30,
-																							        checked: true,
-																							        labelStyle: "text-align: center;",
-																							        //boxLabel: 'box label',
-																							        //labelStyle: "font-size:17px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																		                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-																		                            listeners:{
-																		                            	change:function(obj){
-																		                            		//Ext.getCmp(creditos.id+'-sol-chk-excepcion-si').setValue(!obj.getValue());
-																		                            	}
-																		                            }
-																							    }
-																                        	]
-																                        }
-														                        	]
-														                        }/*,
-														                        {
-																			        xtype: 'datefield',
-																			        id:creditos.id+'-sol-date-fecha',
-																			        padding:'15px 5px 5px 25px',
-																			        //name: 'date1',
-																			        labelAlign:'top',
-																			        width:100,
-														                            //height:60,
-																			        //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            		//fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-																			        fieldLabel: 'Date Field',
-																			        value:'22/01/2019'
-																			    }*/	
-																			]
-																		}
+								                                            xtype:'combo',
+								                                            fieldLabel: 'Agencia',
+								                                            id:creditos.id+'-sol-cmb-agencia',
+								                                            store: creditos.store_ubigeo3,
+								                                            queryMode: 'local',
+								                                            triggerAction: 'all',
+								                                            valueField: 'cod_ubi',
+								                                            displayField: 'Distrito',
+								                                            emptyText: '[Seleccione]',
+								                                            labelAlign:'right',
+								                                            //allowBlank: false,
+								                                            labelAlign:'top',
+												                            //width:'92%',
+												                            labelWidth:75,
+												                            flex:1,
+												                            //height:40,
+												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                                            anchor:'100%',
+								                                            padding:'5px 5px 5px 10px',
+								                                            //readOnly: true,
+								                                            listeners:{
+								                                                afterrender:function(obj, e){
+								                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+								                                                },
+								                                                select:function(obj, records, eOpts){
+								                                        
+								                                                }
+								                                            }
+								                                        },
+								                                        {
+												                            xtype: 'textfield',
+												                            id:creditos.id+'-sol-txt-id-asesor',
+												                            hidden:true,
+												                            fieldLabel: 'Asesor',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:creditos.id+'-txt-dni',
+												                            //labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            width:50,
+												                            value:0,
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                },
+												                                change: function(field, newValue, oldValue){
+														                            field.setValue(newValue.toUpperCase());
+														                        }
+												                            }
+												                        },
+												                        {
+								                                            xtype:'combo',
+								                                            fieldLabel: 'Asesor',
+								                                            id:creditos.id+'-sol-cmb-asesor',
+								                                            store: creditos.store_ubigeo3,
+								                                            queryMode: 'local',
+								                                            triggerAction: 'all',
+								                                            valueField: 'cod_ubi',
+								                                            displayField: 'Distrito',
+								                                            emptyText: '[Seleccione]',
+								                                            labelAlign:'right',
+								                                            //allowBlank: false,
+								                                            labelAlign:'top',
+												                            //width:'92%',
+												                            labelWidth:75,
+												                            flex:1,
+												                            //height:40,
+												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                                            anchor:'100%',
+								                                            padding:'5px 5px 5px 10px',
+								                                            //readOnly: true,
+								                                            listeners:{
+								                                                afterrender:function(obj, e){
+								                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+								                                                },
+								                                                select:function(obj, records, eOpts){
+								                                        
+								                                                }
+								                                            }
+								                                        }
 																	]
 																},
 																{
 																	region:'center',
+																	bodyStyle: 'background: transparent',
 																	border:false,
+																	layout:'border',
 																	items:[
 																		{
-																			layout:'hbox',
-																			padding:'5px 5px 5px 5px',
+																			region:'center',
+																			bodyStyle: 'background: transparent',
+																			//height:80,
+																			//layout:'border',
+																			//flex:1,
+																			//padding:'5px 5px 5px 5px',
 																			border:false,
 																			items:[
-																				/*{
-														                            xtype:'combo',
-														                            id:creditos.id+'-sol-info-cmb-moneda',
-														                            fieldLabel: 'Moneda',
-														                            bodyStyle: 'background: transparent',
-																                    padding:'5px 10px 5px 5px',
-														                            //id:creditos.id+'-cmb-moneda',
-														                            store: store_moneda,
-														                            queryMode: 'local',
-														                            triggerAction: 'all',
-														                            valueField: 'code',
-														                            displayField: 'name',
-														                            emptyText: '[Seleccione]',
-														                            labelAlign:'right',
-														                            //allowBlank: false,
-														                            labelAlign:'top',
-														                            labelWidth: 50,
-														                            width:150,
-														                            anchor:'100%',
-														                            height:40,
-														                            //readOnly: true,
-														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
-														                            listeners:{
-														                                afterrender:function(obj, e){
-														                                    // obj.getStore().load();
-														                                    obj.setValue('SOL');
-														                                },
-														                                select:function(obj, records, eOpts){
-														                        
-														                                }
-														                            }
-														                        },*/
-														                        
-														                        {
-														                            xtype: 'textfield',
-														                            id:creditos.id+'-sol-txt-import-aprobado',
-														                            fieldLabel: 'Imp. Aprobado',
-														                            bodyStyle: 'background: transparent',
-																                    padding:'5px 10px 5px 5px',
-														                            //id:creditos.id+'-txt-dni',
-														                            labelWidth:50,
-														                            //readOnly:true,
-														                            labelAlign:'top',
-														                            width:100,
-														                            flex:1,
-														                            maskRe: new RegExp("[0-9.]+"),
-														                            //height:40,
-														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
-														                            value:'0',
-														                            //anchor:'100%',
-														                            listeners:{
-														                                afterrender:function(obj, e){
-														                                }
-														                            }
-														                        },
-														                        {
-																			        xtype: 'datefield',
-																			        id:creditos.id+'-sol-date-fecha-1-letra',
-																			        padding:'5px 5px 5px 5px',
-																			        //name: 'date1',
-																			        labelAlign:'top',
-																			        flex:1,
-														                            height:40,
-																			        labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
-																			        fieldLabel: 'Fecha 1° Letra',
-																			        value:'22/01/2019'
-																			    },
-														                        {
-														                            xtype: 'textfield', 
-														                            id:creditos.id+'-sol-txt-numero-cuotas', 
-														                            fieldLabel: 'N° Cuotas',
-														                            bodyStyle: 'background: transparent',
-																                    padding:'5px 10px 5px 5px',
-														                            //id:creditos.id+'-txt-dni',
-														                            labelWidth:50,
-														                            //readOnly:true,
-														                            labelAlign:'top',
-														                            //width:'100%',
-														                            flex:1,
-														                            maskRe: new RegExp("[0-9]+"),
-														                            height:40,
-														                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-														                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
-														                            value:'0',
-														                            //anchor:'100%',
-														                            listeners:{
-														                                afterrender:function(obj, e){
-														                                }
-														                            }
-														                        },
-														                        {
-																                    xtype: 'button',
-																                    margin:'2px 2px 2px 2px',
-																                    icon: '/images/icon/1315404769_gear_wheel.png',
-																                    //glyph: 72,
-																                    flex:0.5,
-																                    text: 'Generar',
-																                    scale: 'medium',
-																                    iconAlign: 'top',
-																                    listeners:{
-															                            beforerender: function(obj, opts){
-															                                /*global.permisos({
-															                                    id: 15,
-															                                    id_btn: obj.getId(), 
-															                                    id_menu: gestion_devolucion.id_menu,
-															                                    fn: ['panel_asignar_gestion.limpiar']
-															                                });*/
-															                            },
-															                            click: function(obj, e){	  
-															                            	creditos.setSaveSolicitud('I');
-															                            }
-															                        }
+																				{
+																					layout:'column',
+																					//region:'north',
+																					//height:100,
+																					//flex:1,
+																					border:true,
+																					padding:'5px 5px 5px 5px',
+																					items:[
+																						{
+																                            xtype: 'textfield',	
+																                            fieldLabel: 'N° Solicitud',
+																                            id:creditos.id+'-sol-txt-id-solicitud',
+																                            bodyStyle: 'background: transparent',
+																		                    padding:'15px 5px 5px 25px',
+																                            //id:creditos.id+'-txt-dni',
+																                            labelWidth:50,
+																                            hidden:true,
+																                            readOnly:true,
+																                            labelAlign:'top',
+																                            //flex:1,
+																                            columnWidth: 0.2,
+																                            //width:70,
+																                            //height:60,
+																                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+																                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+																                            value:'0',
+																                            //anchor:'100%',
+																                            listeners:{
+																                                afterrender:function(obj, e){
+																                                }
+																                            }
+																                        },
+																						{
+																                            xtype: 'textfield',	
+																                            fieldLabel: 'N° Solicitud',
+																                            id:creditos.id+'-sol-txt-nro-solicitud',
+																                            bodyStyle: 'background: transparent',
+																		                    padding:'15px 5px 5px 25px',
+																                            //id:creditos.id+'-txt-dni',
+																                            labelWidth:50,
+																                            //readOnly:true,
+																                            labelAlign:'top',
+																                            //width:70,
+																                            columnWidth: 0.2,
+																                            //flex:1,
+																                            //height:60,
+																                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+																                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+																                            value:'0',
+																                            //anchor:'100%',
+																                            listeners:{
+																                                afterrender:function(obj, e){
+																                                }
+																                            }
+																                        },
+																						{
+																                            xtype:'combo',
+																                            fieldLabel: 'Moneda',
+																                            bodyStyle: 'background: transparent',
+																		                    padding:'15px 5px 5px 25px',
+																                            id:creditos.id+'-sol-cmb-moneda',
+																                            store: store_moneda,
+																                            queryMode: 'local',
+																                            triggerAction: 'all',
+																                            valueField: 'code',
+																                            displayField: 'name',
+																                            emptyText: '[Seleccione]',
+																                            labelAlign:'right',
+																                            //allowBlank: false,
+																                            labelAlign:'top',
+																                            labelWidth: 50,
+																                            //width:80,
+																                            columnWidth: 0.2,
+																                            //flex:1,
+																                            anchor:'100%',
+																                            //readOnly: true,
+																                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+																                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+																                            listeners:{
+																                                afterrender:function(obj, e){
+																                                    // obj.getStore().load();
+																                                    obj.setValue('SOL');
+																                                },
+																                                select:function(obj, records, eOpts){
+																                        
+																                                }
+																                            }
+																                        },
+																						{
+																                            xtype: 'textfield',	
+																                            fieldLabel: 'M.Solicitado',
+																                            id:creditos.id+'-sol-txt-monto',
+																                            bodyStyle: 'background: transparent',
+																		                    padding:'15px 5px 5px 25px',
+																                            //id:creditos.id+'-txt-dni',
+																                            labelWidth:50,
+																                            //readOnly:true,
+																                            labelAlign:'top',
+																                            //width:80,
+																                            //flex:1,
+																                            columnWidth: 0.2,
+																                            //height:60,
+																                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+																                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+																                            value:'1444.40',
+																                            maskRe: new RegExp("[0-9.]+"),
+																                            //anchor:'100%',
+																                            listeners:{
+																                                afterrender:function(obj, e){
+																                                }
+																                            }
+																                        },
+																                        {
+																                            xtype:'combo',
+																                            fieldLabel: 'Tipo de Cliente',
+																                            bodyStyle: 'background: transparent',
+																		                    padding:'15px 5px 5px 25px',
+																                            id:creditos.id+'-sol-txt-tipo-cliente',
+																                            store: store_moneda,
+																                            queryMode: 'local',
+																                            triggerAction: 'all',
+																                            valueField: 'code',
+																                            displayField: 'name',
+																                            emptyText: '[Seleccione]',
+																                            labelAlign:'right',
+																                            //allowBlank: false,
+																                            labelAlign:'top',
+																                            labelWidth: 50,
+																                            //width:100,
+																                            //flex:1,
+																                            columnWidth: 0.2,
+																                            anchor:'100%',
+																                            //readOnly: true,
+																                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+																                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+																                            listeners:{
+																                                afterrender:function(obj, e){
+																                                    // obj.getStore().load();
+																                                    //obj.setValue('SOL');
+																                                },
+																                                select:function(obj, records, eOpts){
+																                        
+																                                }
+																                            }
+																                        },
+																                        {
+																                            xtype:'combo',
+																                            fieldLabel: 'Excepcion',
+																                            bodyStyle: 'background: transparent',
+																		                    padding:'15px 5px 5px 25px',
+																                            id:creditos.id+'-sol-cmb-excepcion',
+																                            store: store_moneda,
+																                            queryMode: 'local',
+																                            triggerAction: 'all',
+																                            valueField: 'code',
+																                            displayField: 'name',
+																                            emptyText: '[Seleccione]',
+																                            labelAlign:'right',
+																                            //allowBlank: false,
+																                            labelAlign:'top',
+																                            labelWidth: 50,
+																                            //width:100,
+																                            //flex:1,
+																                            columnWidth: 0.2,
+																                            anchor:'100%',
+																                            //readOnly: true,
+																                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+																                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+																                            listeners:{
+																                                afterrender:function(obj, e){
+																                                    // obj.getStore().load();
+																                                    //obj.setValue('SOL');
+																                                },
+																                                select:function(obj, records, eOpts){
+																                        
+																                                }
+																                            }
+																                        },/*,
+																                        {
+																					        xtype: 'datefield',
+																					        id:creditos.id+'-sol-date-fecha',
+																					        padding:'15px 5px 5px 25px',
+																					        //name: 'date1',
+																					        labelAlign:'top',
+																					        width:100,
+																                            //height:60,
+																					        //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            		//fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+																					        fieldLabel: 'Date Field',
+																					        value:'22/01/2019'
+																					    }*/	
+																					]
+																				},
+																				{
+																					layout:'column',
+																					padding:'5px 5px 5px 5px',
+																					//padding:'5px 5px 5px 5px',
+																					//border:false,
+																					//flex:1,
+																					items:[
+																                        {
+																                            xtype: 'textfield',
+																                            id:creditos.id+'-sol-txt-import-aprobado',
+																                            fieldLabel: 'Imp. Aprobado',
+																                            bodyStyle: 'background: transparent',
+																		                    padding:'5px 10px 5px 10px',
+																                            //id:creditos.id+'-txt-dni',
+																                            labelWidth:50,
+																                            //readOnly:true,
+																                            labelAlign:'top',
+																                            columnWidth: 0.3,
+																                            //width:'100%',
+																                            //flex:1,
+																                            maskRe: new RegExp("[0-9.]+"),
+																                            //height:40,
+																                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+																                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+																                            value:'0',
+																                            //anchor:'100%',
+																                            listeners:{
+																                                afterrender:function(obj, e){
+																                                }
+																                            }
+																                        },
+																                        {
+																					        xtype: 'datefield',
+																					        id:creditos.id+'-sol-date-fecha-1-letra',
+																					        padding:'5px 5px 5px 5px',
+																					        //name: 'date1',
+																					        labelAlign:'top',
+																					        //flex:1,
+																					        columnWidth: 0.3,
+																                            height:40,
+																					        labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+																                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+																					        fieldLabel: '1° Letra',
+																					        value:'22/01/2019'
+																					    },
+																                        {
+																                            xtype: 'textfield', 
+																                            id:creditos.id+'-sol-txt-numero-cuotas', 
+																                            fieldLabel: 'Cuotas',
+																                            bodyStyle: 'background: transparent',
+																		                    padding:'5px 10px 5px 5px',
+																                            //id:creditos.id+'-txt-dni',
+																                            labelWidth:50,
+																                            //readOnly:true,
+																                            labelAlign:'top',
+																                            //width:'100%',
+																                            columnWidth: 0.2,
+																                            maskRe: new RegExp("[0-9]+"),
+																                            height:40,
+																                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+																                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+																                            value:'0',
+																                            //anchor:'100%',
+																                            listeners:{
+																                                afterrender:function(obj, e){
+																                                }
+																                            }
+																                        },
+																                        {
+																		                    xtype: 'button',
+																		                    margin:'2px 2px 2px 2px',
+																		                    icon: '/images/icon/1315404769_gear_wheel.png',
+																		                    //glyph: 72,
+																		                    columnWidth: 0.1,
+																		                    text: 'Generar',
+																		                    scale: 'medium',
+																		                    iconAlign: 'top',
+																		                    listeners:{
+																	                            beforerender: function(obj, opts){
+																	                                /*global.permisos({
+																	                                    id: 15,
+																	                                    id_btn: obj.getId(), 
+																	                                    id_menu: gestion_devolucion.id_menu,
+																	                                    fn: ['panel_asignar_gestion.limpiar']
+																	                                });*/
+																	                            },
+																	                            click: function(obj, e){	  
+																	                            	creditos.setSaveSolicitud('I');
+																	                            }
+																	                        }
+																		                },
+																		                {
+																		                    xtype: 'button',
+																		                    margin:'2px 2px 2px 2px',
+																		                    icon: '/images/icon/ok.png',
+																		                    //glyph: 72,
+																		                    columnWidth: 0.1,
+																		                    text: 'Aprobar',
+																		                    scale: 'medium',
+																		                    iconAlign: 'top',
+																		                    listeners:{
+																	                            beforerender: function(obj, opts){
+																	                                /*global.permisos({
+																	                                    id: 15,
+																	                                    id_btn: obj.getId(), 
+																	                                    id_menu: gestion_devolucion.id_menu,
+																	                                    fn: ['panel_asignar_gestion.limpiar']
+																	                                });*/
+																	                            },
+																	                            click: function(obj, e){	  
+																	                            	creditos.setSaveSolicitud('I');
+																	                            }
+																	                        }
+																		                }
+																                    ]
 																                }
-														                    ]
-														                }
+																			]
+																		}
 																	]
 																}
 															]
@@ -3203,6 +3283,7 @@
 				var vp_id_solicitud = Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').getValue();
 				var vp_sol_id_cli = Ext.getCmp(creditos.id+'-sol-txt-id-cli').getValue();
 				var vp_sol_id_per = Ext.getCmp(creditos.id+'-sol-txt-id-per').getValue();
+				var vp_id_asesor = Ext.getCmp(creditos.id+'-sol-txt-id-per').getValue(); 
 
 				var nro_sol = Ext.getCmp(creditos.id+'-sol-txt-nro-solicitud').getValue();
 				var moneda = Ext.getCmp(creditos.id+'-sol-cmb-moneda').getValue();
@@ -3259,9 +3340,9 @@
 			                    url:creditos.url+'setSavecreditos/',
 			                    params:{
 			                    	vp_op:op,
-			                    	vp_id_solicitud:vp_id_solicitud,
-			                    	vp_sol_id_cli:vp_sol_id_cli,
+			                    	vp_id_credito:vp_id_solicitud,
 									vp_sol_id_per:vp_sol_id_per,
+									vp_id_asesor:vp_id_asesor,
 									vp_nro_sol:nro_sol,
 									vp_moneda:moneda,
 									vp_monto:monto,
