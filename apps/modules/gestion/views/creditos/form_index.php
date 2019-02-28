@@ -2617,7 +2617,7 @@
 								                                            xtype:'combo',
 								                                            fieldLabel: 'Agencia',
 								                                            id:creditos.id+'-sol-cmb-agencia',
-								                                            store: creditos.store_ubigeo3,
+								                                            store: store_agencias,
 								                                            queryMode: 'local',
 								                                            triggerAction: 'all',
 								                                            valueField: 'cod_ubi',
@@ -2670,6 +2670,37 @@
 								                                            xtype:'combo',
 								                                            fieldLabel: 'Asesor',
 								                                            id:creditos.id+'-sol-cmb-asesor',
+								                                            store: creditos.store_ubigeo3,
+								                                            queryMode: 'local',
+								                                            triggerAction: 'all',
+								                                            valueField: 'cod_ubi',
+								                                            displayField: 'Distrito',
+								                                            emptyText: '[Seleccione]',
+								                                            labelAlign:'right',
+								                                            //allowBlank: false,
+								                                            labelAlign:'top',
+												                            //width:'92%',
+												                            labelWidth:75,
+												                            flex:1,
+												                            //height:40,
+												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                                            anchor:'100%',
+								                                            padding:'5px 5px 5px 10px',
+								                                            //readOnly: true,
+								                                            listeners:{
+								                                                afterrender:function(obj, e){
+								                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+								                                                },
+								                                                select:function(obj, records, eOpts){
+								                                        
+								                                                }
+								                                            }
+								                                        },
+								                                        {
+								                                            xtype:'combo',
+								                                            fieldLabel: 'Motivo',
+								                                            id:creditos.id+'-sol-cmb-motivo',
 								                                            store: creditos.store_ubigeo3,
 								                                            queryMode: 'local',
 								                                            triggerAction: 'all',
@@ -3061,7 +3092,7 @@
 																	items:[
 																		{
 													                        xtype: 'grid',
-													                        id: creditos.id + '-grid-agencias',
+													                        id: creditos.id + '-grid-cuotas',
 													                        store: creditos.store_ubigeo, 
 													                        columnLines: true,
 													                        //layout:'fit',
