@@ -77,7 +77,7 @@ class creditosController extends AppController {
         return $this->response($data);
     }
     public function setSavecreditos($p){
-        $rs = $this->objDatos->SP_CREDITO_PERSONA($p);
+        $rs = $this->objDatos->SP_CREDITO_SAVE($p);
         $rs = $rs[0];
         $data = array(
             'success' => true,
@@ -403,6 +403,76 @@ class creditosController extends AppController {
             $value_['Departamento'] = utf8_encode(trim($value['Departamento']));
             $value_['cod_ubi_pro'] = trim($value['cod_ubi_pro']);
             $value_['cod_ubi_dep'] = trim($value['cod_ubi_dep']);
+            $array[]=$value_;
+        }
+
+        $data = array(
+            'success' => true,
+            'error'=>0,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+    public function get_list_asesores($p){
+        $rs = $this->objDatos->get_list_asesores($p);
+        //var_export($rs);
+        $array = array();
+        $lote = 0;
+        foreach ($rs as $index => $value){
+            $value_['id_asesor'] = intval($value['id_asesor']);
+            $value_['id_per'] = intval($value['id_per']);
+            $value_['id_age'] = intval($value['id_age']);
+            $value_['icono'] = 'if_person_3_1376034.png';
+            $value_['nombres'] =utf8_encode(trim($value['nombres']));
+            $value_['ape_pat'] =utf8_encode(trim($value['ape_pat']));
+            $value_['ape_mat'] =utf8_encode(trim($value['ape_mat']));
+
+            $value_['nombre'] =utf8_encode(trim($value['nombres'])).', '.utf8_encode(trim($value['ape_pat'])).' '.utf8_encode(trim($value['ape_mat']));
+
+            $value_['doc_dni'] =trim($value['doc_dni']);
+            $value_['id_tel'] = intval($value['id_tel']);
+            $value_['numero'] =trim($value['numero']);
+
+            $value_['id_dir'] =trim($value['id_dir']);
+            $value_['dir_direccion'] =utf8_encode(trim($value['dir_direccion']));
+            $value_['dir_numero'] =utf8_encode(trim($value['dir_numero']));
+            $value_['dir_mz'] =utf8_encode(trim($value['dir_mz']));
+            $value_['dir_lt'] =utf8_encode(trim($value['dir_lt']));
+            $value_['dir_dpto'] =utf8_encode(trim($value['dir_dpto']));
+            $value_['dir_interior'] =utf8_encode(trim($value['dir_interior']));
+            $value_['dir_urb'] =utf8_encode(trim($value['dir_urb']));
+            $value_['dir_referencia'] =utf8_encode(trim($value['dir_referencia']));
+            $value_['fecha'] =trim($value['fecha']);
+            $value_['cod_ubi'] =utf8_encode(trim($value['cod_ubi']));
+            $value_['clase'] = $value['flag']=='A'?'databox_list_menu':'databox_list_menu_disabled';
+            $value_['solicitudes'] =trim($value['solicitudes']);
+            $value_['sol_monto'] =trim($value['sol_monto']);
+            $value_['flag'] =trim($value['flag']);
+            $value_['tab'] =trim($value['tab']);
+            $array[]=$value_;
+        }
+
+        $data = array(
+            'success' => true,
+            'error'=>0,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+    public function get_list_motivos($p){
+        $rs = $this->objDatos->get_list_motivos($p);
+        //var_export($rs);
+        $array = array();
+        $lote = 0;
+        foreach ($rs as $index => $value){
+            $value_['id_mot'] = intval($value['id_mot']);
+            $value_['nombre'] = utf8_encode(trim($value['nombre']));
+            $value_['fecha'] = trim($value['fecha']);
+            $value_['flag'] = trim($value['flag']);
             $array[]=$value_;
         }
 

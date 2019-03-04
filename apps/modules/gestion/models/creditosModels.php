@@ -15,47 +15,38 @@ class creditosModels extends Adodb {
         $this->dsn = Common::read_ini(PATH.'config/config.ini', 'server_main');
     }
 
-    public function SP_CREDITO_PERSONA($p){
+    public function SP_CREDITO_SAVE($p){
         parent::ReiniciarSQL();
-        parent::ConnectionOpen($this->dsn, 'SP_PERSONA_MANT');
+        parent::ConnectionOpen($this->dsn, 'SP_CREDITO_SAVE');
         parent::SetParameterSP($p['vp_op'], 'varchar');//1
-        parent::SetParameterSP($p['vp_sol_id_cli'], 'int');//8
+        parent::SetParameterSP($p['vp_id_solicitud'], 'int');//8
         parent::SetParameterSP($p['vp_sol_id_per'], 'int');//8
+        parent::SetParameterSP($p['vp_id_garante'], 'int');//8
+        parent::SetParameterSP($p['vp_id_asesor'], 'int');//8
+        parent::SetParameterSP($p['vp_id_agencia'], 'int');//8
 
-        parent::SetParameterSP(utf8_decode($p['vp_sol_ape_pat']), 'varchar');//9
-        parent::SetParameterSP(utf8_decode($p['vp_sol_ape_mat']), 'varchar');//10
-        parent::SetParameterSP(utf8_decode($p['vp_sol_nombres']), 'varchar');//11
-        parent::SetParameterSP($p['vp_sol_sexo'], 'varchar');
-        parent::SetParameterSP($p['vp_sol_doc_dni'], 'varchar');//12
-        parent::SetParameterSP($p['vp_sol_doc_ce'], 'varchar');//13
-        parent::SetParameterSP($p['vp_sol_doc_cip'], 'varchar');//14
-        parent::SetParameterSP($p['vp_sol_doc_ruc'], 'varchar');//15
-        parent::SetParameterSP($p['vp_sol_doc_cm'], 'varchar');//16
-        parent::SetParameterSP($p['vp_sol_estado_civil'], 'varchar');//17
-        parent::SetParameterSP($p['vp_sol_fecha_nac'], 'varchar');//18
-        parent::SetParameterSP($p['vp_sol_id_tel'], 'int');//19
+        parent::SetParameterSP($p['vp_nro_solicitud'], 'varchar');
+        parent::SetParameterSP($p['vp_fecha_solicitud'], 'varchar');
+        parent::SetParameterSP($p['vp_moneda'], 'varchar');
+        parent::SetParameterSP($p['vp_monto'], 'varchar');
+        parent::SetParameterSP($p['vp_tipo_cliente'], 'varchar');
+        parent::SetParameterSP($p['vp_excepcion'], 'varchar');
+        parent::SetParameterSP($p['vp_import_aprobado'], 'varchar');
+        parent::SetParameterSP($p['vp_fecha_1ra_letra'], 'varchar');
+        parent::SetParameterSP($p['vp_nro_cuotas'], 'int');
+        parent::SetParameterSP($p['vp_interes'], 'varchar');
+        parent::SetParameterSP($p['vp_mora'], 'varchar');
+        parent::SetParameterSP($p['vp_id_mot'], 'int');
 
-
-        parent::SetParameterSP($p['vp_sol_domicilio'], 'varchar');//21
-        parent::SetParameterSP($p['vp_sol_estudios'], 'varchar');//22
-        parent::SetParameterSP(utf8_decode($p['vp_sol_profesion']), 'varchar');//24----------------------------
-        parent::SetParameterSP($p['vp_sol_laboral'], 'varchar');//23
-        parent::SetParameterSP($p['vp_sol_cargo'], 'varchar');//24
-        parent::SetParameterSP($p['vp_sol_centro_trabajo'], 'varchar');//24
-        parent::SetParameterSP($p['vp_sol_fecha_ingreso'], 'varchar');//24
-        
-
-        parent::SetParameterSP($p['vp_sol_id_dir'], 'int');//26
-        parent::SetParameterSP($p['vp_sol_img'], 'varchar');//25
-
-        parent::SetParameterSP($p['vp_flag'], 'varchar');//140
+        parent::SetParameterSP(utf8_decode($p['vp_resena']), 'varchar');//9
+        //parent::SetParameterSP($p['vp_estado'], 'varchar');
         parent::SetParameterSP(USR_ID, 'int');//141
 
         parent::SetParameterSP('@OUT', 'int');//140
         parent::SetParameterSP('@OUT', 'int');//140
         parent::SetParameterSP('@OUT', 'int');//140
         parent::SetParameterSP('@OUT', 'int');//140
-        // echo '=>' . parent::getSql().'<br>'; exit();
+         //echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
         return $array;
     }
@@ -187,12 +178,36 @@ class creditosModels extends Adodb {
 
     public function get_list_agencias($p){
         parent::ReiniciarSQL();
-        parent::ConnectionOpen($this->dsn, 'SP_AGENCIAS_LIST');
+        parent::ConnectionOpen($this->dsn, 'SP_AGENCIAS_USUARIO_LIST');
       // parent::SetParameterSP($p['vp_shi_codigo'], 'int');
       //  parent::SetParameterSP($p['vp_fac_cliente'], 'int');
         parent::SetParameterSP($p['vp_cod_age'], 'int');
         parent::SetParameterSP($p['vp_cod_ubi'], 'varchar');
         parent::SetParameterSP($p['vp_nombre'], 'varchar');
+        parent::SetParameterSP(USR_ID, 'int');//141
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+
+    public function get_list_asesores($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_ASESORES_AGENCIA_LIST');
+      // parent::SetParameterSP($p['vp_shi_codigo'], 'int');
+      //  parent::SetParameterSP($p['vp_fac_cliente'], 'int');
+        parent::SetParameterSP($p['vp_cod_age'], 'int');
+        parent::SetParameterSP(USR_ID, 'int');//141
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+    public function get_list_motivos($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_MOTIVOS_LIST');
+      // parent::SetParameterSP($p['vp_shi_codigo'], 'int');
+      //  parent::SetParameterSP($p['vp_fac_cliente'], 'int');
+        parent::SetParameterSP('A', 'varchar');
+        parent::SetParameterSP(USR_ID, 'int');//141
         // echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
         return $array;

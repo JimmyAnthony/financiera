@@ -598,6 +598,63 @@
 		                }
 		            }
 		        });
+		        
+		        var imageTplPointerSolicitudes = new Ext.XTemplate(
+		            '<tpl for=".">',
+		                '<div class="list_grid_sol__list_menu_select" >',
+		                    '<div class="list_grid_sol__list_menu" >',
+		                        '<div class="list_grid_sol__menu_line" style="width:100px;">',
+		                            '<div class="list_grid_sol__menu_bar">',
+		                                '<div class="list_grid_sol__menu_title_A">',
+		                                '<span>N°Solicitud:</span>',
+		                                '</div>',
+		                                '<div class="list_grid_sol__menu_title" style="text-align:left;">',
+		                                    '<span>{doc_dni}</span>',
+		                                '</div>',
+		                            '</div>',
+		                        '</div>',
+		                        '<div class="list_grid_sol__menu_line" style="width:67px;">',
+		                            '<div class="list_grid_sol__menu_bar">',
+		                                '<div class="list_grid_sol__menu_title_A" style="text-align:right;">',
+		                                '<span>Monto:</span>',
+		                                '</div>',
+		                                '<div class="list_grid_sol__menu_title" style="text-align:right;">',
+		                                    '<span>{doc_dni}</span>',
+		                                '</div>',
+		                            '</div>',
+		                        '</div>',
+		                        /*'<div class="list_grid_sol__menu_line" style="display: inline-flex;width:170px;">',
+		                            '<div class="list_grid_sol__menu_bar" style="width:170px;">',
+		                                '<div class="list_grid_sol__menu_title_A" style="text-align:right;">',
+		                                '<span>Monto:</span>',
+		                                '</div>',
+		                                '<div class="list_grid_sol__menu_title" style="text-align:right;">',
+		                                    '<span>{doc_dni}</span>',
+		                                '</div>',
+		                            '</div>',
+		                        '</div>',*/
+		                    '</div>',
+		                '</div>',
+		            '</tpl>'
+		        );
+		        var imageTplPointerSolicitudesTotales = new Ext.XTemplate(
+		            '<tpl for=".">',
+		                '<div class="list_grid_sol__list_menu_select" >',
+		                    '<div class="list_grid_sol__list_menu" >',
+		                        '<div class="list_grid_sol__menu_line" style="width:180px;">',
+		                            '<div class="list_grid_sol__menu_bar">',
+		                                '<div class="list_grid_sol__menu_title_A" style="text-align:right;">',
+		                                '<span style="text-align:right;">Total Solicitado:</span>',
+		                                '</div>',
+		                                '<div class="list_grid_sol__menu_title" style="text-align:right;">',
+		                                    '<span >{doc_dni}</span>',
+		                                '</div>',
+		                            '</div>',
+		                        '</div>',
+		                    '</div>',
+		                '</div>',
+		            '</tpl>'
+		        );
 		        var store_telefonos = Ext.create('Ext.data.Store',{
 		            fields: [
 		                {name: 'id_per', type: 'string'},
@@ -682,6 +739,54 @@
 	                proxy:{
 	                    type: 'ajax',
 	                    url: creditos.url+'get_list_agencias/',
+	                    reader:{
+	                        type: 'json',
+	                        rootProperty: 'data'
+	                    }
+	                },
+	                listeners:{
+	                    load: function(obj, records, successful, opts){
+	                        
+	                    }
+	                }
+	            });
+	            
+
+	            var store_asesores = Ext.create('Ext.data.Store',{
+	                fields: [
+	                    {name: 'id_asesor', type: 'int'},
+	                    {name: 'id_per', type: 'int'},
+	                    {name: 'id_per', type: 'int'},
+	                    {name: 'id_age', type: 'int'},
+	                    {name: 'nombre', type: 'string'}
+	                ],
+	                autoLoad:false,
+	                proxy:{
+	                    type: 'ajax',
+	                    url: creditos.url+'get_list_asesores/',
+	                    reader:{
+	                        type: 'json',
+	                        rootProperty: 'data'
+	                    }
+	                },
+	                listeners:{
+	                    load: function(obj, records, successful, opts){
+	                        
+	                    }
+	                }
+	            });
+
+	            var store_motivos = Ext.create('Ext.data.Store',{
+	                fields: [
+	                    {name: 'id_mot', type: 'int'},
+	                    {name: 'nombre', type: 'string'},
+	                    {name: 'fecha', type: 'string'},
+	                    {name: 'flag', type: 'string'}
+	                ],
+	                autoLoad:true,
+	                proxy:{
+	                    type: 'ajax',
+	                    url: creditos.url+'get_list_motivos/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -841,11 +946,11 @@
 											items:[
 												{
 													region:'north',
-													height:60,
+													height:130,
 													border:false,
 													items:[
 														{
-															layout:'hbox',
+															layout:'vbox',
 															bodyStyle: 'background: transparent',
 															padding:'5px 5px 5px 5px',
 															border:false,
@@ -858,7 +963,42 @@
 										                            id:creditos.id+'-txt-dni',
 										                            labelWidth:40,
 										                            //readOnly:true,
-										                            labelAlign:'left',
+										                            labelAlign:'top',
+										                            labelStyle: "font-size:15px;font-weight:bold;padding:12px 0px 0px 0px;",
+										                            fieldStyle: 'font-size:17px; text-align: center;font-weight: bold ',
+										                            emptyText: 'ENTER',
+										                            allowOnlyWhitespace: false,
+										                            allowDecimals: false,
+										                            allowExponential: false,
+										                            allowBlank: true,
+										                            maxLength: 8,
+										                            width:180,
+										                            height:40,
+										                            maxLength : 8,
+																	enforceMaxLength : true,
+																	maskRe:/[0-9]/,
+										                            //anchor:'100%',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                	obj.focus();
+										                                },
+										                                specialkey: function(f,e){
+                                                                            if(e.getKey() == e.ENTER){
+                                                                                //panel_novedades.buscar_novedad();
+                                                                                creditos.getListaSolicitudes(f.getValue());
+                                                                            }
+                                                                        }
+										                            }
+										                        },
+										                        {
+										                            xtype: 'textfield',	
+										                            fieldLabel: 'N° SOLICITUD',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'10px 5px 5px 5px',
+										                            id:creditos.id+'-txt-nro-sol',
+										                            labelWidth:40,
+										                            //readOnly:true,
+										                            labelAlign:'top',
 										                            labelStyle: "font-size:15px;font-weight:bold;padding:12px 0px 0px 0px;",
 										                            fieldStyle: 'font-size:17px; text-align: center;font-weight: bold ',
 										                            emptyText: 'ENTER',
@@ -890,9 +1030,112 @@
 												},
 												{
 													region:'center',
+													layout:'border',
+													title:'Lista de Solicitudes',
 													border:false,
 													items:[
 														/*GRID DE SOLICITUDES*/
+														{
+															region:'center',
+															border:false,
+															items:[
+																{
+											                        xtype: 'dataview',
+											                        id: creditos.id+'-list-solicitudes',
+											                        bodyStyle: 'background: transparent',
+											                        bodyCls: 'transparent',
+											                        layout:'fit',
+											                        store: store_conyugue,
+											                        autoScroll: true,
+											                        loadMask:true,
+											                        autoHeight: false,
+											                        tpl: imageTplPointerSolicitudes,
+											                        multiSelect: false,
+											                        singleSelect: false,
+											                        loadingText:'Cargando Lista de Solicitudes...',
+											                        emptyText: '<div class="list_grid_sol__list_menu"><div class="list_grid_sol__none_data" ></div><div class="list_grid_sol__title_clear_data">NO TIENE NINGUNA SOLICITUD</div></div>',
+											                        itemSelector: 'div.list_grid_sol__list_menu_select',
+											                        trackOver: true,
+											                        overItemCls: 'list_grid_sol__list_menu-hover',
+											                        listeners: {
+											                            'itemdblclick': function(view, record, item, idx, event, opts) {
+											                                /*me.idx=idx;
+											                                var record = this.getStore().getAt(idx);
+											                                var val =record.data;
+											                                var menu_class = val.menu_class == null || val.menu_class == '' ? '' : val.menu_class;
+											                                if(val.nivel!=0){
+											                                    if(me.config_.mode==1){
+											                                        win.show({vurl: val.url, id_menu: idx, class: menu_class});//obj.getItemId().split('-')[1]  
+											                                    }else{
+											                                        var tab=Ext.getCmp(me.config_.tab);
+											                                        var active=Ext.getCmp(me.config_.id+val.url);
+											                                        tab.setActiveTab(active);
+											                                    }
+											                                }*/
+											                                
+											                                var record = this.getStore().getAt(idx);
+											                                var val =record.data;
+																			//Ext.getCmp(creditos.id+'-select-conyugue').setValue(val.dni);
+											                                
+											                            },
+											                            afterrender:function(obj){
+											                            	
+											                            }
+											                        }
+											                    }
+															]
+														},
+														{
+															region:'south',
+															height:70,
+															border:false,
+															items:[
+																{
+											                        xtype: 'dataview',
+											                        id: creditos.id+'-list-solicitudes-totales',
+											                        bodyStyle: 'background: transparent',
+											                        bodyCls: 'transparent',
+											                        layout:'fit',
+											                        store: store_conyugue,
+											                        autoScroll: true,
+											                        loadMask:true,
+											                        autoHeight: false,
+											                        tpl: imageTplPointerSolicitudesTotales,
+											                        multiSelect: false,
+											                        singleSelect: false,
+											                        loadingText:'Cargando Lista de Solicitudes...',
+											                        emptyText: '<div class="list_grid_sol__list_menu"><div class="list_grid_sol__none_data" ></div><div class="list_grid_sol__title_clear_data">NO TIENE NINGUNA SOLICITUD</div></div>',
+											                        itemSelector: 'div.list_grid_sol__list_menu_select',
+											                        trackOver: true,
+											                        overItemCls: 'list_grid_sol__list_menu-hover',
+											                        listeners: {
+											                            'itemdblclick': function(view, record, item, idx, event, opts) {
+											                                /*me.idx=idx;
+											                                var record = this.getStore().getAt(idx);
+											                                var val =record.data;
+											                                var menu_class = val.menu_class == null || val.menu_class == '' ? '' : val.menu_class;
+											                                if(val.nivel!=0){
+											                                    if(me.config_.mode==1){
+											                                        win.show({vurl: val.url, id_menu: idx, class: menu_class});//obj.getItemId().split('-')[1]  
+											                                    }else{
+											                                        var tab=Ext.getCmp(me.config_.tab);
+											                                        var active=Ext.getCmp(me.config_.id+val.url);
+											                                        tab.setActiveTab(active);
+											                                    }
+											                                }*/
+											                                
+											                                var record = this.getStore().getAt(idx);
+											                                var val =record.data;
+																			//Ext.getCmp(creditos.id+'-select-conyugue').setValue(val.dni);
+											                                
+											                            },
+											                            afterrender:function(obj){
+											                            	
+											                            }
+											                        }
+											                    }
+															]
+														}
 													]
 												}		
 											]
@@ -2074,6 +2317,7 @@
 						         	border:false,
 						         	items:[
 						         		{
+						         			id:creditos.id+'-panel-direccion',
 						         			layout:'border',
 						         			region:'west',
 						         			title:'DIRECCIÓN',
@@ -2602,7 +2846,7 @@
 															layout:'border',
 															region:'north',
 															bodyStyle: 'background: transparent',
-															height:220,
+															height:310,
 															border:false,
 															items:[
 																{
@@ -2614,14 +2858,29 @@
 																	border:true,
 																	items:[
 																		{
+																	        xtype: 'datefield',
+																	        id:creditos.id+'-sol-date-fecha-solicitud',
+																	        padding:'5px 5px 5px 5px',
+																	        //name: 'date1',
+																	        labelAlign:'top',
+																	        format:'Y-m-d',
+																	        //flex:1,
+																	        width:87,
+												                            //height:40,
+																	        //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            //fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+																	        fieldLabel: 'Solicitado',
+																	        value:'22/01/2019'
+																	    },
+																		{
 								                                            xtype:'combo',
 								                                            fieldLabel: 'Agencia',
 								                                            id:creditos.id+'-sol-cmb-agencia',
 								                                            store: store_agencias,
 								                                            queryMode: 'local',
 								                                            triggerAction: 'all',
-								                                            valueField: 'cod_ubi',
-								                                            displayField: 'Distrito',
+								                                            valueField: 'cod_age',
+								                                            displayField: 'nombre',
 								                                            emptyText: '[Seleccione]',
 								                                            labelAlign:'right',
 								                                            //allowBlank: false,
@@ -2640,41 +2899,20 @@
 								                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
 								                                                },
 								                                                select:function(obj, records, eOpts){
-								                                        
+								                                        			var obja = Ext.getCmp(creditos.id+'-sol-cmb-asesor');
+					                            									creditos.getReload(obja,{vp_cod_age:obj.getValue()});
 								                                                }
 								                                            }
 								                                        },
-								                                        {
-												                            xtype: 'textfield',
-												                            id:creditos.id+'-sol-txt-id-asesor',
-												                            hidden:true,
-												                            fieldLabel: 'Asesor',
-												                            bodyStyle: 'background: transparent',
-														                    padding:'5px 10px 5px 5px',
-												                            //id:creditos.id+'-txt-dni',
-												                            //labelWidth:50,
-												                            //readOnly:true,
-												                            labelAlign:'top',
-												                            width:50,
-												                            value:0,
-												                            //anchor:'100%',
-												                            listeners:{
-												                                afterrender:function(obj, e){
-												                                },
-												                                change: function(field, newValue, oldValue){
-														                            field.setValue(newValue.toUpperCase());
-														                        }
-												                            }
-												                        },
 												                        {
 								                                            xtype:'combo',
 								                                            fieldLabel: 'Asesor',
 								                                            id:creditos.id+'-sol-cmb-asesor',
-								                                            store: creditos.store_ubigeo3,
+								                                            store: store_asesores,
 								                                            queryMode: 'local',
 								                                            triggerAction: 'all',
-								                                            valueField: 'cod_ubi',
-								                                            displayField: 'Distrito',
+								                                            valueField: 'id_asesor',
+								                                            displayField: 'nombre',
 								                                            emptyText: '[Seleccione]',
 								                                            labelAlign:'right',
 								                                            //allowBlank: false,
@@ -2701,11 +2939,11 @@
 								                                            xtype:'combo',
 								                                            fieldLabel: 'Motivo',
 								                                            id:creditos.id+'-sol-cmb-motivo',
-								                                            store: creditos.store_ubigeo3,
+								                                            store: store_motivos,
 								                                            queryMode: 'local',
 								                                            triggerAction: 'all',
-								                                            valueField: 'cod_ubi',
-								                                            displayField: 'Distrito',
+								                                            valueField: 'id_mot',
+								                                            displayField: 'nombre',
 								                                            emptyText: '[Seleccione]',
 								                                            labelAlign:'right',
 								                                            //allowBlank: false,
@@ -2782,17 +3020,18 @@
 																                            fieldLabel: 'N° Solicitud',
 																                            id:creditos.id+'-sol-txt-nro-solicitud',
 																                            bodyStyle: 'background: transparent',
-																		                    padding:'15px 5px 5px 25px',
+																		                    padding:'15px 5px 5px 10px',
 																                            //id:creditos.id+'-txt-dni',
 																                            labelWidth:50,
 																                            //readOnly:true,
 																                            labelAlign:'top',
+																                            maskRe: new RegExp("[0-9]+"),
 																                            //width:70,
 																                            columnWidth: 0.2,
 																                            //flex:1,
 																                            //height:60,
 																                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
 																                            value:'0',
 																                            //anchor:'100%',
 																                            listeners:{
@@ -2848,7 +3087,7 @@
 																                            columnWidth: 0.2,
 																                            //height:60,
 																                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
 																                            value:'1444.40',
 																                            maskRe: new RegExp("[0-9.]+"),
 																                            //anchor:'100%',
@@ -2863,7 +3102,15 @@
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'15px 5px 5px 25px',
 																                            id:creditos.id+'-sol-txt-tipo-cliente',
-																                            store: store_moneda,
+																                            store: Ext.create('Ext.data.ArrayStore', {
+																						        storeId: 'estado',
+																						        autoLoad: true,
+																						        data: [
+																									['F','Frecuente'],
+																								    ['N','Nuevo']
+																								],
+																						        fields: ['code', 'name']
+																						    }),
 																                            queryMode: 'local',
 																                            triggerAction: 'all',
 																                            valueField: 'code',
@@ -2883,7 +3130,7 @@
 																                            listeners:{
 																                                afterrender:function(obj, e){
 																                                    // obj.getStore().load();
-																                                    //obj.setValue('SOL');
+																                                    obj.setValue('N');
 																                                },
 																                                select:function(obj, records, eOpts){
 																                        
@@ -2896,7 +3143,15 @@
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'15px 5px 5px 25px',
 																                            id:creditos.id+'-sol-cmb-excepcion',
-																                            store: store_moneda,
+																                            store: Ext.create('Ext.data.ArrayStore', {
+																						        storeId: 'estado',
+																						        autoLoad: true,
+																						        data: [
+																									['Y','SI'],
+																								    ['N','NO']
+																								],
+																						        fields: ['code', 'name']
+																						    }),
 																                            queryMode: 'local',
 																                            triggerAction: 'all',
 																                            valueField: 'code',
@@ -2916,7 +3171,7 @@
 																                            listeners:{
 																                                afterrender:function(obj, e){
 																                                    // obj.getStore().load();
-																                                    //obj.setValue('SOL');
+																                                    obj.setValue('N');
 																                                },
 																                                select:function(obj, records, eOpts){
 																                        
@@ -2948,20 +3203,89 @@
 																                        {
 																                            xtype: 'textfield',
 																                            id:creditos.id+'-sol-txt-import-aprobado',
-																                            fieldLabel: 'Imp. Aprobado',
+																                            fieldLabel: 'M.Aprobado',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 10px 5px 10px',
 																                            //id:creditos.id+'-txt-dni',
 																                            labelWidth:50,
 																                            //readOnly:true,
 																                            labelAlign:'top',
-																                            columnWidth: 0.3,
+																                            columnWidth: 0.15,
 																                            //width:'100%',
 																                            //flex:1,
 																                            maskRe: new RegExp("[0-9.]+"),
 																                            //height:40,
-																                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+																                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
+																                            value:'0',
+																                            //anchor:'100%',
+																                            listeners:{
+																                                afterrender:function(obj, e){
+																                                }
+																                            }
+																                        },
+																                        {
+																                            xtype: 'textfield', 
+																                            id:creditos.id+'-sol-txt-numero-cuotas', 
+																                            fieldLabel: 'Cuotas',
+																                            bodyStyle: 'background: transparent',
+																		                    padding:'5px 10px 5px 5px',
+																                            //id:creditos.id+'-txt-dni',
+																                            labelWidth:50,
+																                            //readOnly:true,
+																                            labelAlign:'top',
+																                            //width:'100%',
+																                            columnWidth: 0.1,
+																                            maskRe: new RegExp("[0-9]+"),
+																                            height:40,
+																                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
+																                            value:'0',
+																                            //anchor:'100%',
+																                            listeners:{
+																                                afterrender:function(obj, e){
+																                                }
+																                            }
+																                        },
+																                        {
+																                            xtype: 'textfield', 
+																                            id:creditos.id+'-sol-txt-interes', 
+																                            fieldLabel: 'Interes',
+																                            bodyStyle: 'background: transparent',
+																		                    padding:'5px 10px 5px 5px',
+																                            //id:creditos.id+'-txt-dni',
+																                            labelWidth:50,
+																                            //readOnly:true,
+																                            labelAlign:'top',
+																                            //width:'100%',
+																                            columnWidth: 0.1,
+																                            maskRe: new RegExp("[0-9.]+"),
+																                            height:40,
+																                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
+																                            value:'0',
+																                            //anchor:'100%',
+																                            listeners:{
+																                                afterrender:function(obj, e){
+																                                }
+																                            }
+																                        },
+																                        {
+																                            xtype: 'textfield', 
+																                            id:creditos.id+'-sol-txt-mora', 
+																                            fieldLabel: 'Mora',
+																                            bodyStyle: 'background: transparent',
+																		                    padding:'5px 10px 5px 5px',
+																                            //id:creditos.id+'-txt-dni',
+																                            labelWidth:50,
+																                            //readOnly:true,
+																                            labelAlign:'top',
+																                            //width:'100%',
+																                            columnWidth: 0.1,
+																                            maskRe: new RegExp("[0-9.]+"),
+																                            height:40,
+																                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
 																                            value:'0',
 																                            //anchor:'100%',
 																                            listeners:{
@@ -2975,44 +3299,22 @@
 																					        padding:'5px 5px 5px 5px',
 																					        //name: 'date1',
 																					        labelAlign:'top',
+																					        format:'Y-m-d',
 																					        //flex:1,
-																					        columnWidth: 0.3,
+																					        columnWidth: 0.15,
 																                            height:40,
-																					        labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+																					        //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+																                            //fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
 																					        fieldLabel: '1° Letra',
 																					        value:'22/01/2019'
 																					    },
-																                        {
-																                            xtype: 'textfield', 
-																                            id:creditos.id+'-sol-txt-numero-cuotas', 
-																                            fieldLabel: 'Cuotas',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'5px 10px 5px 5px',
-																                            //id:creditos.id+'-txt-dni',
-																                            labelWidth:50,
-																                            //readOnly:true,
-																                            labelAlign:'top',
-																                            //width:'100%',
-																                            columnWidth: 0.2,
-																                            maskRe: new RegExp("[0-9]+"),
-																                            height:40,
-																                            labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
-																                            value:'0',
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                }
-																                            }
-																                        },
 																                        {
 																		                    xtype: 'button',
 																		                    margin:'2px 2px 2px 2px',
 																		                    icon: '/images/icon/1315404769_gear_wheel.png',
 																		                    //glyph: 72,
 																		                    columnWidth: 0.1,
-																		                    text: 'Generar',
+																		                    text: 'Guardar',
 																		                    scale: 'medium',
 																		                    iconAlign: 'top',
 																		                    listeners:{
@@ -3048,12 +3350,81 @@
 																	                                });*/
 																	                            },
 																	                            click: function(obj, e){	  
-																	                            	creditos.setSaveSolicitud('I');
+																	                            	creditos.setSaveSolicitud('A');
+																	                            }
+																	                        }
+																		                },
+																		                {
+																		                    xtype: 'button',
+																		                    margin:'2px 2px 2px 2px',
+																		                    icon: '/images/icon/Document.png',
+																		                    //glyph: 72,
+																		                    columnWidth: 0.1,
+																		                    text: 'Nuevo',
+																		                    scale: 'medium',
+																		                    iconAlign: 'top',
+																		                    listeners:{
+																	                            beforerender: function(obj, opts){
+																	                                /*global.permisos({
+																	                                    id: 15,
+																	                                    id_btn: obj.getId(), 
+																	                                    id_menu: gestion_devolucion.id_menu,
+																	                                    fn: ['panel_asignar_gestion.limpiar']
+																	                                });*/
+																	                            },
+																	                            click: function(obj, e){	  
+																	                            	creditos.setSaveSolicitud('N');
+																	                            }
+																	                        }
+																		                },
+																		                {
+																		                    xtype: 'button',
+																		                    margin:'2px 2px 2px 2px',
+																		                    icon: '/images/icon/remove.png',
+																		                    //glyph: 72,
+																		                    columnWidth: 0.1,
+																		                    text: 'Anular',
+																		                    scale: 'medium',
+																		                    iconAlign: 'top',
+																		                    listeners:{
+																	                            beforerender: function(obj, opts){
+																	                                /*global.permisos({
+																	                                    id: 15,
+																	                                    id_btn: obj.getId(), 
+																	                                    id_menu: gestion_devolucion.id_menu,
+																	                                    fn: ['panel_asignar_gestion.limpiar']
+																	                                });*/
+																	                            },
+																	                            click: function(obj, e){	  
+																	                            	creditos.setSaveSolicitud('D');
 																	                            }
 																	                        }
 																		                }
 																                    ]
-																                }
+																                },
+																                {
+																					layout:'column',
+																					xtype: 'fieldset',
+																					title: 'Nota',
+																					bodyStyle: 'background: transparent',
+																					//region:'north',
+																					//height:100,
+																					//flex:1,
+																					border:true,
+																					padding:'5px 5px 5px 5px',
+																					margin:'5px 5px 5px 5px',
+																					items:[
+																						{
+																					        xtype: 'textareafield',
+																					        id: creditos.id + '-txt-nota',
+																					        columnWidth: 1,
+																					        //name: 'textarea1',
+																					        //iconAlign: 'top',
+																					        //fieldLabel: 'Nota',
+																					        value: ''
+																					    }
+																					]
+																				}
 																			]
 																		}
 																	]
@@ -3291,6 +3662,7 @@
 	                        /*var obj = Ext.getCmp(creditos.id+'-sol-txt-centro-trabajo');
 							creditos.getReload(obj,{vp_op:'N',vp_id:0,vp_nombre:''});
 							creditos.getSelectUbi();*/
+							creditos.setCollapse();
 	                    },
 	                    beforeclose:function(obj,opts){
 	                    	global.state_item_menu(creditos.id_menu, false);
@@ -3298,6 +3670,17 @@
 					}
 
 				}).show();
+				Ext.EventManager.onWindowResize(function(){
+					creditos.setCollapse();
+				});
+			},
+			setCollapse:function(){
+				var W = Ext.getCmp(inicio.id + '-contenedor').getWidth();
+				if(W<1680){
+					Ext.getCmp(creditos.id+'-panel-direccion').collapse();
+				}else{
+					Ext.getCmp(creditos.id+'-panel-direccion').expand();
+				}
 			},
 			getSelectUbi:function(){
 				var obj=Ext.getCmp(creditos.id+'-sol-cmb-departamento');
@@ -3311,54 +3694,61 @@
 				creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},objd,'100601');
 			},
 			setSaveSolicitud:function(op){
-				var vp_id_solicitud = Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').getValue();
-				var vp_sol_id_cli = Ext.getCmp(creditos.id+'-sol-txt-id-cli').getValue();
+				/*DATOS DE SOLICITUD*/
+				var vp_fecha_solicitud 	= Ext.getCmp(creditos.id+'-sol-date-fecha-solicitud').getRawValue();
+				var vp_id_agencia 		= Ext.getCmp(creditos.id+'-sol-cmb-agencia').getValue();
 				var vp_sol_id_per = Ext.getCmp(creditos.id+'-sol-txt-id-per').getValue();
-				var vp_id_asesor = Ext.getCmp(creditos.id+'-sol-txt-id-per').getValue(); 
+				var vp_id_asesor 		= Ext.getCmp(creditos.id+'-sol-cmb-asesor').getValue();
+				var vp_id_mot 			= Ext.getCmp(creditos.id+'-sol-cmb-motivo').getValue();
+				var vp_id_solicitud 	= Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').getValue();
+				var vp_nro_solicitud 	= Ext.getCmp(creditos.id+'-sol-txt-nro-solicitud').getValue();
+				var vp_moneda 			= Ext.getCmp(creditos.id+'-sol-cmb-moneda').getValue();
+				var vp_monto 			= Ext.getCmp(creditos.id+'-sol-txt-monto').getValue();
+				var vp_tipo_cliente 	= Ext.getCmp(creditos.id+'-sol-txt-tipo-cliente').getValue();
+				var vp_excepcion 		= Ext.getCmp(creditos.id+'-sol-cmb-excepcion').getValue();
+				var vp_import_aprobado 	= Ext.getCmp(creditos.id+'-sol-txt-import-aprobado').getValue();
+				var vp_nro_cuotas 		= Ext.getCmp(creditos.id+'-sol-txt-numero-cuotas').getValue();
 
-				var nro_sol = Ext.getCmp(creditos.id+'-sol-txt-nro-solicitud').getValue();
-				var moneda = Ext.getCmp(creditos.id+'-sol-cmb-moneda').getValue();
-				var monto = Ext.getCmp(creditos.id+'-sol-txt-monto').getValue();
-				var tipo_cliente = Ext.getCmp(creditos.id+'-sol-txt-tipo-cliente').getValue();
-				var excepcion = Ext.getCmp(creditos.id+'-sol-chk-excepcion-si').getValue();
-				excepcion = excepcion?'S':'N';
-				//var sol_ape_pat = Ext.getCmp(creditos.id+'-sol-chk-excepcion-no').getValue();
+				var vp_interes  		= Ext.getCmp(creditos.id+'-sol-txt-interes').getValue();
+				var vp_mora  	 		= Ext.getCmp(creditos.id+'-sol-txt-mora').getValue();
 
-				var import_aprobado = Ext.getCmp(creditos.id+'-sol-txt-import-aprobado').getValue();
-				var fecha_1ra_letra = Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').getValue();
-				var nro_cuotas = Ext.getCmp(creditos.id+'-sol-txt-numero-cuotas').getValue();
 
-				if(moneda==''){
+				var vp_fecha_1ra_letra 	= Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').getRawValue();
+				var vp_nota 			= Ext.getCmp(creditos.id + '-txt-nota').getValue();
+
+				if(vp_moneda==''){
 					global.Msg({msg:"Seleccione la Moneda.",icon:2,fn:function(){}});
 					return false;
 				}
 
-				if(monto==''){
+				if(vp_monto==''){
 					global.Msg({msg:"Ingrese el Monto Solicitado.",icon:2,fn:function(){}});
 					return false;
 				}
 
-				if(tipo_cliente==''){
+				if(vp_tipo_cliente==''){
 					global.Msg({msg:"Seleccione el tipo de cliente.",icon:2,fn:function(){}});
 					return false;
 				}
 
-				if(import_aprobado==''){
+				if(vp_import_aprobado==''){
 					global.Msg({msg:"Ingrese Importe Aprobado.",icon:2,fn:function(){}});
 					return false;
 				}
 
-				if(fecha_1ra_letra==''){
+				if(vp_fecha_1ra_letra==''){
 					global.Msg({msg:"Ingrese Fecha 1ra Letra.",icon:2,fn:function(){}});
 					return false;
 				}
 
-				if(nro_cuotas==''){
+				if(vp_nro_cuotas==''){
 					global.Msg({msg:"Ingrese El número de Cuotas.",icon:2,fn:function(){}});
 					return false;
 				}
 
-				var msn=op=='G'?'¿Seguro de quitar relación?':'¿Seguro de Relacionar creditos?';
+				op=(vp_id_solicitud=='' || vp_id_solicitud==0)?'I':'U';
+
+				var msn=op=='I'?'¿Seguro de generar el crédito?':'¿Seguro de actualizar el crédito?';
 				global.Msg({
                     msg: msn,
                     icon: 3,
@@ -3370,19 +3760,25 @@
 			                Ext.Ajax.request({
 			                    url:creditos.url+'setSavecreditos/',
 			                    params:{
-			                    	vp_op:op,
-			                    	vp_id_credito:vp_id_solicitud,
-									vp_sol_id_per:vp_sol_id_per,
-									vp_id_asesor:vp_id_asesor,
-									vp_nro_sol:nro_sol,
-									vp_moneda:moneda,
-									vp_monto:monto,
-									vp_tipo_cliente:tipo_cliente,
-									vp_excepcion:excepcion,
-									vp_import_aprobado:import_aprobado,
-									vp_fecha_1ra_letra:fecha_1ra_letra,
-									vp_nro_cuotas:nro_cuotas,
-									vp_flag:'A'
+			                    	vp_op 				:op,
+			                    	vp_fecha_solicitud	:vp_fecha_solicitud,
+									vp_id_agencia		:vp_id_agencia,
+									vp_sol_id_per		:vp_sol_id_per,
+									vp_id_asesor		:vp_id_asesor,
+									vp_id_mot			:vp_id_mot,
+									vp_id_solicitud		:vp_id_solicitud,
+									vp_nro_solicitud	:vp_nro_solicitud,
+									vp_moneda			:vp_moneda,
+									vp_monto 			:vp_monto,
+									vp_tipo_cliente		:vp_tipo_cliente,
+									vp_excepcion		:vp_excepcion,
+									vp_import_aprobado	:vp_import_aprobado,
+									vp_nro_cuotas		:vp_nro_cuotas,
+									vp_interes			:vp_interes,
+									vp_mora 			:vp_mora,
+									vp_fecha_1ra_letra	:vp_fecha_1ra_letra,
+									vp_resena 			:vp_nota,
+									vp_flag 			:'A'
 			                    },
 			                    timeout: 30000000,
 			                    success: function(response, options){
@@ -3395,9 +3791,9 @@
 			                                icon: 1,
 			                                buttons: 1,
 			                                fn: function(btn){
-			                                	Ext.getCmp(creditos.id+'-select-garante').setValue('');
-			                                	var objp = Ext.getCmp(creditos.id+'-list-garante');
-												creditos.getReload(objp,{vp_op:'G',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+			                                	//Ext.getCmp(creditos.id+'-select-garante').setValue('');
+			                                	//var objp = Ext.getCmp(creditos.id+'-list-garante');
+												//creditos.getReload(objp,{vp_op:'G',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 			                                }
 			                            });
 			                        }else{
