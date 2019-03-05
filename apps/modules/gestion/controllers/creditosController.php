@@ -21,7 +21,51 @@ class creditosController extends AppController {
     public function index($p){        
         $this->view('creditos/form_index.php', $p);
     }
+    public function get_list_client_creditos($p){
+        $rs = $this->objDatos->SP_CREDITOS_CLIENTE_LIST($p);
+        //var_export($rs);
+        $array = array();
+        $lote = 0;
+        foreach ($rs as $index => $value){
+            $value_['id_creditos'] = intval($value['id_creditos']);
+            $value_['nro_solicitud'] = trim($value['nro_solicitud']);
+            $value_['id_age'] = trim($value['id_age']);
+            //substr(trim($value['fec_ingreso']),0,10)
+            $value_['id_per'] = trim($value['id_per']);
+            $value_['id_garante'] = trim($value['id_garante']);
+            $value_['id_asesor'] =trim($value['id_asesor']);
+            $value_['moneda'] = trim($value['moneda']);
+            $value_['monto_solicitado'] = trim($value['monto_solicitado']);
+            $value_['tipo_cliente'] = trim($value['tipo_cliente']);
+            $value_['excepcion'] = trim($value['excepcion']);
+            $value_['nro_cuotas'] = trim($value['nro_cuotas']);
+            $value_['interes'] = trim($value['interes']);
+            $value_['mora'] = trim($value['mora']);
+            $value_['fecha_1ra_letra'] = trim($value['fecha_1ra_letra']);
+            $value_['monto_aprobado'] = trim($value['monto_aprobado']);
+            $value_['tot_pagado'] = trim($value['tot_pagado']);
+            $value_['tot_interes'] = trim($value['tot_interes']);
+            $value_['tot_mora'] = trim($value['tot_mora']);
+            $value_['tot_saldo'] = trim($value['tot_saldo']);
+            $value_['id_motivo'] = trim($value['id_motivo']);
+            $value_['estado'] = trim($value['estado']);
+            $value_['fecha_sol'] = trim($value['fecha_sol']);
+            $value_['nota'] = utf8_encode(trim($value['nota']));
+            $value_['fecha_mod'] = trim($value['fecha_mod']);
+            $value_['enviado'] = trim($value['enviado']);
+            $value_['flag'] = trim($value['flag']);
+            $array[]=$value_;
+        }
 
+        $data = array(
+            'success' => true,
+            'error'=>0,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
     public function get_list_telefonos($p){
         $rs = $this->objDatos->SP_TELEFONOS_LIST($p);
         //var_export($rs);

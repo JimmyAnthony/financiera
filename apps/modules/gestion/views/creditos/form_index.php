@@ -16,21 +16,38 @@
 				var store_creditos = Ext.create('Ext.data.Store',{
 	                fields: [
 	                    {name: 'id_creditos', type: 'string'},
-	                    {name: 'usr_codigo', type: 'string'},
-	                    {name: 'usr_tipo', type: 'string'},
-	                    {name: 'usr_nombre', type: 'string'},                    
-	                    {name: 'per_id', type: 'string'},
-	                    {name: 'id_contacto', type: 'string'},
-	                    {name: 'usr_perfil', type: 'string'},
-	                    {name: 'usr_estado', type: 'string'},
-	                    {name: 'id_usuario', type: 'string'},
-	                    {name: 'fecact', type: 'string'},
-	                    {name: 'hora', type: 'string'}
+	                    {name: 'nro_solicitud', type: 'string'},
+	                    {name: 'id_age', type: 'string'},
+	                    {name: 'id_per', type: 'string'},                    
+	                    {name: 'id_garante', type: 'string'},
+	                    {name: 'id_asesor', type: 'string'},
+	                    {name: 'moneda', type: 'string'},
+	                    {name: 'monto_solicitado', type: 'string'},
+	                    {name: 'tipo_cliente', type: 'string'},
+	                    {name: 'excepcion', type: 'string'},
+	                    {name: 'nro_cuotas', type: 'string'},
+
+	                    {name: 'interes', type: 'string'},
+	                    {name: 'mora', type: 'string'},
+	                    {name: 'fecha_1ra_letra', type: 'string'},
+	                    {name: 'monto_aprobado', type: 'string'},
+	                    {name: 'tot_pagado', type: 'string'},
+	                    {name: 'tot_interes', type: 'string'},
+	                    {name: 'tot_mora', type: 'string'},
+	                    {name: 'tot_saldo', type: 'string'},
+	                    {name: 'id_motivo', type: 'string'},
+	                    {name: 'estado', type: 'string'},
+	                    {name: 'fecha_sol', type: 'string'},
+	                    {name: 'nota', type: 'string'},
+
+	                    {name: 'fecha_mod', type: 'string'},
+	                    {name: 'enviado', type: 'string'},
+	                    {name: 'flag', type: 'string'}
 	                ],
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: creditos.url+'get_list_creditos/',
+	                    url: creditos.url+'get_list_client_creditos/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -603,13 +620,13 @@
 		            '<tpl for=".">',
 		                '<div class="list_grid_sol__list_menu_select" >',
 		                    '<div class="list_grid_sol__list_menu" >',
-		                        '<div class="list_grid_sol__menu_line" style="width:100px;">',
+		                        '<div class="list_grid_sol__menu_line" style="width:80px;">',
 		                            '<div class="list_grid_sol__menu_bar">',
 		                                '<div class="list_grid_sol__menu_title_A">',
 		                                '<span>N°Solicitud:</span>',
 		                                '</div>',
 		                                '<div class="list_grid_sol__menu_title" style="text-align:left;">',
-		                                    '<span>{doc_dni}</span>',
+		                                    '<span>{nro_solicitud}</span>',
 		                                '</div>',
 		                            '</div>',
 		                        '</div>',
@@ -619,7 +636,7 @@
 		                                '<span>Monto:</span>',
 		                                '</div>',
 		                                '<div class="list_grid_sol__menu_title" style="text-align:right;">',
-		                                    '<span>{doc_dni}</span>',
+		                                    '<span>{monto_aprobado}</span>',
 		                                '</div>',
 		                            '</div>',
 		                        '</div>',
@@ -1038,6 +1055,7 @@
 														{
 															region:'center',
 															border:false,
+															autoScroll: true,
 															items:[
 																{
 											                        xtype: 'dataview',
@@ -1045,7 +1063,7 @@
 											                        bodyStyle: 'background: transparent',
 											                        bodyCls: 'transparent',
 											                        layout:'fit',
-											                        store: store_conyugue,
+											                        store: store_creditos,
 											                        autoScroll: true,
 											                        loadMask:true,
 											                        autoHeight: false,
@@ -1076,6 +1094,7 @@
 											                                var record = this.getStore().getAt(idx);
 											                                var val =record.data;
 																			//Ext.getCmp(creditos.id+'-select-conyugue').setValue(val.dni);
+																			creditos.setDataSolicitud(val);
 											                                
 											                            },
 											                            afterrender:function(obj){
@@ -3674,6 +3693,31 @@
 					creditos.setCollapse();
 				});
 			},
+			setDataSolicitud:function(data){
+				Ext.getCmp(creditos.id+'-sol-date-fecha-solicitud').setValue(data.fecha_sol);
+				Ext.getCmp(creditos.id+'-sol-cmb-agencia').setValue(data.id_age);
+				
+				var obja = Ext.getCmp(creditos.id+'-sol-cmb-asesor');
+				creditos.getReload(obja,{vp_cod_age:data.id_age});
+
+				Ext.getCmp(creditos.id+'-sol-txt-id-per').setValue(data.id_per);
+				Ext.getCmp(creditos.id+'-sol-cmb-asesor').setValue(data.id_asesor);
+
+
+				Ext.getCmp(creditos.id+'-sol-cmb-motivo').setValue(data.id_motivo);
+				Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').setValue(data.id_creditos);
+				Ext.getCmp(creditos.id+'-sol-txt-nro-solicitud').setValue(data.nro_solicitud);
+				Ext.getCmp(creditos.id+'-sol-cmb-moneda').setValue(data.moneda);
+				Ext.getCmp(creditos.id+'-sol-txt-monto').setValue(data.monto_solicitado);
+				Ext.getCmp(creditos.id+'-sol-txt-tipo-cliente').setValue(data.tipo_cliente);
+				Ext.getCmp(creditos.id+'-sol-cmb-excepcion').setValue(data.excepcion);
+				Ext.getCmp(creditos.id+'-sol-txt-import-aprobado').setValue(data.monto_aprobado);
+				Ext.getCmp(creditos.id+'-sol-txt-numero-cuotas').setValue(data.nro_cuotas);
+				Ext.getCmp(creditos.id+'-sol-txt-interes').setValue(data.interes);
+				Ext.getCmp(creditos.id+'-sol-txt-mora').setValue(data.mora);
+				Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').setValue(data.fecha_1ra_letra);
+				Ext.getCmp(creditos.id + '-txt-nota').setValue(data.nota);
+			},
 			setCollapse:function(){
 				var W = Ext.getCmp(inicio.id + '-contenedor').getWidth();
 				if(W<1680){
@@ -4200,6 +4244,9 @@
 
 						var objg = Ext.getCmp(creditos.id+'-list-garante');
 						creditos.getReload(objg,{vp_op:'G',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+
+						var objv = Ext.getCmp(creditos.id+'-list-solicitudes');
+						creditos.getReload(objv,{VP_T_DOC:'P',VP_ID_PER:data.id_per,VP_DOC:''});
                     }
                 });
 			},
