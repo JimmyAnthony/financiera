@@ -66,6 +66,45 @@ class creditosController extends AppController {
         header('Content-Type: application/json');
         return $this->response($data);
     }
+
+    public function get_list_creditos_detalle($p){
+        $rs = $this->objDatos->SP_CREDITOS_DETALLE_LIST($p);
+        //var_export($rs);
+        $array = array();
+        $lote = 0;
+        foreach ($rs as $index => $value){
+            $value_['id_det_credito'] = intval($value['id_det_credito']);
+            $value_['id_credito'] = intval($value['id_credito']);
+            $value_['nro_cuota'] = trim($value['nro_cuota']);
+            $value_['fecha_cuota'] = trim($value['fecha_cuota']);
+            //substr(trim($value['fec_ingreso']),0,10)
+            $value_['DIA'] = trim($value['DIA']);
+            $value_['MES'] = trim($value['MES']);
+            $value_['ANO'] =trim($value['ANO']);
+            $value_['valor_cuota'] = trim($value['valor_cuota']);
+            $value_['pagado'] = trim($value['pagado']);
+            $value_['fecha_pago'] = trim($value['fecha_pago']);
+            $value_['PDIA'] = trim($value['PDIA']);
+            $value_['PMES'] = trim($value['PMES']);
+            $value_['PANO'] = trim($value['PANO']);
+            $value_['mora'] = trim($value['mora']);
+            $value_['dias'] = trim($value['dias']);
+            $value_['saldo_cuota'] = trim($value['saldo_cuota']);
+            $value_['vence'] = trim($value['vence']);
+            $value_['estado'] = trim($value['estado']);
+            $value_['flag'] = trim($value['flag']);
+            $array[]=$value_;
+        }
+
+        $data = array(
+            'success' => true,
+            'error'=>0,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
     public function get_list_telefonos($p){
         $rs = $this->objDatos->SP_TELEFONOS_LIST($p);
         //var_export($rs);

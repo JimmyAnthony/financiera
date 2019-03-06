@@ -28,8 +28,9 @@
     <script type="text/javascript" src="/js/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/jquery.bpopup.min.js"></script>
     <script type="text/javascript" src="/js/fusioncharts/js/fusioncharts.js"></script>
-    <script type="text/javascript" src="/js/fusioncharts/js/fusioncharts.charts.js"></script>
-    <script type="text/javascript" src="/js/fusioncharts/js/themes/fusioncharts.theme.fint.js"></script>
+    <!--<script type="text/javascript" src="/js/fusioncharts/js/fusioncharts.charts.js"></script>
+    <script type="text/javascript" src="/js/fusioncharts/js/themes/fusioncharts.theme.fint.js"></script>-->
+    <script type="text/javascript" src="/js/fusioncharts/js/themes/fusioncharts.theme.fusion.js"></script>
 
     <script type="text/javascript" src="/js/d3.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>

@@ -51,6 +51,16 @@ class creditosModels extends Adodb {
         return $array;
     }
     
+    public function SP_CREDITOS_DETALLE_LIST($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_CREDITOS_DETALLE_LIST');
+        parent::SetParameterSP($p['VP_CODIGO'], 'int');//19 
+        parent::SetParameterSP(USR_ID, 'int');//19
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+
     public function SP_CREDITOS_CLIENTE_LIST($p){
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_CREDITOS_CLIENTE_LIST');

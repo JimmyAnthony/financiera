@@ -60,6 +60,45 @@
 	                }
 	            });
 
+	            var store_creditos_detalle = Ext.create('Ext.data.Store',{
+	                fields: [
+	                    {name: 'id_det_credito', type: 'string'},
+	                    {name: 'id_credito', type: 'string'},
+	                    {name: 'nro_cuota', type: 'string'},
+	                    {name: 'fecha_cuota', type: 'string'},                    
+	                    {name: 'DIA', type: 'string'},
+	                    {name: 'MES', type: 'string'},
+	                    {name: 'ANO', type: 'string'},
+	                    {name: 'valor_cuota', type: 'string'},
+	                    {name: 'pagado', type: 'string'},
+	                    {name: 'fecha_pago', type: 'string'},
+	                    {name: 'PDIA', type: 'string'},
+
+	                    {name: 'PMES', type: 'string'},
+	                    {name: 'PANO', type: 'string'},
+	                    {name: 'mora', type: 'string'},
+	                    {name: 'dias', type: 'string'},
+	                    {name: 'saldo_cuota', type: 'string'},
+	                    {name: 'vence', type: 'string'},
+	                    {name: 'estado', type: 'string'},
+	                    {name: 'flag', type: 'string'}
+	                ],
+	                autoLoad:false,
+	                proxy:{
+	                    type: 'ajax',
+	                    url: creditos.url+'get_list_creditos_detalle/',
+	                    reader:{
+	                        type: 'json',
+	                        rootProperty: 'data'
+	                    }
+	                },
+	                listeners:{
+	                    load: function(obj, records, successful, opts){
+	                        
+	                    }
+	                }
+	            });
+
 	            var myDataMoneda = [
 					['SOL','SOLES'],
 				    ['USD','DOLARES']
@@ -3483,7 +3522,7 @@
 																		{
 													                        xtype: 'grid',
 													                        id: creditos.id + '-grid-cuotas',
-													                        store: creditos.store_ubigeo, 
+													                        store: store_creditos_detalle, 
 													                        columnLines: true,
 													                        //layout:'fit',
 													                        columns:{
@@ -3505,13 +3544,13 @@
 															                                {
 															                                    text: 'DIA',
 															                                    align:'center',
-															                                    dataIndex: 'dia',
+															                                    dataIndex: 'DIA',
 															                                    width: 50
 															                                },
 															                                {
 															                                    text: 'MES',
 															                                    align:'center',
-															                                    dataIndex: 'descripcion',
+															                                    dataIndex: 'MES',
 															                                    width: 50
 															                                }
 													                                	]
@@ -3524,9 +3563,9 @@
 																						columns:[
 															                                {
 															                                    text: 'DIARIA',
-															                                    align:'center',
-															                                    dataIndex: 'direccion',
-															                                    width: 70
+															                                    align:'right',
+															                                    dataIndex: 'valor_cuota',
+															                                    width: 80
 															                                }
 															                            ]
 															                        },
@@ -3538,9 +3577,9 @@
 																						columns:[
 															                                {
 															                                    text: 'PAGADO',
-															                                    align:'center',
-															                                    dataIndex: 'direccion',
-															                                    width: 70
+															                                    align:'right',
+															                                    dataIndex: 'pagado',
+															                                    width: 80
 															                                }
 															                            ]
 															                        },
@@ -3553,13 +3592,13 @@
 															                                {
 															                                    text: 'DIA',
 															                                    align:'center',
-															                                    dataIndex: 'dia',
+															                                    dataIndex: 'PDIA',
 															                                    width: 50
 															                                },
 															                                {
 															                                    text: 'MES',
 															                                    align:'center',
-															                                    dataIndex: 'descripcion',
+															                                    dataIndex: 'PMES',
 															                                    width: 50
 															                                }
 													                                	]
@@ -3572,14 +3611,14 @@
 																						columns:[
 															                                {
 															                                    text: 'S/.',
-															                                    align:'center',
-															                                    dataIndex: 'dia',
+															                                    align:'right',
+															                                    dataIndex: 'mora',
 															                                    width: 60
 															                                },
 															                                {
 															                                    text: 'DIAS',
 															                                    align:'center',
-															                                    dataIndex: 'descripcion',
+															                                    dataIndex: 'dias',
 															                                    width: 50
 															                                }
 													                                	]
@@ -3592,9 +3631,9 @@
 																						columns:[
 															                                {
 															                                    text: 'PAGAR',
-															                                    align:'center',
-															                                    dataIndex: 'direccion',
-															                                    width: 60
+															                                    align:'right',
+															                                    dataIndex: 'saldo_cuota',
+															                                    width: 80
 															                                }
 															                            ]
 															                        },
@@ -3602,12 +3641,13 @@
 													                                    text: 'ST',
 													                                    dataIndex: 'estado',
 													                                    //loocked : true,
-													                                    width: 40,
+													                                    //width: 40,
+													                                    flex:1,
 													                                    align: 'center',
 													                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 													                                        //console.log(record);
 													                                        var estado = 'check-circle-green-16.png';
-													                                        if(record.get('estado')=='I'){
+													                                        if(record.get('estado')=='P'){
 													                                        	estado = 'check-circle-black-16.png';
 													                                        }
 													                                        metaData.style = "padding: 0px; margin: 0px";
@@ -3620,7 +3660,7 @@
 													                                            ]
 													                                        });
 													                                    }
-													                                },
+													                                }/*,
 													                                {
 													                                    text: 'EDT',
 													                                    dataIndex: 'estado',
@@ -3639,7 +3679,7 @@
 													                                            ]
 													                                        });
 													                                    }
-													                                }
+													                                }*/
 													                            ],
 													                            defaults:{
 													                                menuDisabled: true
@@ -3717,6 +3757,10 @@
 				Ext.getCmp(creditos.id+'-sol-txt-mora').setValue(data.mora);
 				Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').setValue(data.fecha_1ra_letra);
 				Ext.getCmp(creditos.id + '-txt-nota').setValue(data.nota);
+
+				
+				var objc = Ext.getCmp(creditos.id + '-grid-cuotas');
+				creditos.getReload(objc,{VP_CODIGO:data.id_creditos});
 			},
 			setCollapse:function(){
 				var W = Ext.getCmp(inicio.id + '-contenedor').getWidth();
