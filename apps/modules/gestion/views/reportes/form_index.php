@@ -2812,10 +2812,24 @@
 											]
 										},
 										{
+											layout:'border',
 											region:'south',
 											//width:'45%',
 											height:'40%',
-											html:'<div id="chart-container-avances"></div>'
+											items:[
+												{
+													region:'center',
+													//width:'45%',
+													width:'50%',
+													html:'<div id="chart-container-avances"></div>'
+												},
+												{
+													region:'east',
+													//width:'45%',
+													width:'50%',
+													html:'<div id="chart-container-avances-cantidades"></div>'
+												}
+											]
 										}
 									]
 								}
@@ -3261,80 +3275,141 @@
                 	//{"label":"Totales"}
                 ];
 
+                var VL_SOLICITADO_LU =0;
+                var VL_SOLICITADO_MA =0;
+                var VL_SOLICITADO_MI =0;
+                var VL_SOLICITADO_JU =0;
+                var VL_SOLICITADO_VI =0;
+                var VL_SOLICITADO_SA =0;
+                var VL_SOLICITADO_DO =0;
+
                 var VL_MONTOS_LU =0;
-                var VL_NO_MONTOS_LU =0;
-                var VL_CANT_LU =0;
-
                 var VL_MONTOS_MA =0;
-                var VL_NO_MONTOS_MA =0;
-                var VL_CANT_MA =0;
-
                 var VL_MONTOS_MI =0;
-                var VL_NO_MONTOS_MI =0;
-                var VL_CANT_MI =0;
-
                 var VL_MONTOS_JU =0;
-                var VL_NO_MONTOS_JU =0;
-                var VL_CANT_JU =0;
-
                 var VL_MONTOS_VI =0;
-                var VL_NO_MONTOS_VI =0;
-                var VL_CANT_VI =0;
-
                 var VL_MONTOS_SA =0;
-                var VL_NO_MONTOS_SA =0;
-                var VL_CANT_SA =0;
-
                 var VL_MONTOS_DO =0;
+
+                var VL_NO_MONTOS_LU =0;
+                var VL_NO_MONTOS_MA =0;
+                var VL_NO_MONTOS_MI =0;
+                var VL_NO_MONTOS_JU =0;
+                var VL_NO_MONTOS_VI =0;
+                var VL_NO_MONTOS_SA =0;
                 var VL_NO_MONTOS_DO =0;
-                var VL_CANT_DO =0;
+
+
+
+                var VL_CANT_LU =0;
+				var VL_CANT_MA =0;
+				var VL_CANT_MI =0;
+				var VL_CANT_JU =0;
+				var VL_CANT_VI =0;
+				var VL_CANT_SA =0;
+				var VL_CANT_DO =0;
+
+				var VL_CANT_COBRO_LU =0;
+				var VL_CANT_COBRO_MA =0;
+				var VL_CANT_COBRO_MI =0;
+				var VL_CANT_COBRO_JU =0;
+				var VL_CANT_COBRO_VI =0;
+				var VL_CANT_COBRO_SA =0;
+				var VL_CANT_COBRO_DO =0;
+
+				var VL_CANT_NO_COBRO_LU =0;
+				var VL_CANT_NO_COBRO_MA =0;
+				var VL_CANT_NO_COBRO_MI =0;
+				var VL_CANT_NO_COBRO_JU =0;
+				var VL_CANT_NO_COBRO_VI =0;
+				var VL_CANT_NO_COBRO_SA =0;
+				var VL_CANT_NO_COBRO_DO =0;
 
                 var VL_TOTAL_SOL =0;
                 var VL_TOTAL =0;
                 /**/
+                var SOLICITADO=[];
                 var MONTOS_LU =[];
                 var MONTOS_NO_LU =[];
                 var CANT_LU =[];
+                var CANT_COBRO_LU =[];
+                var CANT_NO_COBRO_LU =[];
 
                 var TOTAL_SOL =[];
                 var TOTAL =[];
 
 				Ext.getCmp(reportes.id + '-grid-avances').getStore().each(function(record, idx) {
 					
-					if(record.get('detalle')=='SOLICITADO' && record.get('Lunes')=='Lunes')VL_CANT_LU =VL_CANT_LU + parseInt(record.get('cant_lu'));
-	                if(record.get('detalle')=='CARTILLA COBRADA' && record.get('Lunes')=='Lunes')VL_MONTOS_LU =VL_MONTOS_LU + parseFloat(record.get('monto_lu'));
-	                if(record.get('detalle')=='CARTILLA NO COBRADA' && record.get('Lunes')=='Lunes')VL_NO_MONTOS_LU =VL_NO_MONTOS_LU + parseFloat(record.get('monto_lu'));
+					if(record.get('detalle')=='SOLICITADO'){
+						VL_SOLICITADO_LU =VL_SOLICITADO_LU + parseInt(record.get('monto_lu'));
+						VL_SOLICITADO_MA =VL_SOLICITADO_MA + parseInt(record.get('monto_ma'));
+						VL_SOLICITADO_MI =VL_SOLICITADO_MI + parseInt(record.get('monto_mi'));
+						VL_SOLICITADO_JU =VL_SOLICITADO_JU + parseInt(record.get('monto_ju'));
+						VL_SOLICITADO_VI =VL_SOLICITADO_VI + parseInt(record.get('monto_vi'));
+						VL_SOLICITADO_SA =VL_SOLICITADO_SA + parseInt(record.get('monto_sa'));
+						VL_SOLICITADO_DO =VL_SOLICITADO_DO + parseInt(record.get('monto_do'));
+						
+						VL_CANT_LU =VL_CANT_LU + parseInt(record.get('cant_lu'));
+						VL_CANT_MA =VL_CANT_MA + parseInt(record.get('cant_ma'));
+						VL_CANT_MI =VL_CANT_MI + parseInt(record.get('cant_mi'));
+						VL_CANT_JU =VL_CANT_JU + parseInt(record.get('cant_ju'));
+						VL_CANT_VI =VL_CANT_VI + parseInt(record.get('cant_vi'));
+						VL_CANT_SA =VL_CANT_SA + parseInt(record.get('cant_sa'));
+						VL_CANT_DO =VL_CANT_DO + parseInt(record.get('cant_do'));
+					}
+					
 
-	                if(record.get('detalle')=='SOLICITADO' && record.get('Martes')=='Martes')VL_CANT_MA =VL_CANT_MA + parseInt(record.get('cant_ma'));
-	                if(record.get('detalle')=='CARTILLA COBRADA' && record.get('Martes')=='Martes')VL_MONTOS_MA =VL_MONTOS_MA + parseFloat(record.get('monto_ma'));
-	                if(record.get('detalle')=='CARTILLA NO COBRADA' && record.get('Martes')=='Martes')VL_NO_MONTOS_MA =VL_NO_MONTOS_MA + parseFloat(record.get('monto_ma'));
+	                if(record.get('detalle')=='CARTILLA COBRADA'){
+	                	VL_MONTOS_LU =VL_MONTOS_LU + parseFloat(record.get('monto_lu'));
+	                	VL_MONTOS_MA =VL_MONTOS_MA + parseFloat(record.get('monto_ma'));
+	                	VL_MONTOS_MI =VL_MONTOS_MI + parseFloat(record.get('monto_mi'));
+	                	VL_MONTOS_JU =VL_MONTOS_JU + parseFloat(record.get('monto_ju'));
+	                	VL_MONTOS_VI =VL_MONTOS_VI + parseFloat(record.get('monto_vi'));
+	                	VL_MONTOS_SA =VL_MONTOS_SA + parseFloat(record.get('monto_sa'));
+	                	VL_MONTOS_DO =VL_MONTOS_DO + parseFloat(record.get('monto_do'));
 
-	                
-	                if(record.get('detalle')=='SOLICITADO' && record.get('Miercoles')=='Miercoles')VL_CANT_MI =VL_CANT_MI + parseInt(record.get('cant_mi'));
-	                if(record.get('detalle')=='CARTILLA COBRADA' && record.get('Miercoles')=='Miercoles')VL_MONTOS_MI =VL_MONTOS_MI + parseFloat(record.get('monto_mi'));
-	                if(record.get('detalle')=='CARTILLA NO COBRADA' && record.get('Miercoles')=='Miercoles')VL_NO_MONTOS_MI =VL_NO_MONTOS_MI + parseFloat(record.get('monto_mi'));
+	                	VL_CANT_COBRO_LU =VL_CANT_COBRO_LU + parseInt(record.get('cant_lu'));
+						VL_CANT_COBRO_MA =VL_CANT_COBRO_MA + parseInt(record.get('cant_ma'));
+						VL_CANT_COBRO_MI =VL_CANT_COBRO_MI + parseInt(record.get('cant_mi'));
+						VL_CANT_COBRO_JU =VL_CANT_COBRO_JU + parseInt(record.get('cant_ju'));
+						VL_CANT_COBRO_VI =VL_CANT_COBRO_VI + parseInt(record.get('cant_vi'));
+						VL_CANT_COBRO_SA =VL_CANT_COBRO_SA + parseInt(record.get('cant_sa'));
+						VL_CANT_COBRO_DO =VL_CANT_COBRO_DO + parseInt(record.get('cant_do'));
+	                }
 
-	                if(record.get('detalle')=='SOLICITADO' && record.get('Jueves')=='Jueves')VL_CANT_JU =VL_CANT_JU + parseInt(record.get('cant_ju'));
-	                if(record.get('detalle')=='CARTILLA COBRADA' && record.get('Jueves')=='Jueves')VL_MONTOS_JU =VL_MONTOS_JU + parseFloat(record.get('monto_ju'));
-	                if(record.get('detalle')=='CARTILLA NO COBRADA' && record.get('Jueves')=='Jueves')VL_NO_MONTOS_JU =VL_NO_MONTOS_JU + parseFloat(record.get('monto_ju'));
+	                if(record.get('detalle')=='CARTILLA NO COBRADA'){
+	                	VL_NO_MONTOS_LU =VL_NO_MONTOS_LU + parseFloat(record.get('monto_lu'));
+	                	VL_NO_MONTOS_MA =VL_NO_MONTOS_MA + parseFloat(record.get('monto_ma'));
+	                	VL_NO_MONTOS_MI =VL_NO_MONTOS_MI + parseFloat(record.get('monto_mi'));
+	                	VL_NO_MONTOS_JU =VL_NO_MONTOS_JU + parseFloat(record.get('monto_ju'));
+	                	VL_NO_MONTOS_VI =VL_NO_MONTOS_VI + parseFloat(record.get('monto_vi'));
+	                	VL_NO_MONTOS_SA =VL_NO_MONTOS_SA + parseFloat(record.get('monto_sa'));
+	                	VL_NO_MONTOS_DO =VL_NO_MONTOS_DO + parseFloat(record.get('monto_do'));
 
-	                if(record.get('detalle')=='SOLICITADO'  && record.get('Viernes')=='Viernes')VL_CANT_VI =VL_CANT_VI + parseInt(record.get('cant_vi'));
-	                if(record.get('detalle')=='CARTILLA COBRADA' && record.get('Viernes')=='Viernes')VL_MONTOS_VI =VL_MONTOS_VI + parseFloat(record.get('monto_vi'));
-	                if(record.get('detalle')=='CARTILLA NO COBRADA' && record.get('Viernes')=='Viernes')VL_NO_MONTOS_VI =VL_NO_MONTOS_VI + parseFloat(record.get('monto_vi'));
-
-	                if(record.get('detalle')=='SOLICITADO' && record.get('Sabado')=='Sabado')VL_CANT_SA =VL_CANT_SA + parseInt(record.get('cant_sa'));
-	                if(record.get('detalle')=='CARTILLA COBRADA' && record.get('Sabado')=='Sabado')VL_MONTOS_SA =VL_MONTOS_SA + parseFloat(record.get('monto_sa'));
-	                if(record.get('detalle')=='CARTILLA NO COBRADA' && record.get('Sabado')=='Sabado')VL_NO_MONTOS_SA =VL_NO_MONTOS_SA + parseFloat(record.get('monto_sa'));
-
-	                if(record.get('detalle')=='SOLICITADO' && record.get('Domingo')=='Domingo')VL_CANT_DO =VL_CANT_DO + parseInt(record.get('cant_do'));
-	                if(record.get('detalle')=='CARTILLA COBRADA' && record.get('Domingo')=='Domingo')VL_MONTOS_DO =VL_MONTOS_DO + parseFloat(record.get('monto_do'));
-	                if(record.get('detalle')=='CARTILLA NO COBRADA' && record.get('Domingo')=='Domingo')VL_NO_MONTOS_DO =VL_NO_MONTOS_DO + parseFloat(record.get('monto_do'));
+	                	VL_CANT_NO_COBRO_LU =VL_CANT_NO_COBRO_LU + parseInt(record.get('cant_lu'));
+						VL_CANT_NO_COBRO_MA =VL_CANT_NO_COBRO_MA + parseInt(record.get('cant_ma'));
+						VL_CANT_NO_COBRO_MI =VL_CANT_NO_COBRO_MI + parseInt(record.get('cant_mi'));
+						VL_CANT_NO_COBRO_JU =VL_CANT_NO_COBRO_JU + parseInt(record.get('cant_ju'));
+						VL_CANT_NO_COBRO_VI =VL_CANT_NO_COBRO_VI + parseInt(record.get('cant_vi'));
+						VL_CANT_NO_COBRO_SA =VL_CANT_NO_COBRO_SA + parseInt(record.get('cant_sa'));
+						VL_CANT_NO_COBRO_DO =VL_CANT_NO_COBRO_DO + parseInt(record.get('cant_do'));
+	                }
 
 	                VL_TOTAL_SOL =VL_TOTAL_SOL + record.get('total_sol');
 	                VL_TOTAL =VL_TOTAL + record.get('total');
 
 		        });
 
+				SOLICITADO.push(
+		        	{"value":VL_SOLICITADO_LU},
+		        	{"value":VL_SOLICITADO_MA},
+		        	{"value":VL_SOLICITADO_MI},
+		        	{"value":VL_SOLICITADO_JU},
+		        	{"value":VL_SOLICITADO_VI},
+		        	{"value":VL_SOLICITADO_SA},
+		        	{"value":VL_SOLICITADO_DO},
+		        	//{"value":VL_TOTAL}
+		        	);
 
 		        MONTOS_LU.push(
 		        	{"value":VL_MONTOS_LU},
@@ -3369,10 +3444,71 @@
 	            	//{"value":VL_TOTAL_SOL}
 	            	);
 
+	            CANT_COBRO_LU.push(
+	            	{"value":VL_CANT_COBRO_LU},
+	            	{"value":VL_CANT_COBRO_MA},
+	            	{"value":VL_CANT_COBRO_MI},
+	            	{"value":VL_CANT_COBRO_JU},
+	            	{"value":VL_CANT_COBRO_VI},
+	            	{"value":VL_CANT_COBRO_SA},
+	            	{"value":VL_CANT_COBRO_DO}
+	            	//{"value":VL_TOTAL_SOL}
+	            	);
+
+	           	CANT_NO_COBRO_LU.push(
+	            	{"value":VL_CANT_NO_COBRO_LU},
+	            	{"value":VL_CANT_NO_COBRO_MA},
+	            	{"value":VL_CANT_NO_COBRO_MI},
+	            	{"value":VL_CANT_NO_COBRO_JU},
+	            	{"value":VL_CANT_NO_COBRO_VI},
+	            	{"value":VL_CANT_NO_COBRO_SA},
+	            	{"value":VL_CANT_NO_COBRO_DO}
+	            	//{"value":VL_TOTAL_SOL}
+	            	);
+
 
 				const dataSource = {
 				  "chart": {
-				    "caption": "Cuadro de Avances Semanal",
+				    "caption": "Cuadro de Avances Semanal por Montos",
+				    "subcaption": "SOLICITADO,CARTILLAS COBRADAS,CARTILLAS NO COBRADAS",
+				    "yaxisname": "Montos",
+				    "syaxisname": "Porcentajes",
+				    "snumbersuffix": "%",
+				    "drawcustomlegendicon": "0",
+				    "showvalues": "0",
+				    "rotatelabels": "0",
+				    "theme": "fusion"
+				  },
+				  "categories": [
+				    {
+				      "category": SEMANA
+				    }
+				  ],
+				  "dataset": [
+				  	{
+				      "seriesname": "SOLICITADO",
+				      "data": eval(JSON.stringify(SOLICITADO))
+				    },
+				    {
+				      "seriesname": "CARTILLA COBRADA",
+				      "data": eval(JSON.stringify(MONTOS_LU))
+				    },
+				    {
+				      "seriesname": "CARTILLA NO COBRADA",
+				      "data": eval(JSON.stringify(MONTOS_NO_LU))
+				    },/*,
+				    {
+				      "seriesname": "% Unit Share",
+				      "renderas": "line",
+				      "parentyaxis": "S",
+				      "data": eval(JSON.stringify(INTERES))
+				    }*/
+				  ]
+				};
+
+				const dataSource2 = {
+				  "chart": {
+				    "caption": "Cuadro de Avances Semanal por Cantidades",
 				    "subcaption": "SOLICITADO,CARTILLAS COBRADAS,CARTILLAS NO COBRADAS",
 				    "yaxisname": "Montos",
 				    "syaxisname": "Porcentajes",
@@ -3394,11 +3530,11 @@
 				    },
 				    {
 				      "seriesname": "CARTILLA COBRADA",
-				      "data": eval(JSON.stringify(MONTOS_LU))
+				      "data": eval(JSON.stringify(CANT_COBRO_LU))
 				    },
 				    {
 				      "seriesname": "CARTILLA NO COBRADA",
-				      "data": eval(JSON.stringify(MONTOS_NO_LU))
+				      "data": eval(JSON.stringify(CANT_NO_COBRO_LU))
 				    },/*,
 				    {
 				      "seriesname": "% Unit Share",
@@ -3416,8 +3552,18 @@
 				      width: "100%",
 				      height: "100%",
 				      dataFormat: "json",
-				      dataSource
+				      dataSource:dataSource
 				   }).render();
+
+				   var myChart2 = new FusionCharts({
+				      type: "mscolumn3dlinedy",
+				      renderAt: "chart-container-avances-cantidades",
+				      width: "100%",
+				      height: "100%",
+				      dataFormat: "json",
+				      dataSource:dataSource2
+				   }).render();
+
 				});
 			},
 			getSearchByYear(){
