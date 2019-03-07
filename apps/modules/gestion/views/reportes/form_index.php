@@ -216,6 +216,11 @@
 	                fields: [
 	                    {name: 'ano', type: 'string'},
 	                    {name: 'monto', type: 'string'},
+
+	                    {name: 'total_credito', type: 'string'},
+	                    {name: 'tot_acumulado', type: 'string'},
+	                    {name: 'tot_ganancia', type: 'string'},
+
 	                    {name: 'pagado', type: 'string'},
 	                    {name: 'interes', type: 'string'},                    
 	                    {name: 'mora', type: 'string'},
@@ -237,16 +242,25 @@
 	                    }
 	                }
 	            });
-	            var store_contratos = Ext.create('Ext.data.Store',{
+	            var store_meses = Ext.create('Ext.data.Store',{
 	                fields: [
-	                    {name: 'fac_cliente', type: 'string'},
-	                    {name: 'cod_contrato', type: 'string'},
-	                    {name: 'pro_descri', type: 'string'}
+	                    {name: 'ano', type: 'string'},
+	                    {name: 'monto', type: 'string'},
+
+	                    {name: 'total_credito', type: 'string'},
+	                    {name: 'tot_acumulado', type: 'string'},
+	                    {name: 'tot_ganancia', type: 'string'},
+
+	                    {name: 'pagado', type: 'string'},
+	                    {name: 'interes', type: 'string'},                    
+	                    {name: 'mora', type: 'string'},
+	                    {name: 'saldo', type: 'string'},
+	                    {name: 'moneda', type: 'string'}
 	                ],
-	                autoLoad:false,
+	                autoLoad:true,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: reportes.url+'get_list_contratos/',
+	                    url: reportes.url+'get_list_reportes/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -258,33 +272,25 @@
 	                    }
 	                }
 	            });
-
-	            var store_plantillas = Ext.create('Ext.data.Store',{
+	            var store_age = Ext.create('Ext.data.Store',{
 	                fields: [
-	                    {name: 'cod_plantilla', type: 'string'},
-				        {name: 'shi_codigo', type: 'string'},
-				        {name: 'fac_cliente', type: 'string'},
-				        {name: 'nombre', type: 'string'},
-	                    {name: 'cod_formato', type: 'string'},
-	                    {name: 'tot_trazos', type: 'string'},
-	                    {name: 'path', type: 'string'},
-	                    {name: 'img', type: 'string'},
-	                    {name: 'pathorigen', type: 'string'},
-	                    {name: 'imgorigen', type: 'string'},
-	                    {name: 'texto', type: 'string'},
-	                    {name: 'estado', type: 'string'},
-	                    {name: 'fecha', type: 'string'},
-	                    {name: 'usuario', type: 'string'},
-	                    {name: 'width', type: 'string'},
-	                    {name: 'height', type: 'string'},
-	                    {name: 'width_formato', type: 'string'},
-	                    {name: 'height_formato', type: 'string'},
-	                    {name: 'formato', type: 'string'}
+	                    {name: 'ano', type: 'string'},
+	                    {name: 'monto', type: 'string'},
+
+	                    {name: 'total_credito', type: 'string'},
+	                    {name: 'tot_acumulado', type: 'string'},
+	                    {name: 'tot_ganancia', type: 'string'},
+
+	                    {name: 'pagado', type: 'string'},
+	                    {name: 'interes', type: 'string'},                    
+	                    {name: 'mora', type: 'string'},
+	                    {name: 'saldo', type: 'string'},
+	                    {name: 'moneda', type: 'string'}
 	                ],
-	                autoLoad:false,
+	                autoLoad:true,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: reportes.url+'get_ocr_plantillas/',
+	                    url: reportes.url+'get_list_reportes/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -296,28 +302,106 @@
 	                    }
 	                }
 	            });
-
-				var store_trazos = Ext.create('Ext.data.Store',{
+	            var store_asesor = Ext.create('Ext.data.Store',{
 	                fields: [
-	                    {name: 'cod_trazo', type: 'string'},
-				        {name: 'cod_plantilla', type: 'string'},
-				        {name: 'nombre', type: 'string'},
-				        {name: 'tipo', type: 'string'},
-	                    {name: 'x', type: 'string'},
-	                    {name: 'y', type: 'string'},
-	                    {name: 'w', type: 'string'},
-	                    {name: 'h', type: 'string'},
-	                    {name: 'path', type: 'string'},
-	                    {name: 'img', type: 'string'},
-	                    {name: 'texto', type: 'string'},
-	                    {name: 'estado', type: 'string'},
-	                    {name: 'usuario', type: 'string'},
-	                    {name: 'fecha', type: 'string'}
+	                    {name: 'ano', type: 'string'},
+	                    {name: 'monto', type: 'string'},
+
+	                    {name: 'total_credito', type: 'string'},
+	                    {name: 'tot_acumulado', type: 'string'},
+	                    {name: 'tot_ganancia', type: 'string'},
+
+	                    {name: 'pagado', type: 'string'},
+	                    {name: 'interes', type: 'string'},                    
+	                    {name: 'mora', type: 'string'},
+	                    {name: 'saldo', type: 'string'},
+	                    {name: 'moneda', type: 'string'}
 	                ],
-	                autoLoad:false,
+	                autoLoad:true,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: reportes.url+'get_ocr_trazos/',
+	                    url: reportes.url+'get_list_reportes/',
+	                    reader:{
+	                        type: 'json',
+	                        rootProperty: 'data'
+	                    }
+	                },
+	                listeners:{
+	                    load: function(obj, records, successful, opts){
+	                        
+	                    }
+	                }
+	            });
+	            var store_motivo = Ext.create('Ext.data.Store',{
+	                fields: [
+	                    {name: 'ano', type: 'string'},
+	                    {name: 'monto', type: 'string'},
+
+	                    {name: 'total_credito', type: 'string'},
+	                    {name: 'tot_acumulado', type: 'string'},
+	                    {name: 'tot_ganancia', type: 'string'},
+
+	                    {name: 'pagado', type: 'string'},
+	                    {name: 'interes', type: 'string'},                    
+	                    {name: 'mora', type: 'string'},
+	                    {name: 'saldo', type: 'string'},
+	                    {name: 'moneda', type: 'string'}
+	                ],
+	                autoLoad:true,
+	                proxy:{
+	                    type: 'ajax',
+	                    url: reportes.url+'get_list_reportes/',
+	                    reader:{
+	                        type: 'json',
+	                        rootProperty: 'data'
+	                    }
+	                },
+	                listeners:{
+	                    load: function(obj, records, successful, opts){
+	                        
+	                    }
+	                }
+	            });
+	            var store_avances = Ext.create('Ext.data.Store',{
+	                fields: [
+	                	{name: 'nombres', type: 'string'},
+	                    {name: 'detalle', type: 'string'},
+
+	                    {name: 'Lunes', type: 'string'},
+	                    {name: 'monto_lu', type: 'string'},
+	                    {name: 'cant_lu', type: 'string'},
+
+	                    {name: 'Martes', type: 'string'},
+	                    {name: 'monto_ma', type: 'string'},
+	                    {name: 'cant_ma', type: 'string'},
+
+	                    {name: 'Miercoles', type: 'string'},
+	                    {name: 'monto_mi', type: 'string'},
+	                    {name: 'cant_mi', type: 'string'},
+
+	                    {name: 'Jueves', type: 'string'},
+	                    {name: 'monto_ju', type: 'string'},
+	                    {name: 'cant_ju', type: 'string'},
+
+	                    {name: 'Viernes', type: 'string'},
+	                    {name: 'monto_vi', type: 'string'},
+	                    {name: 'cant_vi', type: 'string'},
+
+	                    {name: 'Sabado', type: 'string'},
+	                    {name: 'monto_sa', type: 'string'},
+	                    {name: 'cant_sa', type: 'string'},
+
+	                    {name: 'Domingo', type: 'string'},
+	                    {name: 'monto_do', type: 'string'},
+	                    {name: 'cant_do', type: 'string'},
+
+	                    {name: 'total_sol', type: 'string'},
+	                    {name: 'total', type: 'string'}
+	                ],
+	                autoLoad:true,
+	                proxy:{
+	                    type: 'ajax',
+	                    url: reportes.url+'get_list_reportes_cuadro_avance/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -701,7 +785,7 @@
 									                                    dataIndex: 'ano',
 									                                    //loocked : true,
 									                                    //width: 40,
-									                                    flex:1,
+									                                    flex:1,//width: 50,
 									                                    align: 'center'
 									                                },
 									                                {
@@ -709,48 +793,72 @@
 									                                    dataIndex: 'moneda',
 									                                    //loocked : true,
 									                                    //width: 40,
-									                                    flex:1,
+									                                    flex:1,//width: 50,
 									                                    align: 'center'
 									                                },
 																	{
-									                                    text: 'Monto',
+									                                    text: 'Monto Aprobado',
 									                                    dataIndex: 'monto',
 									                                    //loocked : true,
 									                                    //width: 40,
 									                                    flex:1,
-									                                    align: 'center'
+									                                    align: 'right'
 									                                },
 									                            	{
 									                                    text: 'Interes',
 									                                    dataIndex: 'interes',
 									                                    //loocked : true,
 									                                    //width: 40,
+									                                     flex:1,//width: 60,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Crédito',
+									                                    dataIndex: 'total_credito',
+									                                    //loocked : true,
+									                                    //width: 40,
 									                                    flex:1,
-									                                    align: 'center'
+									                                    align: 'right'
 									                                },
 											                        {
-									                                    text: 'Mora',
+									                                    text: 'Total Mora',
 									                                    dataIndex: 'mora',
 									                                    //loocked : true,
 									                                    //width: 40,
-									                                    flex:1,
-									                                    align: 'center'
+									                                    flex:1,//width: 60,
+									                                    align: 'right'
 									                                },
 									                                {
-									                                    text: 'Pagado',
-									                                    dataIndex: 'pagado',
+									                                    text: 'Total Pagado',  
+									                                    dataIndex:'pagado',
 									                                    //loocked : true,
 									                                    //width: 40,
 									                                    flex:1,
-									                                    align: 'center'
+									                                    align: 'right'
 									                                },
 											                        {
-									                                    text: 'Saldo',
+									                                    text: 'Total Saldo',
 									                                    dataIndex: 'saldo',
 									                                    //loocked : true,
 									                                    //width: 40,
 									                                    flex:1,
-									                                    align: 'center'
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Acumulado',
+									                                    dataIndex: 'tot_acumulado',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Ganancia',
+									                                    dataIndex: 'tot_ganancia',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
 									                                }
 									                            ],
 									                            defaults:{
@@ -773,8 +881,9 @@
 											]
 										},
 										{
-											region:'east',
-											width:'45%',
+											region:'south',
+											//width:'45%',
+											height:'40%',
 											html:'<div id="chart-container"></div>'
 										}
 									]
@@ -786,7 +895,355 @@
 									title:'REPORTE POR MESES',
 									border:false,
 									items:[
-										
+										{
+											layout:'border',
+											region:'center',
+											items:[
+												{
+													region:'north',
+													height:100,
+													items:[
+														{
+															xtype: 'fieldset',
+															title: 'Fitros',
+															layout:'column',
+															padding:'5px 5px 5px 5px',
+															margin:'5px 5px 5px 5px',
+															//border:false,
+															//flex:1,
+															items:[
+																{
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Agencia',
+						                                            id:reportes.id+'-sol-cmb-agencia-mes',
+						                                            store: store_agencias,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'cod_age',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.20,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	obj.setValue('1');
+						                                                	var obja = Ext.getCmp(reportes.id+'-sol-cmb-asesor-mes');
+			                            									reportes.getReload(obja,{vp_cod_age:obj.getValue()});
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        			var obja = Ext.getCmp(reportes.id+'-sol-cmb-asesor-mes');
+			                            									reportes.getReload(obja,{vp_cod_age:obj.getValue()});
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Asesor',
+						                                            id:reportes.id+'-sol-cmb-asesor-mes',
+						                                            store: store_asesores,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'id_asesor',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.20,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	obj.setValue('0');
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Motivo',
+						                                            id:reportes.id+'-sol-cmb-motivo-mes',
+						                                            store: store_motivos,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'id_mot',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.2,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	obj.setValue('0');
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+										                            xtype:'combo',
+										                            fieldLabel: 'Moneda',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'15px 5px 5px 25px',
+										                            id:reportes.id+'-sol-cmb-moneda-mes',
+										                            store: store_moneda,
+										                            queryMode: 'local',
+										                            triggerAction: 'all',
+										                            valueField: 'code',
+										                            displayField: 'name',
+										                            emptyText: '[Seleccione]',
+										                            labelAlign:'right',
+										                            //allowBlank: false,
+										                            labelAlign:'top',
+										                            labelWidth: 50,
+										                            //width:80,
+										                            columnWidth: 0.1,
+										                            //flex:1,
+										                            anchor:'100%',
+										                            //readOnly: true,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                    // obj.getStore().load();
+										                                    obj.setValue('SOL');
+										                                },
+										                                select:function(obj, records, eOpts){
+										                        
+										                                }
+										                            }
+										                        },
+										                        {
+												                    xtype: 'button',
+												                    margin:'2px 2px 2px 2px',
+												                    icon: '/images/icon/binocular.png',
+												                    //glyph: 72,
+												                    columnWidth: 0.1,
+												                    text: 'Buscar',
+												                    scale: 'medium',
+												                    iconAlign: 'top',
+												                    listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	  
+											                            	reportes.getSearchByMonth();
+											                            }
+											                        }
+												                },
+												                {
+												                    xtype: 'button',
+												                    margin:'2px 2px 2px 2px',
+												                    icon: '/images/icon/excel.png',
+												                    //glyph: 72,
+												                    columnWidth: 0.1,
+												                    text: 'Excel',
+												                    scale: 'medium',
+												                    iconAlign: 'top',
+												                    listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	  
+											                            	//creditos.setSaveSolicitud('A');
+											                            }
+											                        }
+												                },
+												                {
+												                    xtype: 'button',
+												                    margin:'2px 2px 2px 2px',
+												                    icon: '/images/icon/pdf.png',
+												                    //glyph: 72,
+												                    columnWidth: 0.1,
+												                    text: 'PDF',
+												                    scale: 'medium',
+												                    iconAlign: 'top',
+												                    listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	  
+											                            	//creditos.setSaveSolicitud('A');
+											                            }
+											                        }
+												                }
+										                    ]
+										                }
+													]
+												},
+												{
+													region:'center',
+													layout:'fit',
+													items:[
+														{
+									                        xtype: 'grid',
+									                        id: reportes.id + '-grid-meses',
+									                        store: store_meses, 
+									                        columnLines: true,
+									                        //layout:'fit',
+									                        columns:{
+									                            items:[
+									                            	{
+									                            		text: 'N°',
+																	    xtype: 'rownumberer',
+																	    width: 40,
+																	    sortable: false,
+																	    locked: true
+																	},
+																	{
+									                                    text: 'Mes',
+									                                    dataIndex: 'ano',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,//width: 50,
+									                                    align: 'center'
+									                                },
+									                                {
+									                                    text: 'Moneda',
+									                                    dataIndex: 'moneda',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,//width: 50,
+									                                    align: 'center'
+									                                },
+																	{
+									                                    text: 'Monto Aprobado',
+									                                    dataIndex: 'monto',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+									                            	{
+									                                    text: 'Interes',
+									                                    dataIndex: 'interes',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                     flex:1,//width: 60,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Crédito',
+									                                    dataIndex: 'total_credito',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+											                        {
+									                                    text: 'Total Mora',
+									                                    dataIndex: 'mora',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,//width: 60,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Pagado',  
+									                                    dataIndex:'pagado',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+											                        {
+									                                    text: 'Total Saldo',
+									                                    dataIndex: 'saldo',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Acumulado',
+									                                    dataIndex: 'tot_acumulado',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Ganancia',
+									                                    dataIndex: 'tot_ganancia',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                }
+									                            ],
+									                            defaults:{
+									                                menuDisabled: true
+									                            }
+									                        },
+									                        multiSelect: true,
+									                        trackMouseOver: false,
+									                        listeners:{
+									                            afterrender: function(obj){
+									                                
+									                            },
+									                            beforeselect:function(obj, record, index, eOpts ){
+									                            	//scanning.setImageFile(record.get('path'),record.get('file'));
+									                            }
+									                        }
+									                    }
+													]
+												}
+											]
+										},
+										{
+											region:'south',
+											//width:'45%',
+											height:'40%',
+											html:'<div id="chart-container-meses"></div>'
+										}
 									]
 								},
 								/*CONYUGUE*/
@@ -796,17 +1253,713 @@
 									title:'REPORTE POR AGENCIAS',
 									border:false,
 									items:[
-										
+										{
+											layout:'border',
+											region:'center',
+											items:[
+												{
+													region:'north',
+													height:100,
+													items:[
+														{
+															xtype: 'fieldset',
+															title: 'Fitros',
+															layout:'column',
+															padding:'5px 5px 5px 5px',
+															margin:'5px 5px 5px 5px',
+															//border:false,
+															//flex:1,
+															items:[
+																{
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Agencia',
+						                                            id:reportes.id+'-sol-cmb-agencia-age',
+						                                            store: store_agencias,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'cod_age',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.20,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	obj.setValue('1');
+						                                                	var obja = Ext.getCmp(reportes.id+'-sol-cmb-asesor-age');
+			                            									reportes.getReload(obja,{vp_cod_age:obj.getValue()});
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        			var obja = Ext.getCmp(reportes.id+'-sol-cmb-asesor-age');
+			                            									reportes.getReload(obja,{vp_cod_age:obj.getValue()});
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Asesor',
+						                                            id:reportes.id+'-sol-cmb-asesor-age',
+						                                            store: store_asesores,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'id_asesor',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.20,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	obj.setValue('0');
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Motivo',
+						                                            id:reportes.id+'-sol-cmb-motivo-age',
+						                                            store: store_motivos,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'id_mot',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.2,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	obj.setValue('0');
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+										                            xtype:'combo',
+										                            fieldLabel: 'Moneda',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'15px 5px 5px 25px',
+										                            id:reportes.id+'-sol-cmb-moneda-age',
+										                            store: store_moneda,
+										                            queryMode: 'local',
+										                            triggerAction: 'all',
+										                            valueField: 'code',
+										                            displayField: 'name',
+										                            emptyText: '[Seleccione]',
+										                            labelAlign:'right',
+										                            //allowBlank: false,
+										                            labelAlign:'top',
+										                            labelWidth: 50,
+										                            //width:80,
+										                            columnWidth: 0.1,
+										                            //flex:1,
+										                            anchor:'100%',
+										                            //readOnly: true,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                    // obj.getStore().load();
+										                                    obj.setValue('SOL');
+										                                },
+										                                select:function(obj, records, eOpts){
+										                        
+										                                }
+										                            }
+										                        },
+										                        {
+												                    xtype: 'button',
+												                    margin:'2px 2px 2px 2px',
+												                    icon: '/images/icon/binocular.png',
+												                    //glyph: 72,
+												                    columnWidth: 0.1,
+												                    text: 'Buscar',
+												                    scale: 'medium',
+												                    iconAlign: 'top',
+												                    listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	  
+											                            	reportes.getSearchByAgencia();
+											                            }
+											                        }
+												                },
+												                {
+												                    xtype: 'button',
+												                    margin:'2px 2px 2px 2px',
+												                    icon: '/images/icon/excel.png',
+												                    //glyph: 72,
+												                    columnWidth: 0.1,
+												                    text: 'Excel',
+												                    scale: 'medium',
+												                    iconAlign: 'top',
+												                    listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	  
+											                            	//creditos.setSaveSolicitud('A');
+											                            }
+											                        }
+												                },
+												                {
+												                    xtype: 'button',
+												                    margin:'2px 2px 2px 2px',
+												                    icon: '/images/icon/pdf.png',
+												                    //glyph: 72,
+												                    columnWidth: 0.1,
+												                    text: 'PDF',
+												                    scale: 'medium',
+												                    iconAlign: 'top',
+												                    listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	  
+											                            	//creditos.setSaveSolicitud('A');
+											                            }
+											                        }
+												                }
+										                    ]
+										                }
+													]
+												},
+												{
+													region:'center',
+													layout:'fit',
+													items:[
+														{
+									                        xtype: 'grid',
+									                        id: reportes.id + '-grid-agencias',
+									                        store: store_age, 
+									                        columnLines: true,
+									                        //layout:'fit',
+									                        columns:{
+									                            items:[
+									                            	{
+									                            		text: 'N°',
+																	    xtype: 'rownumberer',
+																	    width: 40,
+																	    sortable: false,
+																	    locked: true
+																	},
+																	{
+									                                    text: 'Agencia',
+									                                    dataIndex: 'ano',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,//width: 50,
+									                                    align: 'center'
+									                                },
+									                                {
+									                                    text: 'Moneda',
+									                                    dataIndex: 'moneda',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,//width: 50,
+									                                    align: 'center'
+									                                },
+																	{
+									                                    text: 'Monto Aprobado',
+									                                    dataIndex: 'monto',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+									                            	{
+									                                    text: 'Interes',
+									                                    dataIndex: 'interes',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                     flex:1,//width: 60,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Crédito',
+									                                    dataIndex: 'total_credito',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+											                        {
+									                                    text: 'Total Mora',
+									                                    dataIndex: 'mora',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,//width: 60,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Pagado',  
+									                                    dataIndex:'pagado',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+											                        {
+									                                    text: 'Total Saldo',
+									                                    dataIndex: 'saldo',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Acumulado',
+									                                    dataIndex: 'tot_acumulado',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Ganancia',
+									                                    dataIndex: 'tot_ganancia',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                }
+									                            ],
+									                            defaults:{
+									                                menuDisabled: true
+									                            }
+									                        },
+									                        multiSelect: true,
+									                        trackMouseOver: false,
+									                        listeners:{
+									                            afterrender: function(obj){
+									                                
+									                            },
+									                            beforeselect:function(obj, record, index, eOpts ){
+									                            	//scanning.setImageFile(record.get('path'),record.get('file'));
+									                            }
+									                        }
+									                    }
+													]
+												}
+											]
+										},
+										{
+											region:'south',
+											//width:'45%',
+											height:'40%',
+											html:'<div id="chart-container-agencias"></div>'
+										}
 									]
 								},
 								/*GARANTE*/
 								{
 									layout:'border',
-									id:reportes.id+'-tab-consolidado-asesores',
+									id:reportes.id+'-tab-consolidado-asesor',
 									title:'REPORTE POR ASESORES',
 									border:false,
 									items:[
-										
+										{
+											layout:'border',
+											region:'center',
+											items:[
+												{
+													region:'north',
+													height:100,
+													items:[
+														{
+															xtype: 'fieldset',
+															title: 'Fitros',
+															layout:'column',
+															padding:'5px 5px 5px 5px',
+															margin:'5px 5px 5px 5px',
+															//border:false,
+															//flex:1,
+															items:[
+																{
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Agencia',
+						                                            id:reportes.id+'-sol-cmb-agencia-asesor',
+						                                            store: store_agencias,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'cod_age',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.20,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	obj.setValue('1');
+						                                                	var obja = Ext.getCmp(reportes.id+'-sol-cmb-asesor-asesor');
+			                            									reportes.getReload(obja,{vp_cod_age:obj.getValue()});
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        			var obja = Ext.getCmp(reportes.id+'-sol-cmb-asesor-asesor');
+			                            									reportes.getReload(obja,{vp_cod_age:obj.getValue()});
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Asesor',
+						                                            id:reportes.id+'-sol-cmb-asesor-asesor',
+						                                            store: store_asesores,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'id_asesor',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.20,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	obj.setValue('0');
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Motivo',
+						                                            id:reportes.id+'-sol-cmb-motivo-asesor',
+						                                            store: store_motivos,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'id_mot',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.2,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	obj.setValue('0');
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+										                            xtype:'combo',
+										                            fieldLabel: 'Moneda',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'15px 5px 5px 25px',
+										                            id:reportes.id+'-sol-cmb-moneda-asesor',
+										                            store: store_moneda,
+										                            queryMode: 'local',
+										                            triggerAction: 'all',
+										                            valueField: 'code',
+										                            displayField: 'name',
+										                            emptyText: '[Seleccione]',
+										                            labelAlign:'right',
+										                            //allowBlank: false,
+										                            labelAlign:'top',
+										                            labelWidth: 50,
+										                            //width:80,
+										                            columnWidth: 0.1,
+										                            //flex:1,
+										                            anchor:'100%',
+										                            //readOnly: true,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                    // obj.getStore().load();
+										                                    obj.setValue('SOL');
+										                                },
+										                                select:function(obj, records, eOpts){
+										                        
+										                                }
+										                            }
+										                        },
+										                        {
+												                    xtype: 'button',
+												                    margin:'2px 2px 2px 2px',
+												                    icon: '/images/icon/binocular.png',
+												                    //glyph: 72,
+												                    columnWidth: 0.1,
+												                    text: 'Buscar',
+												                    scale: 'medium',
+												                    iconAlign: 'top',
+												                    listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	  
+											                            	reportes.getSearchByAsesores();
+											                            }
+											                        }
+												                },
+												                {
+												                    xtype: 'button',
+												                    margin:'2px 2px 2px 2px',
+												                    icon: '/images/icon/excel.png',
+												                    //glyph: 72,
+												                    columnWidth: 0.1,
+												                    text: 'Excel',
+												                    scale: 'medium',
+												                    iconAlign: 'top',
+												                    listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	  
+											                            	//creditos.setSaveSolicitud('A');
+											                            }
+											                        }
+												                },
+												                {
+												                    xtype: 'button',
+												                    margin:'2px 2px 2px 2px',
+												                    icon: '/images/icon/pdf.png',
+												                    //glyph: 72,
+												                    columnWidth: 0.1,
+												                    text: 'PDF',
+												                    scale: 'medium',
+												                    iconAlign: 'top',
+												                    listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	  
+											                            	//creditos.setSaveSolicitud('A');
+											                            }
+											                        }
+												                }
+										                    ]
+										                }
+													]
+												},
+												{
+													region:'center',
+													layout:'fit',
+													items:[
+														{
+									                        xtype: 'grid',
+									                        id: reportes.id + '-grid-asesores',
+									                        store: store_asesor, 
+									                        columnLines: true,
+									                        //layout:'fit',
+									                        columns:{
+									                            items:[
+									                            	{
+									                            		text: 'N°',
+																	    xtype: 'rownumberer',
+																	    width: 40,
+																	    sortable: false,
+																	    locked: true
+																	},
+																	{
+									                                    text: 'Asesores',
+									                                    dataIndex: 'ano',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,//width: 50,
+									                                    align: 'center'
+									                                },
+									                                {
+									                                    text: 'Moneda',
+									                                    dataIndex: 'moneda',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,//width: 50,
+									                                    align: 'center'
+									                                },
+																	{
+									                                    text: 'Monto Aprobado',
+									                                    dataIndex: 'monto',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+									                            	{
+									                                    text: 'Interes',
+									                                    dataIndex: 'interes',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                     flex:1,//width: 60,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Crédito',
+									                                    dataIndex: 'total_credito',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+											                        {
+									                                    text: 'Total Mora',
+									                                    dataIndex: 'mora',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,//width: 60,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Pagado',  
+									                                    dataIndex:'pagado',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+											                        {
+									                                    text: 'Total Saldo',
+									                                    dataIndex: 'saldo',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Acumulado',
+									                                    dataIndex: 'tot_acumulado',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Ganancia',
+									                                    dataIndex: 'tot_ganancia',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                }
+									                            ],
+									                            defaults:{
+									                                menuDisabled: true
+									                            }
+									                        },
+									                        multiSelect: true,
+									                        trackMouseOver: false,
+									                        listeners:{
+									                            afterrender: function(obj){
+									                                
+									                            },
+									                            beforeselect:function(obj, record, index, eOpts ){
+									                            	//scanning.setImageFile(record.get('path'),record.get('file'));
+									                            }
+									                        }
+									                    }
+													]
+												}
+											]
+										},
+										{
+											region:'south',
+											//width:'45%',
+											height:'40%',
+											html:'<div id="chart-container-asesores"></div>'
+										}
 
 									]
 								},
@@ -817,7 +1970,853 @@
 									title:'REPORTE POR MOTIVOS',
 									border:false,
 									items:[
-										
+										{
+											layout:'border',
+											region:'center',
+											items:[
+												{
+													region:'north',
+													height:100,
+													items:[
+														{
+															xtype: 'fieldset',
+															title: 'Fitros',
+															layout:'column',
+															padding:'5px 5px 5px 5px',
+															margin:'5px 5px 5px 5px',
+															//border:false,
+															//flex:1,
+															items:[
+																{
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Agencia',
+						                                            id:reportes.id+'-sol-cmb-agencia-mot',
+						                                            store: store_agencias,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'cod_age',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.20,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	obj.setValue('1');
+						                                                	var obja = Ext.getCmp(reportes.id+'-sol-cmb-asesor-mot');
+			                            									reportes.getReload(obja,{vp_cod_age:obj.getValue()});
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        			var obja = Ext.getCmp(reportes.id+'-sol-cmb-asesor-mot');
+			                            									reportes.getReload(obja,{vp_cod_age:obj.getValue()});
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Asesor',
+						                                            id:reportes.id+'-sol-cmb-asesor-mot',
+						                                            store: store_asesores,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'id_asesor',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.20,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	obj.setValue('0');
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Motivo',
+						                                            id:reportes.id+'-sol-cmb-motivo-mot',
+						                                            store: store_motivos,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'id_mot',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.2,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	obj.setValue('0');
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+										                            xtype:'combo',
+										                            fieldLabel: 'Moneda',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'15px 5px 5px 25px',
+										                            id:reportes.id+'-sol-cmb-moneda-mot',
+										                            store: store_moneda,
+										                            queryMode: 'local',
+										                            triggerAction: 'all',
+										                            valueField: 'code',
+										                            displayField: 'name',
+										                            emptyText: '[Seleccione]',
+										                            labelAlign:'right',
+										                            //allowBlank: false,
+										                            labelAlign:'top',
+										                            labelWidth: 50,
+										                            //width:80,
+										                            columnWidth: 0.1,
+										                            //flex:1,
+										                            anchor:'100%',
+										                            //readOnly: true,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                    // obj.getStore().load();
+										                                    obj.setValue('SOL');
+										                                },
+										                                select:function(obj, records, eOpts){
+										                        
+										                                }
+										                            }
+										                        },
+										                        {
+												                    xtype: 'button',
+												                    margin:'2px 2px 2px 2px',
+												                    icon: '/images/icon/binocular.png',
+												                    //glyph: 72,
+												                    columnWidth: 0.1,
+												                    text: 'Buscar',
+												                    scale: 'medium',
+												                    iconAlign: 'top',
+												                    listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	  
+											                            	reportes.getSearchByMotivos();
+											                            }
+											                        }
+												                },
+												                {
+												                    xtype: 'button',
+												                    margin:'2px 2px 2px 2px',
+												                    icon: '/images/icon/excel.png',
+												                    //glyph: 72,
+												                    columnWidth: 0.1,
+												                    text: 'Excel',
+												                    scale: 'medium',
+												                    iconAlign: 'top',
+												                    listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	  
+											                            	//creditos.setSaveSolicitud('A');
+											                            }
+											                        }
+												                },
+												                {
+												                    xtype: 'button',
+												                    margin:'2px 2px 2px 2px',
+												                    icon: '/images/icon/pdf.png',
+												                    //glyph: 72,
+												                    columnWidth: 0.1,
+												                    text: 'PDF',
+												                    scale: 'medium',
+												                    iconAlign: 'top',
+												                    listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	  
+											                            	//creditos.setSaveSolicitud('A');
+											                            }
+											                        }
+												                }
+										                    ]
+										                }
+													]
+												},
+												{
+													region:'center',
+													layout:'fit',
+													items:[
+														{
+									                        xtype: 'grid',
+									                        id: reportes.id + '-grid-motivo',
+									                        store: store_motivo, 
+									                        columnLines: true,
+									                        //layout:'fit',
+									                        columns:{
+									                            items:[
+									                            	{
+									                            		text: 'N°',
+																	    xtype: 'rownumberer',
+																	    width: 40,
+																	    sortable: false,
+																	    locked: true
+																	},
+																	{
+									                                    text: 'Motivo',
+									                                    dataIndex: 'ano',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,//width: 50,
+									                                    align: 'center'
+									                                },
+									                                {
+									                                    text: 'Moneda',
+									                                    dataIndex: 'moneda',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,//width: 50,
+									                                    align: 'center'
+									                                },
+																	{
+									                                    text: 'Monto Aprobado',
+									                                    dataIndex: 'monto',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+									                            	{
+									                                    text: 'Interes',
+									                                    dataIndex: 'interes',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                     flex:1,//width: 60,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Crédito',
+									                                    dataIndex: 'total_credito',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+											                        {
+									                                    text: 'Total Mora',
+									                                    dataIndex: 'mora',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,//width: 60,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Pagado',  
+									                                    dataIndex:'pagado',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+											                        {
+									                                    text: 'Total Saldo',
+									                                    dataIndex: 'saldo',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Acumulado',
+									                                    dataIndex: 'tot_acumulado',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total Ganancia',
+									                                    dataIndex: 'tot_ganancia',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                }
+									                            ],
+									                            defaults:{
+									                                menuDisabled: true
+									                            }
+									                        },
+									                        multiSelect: true,
+									                        trackMouseOver: false,
+									                        listeners:{
+									                            afterrender: function(obj){
+									                                
+									                            },
+									                            beforeselect:function(obj, record, index, eOpts ){
+									                            	//scanning.setImageFile(record.get('path'),record.get('file'));
+									                            }
+									                        }
+									                    }
+													]
+												}
+											]
+										},
+										{
+											region:'south',
+											//width:'45%',
+											height:'40%',
+											html:'<div id="chart-container-motivos"></div>'
+										}
+									]
+								},
+								/*CUADRO DE AVANCES*/
+								{
+									layout:'border',
+									id:reportes.id+'-tab-consolidado-avances',
+									title:'CUADRO DE AVANCES',
+									border:false,
+									items:[
+										{
+											layout:'border',
+											region:'center',
+											items:[
+												{
+													region:'north',
+													height:100,
+													items:[
+														{
+															xtype: 'fieldset',
+															title: 'Fitros',
+															layout:'column',
+															padding:'5px 5px 5px 5px',
+															margin:'5px 5px 5px 5px',
+															//border:false,
+															//flex:1,
+															items:[
+																{
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Agencia',
+						                                            id:reportes.id+'-sol-cmb-agencia-ava',
+						                                            store: store_agencias,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'cod_age',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.20,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	obj.setValue('1');
+						                                                	var obja = Ext.getCmp(reportes.id+'-sol-cmb-asesor-ava');
+			                            									reportes.getReload(obja,{vp_cod_age:obj.getValue()});
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        			var obja = Ext.getCmp(reportes.id+'-sol-cmb-asesor-ava');
+			                            									reportes.getReload(obja,{vp_cod_age:obj.getValue()});
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Asesor',
+						                                            id:reportes.id+'-sol-cmb-asesor-ava',
+						                                            store: store_asesores,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'id_asesor',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.20,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	obj.setValue('0');
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Motivo',
+						                                            id:reportes.id+'-sol-cmb-motivo-ava',
+						                                            store: store_motivos,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'id_mot',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.2,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	obj.setValue('0');
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+										                            xtype:'combo',
+										                            fieldLabel: 'Moneda',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'15px 5px 5px 25px',
+										                            id:reportes.id+'-sol-cmb-moneda-ava',
+										                            store: store_moneda,
+										                            queryMode: 'local',
+										                            triggerAction: 'all',
+										                            valueField: 'code',
+										                            displayField: 'name',
+										                            emptyText: '[Seleccione]',
+										                            labelAlign:'right',
+										                            //allowBlank: false,
+										                            labelAlign:'top',
+										                            labelWidth: 50,
+										                            //width:80,
+										                            columnWidth: 0.1,
+										                            //flex:1,
+										                            anchor:'100%',
+										                            //readOnly: true,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                    // obj.getStore().load();
+										                                    obj.setValue('SOL');
+										                                },
+										                                select:function(obj, records, eOpts){
+										                        
+										                                }
+										                            }
+										                        },
+										                        {
+												                    xtype: 'button',
+												                    margin:'2px 2px 2px 2px',
+												                    icon: '/images/icon/binocular.png',
+												                    //glyph: 72,
+												                    columnWidth: 0.1,
+												                    text: 'Buscar',
+												                    scale: 'medium',
+												                    iconAlign: 'top',
+												                    listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	  
+											                            	reportes.getSearchByAvances();
+											                            }
+											                        }
+												                },
+												                {
+												                    xtype: 'button',
+												                    margin:'2px 2px 2px 2px',
+												                    icon: '/images/icon/excel.png',
+												                    //glyph: 72,
+												                    columnWidth: 0.1,
+												                    text: 'Excel',
+												                    scale: 'medium',
+												                    iconAlign: 'top',
+												                    listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	  
+											                            	//creditos.setSaveSolicitud('A');
+											                            }
+											                        }
+												                },
+												                {
+												                    xtype: 'button',
+												                    margin:'2px 2px 2px 2px',
+												                    icon: '/images/icon/pdf.png',
+												                    //glyph: 72,
+												                    columnWidth: 0.1,
+												                    text: 'PDF',
+												                    scale: 'medium',
+												                    iconAlign: 'top',
+												                    listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	  
+											                            	//creditos.setSaveSolicitud('A');
+											                            }
+											                        }
+												                }
+										                    ]
+										                }
+													]
+												},
+												{
+													region:'center',
+													layout:'fit',
+													items:[
+														{
+									                        xtype: 'grid',
+									                        id: reportes.id + '-grid-avances',
+									                        store: store_avances, 
+									                        columnLines: true,
+									                        //layout:'fit',
+									                        columns:{
+									                            items:[
+									                            	{
+									                            		text: 'N°',
+																	    xtype: 'rownumberer',
+																	    width: 40,
+																	    sortable: false,
+																	    locked: true
+																	},
+																	{
+									                                    text: 'Asesor',
+									                                    dataIndex: 'nombres',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'left'
+									                                },
+																	{
+									                                    text: 'Detalle',
+									                                    dataIndex: 'detalle',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'center'
+									                                },
+																	{
+														                text: 'Semana',
+														                flex:1,
+														                columns: [
+																			{
+											                                    text: 'Lunes',
+											                                    //dataIndex: 'ano',
+											                                    //loocked : true,
+											                                    //width: 40,
+											                                    flex:1,//width: 50,
+											                                    align: 'center',
+											                                    columns: [
+											                                    	{
+													                                    text: 'Nro',
+													                                    dataIndex: 'cant_lu',
+													                                    //loocked : true,
+													                                    //width: 40,
+													                                    flex:1,//width: 50,
+													                                    align: 'center'
+													                                },
+													                                {
+													                                    text: 'Monto',
+													                                    dataIndex: 'monto_lu',
+													                                    //loocked : true,
+													                                    //width: 40,
+													                                    flex:1,//width: 50,
+													                                    align: 'right'
+													                                }
+											                                    ]
+											                                },
+											                                {
+											                                    text: 'Martes',
+											                                    //dataIndex: 'ano',
+											                                    //loocked : true,
+											                                    //width: 40,
+											                                    flex:1,//width: 50,
+											                                    align: 'center',
+											                                    columns: [
+											                                    	{
+													                                    text: 'Nro',
+													                                    dataIndex: 'cant_ma',
+													                                    //loocked : true,
+													                                    //width: 40,
+													                                    flex:1,//width: 50,
+													                                    align: 'center'
+													                                },
+													                                {
+													                                    text: 'Monto',
+													                                    dataIndex: 'monto_ma',
+													                                    //loocked : true,
+													                                    //width: 40,
+													                                    flex:1,//width: 50,
+													                                    align: 'right'
+													                                }
+											                                    ]
+											                                },
+											                                {
+											                                    text: 'Miercoles',
+											                                    //dataIndex: 'ano',
+											                                    //loocked : true,
+											                                    //width: 40,
+											                                    flex:1,//width: 50,
+											                                    align: 'center',
+											                                    columns: [
+											                                    	{
+													                                    text: 'Nro',
+													                                    dataIndex: 'cant_mi',
+													                                    //loocked : true,
+													                                    //width: 40,
+													                                    flex:1,//width: 50,
+													                                    align: 'center'
+													                                },
+													                                {
+													                                    text: 'Monto',
+													                                    dataIndex: 'monto_mi',
+													                                    //loocked : true,
+													                                    //width: 40,
+													                                    flex:1,//width: 50,
+													                                    align: 'right'
+													                                }
+											                                    ]
+											                                },
+											                                {
+											                                    text: 'Jueves',
+											                                    //dataIndex: 'ano',
+											                                    //loocked : true,
+											                                    //width: 40,
+											                                    flex:1,//width: 50,
+											                                    align: 'center',
+											                                    columns: [
+											                                    	{
+													                                    text: 'Nro',
+													                                    dataIndex: 'cant_ju',
+													                                    //loocked : true,
+													                                    //width: 40,
+													                                    flex:1,//width: 50,
+													                                    align: 'center'
+													                                },
+													                                {
+													                                    text: 'Monto',
+													                                    dataIndex: 'monto_ju',
+													                                    //loocked : true,
+													                                    //width: 40,
+													                                    flex:1,//width: 50,
+													                                    align: 'right'
+													                                }
+											                                    ]
+											                                },
+											                                {
+											                                    text: 'Viernes',
+											                                    //dataIndex: 'ano',
+											                                    //loocked : true,
+											                                    //width: 40,
+											                                    flex:1,//width: 50,
+											                                    align: 'center',
+											                                    columns: [
+											                                    	{
+													                                    text: 'Nro',
+													                                    dataIndex: 'cant_vi',
+													                                    //loocked : true,
+													                                    //width: 40,
+													                                    flex:1,//width: 50,
+													                                    align: 'center'
+													                                },
+													                                {
+													                                    text: 'Monto',
+													                                    dataIndex: 'monto_vi',
+													                                    //loocked : true,
+													                                    //width: 40,
+													                                    flex:1,//width: 50,
+													                                    align: 'right'
+													                                }
+											                                    ]
+											                                },
+											                                {
+											                                    text: 'Sábado',
+											                                    //dataIndex: 'ano',
+											                                    //loocked : true,
+											                                    //width: 40,
+											                                    flex:1,//width: 50,
+											                                    align: 'center',
+											                                    columns: [
+											                                    	{
+													                                    text: 'Nro',
+													                                    dataIndex: 'cant_sa',
+													                                    //loocked : true,
+													                                    //width: 40,
+													                                    flex:1,//width: 50,
+													                                    align: 'center'
+													                                },
+													                                {
+													                                    text: 'Monto',
+													                                    dataIndex: 'monto_sa',
+													                                    //loocked : true,
+													                                    //width: 40,
+													                                    flex:1,//width: 50,
+													                                    align: 'right'
+													                                }
+											                                    ]
+											                                },
+											                                {
+											                                    text: 'Domingo',
+											                                    //dataIndex: 'ano',
+											                                    //loocked : true,
+											                                    //width: 40,
+											                                    flex:1,//width: 50,
+											                                    align: 'center',
+											                                    columns: [
+											                                    	{
+													                                    text: 'Nro',
+													                                    dataIndex: 'cant_do',
+													                                    //loocked : true,
+													                                    //width: 40,
+													                                    flex:1,//width: 50,
+													                                    align: 'center'
+													                                },
+													                                {
+													                                    text: 'Monto',
+													                                    dataIndex: 'monto_do',
+													                                    //loocked : true,
+													                                    //width: 40,
+													                                    flex:1,//width: 50,
+													                                    align: 'right'
+													                                }
+											                                    ]
+											                                },
+											                            ]
+										                        	},
+									                                {
+									                                    text: 'Total Solicitudes',
+									                                    dataIndex: 'total_sol',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                },
+									                                {
+									                                    text: 'Total',
+									                                    dataIndex: 'total',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'right'
+									                                }
+									                            ],
+									                            defaults:{
+									                                menuDisabled: true
+									                            }
+									                        },
+									                        multiSelect: true,
+									                        trackMouseOver: false,
+									                        listeners:{
+									                            afterrender: function(obj){
+									                                
+									                            },
+									                            beforeselect:function(obj, record, index, eOpts ){
+									                            	//scanning.setImageFile(record.get('path'),record.get('file'));
+									                            }
+									                        }
+									                    }
+													]
+												}
+											]
+										},
+										{
+											region:'south',
+											//width:'45%',
+											height:'40%',
+											html:'<div id="chart-container-avances"></div>'
+										}
 									]
 								}
 							],
@@ -836,54 +2835,7 @@
 	                    	//reportes.getReloadGridreportes('');
 	                        //tab.setActiveTab(obj);
 	                        global.state_item_menu_config(obj,reportes.id_menu);
-
-	                        const dataSource = {
-							  "chart": {
-							    "caption": "Reporte Consolidado por Años",
-							    "subcaption": "Años,Interes,Mora,Pagado,Saldo",
-							    "xaxisname": "Años",
-							    "yaxisname": "No. of Occurences",
-							    "theme": "fusion",
-							    "plottooltext": "$label accounted for <b>$datavalue</b> cars which came for repairs"
-							  },
-							  "data": [
-							    {
-							      "label": "Burned out bulb",
-							      "value": "41"
-							    },
-							    {
-							      "label": "Discharged Battery",
-							      "value": "20"
-							    },
-							    {
-							      "label": "Blown fuse",
-							      "value": "14"
-							    },
-							    {
-							      "label": "Worn brake pads",
-							      "value": "11"
-							    },
-							    {
-							      "label": "Flat",
-							      "value": "9"
-							    },
-							    {
-							      "label": "Others",
-							      "value": "5"
-							    }
-							  ]
-							};
-
-							FusionCharts.ready(function() {
-							   var myChart = new FusionCharts({
-							      type: "pareto3d",
-							      renderAt: "chart-container",
-							      width: "100%",
-							      height: "100%",
-							      dataFormat: "json",
-							      dataSource
-							   }).render();
-							});
+	                        reportes.getchartsAno();
 	                    },
 	                    beforeclose:function(obj,opts){
 	                    	global.state_item_menu(reportes.id_menu, false);
@@ -892,13 +2844,671 @@
 
 				}).show();
 			},
+			getchartsAno:function(){
+                var ANIOS =[];
+                var MONTOS =[];
+                var TOT_CREDITO =[];
+                var TOT_ACU =[];
+                var TOT_GANA =[];
+                var PAGADO =[];
+                var INTERES =[];
+                var MORA =[];
+                var SALDO =[];
+
+				Ext.getCmp(reportes.id + '-grid-anos').getStore().each(function(record, idx) {
+					ANIOS.push({"label":record.get('ano')});
+		            MONTOS.push({"value":record.get('monto')});
+		            TOT_CREDITO.push({"value":record.get('total_credito')});
+		            TOT_ACU.push({"value":record.get('tot_acumulado')});
+		            TOT_GANA.push({"value":record.get('tot_ganancia')});
+		            PAGADO.push({"value":record.get('pagado')});
+		            INTERES.push({"value":record.get('interes')});
+		            MORA.push({"value":record.get('mora')});
+		            SALDO.push({"value":record.get('saldo')});
+		        });
+
+				const dataSource = {
+				  "chart": {
+				    "caption": "Consolidado Por Año",
+				    "subcaption": "Total Créditos,Saldos,Intereses,Mora,Ganancias",
+				    "yaxisname": "Montos",
+				    "syaxisname": "Porcentajes",
+				    "snumbersuffix": "%",
+				    "drawcustomlegendicon": "0",
+				    "showvalues": "0",
+				    "rotatelabels": "0",
+				    "theme": "fusion"
+				  },
+				  "categories": [
+				    {
+				      "category": eval(JSON.stringify(ANIOS))
+				    }
+				  ],
+				  "dataset": [
+				    {
+				      "seriesname": "Total Crédito",
+				      "data": eval(JSON.stringify(TOT_CREDITO))
+				    },
+				    {
+				      "seriesname": "Saldos",
+				      "data": eval(JSON.stringify(SALDO))
+				    },
+				    {
+				      "seriesname": "Interes",
+				      "data": eval(JSON.stringify(INTERES))
+				    },
+				    {
+				      "seriesname": "Mora",
+				      "data": eval(JSON.stringify(MORA))
+				    },
+				    {
+				      "seriesname": "Ganancias",
+				      "data": eval(JSON.stringify(TOT_GANA))
+				    }/*,
+				    {
+				      "seriesname": "% Unit Share",
+				      "renderas": "line",
+				      "parentyaxis": "S",
+				      "data": eval(JSON.stringify(INTERES))
+				    }*/
+				  ]
+				};
+
+				FusionCharts.ready(function() {
+				   var myChart = new FusionCharts({
+				      type: "mscolumn3dlinedy",
+				      renderAt: "chart-container",
+				      width: "100%",
+				      height: "100%",
+				      dataFormat: "json",
+				      dataSource
+				   }).render();
+				});
+			},
+			getchartsMes:function(){
+                var ANIOS =[];
+                var MONTOS =[];
+                var TOT_CREDITO =[];
+                var TOT_ACU =[];
+                var TOT_GANA =[];
+                var PAGADO =[];
+                var INTERES =[];
+                var MORA =[];
+                var SALDO =[];
+
+				Ext.getCmp(reportes.id + '-grid-meses').getStore().each(function(record, idx) {
+					ANIOS.push({"label":record.get('ano')});
+		            MONTOS.push({"value":record.get('monto')});
+		            TOT_CREDITO.push({"value":record.get('total_credito')});
+		            TOT_ACU.push({"value":record.get('tot_acumulado')});
+		            TOT_GANA.push({"value":record.get('tot_ganancia')});
+		            PAGADO.push({"value":record.get('pagado')});
+		            INTERES.push({"value":record.get('interes')});
+		            MORA.push({"value":record.get('mora')});
+		            SALDO.push({"value":record.get('saldo')});
+		        });
+
+				const dataSource = {
+				  "chart": {
+				    "caption": "Consolidado Por Meses",
+				    "subcaption": "Total Créditos,Saldos,Intereses, Mora,Ganancias",
+				    "yaxisname": "Montos",
+				    "syaxisname": "Porcentajes",
+				    "snumbersuffix": "%",
+				    "drawcustomlegendicon": "0",
+				    "showvalues": "0",
+				    "rotatelabels": "0",
+				    "theme": "fusion"
+				  },
+				  "categories": [
+				    {
+				      "category": eval(JSON.stringify(ANIOS))
+				    }
+				  ],
+				  "dataset": [
+				    {
+				      "seriesname": "Total Crédito",
+				      "data": eval(JSON.stringify(TOT_CREDITO))
+				    },
+				    {
+				      "seriesname": "Saldos",
+				      "data": eval(JSON.stringify(SALDO))
+				    },
+				    {
+				      "seriesname": "Interes",
+				      "data": eval(JSON.stringify(INTERES))
+				    },
+				    {
+				      "seriesname": "Mora",
+				      "data": eval(JSON.stringify(MORA))
+				    },
+				    {
+				      "seriesname": "Ganancias",
+				      "data": eval(JSON.stringify(TOT_GANA))
+				    }/*,
+				    {
+				      "seriesname": "% Unit Share",
+				      "renderas": "line",
+				      "parentyaxis": "S",
+				      "data": eval(JSON.stringify(INTERES))
+				    }*/
+				  ]
+				};
+
+				FusionCharts.ready(function() {
+				   var myChart = new FusionCharts({
+				      type: "mscolumn3dlinedy",
+				      renderAt: "chart-container-meses",
+				      width: "100%",
+				      height: "100%",
+				      dataFormat: "json",
+				      dataSource
+				   }).render();
+				});
+			},
+			getchartsAsesores:function(){
+                var ANIOS =[];
+                var MONTOS =[];
+                var TOT_CREDITO =[];
+                var TOT_ACU =[];
+                var TOT_GANA =[];
+                var PAGADO =[];
+                var INTERES =[];
+                var MORA =[];
+                var SALDO =[];
+
+				Ext.getCmp(reportes.id + '-grid-asesores').getStore().each(function(record, idx) {
+					ANIOS.push({"label":record.get('ano')});
+		            MONTOS.push({"value":record.get('monto')});
+		            TOT_CREDITO.push({"value":record.get('total_credito')});
+		            TOT_ACU.push({"value":record.get('tot_acumulado')});
+		            TOT_GANA.push({"value":record.get('tot_ganancia')});
+		            PAGADO.push({"value":record.get('pagado')});
+		            INTERES.push({"value":record.get('interes')});
+		            MORA.push({"value":record.get('mora')});
+		            SALDO.push({"value":record.get('saldo')});
+		        });
+
+				const dataSource = {
+				  "chart": {
+				    "caption": "Consolidado Por Asesores",
+				    "subcaption": "Total Créditos,Saldos,Intereses, Mora,Ganancias",
+				    "yaxisname": "Montos",
+				    "syaxisname": "Porcentajes",
+				    "snumbersuffix": "%",
+				    "drawcustomlegendicon": "0",
+				    "showvalues": "0",
+				    "rotatelabels": "0",
+				    "theme": "fusion"
+				  },
+				  "categories": [
+				    {
+				      "category": eval(JSON.stringify(ANIOS))
+				    }
+				  ],
+				  "dataset": [
+				    {
+				      "seriesname": "Total Crédito",
+				      "data": eval(JSON.stringify(TOT_CREDITO))
+				    },
+				    {
+				      "seriesname": "Saldos",
+				      "data": eval(JSON.stringify(SALDO))
+				    },
+				    {
+				      "seriesname": "Interes",
+				      "data": eval(JSON.stringify(INTERES))
+				    },
+				    {
+				      "seriesname": "Mora",
+				      "data": eval(JSON.stringify(MORA))
+				    },
+				    {
+				      "seriesname": "Ganancias",
+				      "data": eval(JSON.stringify(TOT_GANA))
+				    }/*,
+				    {
+				      "seriesname": "% Unit Share",
+				      "renderas": "line",
+				      "parentyaxis": "S",
+				      "data": eval(JSON.stringify(INTERES))
+				    }*/
+				  ]
+				};
+
+				FusionCharts.ready(function() {
+				   var myChart = new FusionCharts({
+				      type: "mscolumn3dlinedy",
+				      renderAt: "chart-container-asesores",
+				      width: "100%",
+				      height: "100%",
+				      dataFormat: "json",
+				      dataSource
+				   }).render();
+				});
+			},
+			getchartsAgencias:function(){
+                var ANIOS =[];
+                var MONTOS =[];
+                var TOT_CREDITO =[];
+                var TOT_ACU =[];
+                var TOT_GANA =[];
+                var PAGADO =[];
+                var INTERES =[];
+                var MORA =[];
+                var SALDO =[];
+
+				Ext.getCmp(reportes.id + '-grid-agencias').getStore().each(function(record, idx) {
+					ANIOS.push({"label":record.get('ano')});
+		            MONTOS.push({"value":record.get('monto')});
+		            TOT_CREDITO.push({"value":record.get('total_credito')});
+		            TOT_ACU.push({"value":record.get('tot_acumulado')});
+		            TOT_GANA.push({"value":record.get('tot_ganancia')});
+		            PAGADO.push({"value":record.get('pagado')});
+		            INTERES.push({"value":record.get('interes')});
+		            MORA.push({"value":record.get('mora')});
+		            SALDO.push({"value":record.get('saldo')});
+		        });
+
+				const dataSource = {
+				  "chart": {
+				    "caption": "Consolidado Por Agencias",
+				    "subcaption": "Total Créditos,Saldos,Intereses, Mora,Ganancias",
+				    "yaxisname": "Montos",
+				    "syaxisname": "Porcentajes",
+				    "snumbersuffix": "%",
+				    "drawcustomlegendicon": "0",
+				    "showvalues": "0",
+				    "rotatelabels": "0",
+				    "theme": "fusion"
+				  },
+				  "categories": [
+				    {
+				      "category": eval(JSON.stringify(ANIOS))
+				    }
+				  ],
+				  "dataset": [
+				    {
+				      "seriesname": "Total Crédito",
+				      "data": eval(JSON.stringify(TOT_CREDITO))
+				    },
+				    {
+				      "seriesname": "Saldos",
+				      "data": eval(JSON.stringify(SALDO))
+				    },
+				    {
+				      "seriesname": "Interes",
+				      "data": eval(JSON.stringify(INTERES))
+				    },
+				    {
+				      "seriesname": "Mora",
+				      "data": eval(JSON.stringify(MORA))
+				    },
+				    {
+				      "seriesname": "Ganancias",
+				      "data": eval(JSON.stringify(TOT_GANA))
+				    }/*,
+				    {
+				      "seriesname": "% Unit Share",
+				      "renderas": "line",
+				      "parentyaxis": "S",
+				      "data": eval(JSON.stringify(INTERES))
+				    }*/
+				  ]
+				};
+
+				FusionCharts.ready(function() {
+				   var myChart = new FusionCharts({
+				      type: "mscolumn3dlinedy",
+				      renderAt: "chart-container-agencias",
+				      width: "100%",
+				      height: "100%",
+				      dataFormat: "json",
+				      dataSource
+				   }).render();
+				});
+			},
+			getchartsMotivos:function(){
+                var ANIOS =[];
+                var MONTOS =[];
+                var TOT_CREDITO =[];
+                var TOT_ACU =[];
+                var TOT_GANA =[];
+                var PAGADO =[];
+                var INTERES =[];
+                var MORA =[];
+                var SALDO =[];
+
+				Ext.getCmp(reportes.id + '-grid-motivo').getStore().each(function(record, idx) {
+					ANIOS.push({"label":record.get('ano')});
+		            MONTOS.push({"value":record.get('monto')});
+		            TOT_CREDITO.push({"value":record.get('total_credito')});
+		            TOT_ACU.push({"value":record.get('tot_acumulado')});
+		            TOT_GANA.push({"value":record.get('tot_ganancia')});
+		            PAGADO.push({"value":record.get('pagado')});
+		            INTERES.push({"value":record.get('interes')});
+		            MORA.push({"value":record.get('mora')});
+		            SALDO.push({"value":record.get('saldo')});
+		        });
+
+				const dataSource = {
+				  "chart": {
+				    "caption": "Consolidado Por Motivos",
+				    "subcaption": "Total Créditos,Saldos,Intereses, Mora,Ganancias",
+				    "yaxisname": "Montos",
+				    "syaxisname": "Porcentajes",
+				    "snumbersuffix": "%",
+				    "drawcustomlegendicon": "0",
+				    "showvalues": "0",
+				    "rotatelabels": "0",
+				    "theme": "fusion"
+				  },
+				  "categories": [
+				    {
+				      "category": eval(JSON.stringify(ANIOS))
+				    }
+				  ],
+				  "dataset": [
+				    {
+				      "seriesname": "Total Crédito",
+				      "data": eval(JSON.stringify(TOT_CREDITO))
+				    },
+				    {
+				      "seriesname": "Saldos",
+				      "data": eval(JSON.stringify(SALDO))
+				    },
+				    {
+				      "seriesname": "Interes",
+				      "data": eval(JSON.stringify(INTERES))
+				    },
+				    {
+				      "seriesname": "Mora",
+				      "data": eval(JSON.stringify(MORA))
+				    },
+				    {
+				      "seriesname": "Ganancias",
+				      "data": eval(JSON.stringify(TOT_GANA))
+				    }/*,
+				    {
+				      "seriesname": "% Unit Share",
+				      "renderas": "line",
+				      "parentyaxis": "S",
+				      "data": eval(JSON.stringify(INTERES))
+				    }*/
+				  ]
+				};
+
+				FusionCharts.ready(function() {
+				   var myChart = new FusionCharts({
+				      type: "mscolumn3dlinedy",
+				      renderAt: "chart-container-motivos",
+				      width: "100%",
+				      height: "100%",
+				      dataFormat: "json",
+				      dataSource
+				   }).render();
+				});
+			},
+			getchartsAvances:function(){
+                var SEMANA =[
+                	{"label":"Lunes"},
+                	{"label":"Martes"},
+                	{"label":"Miercoles"},
+                	{"label":"Jueves"},
+                	{"label":"Viernes"},
+                	{"label":"Sábado"},
+                	{"label":"Domingo"},
+                	//{"label":"Totales"}
+                ];
+
+                var VL_MONTOS_LU =0;
+                var VL_NO_MONTOS_LU =0;
+                var VL_CANT_LU =0;
+
+                var VL_MONTOS_MA =0;
+                var VL_NO_MONTOS_MA =0;
+                var VL_CANT_MA =0;
+
+                var VL_MONTOS_MI =0;
+                var VL_NO_MONTOS_MI =0;
+                var VL_CANT_MI =0;
+
+                var VL_MONTOS_JU =0;
+                var VL_NO_MONTOS_JU =0;
+                var VL_CANT_JU =0;
+
+                var VL_MONTOS_VI =0;
+                var VL_NO_MONTOS_VI =0;
+                var VL_CANT_VI =0;
+
+                var VL_MONTOS_SA =0;
+                var VL_NO_MONTOS_SA =0;
+                var VL_CANT_SA =0;
+
+                var VL_MONTOS_DO =0;
+                var VL_NO_MONTOS_DO =0;
+                var VL_CANT_DO =0;
+
+                var VL_TOTAL_SOL =0;
+                var VL_TOTAL =0;
+                /**/
+                var MONTOS_LU =[];
+                var MONTOS_NO_LU =[];
+                var CANT_LU =[];
+
+                var TOTAL_SOL =[];
+                var TOTAL =[];
+
+				Ext.getCmp(reportes.id + '-grid-avances').getStore().each(function(record, idx) {
+					
+					if(record.get('detalle')=='SOLICITADO' && record.get('Lunes')=='Lunes')VL_CANT_LU =VL_CANT_LU + parseInt(record.get('cant_lu'));
+	                if(record.get('detalle')=='CARTILLA COBRADA' && record.get('Lunes')=='Lunes')VL_MONTOS_LU =VL_MONTOS_LU + parseFloat(record.get('monto_lu'));
+	                if(record.get('detalle')=='CARTILLA NO COBRADA' && record.get('Lunes')=='Lunes')VL_NO_MONTOS_LU =VL_NO_MONTOS_LU + parseFloat(record.get('monto_lu'));
+
+	                if(record.get('detalle')=='SOLICITADO' && record.get('Martes')=='Martes')VL_CANT_MA =VL_CANT_MA + parseInt(record.get('cant_ma'));
+	                if(record.get('detalle')=='CARTILLA COBRADA' && record.get('Martes')=='Martes')VL_MONTOS_MA =VL_MONTOS_MA + parseFloat(record.get('monto_ma'));
+	                if(record.get('detalle')=='CARTILLA NO COBRADA' && record.get('Martes')=='Martes')VL_NO_MONTOS_MA =VL_NO_MONTOS_MA + parseFloat(record.get('monto_ma'));
+
+	                
+	                if(record.get('detalle')=='SOLICITADO' && record.get('Miercoles')=='Miercoles')VL_CANT_MI =VL_CANT_MI + parseInt(record.get('cant_mi'));
+	                if(record.get('detalle')=='CARTILLA COBRADA' && record.get('Miercoles')=='Miercoles')VL_MONTOS_MI =VL_MONTOS_MI + parseFloat(record.get('monto_mi'));
+	                if(record.get('detalle')=='CARTILLA NO COBRADA' && record.get('Miercoles')=='Miercoles')VL_NO_MONTOS_MI =VL_NO_MONTOS_MI + parseFloat(record.get('monto_mi'));
+
+	                if(record.get('detalle')=='SOLICITADO' && record.get('Jueves')=='Jueves')VL_CANT_JU =VL_CANT_JU + parseInt(record.get('cant_ju'));
+	                if(record.get('detalle')=='CARTILLA COBRADA' && record.get('Jueves')=='Jueves')VL_MONTOS_JU =VL_MONTOS_JU + parseFloat(record.get('monto_ju'));
+	                if(record.get('detalle')=='CARTILLA NO COBRADA' && record.get('Jueves')=='Jueves')VL_NO_MONTOS_JU =VL_NO_MONTOS_JU + parseFloat(record.get('monto_ju'));
+
+	                if(record.get('detalle')=='SOLICITADO'  && record.get('Viernes')=='Viernes')VL_CANT_VI =VL_CANT_VI + parseInt(record.get('cant_vi'));
+	                if(record.get('detalle')=='CARTILLA COBRADA' && record.get('Viernes')=='Viernes')VL_MONTOS_VI =VL_MONTOS_VI + parseFloat(record.get('monto_vi'));
+	                if(record.get('detalle')=='CARTILLA NO COBRADA' && record.get('Viernes')=='Viernes')VL_NO_MONTOS_VI =VL_NO_MONTOS_VI + parseFloat(record.get('monto_vi'));
+
+	                if(record.get('detalle')=='SOLICITADO' && record.get('Sabado')=='Sabado')VL_CANT_SA =VL_CANT_SA + parseInt(record.get('cant_sa'));
+	                if(record.get('detalle')=='CARTILLA COBRADA' && record.get('Sabado')=='Sabado')VL_MONTOS_SA =VL_MONTOS_SA + parseFloat(record.get('monto_sa'));
+	                if(record.get('detalle')=='CARTILLA NO COBRADA' && record.get('Sabado')=='Sabado')VL_NO_MONTOS_SA =VL_NO_MONTOS_SA + parseFloat(record.get('monto_sa'));
+
+	                if(record.get('detalle')=='SOLICITADO' && record.get('Domingo')=='Domingo')VL_CANT_DO =VL_CANT_DO + parseInt(record.get('cant_do'));
+	                if(record.get('detalle')=='CARTILLA COBRADA' && record.get('Domingo')=='Domingo')VL_MONTOS_DO =VL_MONTOS_DO + parseFloat(record.get('monto_do'));
+	                if(record.get('detalle')=='CARTILLA NO COBRADA' && record.get('Domingo')=='Domingo')VL_NO_MONTOS_DO =VL_NO_MONTOS_DO + parseFloat(record.get('monto_do'));
+
+	                VL_TOTAL_SOL =VL_TOTAL_SOL + record.get('total_sol');
+	                VL_TOTAL =VL_TOTAL + record.get('total');
+
+		        });
+
+
+		        MONTOS_LU.push(
+		        	{"value":VL_MONTOS_LU},
+		        	{"value":VL_MONTOS_MA},
+		        	{"value":VL_MONTOS_MI},
+		        	{"value":VL_MONTOS_JU},
+		        	{"value":VL_MONTOS_VI},
+		        	{"value":VL_MONTOS_SA},
+		        	{"value":VL_MONTOS_DO},
+		        	//{"value":VL_TOTAL}
+		        	);
+
+		        MONTOS_NO_LU.push(
+		        	{"value":VL_NO_MONTOS_LU},
+		        	{"value":VL_NO_MONTOS_MA},
+		        	{"value":VL_NO_MONTOS_MI},
+		        	{"value":VL_NO_MONTOS_JU},
+		        	{"value":VL_NO_MONTOS_VI},
+		        	{"value":VL_NO_MONTOS_SA},
+		        	{"value":VL_NO_MONTOS_DO},
+		        	//{"value":VL_TOTAL}
+		        	);
+
+	            CANT_LU.push(
+	            	{"value":VL_CANT_LU},
+	            	{"value":VL_CANT_MA},
+	            	{"value":VL_CANT_MI},
+	            	{"value":VL_CANT_JU},
+	            	{"value":VL_CANT_VI},
+	            	{"value":VL_CANT_SA},
+	            	{"value":VL_CANT_DO},
+	            	//{"value":VL_TOTAL_SOL}
+	            	);
+
+
+				const dataSource = {
+				  "chart": {
+				    "caption": "Cuadro de Avances Semanal",
+				    "subcaption": "SOLICITADO,CARTILLAS COBRADAS,CARTILLAS NO COBRADAS",
+				    "yaxisname": "Montos",
+				    "syaxisname": "Porcentajes",
+				    "snumbersuffix": "%",
+				    "drawcustomlegendicon": "0",
+				    "showvalues": "0",
+				    "rotatelabels": "0",
+				    "theme": "fusion"
+				  },
+				  "categories": [
+				    {
+				      "category": SEMANA
+				    }
+				  ],
+				  "dataset": [
+				    {
+				      "seriesname": "SOLICITADO",
+				      "data": eval(JSON.stringify(CANT_LU))
+				    },
+				    {
+				      "seriesname": "CARTILLA COBRADA",
+				      "data": eval(JSON.stringify(MONTOS_LU))
+				    },
+				    {
+				      "seriesname": "CARTILLA NO COBRADA",
+				      "data": eval(JSON.stringify(MONTOS_NO_LU))
+				    },/*,
+				    {
+				      "seriesname": "% Unit Share",
+				      "renderas": "line",
+				      "parentyaxis": "S",
+				      "data": eval(JSON.stringify(INTERES))
+				    }*/
+				  ]
+				};
+
+				FusionCharts.ready(function() {
+				   var myChart = new FusionCharts({
+				      type: "mscolumn3dlinedy",
+				      renderAt: "chart-container-avances",
+				      width: "100%",
+				      height: "100%",
+				      dataFormat: "json",
+				      dataSource
+				   }).render();
+				});
+			},
 			getSearchByYear(){
 				var age = Ext.getCmp(reportes.id+'-sol-cmb-agencia').getValue();
 				var ase = Ext.getCmp(reportes.id+'-sol-cmb-asesor').getValue();
 				var mot = Ext.getCmp(reportes.id+'-sol-cmb-motivo').getValue();
 				var mon = Ext.getCmp(reportes.id+'-sol-cmb-moneda').getValue();
-				var obja = Ext.getCmp(reportes.id + '-grid-anos');
-			    reportes.getReload(obja,{VP_OP:'Y',VP_ID_AGE:age,VP_ASESOR:ase,VP_MOTIVO:mot,VP_MONEDA:mon});
+				var obj = Ext.getCmp(reportes.id + '-grid-anos');
+
+				obj.getStore().removeAll();
+				obj.getStore().load(
+	                {params: {VP_OP:'Y',VP_ID_AGE:age,VP_ASESOR:ase,VP_MOTIVO:mot,VP_MONEDA:mon},
+	                callback:function(){
+	                	reportes.getchartsAno();
+	                }
+	            });
+			},
+			getSearchByMonth(){
+				var age = Ext.getCmp(reportes.id+'-sol-cmb-agencia-mes').getValue();
+				var ase = Ext.getCmp(reportes.id+'-sol-cmb-asesor-mes').getValue();
+				var mot = Ext.getCmp(reportes.id+'-sol-cmb-motivo-mes').getValue();
+				var mon = Ext.getCmp(reportes.id+'-sol-cmb-moneda-mes').getValue();
+				var obj = Ext.getCmp(reportes.id + '-grid-meses');
+
+				obj.getStore().removeAll();
+				obj.getStore().load(
+	                {params: {VP_OP:'M',VP_ID_AGE:age,VP_ASESOR:ase,VP_MOTIVO:mot,VP_MONEDA:mon},
+	                callback:function(){
+	                	reportes.getchartsMes();
+	                }
+	            });
+			},
+			getSearchByAgencia(){
+				var age = Ext.getCmp(reportes.id+'-sol-cmb-agencia-age').getValue();
+				var ase = Ext.getCmp(reportes.id+'-sol-cmb-asesor-age').getValue();
+				var mot = Ext.getCmp(reportes.id+'-sol-cmb-motivo-age').getValue();
+				var mon = Ext.getCmp(reportes.id+'-sol-cmb-moneda-age').getValue();
+				var obj = Ext.getCmp(reportes.id + '-grid-agencias');
+
+				obj.getStore().removeAll();
+				obj.getStore().load(
+	                {params: {VP_OP:'A',VP_ID_AGE:age,VP_ASESOR:ase,VP_MOTIVO:mot,VP_MONEDA:mon},
+	                callback:function(){
+	                	reportes.getchartsAgencias();
+	                }
+	            });
+			},
+			getSearchByAsesores(){
+				var age = Ext.getCmp(reportes.id+'-sol-cmb-agencia-asesor').getValue();
+				var ase = Ext.getCmp(reportes.id+'-sol-cmb-asesor-asesor').getValue();
+				var mot = Ext.getCmp(reportes.id+'-sol-cmb-motivo-asesor').getValue();
+				var mon = Ext.getCmp(reportes.id+'-sol-cmb-moneda-asesor').getValue();
+				var obj = Ext.getCmp(reportes.id + '-grid-asesores');
+
+				obj.getStore().removeAll();
+				obj.getStore().load(
+	                {params: {VP_OP:'S',VP_ID_AGE:age,VP_ASESOR:ase,VP_MOTIVO:mot,VP_MONEDA:mon},
+	                callback:function(){
+	                	reportes.getchartsAsesores();
+	                }
+	            });
+			},
+			getSearchByMotivos(){
+				var age = Ext.getCmp(reportes.id+'-sol-cmb-agencia-mot').getValue();
+				var ase = Ext.getCmp(reportes.id+'-sol-cmb-asesor-mot').getValue();
+				var mot = Ext.getCmp(reportes.id+'-sol-cmb-motivo-mot').getValue();
+				var mon = Ext.getCmp(reportes.id+'-sol-cmb-moneda-mot').getValue();
+				var obj = Ext.getCmp(reportes.id + '-grid-motivo');
+
+				obj.getStore().removeAll();
+				obj.getStore().load(
+	                {params: {VP_OP:'O',VP_ID_AGE:age,VP_ASESOR:ase,VP_MOTIVO:mot,VP_MONEDA:mon},
+	                callback:function(){
+	                	reportes.getchartsMotivos();
+	                }
+	            });
+			},
+			getSearchByAvances(){
+				var age = Ext.getCmp(reportes.id+'-sol-cmb-agencia-ava').getValue();
+				var ase = Ext.getCmp(reportes.id+'-sol-cmb-asesor-ava').getValue();
+				var mot = Ext.getCmp(reportes.id+'-sol-cmb-motivo-ava').getValue();
+				var mon = Ext.getCmp(reportes.id+'-sol-cmb-moneda-ava').getValue();
+				var obj = Ext.getCmp(reportes.id + '-grid-avances');
+
+				obj.getStore().removeAll();
+				obj.getStore().load(
+	                {params: {VP_OP:'O',VP_ID_AGE:age,VP_ASESOR:ase,VP_MOTIVO:mot,VP_MONEDA:mon},
+	                callback:function(){
+	                	reportes.getchartsAvances();
+	                }
+	            });
 			},
 			getReload:function(obj,json){
 		    	obj.getStore().removeAll();

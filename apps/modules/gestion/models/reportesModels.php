@@ -75,6 +75,22 @@ class reportesModels extends Adodb {
         return $array;
     }
 
+    public function get_list_reportes_cuadro_avance($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_REPORTE_CUADRO_AVANCE');
+      // parent::SetParameterSP($p['vp_shi_codigo'], 'int');
+      //  parent::SetParameterSP($p['vp_fac_cliente'], 'int');
+        /*parent::SetParameterSP($p['VP_OP'], 'varchar');
+        parent::SetParameterSP($p['VP_ID_AGE'], 'int');
+        parent::SetParameterSP($p['VP_ASESOR'], 'int');
+        parent::SetParameterSP($p['VP_MOTIVO'], 'int');
+        parent::SetParameterSP($p['VP_MONEDA'], 'varchar');
+        parent::SetParameterSP(USR_ID, 'int');//141*/
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+
     public function get_list_asesores($p){
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_ASESORES_AGENCIA_LIST');

@@ -80,13 +80,69 @@ class reportesController extends AppController {
         $array = array();
         $lote = 0;
         foreach ($rs as $index => $value){
-            $value_['ano'] = trim($value['ano']);
+            $value_['ano'] = utf8_encode(trim($value['ano']));
             $value_['moneda'] = trim($value['moneda']);
             $value_['monto'] = trim($value['monto']);
+
+            $value_['total_credito'] = trim($value['total_credito']);
+            $value_['tot_acumulado'] = trim($value['tot_acumulado']);
+            $value_['tot_ganancia'] = trim($value['tot_ganancia']);
+
             $value_['pagado'] = trim($value['pagado']);
             $value_['interes'] = trim($value['interes']);
             $value_['mora'] = trim($value['mora']);
             $value_['saldo'] = trim($value['saldo']);
+            $array[]=$value_;
+        }
+
+        $data = array(
+            'success' => true,
+            'error'=>0,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+    public function get_list_reportes_cuadro_avance($p){
+        $rs = $this->objDatos->get_list_reportes_cuadro_avance($p);
+        //var_export($rs);
+        $array = array();
+        $lote = 0;
+        foreach ($rs as $index => $value){
+            $value_['nombres'] = utf8_encode(trim($value['nombres']));
+            $value_['detalle'] = utf8_encode(trim($value['detalle']));
+
+            $value_['Lunes'] = trim($value['Lunes']);
+            $value_['monto_lu'] = trim($value['monto_lu']);
+            $value_['cant_lu'] = trim($value['cant_lu']);
+
+            $value_['Martes'] = trim($value['Martes']);
+            $value_['monto_ma'] = trim($value['monto_ma']);
+            $value_['cant_ma'] = trim($value['cant_ma']);
+
+            $value_['Miercoles'] = trim($value['Miercoles']);
+            $value_['monto_mi'] = trim($value['monto_mi']);
+            $value_['cant_mi'] = trim($value['cant_mi']);
+
+            $value_['Jueves'] = trim($value['Jueves']);
+            $value_['monto_ju'] = trim($value['monto_ju']);
+            $value_['cant_ju'] = trim($value['cant_ju']);
+
+            $value_['Viernes'] = trim($value['Viernes']);
+            $value_['monto_vi'] = trim($value['monto_vi']);
+            $value_['cant_vi'] = trim($value['cant_vi']);
+
+            $value_['Sabado'] = trim($value['Sabado']);
+            $value_['monto_sa'] = trim($value['monto_sa']);
+            $value_['cant_sa'] = trim($value['cant_sa']);
+
+            $value_['Domingo'] = trim($value['Domingo']);
+            $value_['monto_do'] = trim($value['monto_do']);
+            $value_['cant_do'] = trim($value['cant_do']);
+
+            $value_['total_sol'] = trim($value['total_sol']);
+            $value_['total'] = trim($value['total']);
             $array[]=$value_;
         }
 
