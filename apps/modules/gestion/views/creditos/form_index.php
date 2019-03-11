@@ -3532,7 +3532,11 @@
 																					    xtype: 'rownumberer',
 																					    width: 40,
 																					    sortable: false,
-																					    locked: true
+																					    locked: true,
+																					    renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+													                                        //console.log(record);
+													                                        return store.indexOf(record);
+													                                    }
 																					},
 																					{
 																						text:'<div style="display: inline-flex;"><div style="width: 76px;">FECHA</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
@@ -3545,13 +3549,31 @@
 															                                    text: 'DIA',
 															                                    align:'center',
 															                                    dataIndex: 'DIA',
-															                                    width: 50
+															                                    width: 50,
+															                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+															                                        //console.log(record);
+															                                        var DAT = value;
+															                                        if(record.get('estado')=='S'){
+															                                        	DAT = '';
+															                                        }
+															                                        metaData.style = "padding: 0px; margin: 0px";
+															                                        return DAT;
+															                                    }
 															                                },
 															                                {
 															                                    text: 'MES',
 															                                    align:'center',
 															                                    dataIndex: 'MES',
-															                                    width: 50
+															                                    width: 50,
+															                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+															                                        //console.log(record);
+															                                        var DAT = value;
+															                                        if(record.get('estado')=='S'){
+															                                        	DAT = '';
+															                                        }
+															                                        metaData.style = "padding: 0px; margin: 0px";
+															                                        return DAT;
+															                                    }
 															                                }
 													                                	]
 													                            	},
@@ -3565,7 +3587,16 @@
 															                                    text: 'DIARIA',
 															                                    align:'right',
 															                                    dataIndex: 'valor_cuota',
-															                                    width: 80
+															                                    width: 80,
+															                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+															                                        //console.log(record);
+															                                        var DAT = value;
+															                                        if(record.get('estado')=='S'){
+															                                        	DAT = '';
+															                                        }
+															                                        metaData.style = "padding: 0px; margin: 0px";
+															                                        return DAT;
+															                                    }
 															                                }
 															                            ]
 															                        },
@@ -3579,7 +3610,16 @@
 															                                    text: 'PAGADO',
 															                                    align:'right',
 															                                    dataIndex: 'pagado',
-															                                    width: 80
+															                                    width: 80,
+															                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+															                                        //console.log(record);
+															                                        var DAT = value;
+															                                        if(record.get('estado')=='S'){
+															                                        	DAT = '';
+															                                        }
+															                                        metaData.style = "padding: 0px; margin: 0px";
+															                                        return DAT;
+															                                    }
 															                                }
 															                            ]
 															                        },
@@ -3593,13 +3633,31 @@
 															                                    text: 'DIA',
 															                                    align:'center',
 															                                    dataIndex: 'PDIA',
-															                                    width: 50
+															                                    width: 50,
+															                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+															                                        //console.log(record);
+															                                        var DAT = value;
+															                                        if(record.get('estado')=='S'){
+															                                        	DAT = '';
+															                                        }
+															                                        metaData.style = "padding: 0px; margin: 0px";
+															                                        return DAT;
+															                                    }
 															                                },
 															                                {
 															                                    text: 'MES',
 															                                    align:'center',
 															                                    dataIndex: 'PMES',
-															                                    width: 50
+															                                    width: 50,
+															                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+															                                        //console.log(record);
+															                                        var DAT = value;
+															                                        if(record.get('estado')=='S'){
+															                                        	DAT = '';
+															                                        }
+															                                        metaData.style = "padding: 0px; margin: 0px";
+															                                        return DAT;
+															                                    }
 															                                }
 													                                	]
 													                            	},
@@ -3613,13 +3671,31 @@
 															                                    text: 'S/.',
 															                                    align:'right',
 															                                    dataIndex: 'mora',
-															                                    width: 60
+															                                    width: 60,
+															                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+															                                        //console.log(record);
+															                                        var DAT = value;
+															                                        if(record.get('estado')=='S'){
+															                                        	DAT = '';
+															                                        }
+															                                        metaData.style = "padding: 0px; margin: 0px";
+															                                        return DAT;
+															                                    }
 															                                },
 															                                {
 															                                    text: 'DIAS',
 															                                    align:'center',
 															                                    dataIndex: 'dias',
-															                                    width: 50
+															                                    width: 50,
+															                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+															                                        //console.log(record);
+															                                        var DAT = value;
+															                                        if(record.get('estado')=='S'){
+															                                        	DAT = '';
+															                                        }
+															                                        metaData.style = "padding: 0px; margin: 0px";
+															                                        return DAT;
+															                                    }
 															                                }
 													                                	]
 													                            	},

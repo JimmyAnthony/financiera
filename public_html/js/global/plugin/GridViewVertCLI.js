@@ -32,44 +32,13 @@ Ext.define('Ext.global.plugin.GridViewVertCLI',{
                                 '<img src="/images/menu/{icono}" />',
                             '</div>',
                         '</div>',
-                        '<div class="list_grid_as__menu_line" style="width:200px;">',
+                        '<div class="list_grid_as__menu_line" style="width:180px;">',
                             '<div class="list_grid_as__menu_bar">',
                                 '<div class="list_grid_as__menu_title_A">',
                                 '<span>Nombres:</span>',
                                 '</div>',
                                 '<div class="list_grid_as__menu_title">',
                                     '<span>{nombres}, {ape_pat} {ape_mat}</span>',
-                                '</div>',
-                            '</div>',
-                        '</div>',
-                        '<div class="list_grid_as__menu_line" style="width:80px;">',
-                            '<div class="list_grid_as__menu_bar">',
-                                '<div class="list_grid_as__menu_title_A">',
-                                '<span>DNI:</span>',
-                                '</div>',
-                                '<div class="list_grid_as__menu_title">',
-                                    '<span>{dni}</span>',
-                                '</div>',
-                            '</div>',
-                        '</div>',
-                        '<div class="list_grid_as__menu_line" style="width:130px;">',
-                            '<div class="list_grid_as__menu_bar">',
-                                '<div class="list_grid_as__menu_title_A">',
-                                '<span>Teléfonos:</span>',
-                                '</div>',
-                                '<div class="list_grid_as__menu_title">',
-                                    '<span>{numero}</span>',
-                                '</div>',
-                            '</div>',
-                        '</div>',
-                        '<div class="list_grid_as__menu_line" style="width:400px;">',
-                            '<div class="list_grid_as__menu_bar">',
-                                '<div class="list_grid_as__menu_title_A">',
-                                '<span>Dirección:</span>',
-                                '</div>',
-                                '<div class="list_grid_as__menu_title" >',
-                                    '<span style="font-size:10px;">{dir_direccion} N°:{dir_numero} Mz:{dir_mz} Lt:{dir_lt} Dpto:{dir_dpto} Int:{dir_interior}</span>',
-                                    '<span style="font-size:10px;">Urb:{dir_urb} Ref:{dir_referencia} </span>',
                                 '</div>',
                             '</div>',
                         '</div>',
@@ -80,7 +49,7 @@ Ext.define('Ext.global.plugin.GridViewVertCLI',{
                                 '</div>',
                                 '<div class="list_grid_as__menu_title">',
                                     '<span style="font-size:8px;text-align:center;">CANTIDAD:</span>',
-                                    '<span style="font-size:14px;">{solicitudes}</span>',
+                                    '<span style="font-size:14px;">{cantidad}</span>',
                                 '</div>',
                             '</div>',
                         '</div>',
@@ -89,27 +58,7 @@ Ext.define('Ext.global.plugin.GridViewVertCLI',{
    
                                 '<div class="list_grid_as__menu_title">',
                                     '<span style="font-size:8px;text-align:center;">MONTO:</span>',
-                                    '<span style="font-size:14px;">{sol_monto}</span>',
-                                '</div>',
-                            '</div>',
-                        '</div>',
-                        '<div class="list_grid_as__menu_line" style="width:75px;">',
-                            '<div class="list_grid_as__menu_bar">',
-                                '<div class="list_grid_as__menu_title_A">',
-                                '<span>CLIENTES</span>',
-                                '</div>',
-                                '<div class="list_grid_as__menu_title">',
-                                    '<span style="font-size:8px;text-align:center;">CANTIDAD:</span>',
-                                    '<span style="font-size:14px;">{solicitudes}</span>',
-                                '</div>',
-                            '</div>',
-                        '</div>',
-                        '<div class="list_grid_as__menu_line" style="width:75px;">',
-                            '<div class="list_grid_as__menu_bar">',
-   
-                                '<div class="list_grid_as__menu_title">',
-                                    '<span style="font-size:8px;text-align:center;">MONTO:</span>',
-                                    '<span style="font-size:14px;">{solicitudes}</span>',
+                                    '<span style="font-size:14px;">{monto}</span>',
                                 '</div>',
                             '</div>',
                         '</div>',
@@ -119,26 +68,14 @@ Ext.define('Ext.global.plugin.GridViewVertCLI',{
         );
         var store = Ext.create('Ext.data.Store',{
             fields: [
+                {name: 'id_asesor', type: 'string'},
                 {name: 'id_per', type: 'string'},
                 {name: 'nombres', type: 'string'},
                 {name: 'ape_pat', type: 'string'},
                 {name: 'ape_mat', type: 'string'},
-                {name: 'dni', type: 'string'},
-                {name: 'numero', type: 'string'},
-
-                {name: 'id_dir', type: 'string'},
-                {name: 'dir_direccion', type: 'string'},
-                {name: 'dir_numero', type: 'string'},
-                {name: 'dir_mz', type: 'string'},
-                {name: 'dir_lt', type: 'string'},
-                {name: 'dir_dpto', type: 'string'},
-                {name: 'dir_interior', type: 'string'},
-                {name: 'dir_urb', type: 'string'},
-                {name: 'dir_referencia', type: 'string'},
-                {name: 'cod_ubi', type: 'string'},
-                {name: 'fecha', type: 'string'},
-                {name: 'clase', type: 'string'},
-                {name: 'flag', type: 'string'}
+                {name: 'doc_dni', type: 'string'},
+                {name: 'cantidad', type: 'string'},
+                {name: 'monto', type: 'string'}
             ],
             autoLoad:false,
             proxy:{
@@ -187,8 +124,10 @@ Ext.define('Ext.global.plugin.GridViewVertCLI',{
                         trackOver: true,
                         overItemCls: 'list_grid_as__list_menu-hover',
                         listeners: {
-                            'itemdblclick': function(view, record, item, idx, event, opts) {
-                                me.idx=idx;
+                            //'itemdblclick': function(view, record, item, idx, event, opts) {
+                            'itemclick': function(view, record, item, idx, event, opts) {
+                                eval(config.id+'.getListaSolicitudes('+record.get('doc_dni')+')');
+                                /*me.idx=idx;
                                 var record = this.getStore().getAt(idx);
                                 var val =record.data;
                                 var menu_class = val.menu_class == null || val.menu_class == '' ? '' : val.menu_class;
@@ -200,7 +139,7 @@ Ext.define('Ext.global.plugin.GridViewVertCLI',{
                                         var active=Ext.getCmp(me.config_.id+val.url);
                                         tab.setActiveTab(active);
                                     }
-                                }
+                                }*/
                                 
                             }
                         }

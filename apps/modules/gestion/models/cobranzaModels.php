@@ -58,7 +58,48 @@ class cobranzaModels extends Adodb {
         $array = parent::ExecuteSPArray();
         return $array;
     }
-    
+    public function SP_CREDITOS_DETALLE_LIST($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_CREDITOS_DETALLE_LIST');
+        parent::SetParameterSP($p['VP_CODIGO'], 'int');//19 
+        parent::SetParameterSP(USR_ID, 'int');//19
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+    public function get_list_asesores($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_ASESORES_AGENCIA_LIST');
+      // parent::SetParameterSP($p['vp_shi_codigo'], 'int');
+      //  parent::SetParameterSP($p['vp_fac_cliente'], 'int');
+        parent::SetParameterSP($p['vp_cod_age'], 'int');
+        parent::SetParameterSP(USR_ID, 'int');//141
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+    public function get_list_motivos($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_MOTIVOS_LIST');
+      // parent::SetParameterSP($p['vp_shi_codigo'], 'int');
+      //  parent::SetParameterSP($p['vp_fac_cliente'], 'int');
+        parent::SetParameterSP('A', 'varchar');
+        parent::SetParameterSP(USR_ID, 'int');//141
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+    public function SP_CREDITOS_CLIENTE_LIST($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_CREDITOS_CLIENTE_LIST');
+        parent::SetParameterSP($p['VP_T_DOC'], 'varchar');//1
+        parent::SetParameterSP($p['VP_ID_PER'], 'int');//19 
+        parent::SetParameterSP($p['VP_DOC'], 'varchar');//8
+        parent::SetParameterSP(USR_ID, 'int');//19
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
     public function SP_TELEFONOS_LIST($p){
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_TELEFONOS_LIST');
@@ -170,6 +211,15 @@ class cobranzaModels extends Adodb {
         parent::SetParameterSP($p['vp_id'], 'int');
         parent::SetParameterSP($p['vp_dni'], 'varchar');
         parent::SetParameterSP($p['vp_nombres'], 'varchar');
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+    public function SP_ASESORES_CLIENTE_LIST($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_ASESORES_CLIENTE_LIST');
+        parent::SetParameterSP($p['vp_id'], 'int');
+        parent::SetParameterSP(USR_ID, 'int');//141
         // echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
         return $array;

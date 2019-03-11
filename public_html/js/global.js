@@ -146,6 +146,142 @@ win = {
                     .appendTo(linksContainer);
             break;
         }
+    },
+    getMonthAbbreviation: function(strDate) {
+        var strReturn = '';
+        switch (strDate) {
+            case 'Jan':
+                strReturn = '01';
+                break;
+            case 'Feb':
+                strReturn = '02';
+                break;
+            case 'Mar':
+                strReturn = '03';
+                break;
+            case 'Apr':
+                strReturn = '04';
+                break;
+            case 'May':
+                strReturn = '05';
+                break;
+            case 'Jun':
+                strReturn = '06';
+                break;
+            case 'Jul':
+                strReturn = '07';
+                break;
+            case 'Aug':
+                strReturn = '08';
+                break;
+            case 'Sep':
+                strReturn = '09';
+                break;
+            case 'Oct':
+                strReturn = '10';
+                break;
+            case 'Nov':
+                strReturn = '11';
+                break;
+            case 'Dec':
+                strReturn = '12';
+                break;
+            default:
+                strReturn = strDate;
+        }
+        return strReturn;
+    },
+    getStoreYear: function(ALL) {
+        var i = 2010, fecha = new Date(), year = fecha.getFullYear() + 1, years = new Array();
+        if (ALL)
+            years.push(['', 'All']);
+        for (; year >= i; year--)
+            years.push([year, year]);
+        return Ext.create('Ext.data.ArrayStore', {
+            storeId: 'year',
+            autoLoad: true,
+            data: years,
+            fields: ['code', 'name']
+        });
+    },
+    getStoreMonth: function(ALL) {
+        var i = 0, month = new Array();
+        if (ALL)
+            month.push(['', 'All']);
+        month.push(
+                ["01", "Jan"],
+                ["02", "Feb"],
+                ["03", "Mar"],
+                ["04", "Apr"],
+                ["05", "May"],
+                ["06", "Jun"],
+                ["07", "Jul"],
+                ["08", "Aug"],
+                ["09", "Sep"],
+                ["10", "Oct"],
+                ["11", "Nov"],
+                ["12", "Dec"]
+                );
+        return Ext.create('Ext.data.ArrayStore', {
+            storeId: 'filter',
+            autoLoad: true,
+            data: month,
+            fields: ['code', 'name']
+        });
+    },
+    setSelectedMonth: function(obj, val) {
+        obj.setValue(obj.getStore().data.items[obj.getStore().data.items.length == 13 ? val + 1 : val].data[0]);
+    },
+    getStoreDays: function(ALL) {
+        var j = 31, day = 1, days = new Array();
+        if (ALL)
+            days.push(['', 'All']);
+        for (; day <= j; day++)
+            days.push([(day < 10) ? '0' + day : day, (day < 10) ? '0' + day : day]);
+        return Ext.create('Ext.data.ArrayStore', {
+            storeId: 'days',
+            autoLoad: true,
+            data: days,
+            fields: ['code', 'name']
+        });
+    },
+    setReplaceDate: function(date) {
+        if (date != "") {
+            var split = date.split("/"), s = "";
+            for (var x = 0; x < split.length; x++)
+                s = s + "" + split[x];
+            return s;
+        } else {
+            return date;
+        }
+    },
+     getChangeMsn: function(op) {
+        switch (op) {
+            case 'U':
+                op = 'UPDATE RECORD?';
+                break;
+            case 'I':
+                op = 'SAVE RECORD?';
+                break;
+            case 'D':
+                op = 'DELETE CHANGES?';
+                break;
+        }
+        return op;
+    },
+    getMessage: function(strOption) {
+        switch (strOption) {
+            case "I":
+                return "Added registry correctly";
+                break;
+            case "U":
+                return "Modified registry correctly";
+                break;
+            case "D":
+                return "Deleted registry correctly";
+                break;
+        }
+        return "";
     }
 }
 

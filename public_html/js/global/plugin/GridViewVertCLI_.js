@@ -1,11 +1,11 @@
 /**
- * @class Ext.global.plugin.GridViewVertAS
+ * @class Ext.global.plugin.GridViewVertCLI
  * @extends Ext.form.Panel
  * @author Jim
  */
-Ext.define('Ext.global.plugin.GridViewVertAS',{
+Ext.define('Ext.global.plugin.GridViewVertCLI',{
     extend: 'Ext.Container',
-    xtype: 'GridViewVertAS',
+    xtype: 'GridViewVertCLI',
     config: {
         layout: 'border',
         autoScroll:false,
@@ -32,13 +32,44 @@ Ext.define('Ext.global.plugin.GridViewVertAS',{
                                 '<img src="/images/menu/{icono}" />',
                             '</div>',
                         '</div>',
-                        '<div class="list_grid_as__menu_line" style="width:140px;">',
+                        '<div class="list_grid_as__menu_line" style="width:200px;">',
                             '<div class="list_grid_as__menu_bar">',
                                 '<div class="list_grid_as__menu_title_A">',
                                 '<span>Nombres:</span>',
                                 '</div>',
                                 '<div class="list_grid_as__menu_title">',
                                     '<span>{nombres}, {ape_pat} {ape_mat}</span>',
+                                '</div>',
+                            '</div>',
+                        '</div>',
+                        '<div class="list_grid_as__menu_line" style="width:80px;">',
+                            '<div class="list_grid_as__menu_bar">',
+                                '<div class="list_grid_as__menu_title_A">',
+                                '<span>DNI:</span>',
+                                '</div>',
+                                '<div class="list_grid_as__menu_title">',
+                                    '<span>{dni}</span>',
+                                '</div>',
+                            '</div>',
+                        '</div>',
+                        '<div class="list_grid_as__menu_line" style="width:130px;">',
+                            '<div class="list_grid_as__menu_bar">',
+                                '<div class="list_grid_as__menu_title_A">',
+                                '<span>Teléfonos:</span>',
+                                '</div>',
+                                '<div class="list_grid_as__menu_title">',
+                                    '<span>{numero}</span>',
+                                '</div>',
+                            '</div>',
+                        '</div>',
+                        '<div class="list_grid_as__menu_line" style="width:400px;">',
+                            '<div class="list_grid_as__menu_bar">',
+                                '<div class="list_grid_as__menu_title_A">',
+                                '<span>Dirección:</span>',
+                                '</div>',
+                                '<div class="list_grid_as__menu_title" >',
+                                    '<span style="font-size:10px;">{dir_direccion} N°:{dir_numero} Mz:{dir_mz} Lt:{dir_lt} Dpto:{dir_dpto} Int:{dir_interior}</span>',
+                                    '<span style="font-size:10px;">Urb:{dir_urb} Ref:{dir_referencia} </span>',
                                 '</div>',
                             '</div>',
                         '</div>',
@@ -88,7 +119,7 @@ Ext.define('Ext.global.plugin.GridViewVertAS',{
         );
         var store = Ext.create('Ext.data.Store',{
             fields: [
-                {name: 'id_asesor', type: 'string'},
+                {name: 'id_per', type: 'string'},
                 {name: 'nombres', type: 'string'},
                 {name: 'ape_pat', type: 'string'},
                 {name: 'ape_mat', type: 'string'},
@@ -109,7 +140,7 @@ Ext.define('Ext.global.plugin.GridViewVertAS',{
                 {name: 'clase', type: 'string'},
                 {name: 'flag', type: 'string'}
             ],
-            autoLoad:true,
+            autoLoad:false,
             proxy:{
                 type: 'ajax',
                 url: config.url,
@@ -139,10 +170,10 @@ Ext.define('Ext.global.plugin.GridViewVertAS',{
                 items:[
                     {
                         xtype: 'dataview',
-                        id: config.id+'-menu-view',
+                        id: config.id+'-list-clientes',
                         bodyStyle: 'background: transparent',
                         bodyCls: 'transparent',
-                        //layout:'fit',
+                        layout:'fit',
                         store: store,
                         autoScroll: true,
                         loadMask:true,
@@ -150,17 +181,14 @@ Ext.define('Ext.global.plugin.GridViewVertAS',{
                         tpl: imageTplPointer,
                         multiSelect: false,
                         singleSelect: false,
-                        loadingText:'Cargando Lista de Asesores...',
+                        loadingText:'Cargando Lista de Clientes...',
                         emptyText: '<div class="list_grid_as__list_menu"><div class="list_grid_as__none_data" ></div><div class="list_grid_as__title_clear_data">NO TIENE NINGUN ASESOR</div></div>',
                         itemSelector: 'div.list_grid_as__list_menu_select',
                         trackOver: true,
                         overItemCls: 'list_grid_as__list_menu-hover',
                         listeners: {
-                            //'itemdblclick': function(view, record, item, idx, event, opts) {
-                            'itemclick': function(view, record, item, idx, event, opts) {
-                                //eval(config.id+'.back="'+config.back+'"');
-                                eval(config.id+'.getClientes('+record.get('id_asesor')+')');
-                                /*me.idx=idx;
+                            'itemdblclick': function(view, record, item, idx, event, opts) {
+                                me.idx=idx;
                                 var record = this.getStore().getAt(idx);
                                 var val =record.data;
                                 var menu_class = val.menu_class == null || val.menu_class == '' ? '' : val.menu_class;
@@ -169,10 +197,10 @@ Ext.define('Ext.global.plugin.GridViewVertAS',{
                                         win.show({vurl: val.url, id_menu: idx, class: menu_class});//obj.getItemId().split('-')[1]  
                                     }else{
                                         var tab=Ext.getCmp(me.config_.tab);
-                                        var active=Ext.getCmp(me.config_.id+val.tab);
+                                        var active=Ext.getCmp(me.config_.id+val.url);
                                         tab.setActiveTab(active);
                                     }
-                                }*/
+                                }
                                 
                             }
                         }

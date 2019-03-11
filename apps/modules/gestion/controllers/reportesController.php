@@ -808,4 +808,39 @@ class reportesController extends AppController {
        imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
        return $dst;
     }
+    public function getWeek($p) {
+        $year = $p['year'];
+
+        $weeks = $this->getIsoWeeksInYear($year);
+        $array = array();
+        for($x=1; $x<=$weeks; $x++){
+            $dates = $this->getStartAndEndDate($x, $year);
+            //echo $x . " - " . $dates['week_start'] . ' - ' . $dates['week_end'] . "<br>";
+            $value_['week'] = $x;
+            $value_['week_start'] = trim($dates['week_start']);
+            $value_['week_end'] = trim($dates['week_end']);
+            $value_['week_join'] = '('.$x.') -'.trim($dates['week_start']) . '  - '. trim($dates['week_end']);
+            $array[]=$value_;
+        }
+        $data = array(
+            'success' => true,
+            'error'=>0,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+    public function getIsoWeeksInYear($year) {
+        $date = new DateTime;
+        $date->setISODate($year, 53);
+        return ($date->format("W") === "53" ? 53 : 52);
+    }
+
+    public function getStartAndEndDate($week, $year) {
+      $dto = new DateTime();
+      $ret['week_start'] = $dto->setISODate($year, $week)->format('Y-m-d');
+      $ret['week_end'] = $dto->modify('+6 days')->format('Y-m-d');
+      return $ret;
+    }
 }

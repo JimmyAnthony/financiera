@@ -272,6 +272,28 @@
 	                    }
 	                }
 	            });
+	            var store_semanas = Ext.create('Ext.data.Store',{
+	                fields: [
+	                    {name: 'week', type: 'string'},
+	                    {name: 'week_start', type: 'string'},
+	                    {name: 'week_end', type: 'string'},
+	                    {name: 'week_join', type: 'string'}
+	                ],
+	                autoLoad:false,
+	                proxy:{
+	                    type: 'ajax',
+	                    url: reportes.url+'getWeek/',
+	                    reader:{
+	                        type: 'json',
+	                        rootProperty: 'data'
+	                    }
+	                },
+	                listeners:{
+	                    load: function(obj, records, successful, opts){
+	                        
+	                    }
+	                }
+	            });
 	            var store_age = Ext.create('Ext.data.Store',{
 	                fields: [
 	                    {name: 'ano', type: 'string'},
@@ -409,7 +431,7 @@
 	                },
 	                listeners:{
 	                    load: function(obj, records, successful, opts){
-	                        
+	                        reportes.getchartsAvances();
 	                    }
 	                }
 	            });
@@ -2480,11 +2502,85 @@
 										                            }
 										                        },
 										                        {
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Año',
+						                                            id:reportes.id+'-filtro-ano',
+						                                            store: win.getStoreYear(false),
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'code',
+						                                            displayField: 'name',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.10,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	fecha = new Date(), year = fecha.getFullYear()
+						                                                	obj.setValue(year);
+						                                                	var obja = Ext.getCmp(reportes.id+'-filtro-semanas');
+			                            									reportes.getReload(obja,{year:fecha});
+			                            									Ext.getCmp(reportes.id+'-filtro-semanas').setValue(reportes.getCurrentWeek());
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        			var obja = Ext.getCmp(reportes.id+'-filtro-semanas');
+			                            									reportes.getReload(obja,{year:obj.getValue()});
+			                            									Ext.getCmp(reportes.id+'-filtro-semanas').setValue('');
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Semana',
+						                                            id:reportes.id+'-filtro-semanas',
+						                                            store: store_semanas,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'week',
+						                                            displayField: 'week_join',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.20,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	//fecha = new Date(), year = fecha.getFullYear()
+						                                                	//obj.setValue(year);
+						                                                	
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        			//var obja = Ext.getCmp(reportes.id+'-sol-cmb-asesor-ava');
+			                            									//reportes.getReload(obja,{vp_cod_age:obj.getValue()});
+						                                                }
+						                                            }
+						                                        },
+										                        {
 												                    xtype: 'button',
 												                    margin:'2px 2px 2px 2px',
 												                    icon: '/images/icon/binocular.png',
 												                    //glyph: 72,
-												                    columnWidth: 0.1,
+												                    //columnWidth: 0.1,
+												                    width: 60,
 												                    text: 'Buscar',
 												                    scale: 'medium',
 												                    iconAlign: 'top',
@@ -2507,7 +2603,7 @@
 												                    margin:'2px 2px 2px 2px',
 												                    icon: '/images/icon/excel.png',
 												                    //glyph: 72,
-												                    columnWidth: 0.1,
+												                    width: 60,
 												                    text: 'Excel',
 												                    scale: 'medium',
 												                    iconAlign: 'top',
@@ -2530,7 +2626,7 @@
 												                    margin:'2px 2px 2px 2px',
 												                    icon: '/images/icon/pdf.png',
 												                    //glyph: 72,
-												                    columnWidth: 0.1,
+												                    width: 60,
 												                    text: 'PDF',
 												                    scale: 'medium',
 												                    iconAlign: 'top',
@@ -2556,6 +2652,7 @@
 													region:'center',
 													layout:'fit',
 													items:[
+
 														{
 									                        xtype: 'grid',
 									                        id: reportes.id + '-grid-avances',
@@ -3642,17 +3739,21 @@
 	            });
 			},
 			getSearchByAvances(){
+				var data = Ext.getCmp(reportes.id+'-filtro-semanas').getSelectedRecord().data;
 				var age = Ext.getCmp(reportes.id+'-sol-cmb-agencia-ava').getValue();
 				var ase = Ext.getCmp(reportes.id+'-sol-cmb-asesor-ava').getValue();
 				var mot = Ext.getCmp(reportes.id+'-sol-cmb-motivo-ava').getValue();
 				var mon = Ext.getCmp(reportes.id+'-sol-cmb-moneda-ava').getValue();
 				var obj = Ext.getCmp(reportes.id + '-grid-avances');
 
+				var week_start 	= data.week_start;
+				var week_end 	= data.week_end;
+
 				obj.getStore().removeAll();
 				obj.getStore().load(
-	                {params: {VP_OP:'O',VP_ID_AGE:age,VP_ASESOR:ase,VP_MOTIVO:mot,VP_MONEDA:mon},
+	                {params: {VP_OP:'V',VP_ID_AGE:age,VP_ASESOR:ase,VP_MOTIVO:mot,VP_MONEDA:mon,week_start:week_start,week_end:week_end},
 	                callback:function(){
-	                	reportes.getchartsAvances();
+	                	
 	                }
 	            });
 			},
@@ -4388,6 +4489,36 @@
 	                	//Ext.getCmp(reportes.id+'-form').el.unmask();
 	                }
 	            });
+			},
+			y2k:function(number) { return (number < 1000) ? number + 1900 : number; },
+			getWeek:function(year,month,day) {
+			    var when = new Date(year,month,day);
+			    var newYear = new Date(year,0,1);
+			    var modDay = newYear.getDay();
+			    if (modDay == 0) modDay=6; else modDay--;
+
+			    var daynum = ((Date.UTC(reportes.y2k(year),when.getMonth(),when.getDate(),0,0,0) -
+			                 Date.UTC(reportes.y2k(year),0,1,0,0,0)) /1000/60/60/24) + 1;
+
+			    if (modDay < 4 ) {
+			        var weeknum = Math.floor((daynum+modDay-1)/7)+1;
+			    }
+			    else {
+			        var weeknum = Math.floor((daynum+modDay-1)/7);
+			        if (weeknum == 0) {
+			            year--;
+			            var prevNewYear = new Date(year,0,1);
+			            var prevmodDay = prevNewYear.getDay();
+			            if (prevmodDay == 0) prevmodDay = 6; else prevmodDay--;
+			            if (prevmodDay < 4) weeknum = 53; else weeknum = 52;
+			        }
+			    }
+
+			    return + weeknum;
+			},
+			getCurrentWeek:function(){
+				var now = new Date();
+				return reportes.getWeek(reportes.y2k(now.getYear()),now.getMonth(),now.getDate());
 			}
 		}
 		Ext.onReady(reportes.init,reportes);

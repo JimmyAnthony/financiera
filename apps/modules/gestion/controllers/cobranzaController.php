@@ -23,7 +23,162 @@ class cobranzaController extends AppController {
     public function index($p){        
         $this->view('cobranza/form_index.php', $p);
     }
+    public function get_list_client_creditos($p){
+        $rs = $this->objDatos->SP_CREDITOS_CLIENTE_LIST($p);
+        //var_export($rs);
+        $array = array();
+        $lote = 0;
+        foreach ($rs as $index => $value){
+            $value_['id_creditos'] = intval($value['id_creditos']);
+            $value_['nro_solicitud'] = trim($value['nro_solicitud']);
+            $value_['id_age'] = trim($value['id_age']);
+            //substr(trim($value['fec_ingreso']),0,10)
+            $value_['id_per'] = trim($value['id_per']);
+            $value_['id_garante'] = trim($value['id_garante']);
+            $value_['id_asesor'] =trim($value['id_asesor']);
+            $value_['moneda'] = trim($value['moneda']);
+            $value_['monto_solicitado'] = trim($value['monto_solicitado']);
+            $value_['tipo_cliente'] = trim($value['tipo_cliente']);
+            $value_['excepcion'] = trim($value['excepcion']);
+            $value_['nro_cuotas'] = trim($value['nro_cuotas']);
+            $value_['interes'] = trim($value['interes']);
+            $value_['mora'] = trim($value['mora']);
+            $value_['fecha_1ra_letra'] = trim($value['fecha_1ra_letra']);
+            $value_['monto_aprobado'] = trim($value['monto_aprobado']);
+            $value_['tot_credito'] = trim($value['tot_credito']);
+            $value_['tot_acumulado'] = trim($value['tot_acumulado']);
+            $value_['tot_ganancia'] = trim($value['tot_ganancia']);
+            $value_['tot_pagado'] = trim($value['tot_pagado']);
+            $value_['tot_interes'] = trim($value['tot_interes']);
+            $value_['tot_mora'] = trim($value['tot_mora']);
+            $value_['tot_saldo'] = trim($value['tot_saldo']);
+            $value_['id_motivo'] = trim($value['id_motivo']);
+            $value_['estado'] = trim($value['estado']);
+            $value_['fecha_sol'] = trim($value['fecha_sol']);
+            $value_['nota'] = utf8_encode(trim($value['nota']));
+            $value_['fecha_mod'] = trim($value['fecha_mod']);
+            $value_['enviado'] = trim($value['enviado']);
+            $value_['flag'] = trim($value['flag']);
+            $array[]=$value_;
+        }
 
+        $data = array(
+            'success' => true,
+            'error'=>0,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+    public function get_list_creditos_detalle($p){
+        $rs = $this->objDatos->SP_CREDITOS_DETALLE_LIST($p);
+        //var_export($rs);
+        $array = array();
+        $lote = 0;
+        foreach ($rs as $index => $value){
+            $value_['id_det_credito'] = intval($value['id_det_credito']);
+            $value_['id_credito'] = intval($value['id_credito']);
+            $value_['nro_cuota'] = trim($value['nro_cuota']);
+            $value_['fecha_cuota'] = trim($value['fecha_cuota']);
+            //substr(trim($value['fec_ingreso']),0,10)
+            $value_['DIA'] = trim($value['DIA']);
+            $value_['MES'] = trim($value['MES']);
+            $value_['ANO'] =trim($value['ANO']);
+            $value_['valor_cuota'] = trim($value['valor_cuota']);
+            $value_['pagado'] = trim($value['pagado']);
+            $value_['fecha_pago'] = trim($value['fecha_pago']);
+            $value_['PDIA'] = trim($value['PDIA']);
+            $value_['PMES'] = trim($value['PMES']);
+            $value_['PANO'] = trim($value['PANO']);
+            $value_['mora'] = trim($value['mora']);
+            $value_['dias'] = trim($value['dias']);
+            $value_['saldo_cuota'] = trim($value['saldo_cuota']);
+            $value_['vence'] = trim($value['vence']);
+            $value_['estado'] = trim($value['estado']);
+            $value_['flag'] = trim($value['flag']);
+            $array[]=$value_;
+        }
+
+        $data = array(
+            'success' => true,
+            'error'=>0,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+    public function get_list_asesores($p){
+        $rs = $this->objDatos->get_list_asesores($p);
+        //var_export($rs);
+        $array = array();
+        $lote = 0;
+        foreach ($rs as $index => $value){
+            $value_['id_asesor'] = intval($value['id_asesor']);
+            $value_['id_per'] = intval($value['id_per']);
+            $value_['id_age'] = intval($value['id_age']);
+            $value_['icono'] = 'if_person_3_1376034.png';
+            $value_['nombres'] =utf8_encode(trim($value['nombres']));
+            $value_['ape_pat'] =utf8_encode(trim($value['ape_pat']));
+            $value_['ape_mat'] =utf8_encode(trim($value['ape_mat']));
+
+            $value_['nombre'] =utf8_encode(trim($value['nombres'])).', '.utf8_encode(trim($value['ape_pat'])).' '.utf8_encode(trim($value['ape_mat']));
+
+            $value_['doc_dni'] =trim($value['doc_dni']);
+            $value_['id_tel'] = intval($value['id_tel']);
+            $value_['numero'] =trim($value['numero']);
+
+            $value_['id_dir'] =trim($value['id_dir']);
+            $value_['dir_direccion'] =utf8_encode(trim($value['dir_direccion']));
+            $value_['dir_numero'] =utf8_encode(trim($value['dir_numero']));
+            $value_['dir_mz'] =utf8_encode(trim($value['dir_mz']));
+            $value_['dir_lt'] =utf8_encode(trim($value['dir_lt']));
+            $value_['dir_dpto'] =utf8_encode(trim($value['dir_dpto']));
+            $value_['dir_interior'] =utf8_encode(trim($value['dir_interior']));
+            $value_['dir_urb'] =utf8_encode(trim($value['dir_urb']));
+            $value_['dir_referencia'] =utf8_encode(trim($value['dir_referencia']));
+            $value_['fecha'] =trim($value['fecha']);
+            $value_['cod_ubi'] =utf8_encode(trim($value['cod_ubi']));
+            $value_['clase'] = $value['flag']=='A'?'databox_list_menu':'databox_list_menu_disabled';
+            $value_['solicitudes'] =trim($value['solicitudes']);
+            $value_['sol_monto'] =trim($value['sol_monto']);
+            $value_['flag'] =trim($value['flag']);
+            $value_['tab'] =trim($value['tab']);
+            $array[]=$value_;
+        }
+
+        $data = array(
+            'success' => true,
+            'error'=>0,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+    public function get_list_motivos($p){
+        $rs = $this->objDatos->get_list_motivos($p);
+        //var_export($rs);
+        $array = array();
+        $lote = 0;
+        foreach ($rs as $index => $value){
+            $value_['id_mot'] = intval($value['id_mot']);
+            $value_['nombre'] = utf8_encode(trim($value['nombre']));
+            $value_['fecha'] = trim($value['fecha']);
+            $value_['flag'] = trim($value['flag']);
+            $array[]=$value_;
+        }
+
+        $data = array(
+            'success' => true,
+            'error'=>0,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
     public function get_list_telefonos($p){
         $rs = $this->objDatos->SP_TELEFONOS_LIST($p);
         //var_export($rs);
@@ -304,35 +459,20 @@ class cobranzaController extends AppController {
         //$p['vp_menu_id'] = 0;
         // $this->objServicios = $this->objDatos->usr_sis_servicios($p);
 
-        $this->arrayMenu = $this->objDatos->SP_ASESORES_LIST($p);
+        $this->arrayMenu = $this->objDatos->SP_ASESORES_CLIENTE_LIST($p);
         //var_export($this->arrayMenu);
         $array = array();
         foreach ($this->arrayMenu as $index => $value){
                 //$p['id_asesor'] = intval($value['id_asesor']);
                 $value_['id_asesor'] = intval($value['id_asesor']);
-                $value_['icono'] = 'batman.png';
+                $value_['id_per'] = intval($value['id_per']);
+                $value_['icono'] = 'default_user.png';
                 $value_['nombres'] =utf8_encode(trim($value['nombres']));
                 $value_['ape_pat'] =utf8_encode(trim($value['ape_pat']));
                 $value_['ape_mat'] =utf8_encode(trim($value['ape_mat']));
-                $value_['dni'] =trim($value['dni']);
-                $value_['numero'] =trim($value['numero']);
-
-                $value_['id_dir'] =trim($value['id_dir']);
-                $value_['dir_direccion'] =utf8_encode(trim($value['dir_direccion']));
-                $value_['dir_numero'] =utf8_encode(trim($value['dir_numero']));
-                $value_['dir_mz'] =utf8_encode(trim($value['dir_mz']));
-                $value_['dir_lt'] =utf8_encode(trim($value['dir_lt']));
-                $value_['dir_dpto'] =utf8_encode(trim($value['dir_dpto']));
-                $value_['dir_interior'] =utf8_encode(trim($value['dir_interior']));
-                $value_['dir_urb'] =utf8_encode(trim($value['dir_urb']));
-                $value_['dir_referencia'] =utf8_encode(trim($value['dir_referencia']));
-                $value_['fecha'] =trim($value['fecha']);
-                $value_['cod_ubi'] =utf8_encode(trim($value['cod_ubi']));
-                $value_['clase'] = $value['flag']=='A'?'databox_list_menu':'databox_list_menu_disabled';
-                $value_['solicitudes'] =trim($value['solicitudes']);
-                $value_['sol_monto'] =trim($value['sol_monto']);
-                $value_['flag'] =trim($value['flag']);
-                $value_['tab'] =trim($value['tab']);
+                $value_['doc_dni'] =trim($value['doc_dni']);
+                $value_['cantidad'] =trim($value['cantidad']);
+                $value_['monto'] =trim($value['monto']);
                 //$value_['permisos'] = $this->objDatos->usr_sis_servicios($p);
                 $array[]=$value_;
         }
