@@ -32,33 +32,47 @@ Ext.define('Ext.global.plugin.GridViewVertCLI',{
                                 '<img src="/images/menu/{icono}" />',
                             '</div>',
                         '</div>',
-                        '<div class="list_grid_as__menu_line" style="width:180px;">',
+                        '<div class="list_grid_as__menu_line" style="width:130px;">',
                             '<div class="list_grid_as__menu_bar">',
-                                '<div class="list_grid_as__menu_title_A">',
-                                '<span>Nombres:</span>',
-                                '</div>',
                                 '<div class="list_grid_as__menu_title">',
-                                    '<span>{nombres}, {ape_pat} {ape_mat}</span>',
+                                '<span>CLIENTE:</span>',
+                                '</div>',
+                                '<div class="list_grid_as__menu_title" >',
+                                    '<span style="font-size:10px;">{nombres}, {ape_pat} {ape_mat}</span>',
                                 '</div>',
                             '</div>',
                         '</div>',
                         '<div class="list_grid_as__menu_line" style="width:75px;">',
                             '<div class="list_grid_as__menu_bar">',
-                                '<div class="list_grid_as__menu_title_A">',
-                                '<span>SOLICITUDES</span>',
+                                '<div class="list_grid_as__menu_title">',
+                                '<span>MONTO:</span>',
                                 '</div>',
                                 '<div class="list_grid_as__menu_title">',
-                                    '<span style="font-size:8px;text-align:center;">CANTIDAD:</span>',
-                                    '<span style="font-size:14px;">{cantidad}</span>',
-                                '</div>',
-                            '</div>',
-                        '</div>',
-                        '<div class="list_grid_as__menu_line" style="width:75px;">',
-                            '<div class="list_grid_as__menu_bar">',
-   
-                                '<div class="list_grid_as__menu_title">',
-                                    '<span style="font-size:8px;text-align:center;">MONTO:</span>',
+                                    
                                     '<span style="font-size:14px;">{monto}</span>',
+                                '</div>',
+                            '</div>',
+                        '</div>',
+
+                        '<div class="list_grid_as__menu_line" style="width:75px;">',
+                            '<div class="list_grid_as__menu_bar">',
+                                '<div class="list_grid_as__menu_title">',
+                                        '<span>SALDO:</span>',
+                                '</div>',
+                                '<div class="list_grid_as__menu_title">',
+                                    '<span style="font-size:14px;">{saldo}</span>',
+                                '</div>',
+                            '</div>',
+                        '</div>',
+
+                        '<div class="list_grid_as__menu_line" style="width:75px;">',
+                            '<div class="list_grid_as__menu_bar">',
+                                '<div class="list_grid_as__menu_title">',
+                                        '<span>MORA:</span>',
+                                '</div>',
+                                '<div class="list_grid_as__menu_title">',
+                                    
+                                    '<span style="font-size:14px;">{mora}</span>',
                                 '</div>',
                             '</div>',
                         '</div>',
@@ -144,7 +158,7 @@ Ext.define('Ext.global.plugin.GridViewVertCLI',{
                             }
                         }
                     }
-                ],
+                ]/*,
                 bbar: ['->',{
                             xtype: 'pagingtoolbar',
                             pageSize: 10,
@@ -154,7 +168,7 @@ Ext.define('Ext.global.plugin.GridViewVertCLI',{
                             emptyMsg: 'No existe registros',
                             pageSize: 50
                             //plugins: new Ext.ux.ProgressBar()
-                        },'->']
+                        },'->']*/
             }
         ];
         me.callParent();
