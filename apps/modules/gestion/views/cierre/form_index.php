@@ -9,6 +9,7 @@
 			opcion:'I',
 			id_per:'<?php echo $p["id_per"];?>',
 			id_id:'<?php echo $p["id_id"];?>',
+			id_asesor:0,
 			paramsStore:{},
 			init:function(){
 				Ext.tip.QuickTipManager.init();
@@ -126,7 +127,17 @@
 			        fields: ['clase_box1', 'clase_box2', 'clase_box3', 'clase_box4', 'clase_box5', 'clase_box6']
 			    });
 
-			    
+				var myDataCaja = [
+					['N','NO CREADO'],
+					['A','APERTURADO'],
+				    ['C','CERRADO']
+				];
+			    var store_estado_caja = Ext.create('Ext.data.ArrayStore', {
+			        storeId: 'estado',
+			        autoLoad: false,
+			        data: myDataCaja,
+			        fields: ['code', 'name']
+			    });
 
 			    var myDataLote = [
 					['C','CÓDIGO'],
@@ -140,7 +151,6 @@
 			        fields: ['code', 'name']
 			    });
 				var myDataSearch = [
-					['C','CÓDIGO'],
 					['N','Nombres'],
 				    ['D','DNI']
 				];
@@ -853,7 +863,7 @@
 		                            border:false,
 		                            xtype: 'uePanelS',
 		                            logo: 'CC',
-		                            title: 'Cirre de Caja',
+		                            title: 'Cierre de Caja',
 		                            legend: 'Ingrese los parametros para Ubicar al Asesor',
 		                            width:1250,
 		                            height:90,
@@ -974,7 +984,7 @@
 			                                        ]
 			                                    },
 		                                        {
-		                                            width: 80,border:false,
+		                                            width: 70,border:false,
 		                                            padding:'0px 2px 0px 0px',  
 		                                            bodyStyle: 'background: transparent',
 		                                            items:[
@@ -992,21 +1002,21 @@
 									                                });*/
 									                            },
 									                            click: function(obj, e){	             	
-		                               					            cierre.getAsesores();
+		                               					            cierre.getCaja();
 									                            }
 									                        }
 									                    }
 		                                            ]
 		                                        },
 		                                        {
-		                                            width: 80,border:false,
+		                                            width: 180,border:false,
 		                                            padding:'0px 2px 0px 0px',  
 		                                            bodyStyle: 'background: transparent',
 		                                            items:[
 		                                                {
 									                        xtype:'button',
-									                        text: 'Nuevo',
-									                        icon: '/images/icon/call_user_01.png',
+									                        text: 'Generar caja de cobros',
+									                        icon: '/images/icon/1315404769_gear_wheel.png',
 									                        listeners:{
 									                            beforerender: function(obj, opts){
 									                                /*global.permisos({
@@ -1017,7 +1027,7 @@
 									                                });*/
 									                            },
 									                            click: function(obj, e){	             	
-		                               					            user.getNew();
+		                               					            cierre.setGenerate();
 									                            }
 									                        }
 									                    }
@@ -1031,13 +1041,271 @@
 		                },
 						{
 							layout:'fit',
-				            width: '45%',
+				            width: '47%',
 				            border:true,
 				            region:'west',
 				            items:[
 				            	{
 				            		layout:'border',
+				            		bodyStyle: 'background: #fff;',
 				            		items:[
+				            			{
+				            				region:'north',
+				            				layout:'border',bodyStyle: 'background: #fff;',
+				            				height:105,
+				            				border:false,
+				            				items:[
+				            					{
+			                						region:'north',bodyStyle: 'background: #fff;',
+			                						height:40,
+			                						//border:false,
+			                						items:[
+			                							{
+															//region:'north',
+															xtype:'panel',
+															layout:'hbox',
+															border:false,
+															height:40,
+															//bodyStyle: 'background: #F0EFEF;text-align:center;',
+															bodyStyle: 'background: transparent;text-align:center;',
+															//layout:'fit',
+															items:[
+																{
+															        xtype: 'label',
+															        //forId: 'myFieldId',
+															        text: 'ESTADO ACTUAL DE LA CAJA DE COBROS POR DÍA',
+															        style: 'font: normal 15px Sans-serif;font-weight: bold;',
+															        padding:'10px 5px 5px 5px',
+															        width:'100%',
+										                            anchor:'100%'
+															    }
+															]
+														}
+			                						]
+			                					},
+			                					{
+			                						region:'center',
+			                						//layout:'border',
+			                						border:false,
+			                						layout:'hbox',
+			                						padding:5,
+			                						items:[
+			                							{
+								                            xtype: 'textfield',	
+								                            fieldLabel: 'CODIGO',
+								                            id:cierre.id+'-txt-id-caja',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 4px 5px',
+								                            //id:cobranza.id+'-txt-dni',
+								                            labelWidth:65,
+								                            readOnly:true,
+								                            align:'right',
+								                            labelAlign:'top',
+								                            //width:80,
+								                            flex:0.5,
+								                            //width:'95%',
+								                            //columnWidth: 0.2,
+								                            height:25,
+								                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+								                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
+								                            value:0,
+								                            maskRe: new RegExp("[0-9.]+"),
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
+			                							{
+		                                                    xtype:'combo',
+		                                                    fieldLabel: 'ESTADO',
+		                                                    id:cierre.id+'-cmb-estado-caja',
+		                                                    store: store_estado_caja,
+		                                                    queryMode: 'local',
+		                                                    triggerAction: 'all',
+		                                                    valueField: 'code',
+		                                                    displayField: 'name',
+		                                                    emptyText: '[Seleccione]',
+		                                                    labelAlign:'top',
+		                                                    //allowBlank: false,
+		                                                    labelWidth: 70,
+		                                                    padding:'5px 5px 5px 5px',
+		                                                    labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            fieldStyle: 'font-size:11px; text-align: center; font-weight: bold',
+		                                                    //width:'100%',
+		                                                    flex:1,
+		                                                    anchor:'100%',
+		                                                    readOnly: true,
+		                                                    listeners:{
+		                                                        afterrender:function(obj, e){
+		                                                            // obj.getStore().load();
+		                                                            Ext.getCmp(cierre.id+'-cmb-estado-caja').setValue('N');
+		                                                        },
+		                                                        select:function(obj, records, eOpts){
+		                                                
+		                                                        }
+		                                                    }
+		                                                },
+		                                                {
+								                            xtype: 'textfield',	
+								                            fieldLabel: 'ASESORES',
+								                            id:cierre.id+'-txt-asesores-caja',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 4px 5px',
+								                            //id:cobranza.id+'-txt-dni',
+								                            labelWidth:65,
+								                            readOnly:true,
+								                            align:'right',
+								                            labelAlign:'top',
+								                            //width:80,
+								                            flex:1,
+								                            //width:'95%',
+								                            //columnWidth: 0.2,
+								                            height:25,
+								                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+								                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
+								                            value:'',
+								                            maskRe: new RegExp("[0-9.]+"),
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
+								                        {
+								                            xtype: 'textfield',	
+								                            fieldLabel: 'CUOTAS',
+								                            id:cierre.id+'-txt-cuotas-caja',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 4px 5px',
+								                            //id:cobranza.id+'-txt-dni',
+								                            labelWidth:65,
+								                            readOnly:true,
+								                            align:'right',
+								                            labelAlign:'top',
+								                            //width:80,
+								                            flex:1,
+								                            //width:'95%',
+								                            //columnWidth: 0.2,
+								                            height:25,
+								                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+								                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
+								                            value:'',
+								                            maskRe: new RegExp("[0-9.]+"),
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
+								                        {
+								                            xtype: 'textfield',	
+								                            fieldLabel: 'VALOR CUOTAS',
+								                            id:cierre.id+'-txt-valor-cuotas-caja',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 4px 5px',
+								                            //id:cobranza.id+'-txt-dni',
+								                            labelWidth:65,
+								                            readOnly:true,
+								                            align:'right',
+								                            labelAlign:'top',
+								                            //width:80,
+								                            flex:1,
+								                            //width:'95%',
+								                            //columnWidth: 0.2,
+								                            height:25,
+								                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+								                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
+								                            value:'',
+								                            maskRe: new RegExp("[0-9.]+"),
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
+								                        {
+								                            xtype: 'textfield',	
+								                            fieldLabel: 'MORA',
+								                            id:cierre.id+'-txt-mora-caja',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 4px 5px',
+								                            //id:cobranza.id+'-txt-dni',
+								                            labelWidth:65,
+								                            readOnly:true,
+								                            align:'right',
+								                            labelAlign:'top',
+								                            //width:80,
+								                            flex:1,
+								                            //width:'95%',
+								                            //columnWidth: 0.2,
+								                            height:25,
+								                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+								                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
+								                            value:'',
+								                            maskRe: new RegExp("[0-9.]+"),
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
+								                        {
+								                            xtype: 'textfield',	
+								                            fieldLabel: 'TOTAL DÍA',
+								                            id:cierre.id+'-txt-total-dia-caja',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 4px 5px',
+								                            //id:cobranza.id+'-txt-dni',
+								                            labelWidth:65,
+								                            readOnly:true,
+								                            align:'right',
+								                            labelAlign:'top',
+								                            //width:80,
+								                            flex:1,
+								                            width:'95%',
+								                            //columnWidth: 0.2,
+								                            height:25,
+								                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+								                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
+								                            value:'',
+								                            maskRe: new RegExp("[0-9.]+"),
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
+								                        {
+								                            xtype: 'textfield',	
+								                            fieldLabel: 'TOTAL COBRADO',
+								                            id:cierre.id+'-txt-total-cobrado-caja',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 4px 5px',
+								                            //id:cobranza.id+'-txt-dni',
+								                            labelWidth:65,
+								                            readOnly:true,
+								                            align:'right',
+								                            labelAlign:'top',
+								                            //width:80,
+								                            flex:1,
+								                            //width:'95%',
+								                            //columnWidth: 0.2,
+								                            height:25,
+								                            labelStyle: "font-size:10px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+								                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
+								                            value:'',
+								                            maskRe: new RegExp("[0-9.]+"),
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
+			                						]
+			                					}
+				            				]
+				            			},
 										{
 											region:'center',
 											layout:'border',
@@ -1082,6 +1350,10 @@
 									                        id: cierre.id+'-grid-asesores',
 									                        store: Ext.create('Ext.data.Store',{
 													            fields: [
+													                {name: 'id_caja_det', type: 'string'},
+													                {name: 'id_age', type: 'string'},
+													                {name: 'id_caja', type: 'string'},
+													                {name: 'fecha', type: 'string'},
 													                {name: 'id_asesor', type: 'string'},
 													                {name: 'nombre', type: 'string'},
 													                {name: 'nombres', type: 'string'},
@@ -1091,12 +1363,17 @@
 													                {name: 'fecha', type: 'string'},
 													                {name: 'solicitado', type: 'string'},
 													                {name: 'monto_solicitado', type: 'string'},
-
 													                {name: 'cuotas_cobradas', type: 'string'},
 													                {name: 'valor_cuota', type: 'string'},
 													                {name: 'pagado', type: 'string'},
 													                {name: 'mora', type: 'string'},
-													                {name: 'saldo_cuota', type: 'string'}
+													                {name: 'total', type: 'string'},
+													                {name: 'saldo_cuota', type: 'string'},
+													                {name: 'efectivo', type: 'string'},
+
+													                {name: 'fecha_cierre', type: 'string'},
+													                {name: 'estado', type: 'string'},
+													                {name: 'fecha_creado', type: 'string'}
 													            ], 
 													            autoLoad:true,
 													            proxy:{
@@ -1169,16 +1446,28 @@
 																		menuDisabled:true,
 																		columns:[
 											                                {
-											                                    text: 'Cant.Cuotas',
+											                                    text: 'Cuotas',
 											                                    align:'center',
 											                                    dataIndex: 'cuotas_cobradas',
-											                                    width: 60
+											                                    width: 55
 											                                },
 											                                {
 											                                    text: 'Valor Cuotas',
 											                                    align:'right',
 											                                    dataIndex: 'valor_cuota',
-											                                    width: 65
+											                                    width: 70
+											                                },
+											                                {
+											                                    text: 'Mora',
+											                                    align:'right',
+											                                    dataIndex: 'mora',
+											                                    width: 60
+											                                },
+											                                {
+											                                    text: 'Total',
+											                                    align:'right',
+											                                    dataIndex: 'total',
+											                                    width: 60
 											                                },
 											                                {
 											                                    text: 'Cobrado',
@@ -1191,15 +1480,9 @@
 											                                    align:'right',
 											                                    dataIndex: 'saldo_cuota',
 											                                    width: 60
-											                                },
-											                                {
-											                                    text: 'Mora',
-											                                    align:'right',
-											                                    dataIndex: 'mora',
-											                                    width: 60
 											                                }
 									                                	]
-									                            	},
+									                            	}/*,
 																	{
 									                                    text: 'ST',
 									                                    dataIndex: 'estado',
@@ -1241,7 +1524,7 @@
 									                                            ]
 									                                        });
 									                                    }
-									                                }
+									                                }*/
 									                            ],
 									                            defaults:{
 									                                menuDisabled: true
@@ -1257,10 +1540,14 @@
 									                            	//scanning.setImageFile(record.get('path'),record.get('file'));
 									                            },
 									                            select:function(obj, record, index, eOpts ){
+									                            	cierre.setClearCierreCal();
 									                            	Ext.getCmp(cierre.id+'-sol-txt-cuotas-pago').setValue(record.get('cuotas_cobradas'));
-									                            	Ext.getCmp(cierre.id+'-sol-txt-monto-cobrado').setValue(record.get('pagado'));
+									                            	Ext.getCmp(cierre.id+'-sol-txt-monto-valor').setValue(record.get('valor_cuota'));
 									                            	Ext.getCmp(cierre.id+'-sol-txt-monto-mora').setValue(record.get('mora'));
+									                            	Ext.getCmp(cierre.id+'-sol-txt-monto-total').setValue(record.get('total'));
+									                            	Ext.getCmp(cierre.id+'-sol-txt-monto-cobrado').setValue(record.get('pagado'));
 									                            	Ext.getCmp(cierre.id+'-sol-txt-monto-efectivo').setValue(record.get('efectivo'));
+									                            	cierre.id_asesor=record.get('id_asesor');
 									                            	cierre.getClientes(record.get('id_asesor'));
 									                            }
 									                        }
@@ -1317,6 +1604,7 @@
 	                						layout:'border',
 	                						border:false,
 	                						//layout:'fit',
+	                						bodyStyle: 'background: #fff',
 	                						items:[
 								            	{
 			                						region:'center',
@@ -1326,6 +1614,7 @@
 			                						items:[
 										            	{
 												         	xtype:'grid',   
+												         	id:cierre.id+'-grid-distribucion',
 												            plugins: [new Ext.grid.plugin.CellEditing({
 													            clicksToEdit: 1
 													        })],
@@ -1370,7 +1659,7 @@
 												            {
 												                header: 'Cantidad',
 												                dataIndex: 'cantidad',
-												                width: 100,
+												                width: 60,
 												                align: 'right',
 												                fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
 												                //formatter: 'usMoney',
@@ -1381,7 +1670,16 @@
 												                    align: 'right',
 												                    fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
 												                    minValue: 0,
-												                    maxValue: 10000000
+												                    maxValue: 1000000,
+												                    listeners:{
+												                    	
+												                    	blur:function(e) {
+												                    		cierre.setCalculaPagado();
+												                    	},
+												                    	change:function(obj, records, eOpts){
+												                    		cierre.setCalculaPagado();
+												                    	}
+												                    }
 												                }
 												            }],
 												            selModel: {
@@ -1393,9 +1691,9 @@
 												{
 			                						region:'east',
 			                						//layout:'border',
-			                						width:200,
-			                						//border:false,
-			                						padding:10,
+			                						width:220,
+			                						border:false,
+			                						margin:10,
 			                						layout:'vbox',
 			                						items:[
 			                							{
@@ -1403,16 +1701,18 @@
 								                            fieldLabel: 'Cuotas',
 								                            id:cierre.id+'-sol-txt-cuotas-pago',
 								                            bodyStyle: 'background: transparent',
-										                    padding:'10px 5px 5px 5px',
+										                    padding:'5px 5px 4px 5px',
 								                            //id:cobranza.id+'-txt-dni',
-								                            labelWidth:50,
+								                            labelWidth:65,
 								                            readOnly:true,
-								                            labelAlign:'top',
+								                            align:'left',
+								                            //labelAlign:'top',
 								                            //width:80,
-								                            flex:1,
+								                            //flex:1,
+								                            width:'95%',
 								                            //columnWidth: 0.2,
 								                            height:25,
-								                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
 								                            fieldStyle: 'font-size:11px; text-align: right; font-weight: bold',
 								                            value:'',
 								                            maskRe: new RegExp("[0-9]+"),
@@ -1424,19 +1724,21 @@
 								                        },
 								                        {
 								                            xtype: 'textfield',	
-								                            fieldLabel: 'Cobrado',
-								                            id:cierre.id+'-sol-txt-monto-cobrado',
+								                            fieldLabel: 'Valor',
+								                            id:cierre.id+'-sol-txt-monto-valor',
 								                            bodyStyle: 'background: transparent',
-										                    padding:'10px 5px 5px 5px',
+										                    padding:'5px 5px 4px 5px',
 								                            //id:cobranza.id+'-txt-dni',
 								                            labelWidth:65,
 								                            readOnly:true,
-								                            labelAlign:'top',
+								                            align:'left',
+								                            //labelAlign:'top',
 								                            //width:80,
-								                            flex:1,
+								                            //flex:1,
+								                            width:'95%',
 								                            //columnWidth: 0.2,
 								                            height:25,
-								                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
 								                            fieldStyle: 'font-size:11px; text-align: right; font-weight: bold',
 								                            value:'',
 								                            maskRe: new RegExp("[0-9.]+"),
@@ -1451,16 +1753,18 @@
 								                            fieldLabel: 'Mora',
 								                            id:cierre.id+'-sol-txt-monto-mora',
 								                            bodyStyle: 'background: transparent',
-										                    padding:'10px 5px 5px 5px',
+										                    padding:'5px 5px 4px 5px',
 								                            //id:cobranza.id+'-txt-dni',
 								                            labelWidth:65,
 								                            readOnly:true,
-								                            labelAlign:'top',
+								                            align:'right',
+								                            //labelAlign:'top',
 								                            //width:80,
-								                            flex:1,
+								                            //flex:1,
+								                            width:'95%',
 								                            //columnWidth: 0.2,
 								                            height:25,
-								                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
 								                            fieldStyle: 'font-size:11px; text-align: right; font-weight: bold',
 								                            value:'',
 								                            maskRe: new RegExp("[0-9.]+"),
@@ -1470,22 +1774,74 @@
 								                                }
 								                            }
 								                        },
-
+								                        {
+								                            xtype: 'textfield',	
+								                            fieldLabel: 'Total',
+								                            id:cierre.id+'-sol-txt-monto-total',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 4px 5px',
+								                            //id:cobranza.id+'-txt-dni',
+								                            labelWidth:65,
+								                            readOnly:true,
+								                            align:'right',
+								                            //labelAlign:'top',
+								                            //width:80,
+								                            //flex:1,
+								                            width:'95%',
+								                            //columnWidth: 0.2,
+								                            height:25,
+								                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+								                            fieldStyle: 'font-size:11px; text-align: right; font-weight: bold',
+								                            value:'',
+								                            maskRe: new RegExp("[0-9.]+"),
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
+								                        {
+								                            xtype: 'textfield',	
+								                            fieldLabel: 'Cobrado',
+								                            id:cierre.id+'-sol-txt-monto-cobrado',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 4px 5px',
+								                            //id:cobranza.id+'-txt-dni',
+								                            labelWidth:65,
+								                            readOnly:true,
+								                            align:'right',
+								                            //labelAlign:'top',
+								                            //width:80,
+								                            //flex:1,
+								                            width:'95%',
+								                            //columnWidth: 0.2,
+								                            height:25,
+								                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+								                            fieldStyle: 'font-size:11px; text-align: right; font-weight: bold',
+								                            value:'',
+								                            maskRe: new RegExp("[0-9.]+"),
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
 						                        		{
 								                            xtype: 'textfield',	
 								                            fieldLabel: 'Efectivo',
 								                            id:cierre.id+'-sol-txt-monto-efectivo',
 								                            bodyStyle: 'background: transparent',
-										                    padding:'10px 5px 5px 5px',
+										                    padding:'5px 5px 4px 5px',
 								                            //id:cobranza.id+'-txt-dni',
 								                            labelWidth:65,
 								                            readOnly:true,
-								                            labelAlign:'top',
-								                            //width:80,
-								                            flex:1,
+								                            align:'right',
+								                            //labelAlign:'top',
+								                            width:'95%',
+								                            //flex:0.5,
 								                            //columnWidth: 0.2,
 								                            height:25,
-								                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
 								                            fieldStyle: 'font-size:11px; text-align: right; font-weight: bold',
 								                            value:'',
 								                            maskRe: new RegExp("[0-9.]+"),
@@ -1521,6 +1877,31 @@
 											                            },
 											                            click: function(obj, e){	  
 											                            	cierre.setCierre();
+											                            }
+											                        }
+												                },
+												                {
+												                    xtype: 'button',
+												                    margin:'5px 5px 5px 5px',
+												                    icon: '/images/icon/Document.png',
+												                    //glyph: 72,
+												                    //columnWidth: 0.1,
+												                    //width:70,
+												                    flex:1,
+												                    text: 'LIMPIAR',
+												                    scale: 'medium',
+												                    iconAlign: 'top',
+												                    listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){	  
+											                            	cierre.setClearCierreCal();
 											                            }
 											                        }
 												                },
@@ -1616,7 +1997,7 @@
 				        	]
 				        },
 				        {
-				         	width:'30%',
+				         	width:'27%',
 				         	region:'east',
 				         	border:false,
 				         	layout:'border',
@@ -1660,6 +2041,192 @@
 					cierre.setCollapse();
 				});
 			},
+			setClearCierreCal:function(){
+
+            	var grid = Ext.getCmp(cierre.id+'-grid-distribucion');
+                var store = grid.getStore();
+
+            	store.each(function (v, idx) {
+                	v.set('cantidad',0);
+                	v.commit();
+                });
+                grid.getView().refresh();
+
+                Ext.getCmp(cierre.id+'-sol-txt-monto-efectivo').setValue(Ext.Number.toFixed(0, 2));
+			},
+			setGenerate:function(){
+				var id_caja =Ext.getCmp(cierre.id+'-txt-id-caja').getValue();
+				var agencia =Ext.getCmp(cierre.id+'-sol-cmb-agencia-filtro').getValue();
+				var fecha   =Ext.getCmp(cierre.id+'-txt-fecha').getRawValue();
+				if(!id_caja){
+					id_caja=0;
+				}
+				if(!agencia){
+					global.Msg({msg:"Seleccione una agencia para generar la caja diaria",icon:2,fn:function(){}});
+					return false;
+				}
+				if(!fecha){
+					global.Msg({msg:"Seleccione una fecha de pago para generar la caja diaria",icon:2,fn:function(){}});
+					return false;
+				}
+				global.Msg({
+					msg: '¿Está seguro cerrar la caja para este asesor?',
+					icon:3,
+					buttons:3,
+					fn:function(obj){
+						//console.log(obj);
+						if (obj == 'yes'){
+							Ext.getCmp(cierre.id+'-win-form').el.mask('Cargando…', 'x-mask-loading');
+							Ext.Ajax.request({
+								url:cierre.url+'setGenerar/',
+								params:{
+									vp_id_caja:id_caja,
+									vp_agencia:agencia,
+									vp_fecha:fecha
+								},
+								success: function(response, options){
+									Ext.getCmp(cierre.id+'-win-form').el.unmask();
+									var res = Ext.JSON.decode(response.responseText);
+			                        //control.getLoader(false);
+			                        if (res.error == 'OK'){
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 1,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	Ext.getCmp(cierre.id+'-txt-total-cobrado-caja').setValue(res.cobado);
+			                                	Ext.getCmp(cierre.id+'-txt-total-dia-caja').setValue(res.total);
+			                                	Ext.getCmp(cierre.id+'-txt-mora-caja').setValue(res.mora);
+			                                	Ext.getCmp(cierre.id+'-txt-valor-cuotas-caja').setValue(res.valor_cuotas);
+			                                	Ext.getCmp(cierre.id+'-txt-cuotas-caja').setValue(res.cuotas);
+			                                	Ext.getCmp(cierre.id+'-txt-asesores-caja').setValue(res.asesores);
+			                                	Ext.getCmp(cierre.id+'-cmb-estado-caja').setValue(res.estado);
+			                                	Ext.getCmp(cierre.id+'-txt-id-caja').setValue(res.CODIGO);
+			                                	cierre.getAsesores();
+			                                }
+			                            });
+			                        }else{
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 0,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	 
+			                                }
+			                            });
+			                        }
+								}
+							});
+						}
+						
+					}
+				});
+			},
+			setCierre:function(){
+				//Ext.getCmp(cierre.id+'-sol-txt-cuotas-pago').setValue(record.get('cuotas_cobradas'));
+				var agencia =Ext.getCmp(cierre.id+'-sol-cmb-agencia-filtro').getValue();
+				var id_caja =Ext.getCmp(cierre.id+'-txt-id-caja').getValue();
+            	var total =Ext.getCmp(cierre.id+'-sol-txt-monto-cobrado').getValue();
+            	//var mora  = Ext.getCmp(cierre.id+'-sol-txt-monto-mora').getValue();
+            	var efectivo = Ext.getCmp(cierre.id+'-sol-txt-monto-efectivo').getValue();
+            	if(!agencia){
+					global.Msg({msg:"Seleccione una agencia para generar la caja diaria",icon:2,fn:function(){}});
+					return false;
+				}
+            	if(!id_caja){
+            		global.Msg({msg:"Debe Generar una caja para cobros para esta fecha de pago.",icon:2,fn:function(){}});
+					return false;
+            	}
+            	if(id_caja==0){
+            		global.Msg({msg:"Debe Generar una caja para cobros para esta fecha de pago.",icon:2,fn:function(){}});
+					return false;
+            	}
+            	if(cierre.id_asesor==0){
+            		global.Msg({msg:"Seleccione un asesor para procesar.",icon:2,fn:function(){}});
+					return false;
+            	}
+            	if(parseFloat(total)!=parseFloat(efectivo)){
+					global.Msg({msg:"El pago cobrado no cuadra con el monto en efectivo.",icon:2,fn:function(){}});
+					return false;
+				}
+
+				if(parseFloat(efectivo)==0){
+					global.Msg({msg:"El efectivo debe ser mayor a cero.",icon:2,fn:function(){}});
+					return false;
+				}
+            	var recordsToSend = [];
+            	var grid = Ext.getCmp(cierre.id+'-grid-distribucion');
+                var store = grid.getStore();
+            	Ext.each(store.data.items, function (recordx,i) {
+					recordsToSend.push(Ext.apply({id:recordx.id},recordx.data));
+				});
+				recordsToSend = Ext.encode(recordsToSend);
+                console.log(recordsToSend);
+                global.Msg({
+					msg: '¿Está seguro cerrar la caja para este asesor?',
+					icon:3,
+					buttons:3,
+					fn:function(obj){
+						//console.log(obj);
+						if (obj == 'yes'){
+							Ext.getCmp(cierre.id+'-win-form').el.mask('Cargando…', 'x-mask-loading');
+							Ext.Ajax.request({
+								url:cierre.url+'set_update_formulario_detalle/',
+								params:{
+									vp_id_caja:id_caja,
+									vp_id_asesor:cierre.id_asesor,
+									vp_efectivo:efectivo,
+									vp_recordsToSend:recordsToSend
+								},
+								success: function(response, options){
+									Ext.getCmp(cierre.id+'-win-form').el.unmask();
+									var res = Ext.JSON.decode(response.responseText);
+			                        //control.getLoader(false);
+			                        if (res.error == 'OK'){
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 1,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	//Ext.getCmp(cierre.id+'-select-garante').setValue('');
+			                                	//var objp = Ext.getCmp(cierre.id+'-list-garante');
+												//cierre.getReload(objp,{vp_op:'G',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+			                                }
+			                            });
+			                        }else{
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 0,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	 
+			                                }
+			                            });
+			                        }
+								}
+							});
+						}
+						
+					}
+				});
+			},
+			setCalculaPagado:function(){
+				Ext.getCmp(cierre.id+'-sol-txt-monto-efectivo').setValue(0);
+            	var grid = Ext.getCmp(cierre.id+'-grid-distribucion');
+                var store = grid.getStore();
+                var val=0;
+                var cnt=0;
+                var eff=0;
+
+            	store.each(function (v, idx) {
+                	val=parseFloat(v.get('valor'));
+                	cnt=parseInt(v.get('cantidad'));
+                	eff+=val*cnt;
+                });
+                grid.getView().refresh();
+
+                Ext.getCmp(cierre.id+'-sol-txt-monto-efectivo').setValue(Ext.Number.toFixed(eff, 2));
+            },
 			getchartsAsesores:function(id){
 				var fecha = Ext.getCmp(cierre.id+'-txt-fecha').getRawValue();
                 var ANIOS =[];
@@ -2029,12 +2596,22 @@
 	                }
 	            }).show().center();
 			},
+			getCaja:function(){
+				cierre.getAsesores();
+			},
 			getAsesores:function(){
+				var vp_id_caja=Ext.getCmp(cierre.id+'-txt-id-caja').getValue();
+				var vp_id_age=Ext.getCmp(cierre.id+'-sol-cmb-agencia-filtro').getValue();
+				var vp_fecha=Ext.getCmp(cierre.id+'-txt-fecha').getRawValue();
 				var vp_op=Ext.getCmp(cierre.id+'-txt-filter').getValue();
-            	var vp_nombre=Ext.getCmp(cierre.id+'-txt-asesores').getValue();
-		            Ext.getCmp(cierre.id+'-grid-asesores').getStore().removeAll();
+            	var vp_nombres=Ext.getCmp(cierre.id+'-txt-asesores').getValue(); 
+            	var vp_doc_dni ='';
+            	if(vp_op=='D'){
+            		vp_doc_dni = vp_nombres;
+            	}
+		        Ext.getCmp(cierre.id+'-grid-asesores').getStore().removeAll();
 				Ext.getCmp(cierre.id+'-grid-asesores').getStore().load(
-	                {params: {vp_op:vp_op,vp_nombre:vp_nombre},
+	                {params: {vp_id_caja:vp_id_caja,vp_id_age:vp_id_age,vp_fecha:vp_fecha,vp_doc_dni:vp_doc_dni,vp_nombres:vp_nombres},
 	                callback:function(){
 	                	//Ext.getCmp(asesores.id+'-form').el.unmask();
 	                	cierre.getchartsAsesores(0);

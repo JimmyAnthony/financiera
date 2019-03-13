@@ -233,6 +233,32 @@ class cierreController extends AppController {
         header('Content-Type: application/json');
         return $this->response($data);
     }
+    
+    public function setGenerar($p){
+        $rs = $this->objDatos->SP_GENERAR_CAJA_DIARIA($p);
+        $rs = $rs[0];
+        $data = array(
+            'success' => true,
+            'error' => $rs['RESPONSE'],
+            'msn' => utf8_encode(trim($rs['MESSAGE_TEXT'])),
+            'CODIGO' => trim($rs['CODIGO']),
+            'solicitado' => trim($rs['solicitado']),
+            'monto_solicitado' => trim($rs['monto_solicitado']),
+            'asesores' => trim($rs['asesores']),
+            'cuotas' => trim($rs['cuotas']),
+            'valor_cuotas' => trim($rs['valor_cuotas']),
+            'mora' => trim($rs['mora']),
+            'total' => trim($rs['total']),
+            'cobado' => trim($rs['cobado']),
+            'efectivo' => trim($rs['efectivo']),
+            'saldo' => trim($rs['saldo']),
+            'fecha_cierre' => trim($rs['fecha_cierre']),
+            'estado' => trim($rs['estado']),
+            'fecha_creado' => trim($rs['fecha_creado'])
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
     public function setSaveCuota($p){
         $rs = $this->objDatos->SP_CREDITO_PERSONA($p);
         $rs = $rs[0];
@@ -427,6 +453,10 @@ class cierreController extends AppController {
         $array = array();
         foreach ($this->arrayMenu as $index => $value){
                 //$p['id_asesor'] = intval($value['id_asesor']);
+                $value_['id_caja_det'] = intval($value['id_caja_det']);
+                $value_['id_age'] = intval($value['id_age']);
+                $value_['id_caja'] = intval($value['id_caja']);
+                $value_['fecha'] = intval($value['fecha']);
                 $value_['id_asesor'] = intval($value['id_asesor']);
                 $value_['id_per'] = intval($value['id_per']);
                 $value_['icono'] = 'if_person_3_1376034.png';
@@ -440,12 +470,18 @@ class cierreController extends AppController {
                 
                 $value_['solicitado'] =trim($value['solicitado']);
                 $value_['monto_solicitado'] =trim($value['monto_solicitado']);
-                $value_['cuotas_cobradas'] =trim($value['cuotas_cobradas']);
-                $value_['valor_cuota'] =trim($value['valor_cuota']);
+                $value_['cuotas_cobradas'] =trim($value['cuotas']);
+                $value_['valor_cuota'] =trim($value['valor_cuotas']);
 
-                $value_['pagado'] =trim($value['pagado']);
+                $value_['pagado'] =trim($value['cobado']);
                 $value_['mora'] =trim($value['mora']);
-                $value_['saldo_cuota'] =trim($value['saldo_cuota']);
+                $value_['total'] =trim($value['total']);
+                $value_['saldo_cuota'] =trim($value['saldo']);
+                $value_['efectivo'] =trim($value['efectivo']);
+
+                $value_['fecha_cierre'] =trim($value['fecha_cierre']);
+                $value_['estado'] =trim($value['estado']);
+                $value_['fecha_creado'] =trim($value['fecha_creado']);
 
                 //$value_['permisos'] = $this->objDatos->usr_sis_servicios($p);
                 $array[]=$value_;
@@ -499,27 +535,27 @@ class cierreController extends AppController {
         $value_['cantidad'] =0;
         $array[]=$value_;
 
-        $value_['moneda'] ='SOLES';
+        $value_['moneda'] ='CENTIMOS';
         $value_['valor'] ='0.50';
         $value_['cantidad'] =0;
         $array[]=$value_;
 
-        $value_['moneda'] ='SOLES';
+        $value_['moneda'] ='CENTIMOS';
         $value_['valor'] ='0.20';
         $value_['cantidad'] =0;
         $array[]=$value_;
 
-        $value_['moneda'] ='SOLES';
+        $value_['moneda'] ='CENTIMOS';
         $value_['valor'] ='0.10';
         $value_['cantidad'] =0;
         $array[]=$value_;
 
-        $value_['moneda'] ='SOLES';
+        $value_['moneda'] ='CENTIMOS';
         $value_['valor'] ='0.05';
         $value_['cantidad'] =0;
         $array[]=$value_;
 
-        $value_['moneda'] ='SOLES';
+        $value_['moneda'] ='CENTIMOS';
         $value_['valor'] ='0.01';
         $value_['cantidad'] =0;
         $array[]=$value_;
