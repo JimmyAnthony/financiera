@@ -157,6 +157,68 @@ class cierreController extends AppController {
         header('Content-Type: application/json');
         return $this->response($data);
     }
+    /*
+        +----------------------+
+        |    Add Valide  Set   |
+        +----------------------+
+    */
+    public function setGeneraClasificacionCaja($p){
+        $records = json_decode(stripslashes($p['vp_recordsToSend'])); //parse the string to PHP objects
+        if(isset($records)){
+            foreach($records as $record){
+                $p['vp_id_caja_det']=$p['vp_id_caja_det'];
+                $p['vp_id_caja']=$p['vp_id_caja'];
+                $p['vp_id_age']=$p['vp_id_age'];
+                $p['vp_fecha_pago']=$p['vp_fecha_pago'];
+                $p['vp_id_asesor']=$p['vp_id_asesor'];
+                $p['vp_efectivo']=$p['vp_efectivo'];
+                $p['vp_orden']=$record->orden;
+                $p['vp_moneda']=$record->moneda;
+                $p['vp_valor']=$record->valor;
+                $p['vp_cantidad']=$record->cantidad;
+                $rs = $this->objDatos->SP_GENERAR_CLASIFICACION_CAJA($p);
+            }
+            
+            $rs = $rs[0];
+            if ($rs['RESPONSE'] == 'OK' ){
+                $p['vp_op']='C';
+                $rs = $this->objDatos->SP_GENERAR_CIERRE_CAJA_INDIVIDUAL($p);
+                $rs = $rs[0];
+            }
+            $data = array(
+                'success' => true,
+                'error' => $rs['RESPONSE'],
+                'msn' => utf8_encode(trim($rs['MESSAGE_TEXT'])),
+                'CODIGO' => trim($rs['CODIGO'])
+            );
+            header('Content-Type: application/json');
+            return $this->response($data);
+            
+        }else{
+            #$men =  "{success: true,error:1, errors: 'No existen registros que guardar',close:0}";   
+            $data = array(
+                'success' => true,
+                'error' => 'ER',
+                'msn' => 'No existen registros que guardar',
+                'CODIGO' => 0
+            );
+            header('Content-Type: application/json');
+            return $this->response($data);
+        }
+        return $men;
+    }
+    public function setOpenCajaOnly($p){
+        $rs = $this->objDatos->SP_GENERAR_CIERRE_CAJA_INDIVIDUAL($p);
+        $rs = $rs[0];
+        $data = array(
+            'success' => true,
+            'error' => $rs['RESPONSE'],
+            'msn' => utf8_encode(trim($rs['MESSAGE_TEXT'])),
+            'CODIGO' => trim($rs['CODIGO'])
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
     public function get_list_motivos($p){
         $rs = $this->objDatos->get_list_motivos($p);
         //var_export($rs);
@@ -236,6 +298,31 @@ class cierreController extends AppController {
     
     public function setGenerar($p){
         $rs = $this->objDatos->SP_GENERAR_CAJA_DIARIA($p);
+        $rs = $rs[0];
+        $data = array(
+            'success' => true,
+            'error' => $rs['RESPONSE'],
+            'msn' => utf8_encode(trim($rs['MESSAGE_TEXT'])),
+            'CODIGO' => trim($rs['CODIGO']),
+            'solicitado' => trim($rs['solicitado']),
+            'monto_solicitado' => trim($rs['monto_solicitado']),
+            'asesores' => trim($rs['asesores']),
+            'cuotas' => trim($rs['cuotas']),
+            'valor_cuotas' => trim($rs['valor_cuotas']),
+            'mora' => trim($rs['mora']),
+            'total' => trim($rs['total']),
+            'cobado' => trim($rs['cobado']),
+            'efectivo' => trim($rs['efectivo']),
+            'saldo' => trim($rs['saldo']),
+            'fecha_cierre' => trim($rs['fecha_cierre']),
+            'estado' => trim($rs['estado']),
+            'fecha_creado' => trim($rs['fecha_creado'])
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+    public function setGenerarCierreCaja($p){
+        $rs = $this->objDatos->SP_GENERAR_CIERRE_CAJA_DIARIA($p);
         $rs = $rs[0];
         $data = array(
             'success' => true,
@@ -456,7 +543,7 @@ class cierreController extends AppController {
                 $value_['id_caja_det'] = intval($value['id_caja_det']);
                 $value_['id_age'] = intval($value['id_age']);
                 $value_['id_caja'] = intval($value['id_caja']);
-                $value_['fecha'] = intval($value['fecha']);
+                $value_['fecha'] = trim($value['fecha']);
                 $value_['id_asesor'] = intval($value['id_asesor']);
                 $value_['id_per'] = intval($value['id_per']);
                 $value_['icono'] = 'if_person_3_1376034.png';
@@ -494,72 +581,23 @@ class cierreController extends AppController {
         header('Content-Type: application/json');
         return $this->response($data);
     }
-    public function getDataMonedas(){
-        $value_['moneda'] ='SOLES';
-        $value_['valor'] ='200';
-        $value_['cantidad'] =0;
-        $array[]=$value_;
-
-        $value_['moneda'] ='SOLES';
-        $value_['valor'] ='100';
-        $value_['cantidad'] =0;
-        $array[]=$value_;
-
-        $value_['moneda'] ='SOLES';
-        $value_['valor'] ='50';
-        $value_['cantidad'] =0;
-        $array[]=$value_;
-
-        $value_['moneda'] ='SOLES';
-        $value_['valor'] ='20';
-        $value_['cantidad'] =0;
-        $array[]=$value_;
-
-        $value_['moneda'] ='SOLES';
-        $value_['valor'] ='10';
-        $value_['cantidad'] =0;
-        $array[]=$value_;
-
-        $value_['moneda'] ='SOLES';
-        $value_['valor'] ='5';
-        $value_['cantidad'] =0;
-        $array[]=$value_;
-
-        $value_['moneda'] ='SOLES';
-        $value_['valor'] ='2';
-        $value_['cantidad'] =0;
-        $array[]=$value_;
-
-        $value_['moneda'] ='SOLES';
-        $value_['valor'] ='1';
-        $value_['cantidad'] =0;
-        $array[]=$value_;
-
-        $value_['moneda'] ='CENTIMOS';
-        $value_['valor'] ='0.50';
-        $value_['cantidad'] =0;
-        $array[]=$value_;
-
-        $value_['moneda'] ='CENTIMOS';
-        $value_['valor'] ='0.20';
-        $value_['cantidad'] =0;
-        $array[]=$value_;
-
-        $value_['moneda'] ='CENTIMOS';
-        $value_['valor'] ='0.10';
-        $value_['cantidad'] =0;
-        $array[]=$value_;
-
-        $value_['moneda'] ='CENTIMOS';
-        $value_['valor'] ='0.05';
-        $value_['cantidad'] =0;
-        $array[]=$value_;
-
-        $value_['moneda'] ='CENTIMOS';
-        $value_['valor'] ='0.01';
-        $value_['cantidad'] =0;
-        $array[]=$value_;
-
+    public function getDataMonedas($p){
+        $this->arrayMenu = $this->objDatos->SP_ASESORES_DISTRIBUCION_LIST($p);
+        //var_export($this->arrayMenu);
+        $array = array();
+        foreach ($this->arrayMenu as $index => $value){
+                //$p['id_asesor'] = intval($value['id_asesor']);
+                $value_['id_det_dis'] = intval($value['id_det_dis']);
+                $value_['id_caja_det'] = intval($value['id_caja_det']);
+                $value_['id_caja'] = intval($value['id_caja']);
+                $value_['id_asesor'] = intval($value['id_asesor']);
+                $value_['orden'] = intval($value['orden']);
+                $value_['moneda'] =utf8_encode(trim($value['moneda']));
+                $value_['valor'] =trim($value['valor']);
+                $value_['cantidad'] = intval($value['cantidad']);
+                $value_['fecha_creado'] =trim($value['fecha_creado']);
+                $array[]=$value_;
+        }
         $data = array(
             'success' => true,
             'total' => count($array),

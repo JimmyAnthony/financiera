@@ -10,6 +10,9 @@
 			id_per:'<?php echo $p["id_per"];?>',
 			id_id:'<?php echo $p["id_id"];?>',
 			id_asesor:0,
+			id_caja_det:0,
+			id_age:0,
+			fecha_pago:'',
 			paramsStore:{},
 			init:function(){
 				Ext.tip.QuickTipManager.init();
@@ -1009,13 +1012,13 @@
 		                                            ]
 		                                        },
 		                                        {
-		                                            width: 180,border:false,
+		                                            width: 110,border:false,
 		                                            padding:'0px 2px 0px 0px',  
 		                                            bodyStyle: 'background: transparent',
 		                                            items:[
 		                                                {
 									                        xtype:'button',
-									                        text: 'Generar caja de cobros',
+									                        text: 'Aperturar caja',
 									                        icon: '/images/icon/1315404769_gear_wheel.png',
 									                        listeners:{
 									                            beforerender: function(obj, opts){
@@ -1028,6 +1031,31 @@
 									                            },
 									                            click: function(obj, e){	             	
 		                               					            cierre.setGenerate();
+									                            }
+									                        }
+									                    }
+		                                            ]
+		                                        },
+		                                        {
+		                                            width: 100,border:false,
+		                                            padding:'0px 2px 0px 0px',  
+		                                            bodyStyle: 'background: transparent',
+		                                            items:[
+		                                                {
+									                        xtype:'button',
+									                        text: 'Cerrar Caja',
+									                        icon: '/images/icon/padlock-closed.png',
+									                        listeners:{
+									                            beforerender: function(obj, opts){
+									                                /*global.permisos({
+									                                    id: 15,
+									                                    id_btn: obj.getId(), 
+									                                    id_menu: gestion_devolucion.id_menu,
+									                                    fn: ['panel_asignar_gestion.limpiar']
+									                                });*/
+									                            },
+									                            click: function(obj, e){	             	
+		                               					            cierre.setGenerateCierreCaja();
 									                            }
 									                        }
 									                    }
@@ -1482,7 +1510,7 @@
 											                                    width: 60
 											                                }
 									                                	]
-									                            	}/*,
+									                            	},
 																	{
 									                                    text: 'ST',
 									                                    dataIndex: 'estado',
@@ -1492,20 +1520,22 @@
 									                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 									                                        //console.log(record);
 									                                        var estado = 'check-circle-green-16.png';
-									                                        if(record.get('estado')=='I'){
-									                                        	estado = 'check-circle-black-16.png';
+									                                        var jsf='';
+									                                        if(record.get('estado')=='C'){
+									                                        	estado = 'padlock-closed.png';
+									                                        	jsf='cierre.setOpenCajaOnly('+record.get('id_caja_det')+','+record.get('id_caja')+','+record.get('id_asesor')+')';
 									                                        }
 									                                        metaData.style = "padding: 0px; margin: 0px";
 									                                        return global.permisos({
 									                                            type: 'link',
 									                                            id_menu: cierre.id_menu,
 									                                            icons:[
-									                                                {id_serv: 8, img: estado, qtip: 'Estado.', js: ""}
+									                                                {id_serv: 2, img: estado, qtip: 'Estado.', js: jsf}
 
 									                                            ]
 									                                        });
 									                                    }
-									                                },
+									                                }/*,
 									                                {
 									                                    text: 'EDT',
 									                                    dataIndex: 'estado',
@@ -1540,7 +1570,12 @@
 									                            	//scanning.setImageFile(record.get('path'),record.get('file'));
 									                            },
 									                            select:function(obj, record, index, eOpts ){
-									                            	cierre.setClearCierreCal();
+									                            	//cierre.setClearCierreCal();
+									                            	Ext.getCmp(cierre.id+'-btn-cerrar-caja-asesor').setDisabled(record.get('estado')=='C'?true:false);
+									                            	Ext.getCmp(cierre.id+'-btn-limpiar-caja-asesor').setDisabled(record.get('estado')=='C'?true:false);
+									                            	Ext.getCmp(cierre.id+'-btn-pdf-caja-asesor').setDisabled(record.get('estado')=='C'?false:true);
+									                            	var objp = Ext.getCmp(cierre.id+'-grid-distribucion'); 
+																	cierre.getReload(objp,{vp_id_caja_det:record.get('id_caja_det'),vp_id_caja:record.get('id_caja'),vp_id_asesor:record.get('id_asesor')});
 									                            	Ext.getCmp(cierre.id+'-sol-txt-cuotas-pago').setValue(record.get('cuotas_cobradas'));
 									                            	Ext.getCmp(cierre.id+'-sol-txt-monto-valor').setValue(record.get('valor_cuota'));
 									                            	Ext.getCmp(cierre.id+'-sol-txt-monto-mora').setValue(record.get('mora'));
@@ -1548,6 +1583,9 @@
 									                            	Ext.getCmp(cierre.id+'-sol-txt-monto-cobrado').setValue(record.get('pagado'));
 									                            	Ext.getCmp(cierre.id+'-sol-txt-monto-efectivo').setValue(record.get('efectivo'));
 									                            	cierre.id_asesor=record.get('id_asesor');
+									                            	cierre.id_caja_det=record.get('id_caja_det');
+																	cierre.id_age=record.get('id_age'); 
+																	cierre.fecha_pago=record.get('fecha');
 									                            	cierre.getClientes(record.get('id_asesor'));
 									                            }
 									                        }
@@ -1624,7 +1662,7 @@
 													                {name: 'valor', type: 'string'},
 													                {name: 'cantidad', type: 'string'}
 													            ], 
-													            autoLoad:true,
+													            autoLoad:false,
 													            proxy:{
 													                type: 'ajax',
 													                url: cierre.url+'getDataMonedas/',
@@ -1857,11 +1895,13 @@
 								                        	items:[
 												            	{
 												                    xtype: 'button',
+												                    id:cierre.id+'-btn-cerrar-caja-asesor',
 												                    margin:'5px 5px 5px 5px',
 												                    icon: '/images/icon/1315404769_gear_wheel.png',
 												                    //glyph: 72,
 												                    //columnWidth: 0.1,
 												                    //width:70,
+												                    disabled:true,
 												                    flex:1,
 												                    text: 'CERRAR',
 												                    scale: 'medium',
@@ -1882,12 +1922,14 @@
 												                },
 												                {
 												                    xtype: 'button',
+												                    id:cierre.id+'-btn-limpiar-caja-asesor',
 												                    margin:'5px 5px 5px 5px',
 												                    icon: '/images/icon/Document.png',
 												                    //glyph: 72,
 												                    //columnWidth: 0.1,
 												                    //width:70,
 												                    flex:1,
+												                    disabled:true,
 												                    text: 'LIMPIAR',
 												                    scale: 'medium',
 												                    iconAlign: 'top',
@@ -1908,7 +1950,9 @@
 												                {
 												                    xtype: 'button',
 												                    margin:'5px 5px 5px 5px',
+												                    id:cierre.id+'-btn-pdf-caja-asesor',
 												                    icon: '/images/icon/pdf.png',
+												                    disabled:true,
 												                    //glyph: 72,
 												                    //columnWidth: 0.1,
 												                    //width:70,
@@ -2041,6 +2085,57 @@
 					cierre.setCollapse();
 				});
 			},
+			setOpenCajaOnly:function(id_caja_det,id_caja,id_asesor){
+				global.Msg({
+					msg: '¿Está seguro aperturar la caja para este asesor?',
+					icon:3,
+					buttons:3,
+					fn:function(obj){
+						//console.log(obj);
+						if (obj == 'yes'){
+							Ext.getCmp(cierre.id+'-win-form').el.mask('Cargando…', 'x-mask-loading');
+							Ext.Ajax.request({
+								url:cierre.url+'setOpenCajaOnly/',
+								params:{
+									vp_op:'A',
+									vp_id_caja_det:id_caja_det,
+									vp_id_caja:id_caja,
+									vp_id_asesor:id_asesor,
+									vp_id_age:cierre.id_age,
+									vp_id_age:cierre.id_age,
+									vp_fecha_pago:cierre.fecha_pago,
+									vp_efectivo:0
+								},
+								success: function(response, options){
+									Ext.getCmp(cierre.id+'-win-form').el.unmask();
+									var res = Ext.JSON.decode(response.responseText);
+			                        //control.getLoader(false);
+			                        if (res.error == 'OK'){
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 1,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	cierre.getAsesores();
+			                                }
+			                            });
+			                        }else{
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 0,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	 
+			                                }
+			                            });
+			                        }
+								}
+							});
+						}
+						
+					}
+				});
+			},
 			setClearCierreCal:function(){
 
             	var grid = Ext.getCmp(cierre.id+'-grid-distribucion');
@@ -2070,7 +2165,7 @@
 					return false;
 				}
 				global.Msg({
-					msg: '¿Está seguro cerrar la caja para este asesor?',
+					msg: '¿Está seguro aperturar o verificar la caja?',
 					icon:3,
 					buttons:3,
 					fn:function(obj){
@@ -2122,8 +2217,77 @@
 					}
 				});
 			},
+			setGenerateCierreCaja:function(){
+				var id_caja =Ext.getCmp(cierre.id+'-txt-id-caja').getValue();
+				var agencia =Ext.getCmp(cierre.id+'-sol-cmb-agencia-filtro').getValue();
+				var fecha   =Ext.getCmp(cierre.id+'-txt-fecha').getRawValue();
+				if(!id_caja){
+					id_caja=0;
+				}
+				if(!agencia){
+					global.Msg({msg:"Seleccione una agencia para generar la caja diaria",icon:2,fn:function(){}});
+					return false;
+				}
+				if(!fecha){
+					global.Msg({msg:"Seleccione una fecha de pago para generar la caja diaria",icon:2,fn:function(){}});
+					return false;
+				}
+				global.Msg({
+					msg: '¿ESTÁ REALMENTE SEGURO DE CERRAR LA CAJA?, ESTE PROCESO ES IREVERSIBLE.',
+					icon:2,
+					buttons:3,
+					fn:function(obj){
+						//console.log(obj);
+						if (obj == 'yes'){
+							Ext.getCmp(cierre.id+'-win-form').el.mask('Cargando…', 'x-mask-loading');
+							Ext.Ajax.request({
+								url:cierre.url+'setGenerarCierreCaja/',
+								params:{
+									vp_id_caja:id_caja,
+									vp_agencia:agencia,
+									vp_fecha:fecha
+								},
+								success: function(response, options){
+									Ext.getCmp(cierre.id+'-win-form').el.unmask();
+									var res = Ext.JSON.decode(response.responseText);
+			                        //control.getLoader(false);
+			                        if (res.error == 'OK'){
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 1,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	Ext.getCmp(cierre.id+'-txt-total-cobrado-caja').setValue(res.cobado);
+			                                	Ext.getCmp(cierre.id+'-txt-total-dia-caja').setValue(res.total);
+			                                	Ext.getCmp(cierre.id+'-txt-mora-caja').setValue(res.mora);
+			                                	Ext.getCmp(cierre.id+'-txt-valor-cuotas-caja').setValue(res.valor_cuotas);
+			                                	Ext.getCmp(cierre.id+'-txt-cuotas-caja').setValue(res.cuotas);
+			                                	Ext.getCmp(cierre.id+'-txt-asesores-caja').setValue(res.asesores);
+			                                	Ext.getCmp(cierre.id+'-cmb-estado-caja').setValue(res.estado);
+			                                	Ext.getCmp(cierre.id+'-txt-id-caja').setValue(res.CODIGO);
+			                                	cierre.getAsesores();
+			                                }
+			                            });
+			                        }else{
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 0,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	 
+			                                }
+			                            });
+			                        }
+								}
+							});
+						}
+						
+					}
+				});
+			},
 			setCierre:function(){
 				//Ext.getCmp(cierre.id+'-sol-txt-cuotas-pago').setValue(record.get('cuotas_cobradas'));
+				cierre.setCalculaPagado();
 				var agencia =Ext.getCmp(cierre.id+'-sol-cmb-agencia-filtro').getValue();
 				var id_caja =Ext.getCmp(cierre.id+'-txt-id-caja').getValue();
             	var total =Ext.getCmp(cierre.id+'-sol-txt-monto-cobrado').getValue();
@@ -2142,6 +2306,14 @@
 					return false;
             	}
             	if(cierre.id_asesor==0){
+            		global.Msg({msg:"Seleccione un asesor para procesar.",icon:2,fn:function(){}});
+					return false;
+            	}
+            	if(cierre.id_age==0){
+            		global.Msg({msg:"Seleccione un asesor para procesar.",icon:2,fn:function(){}});
+					return false;
+            	}
+            	if(cierre.id_caja_det==0){
             		global.Msg({msg:"Seleccione un asesor para procesar.",icon:2,fn:function(){}});
 					return false;
             	}
@@ -2171,10 +2343,13 @@
 						if (obj == 'yes'){
 							Ext.getCmp(cierre.id+'-win-form').el.mask('Cargando…', 'x-mask-loading');
 							Ext.Ajax.request({
-								url:cierre.url+'set_update_formulario_detalle/',
+								url:cierre.url+'setGeneraClasificacionCaja/',
 								params:{
 									vp_id_caja:id_caja,
+									vp_id_caja_det:cierre.id_caja_det,
+									vp_id_age:cierre.id_age,
 									vp_id_asesor:cierre.id_asesor,
+									vp_fecha_pago:cierre.fecha_pago,
 									vp_efectivo:efectivo,
 									vp_recordsToSend:recordsToSend
 								},
@@ -2191,6 +2366,7 @@
 			                                	//Ext.getCmp(cierre.id+'-select-garante').setValue('');
 			                                	//var objp = Ext.getCmp(cierre.id+'-list-garante');
 												//cierre.getReload(objp,{vp_op:'G',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+												cierre.getAsesores();
 			                                }
 			                            });
 			                        }else{
