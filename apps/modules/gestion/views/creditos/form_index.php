@@ -1115,7 +1115,7 @@
 											                        trackOver: true,
 											                        overItemCls: 'list_grid_sol__list_menu-hover',
 											                        listeners: {
-											                            'itemdblclick': function(view, record, item, idx, event, opts) {
+											                            'itemclick': function(view, record, item, idx, event, opts) {
 											                                /*me.idx=idx;
 											                                var record = this.getStore().getAt(idx);
 											                                var val =record.data;
@@ -1167,7 +1167,8 @@
 											                        trackOver: true,
 											                        overItemCls: 'list_grid_sol__list_menu-hover',
 											                        listeners: {
-											                            'itemdblclick': function(view, record, item, idx, event, opts) {
+											                        	//'itemdblclick': function(view, record, item, idx, event, opts) {
+											                            'itemclick': function(view, record, item, idx, event, opts) {
 											                                /*me.idx=idx;
 											                                var record = this.getStore().getAt(idx);
 											                                var val =record.data;
