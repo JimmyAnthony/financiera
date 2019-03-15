@@ -6,9 +6,10 @@
 			id_menu:'<?php echo $p["id_menu"];?>',
 			url:'/gestion/persona/',
 			url_ct:'/gestion/centroTrabajo/',
-			opcion:'I',
+			opcion:'<?php echo $p["opcion"];?>',
 			id_per:'<?php echo $p["id_per"];?>',
 			id_id:'<?php echo $p["id_id"];?>',
+			dni:'<?php echo $p["dni"];?>',
 			paramsStore:{},
 			back:'NONE',
 			init:function(){
@@ -882,7 +883,7 @@
 																	border:true,
 																	padding:'5px 5px 5px 5px',
 																	margin:'10px 10px 10px 10px',
-																	html:'<div id="imagen-contenedor" ><img id="imagen-persona" src="/images/photo.png" style="width:100%; height:"100%;overflow: scroll;" /></div>'
+																	html:'<div id="imagen-contenedor-persona" ><img id="imagen-persona" src="/images/photo.png" style="width:100%; height:"100%;overflow: scroll;" /></div>'
 																	
 																}
 															]
@@ -1869,7 +1870,7 @@
 																	                            	Ext.getCmp(persona.id+'-sol-txt-nombre-doc').setValue('');
 																	                            	//var obj = Ext.getCmp(persona.id+'-sol-documentos-adjuntos');
 																									//persona.getReload(obj,{vp_sol_id_per:vp_sol_id_per,vp_flag:'A'});
-																									win.getGalery({container:'contenedor-documentos',forma:'L',url:persona.url+'get_list_documentos/',params:{vp_sol_id_per:vp_sol_id_per,vp_flag:'A'} });
+																									win.getGalery({container:'contenedor-documentos-persona',forma:'L',url:persona.url+'get_list_documentos/',params:{vp_sol_id_per:vp_sol_id_per,vp_flag:'A'} });
 																				                }
 																	                        },
 																	                        failure: function (fp, o) {
@@ -1918,7 +1919,7 @@
 															region:'center',
 															border:false,
 															autoScroll:true,
-															html:'<div id="contenedor-documentos" ></div>',
+															html:'<div id="contenedor-documentos-persona" ></div>',
 															items:[
 																/*{
 														            xtype: 'dataview',
@@ -2974,7 +2975,7 @@
 	                    'afterrender':function(obj, e){
 	                    	var obj = Ext.getCmp(persona.id+'-sol-txt-centro-trabajo');
 							persona.getReload(obj,{vp_op:'N',vp_id:0,vp_nombre:''});
-	                    	if(persona.id_per!=0){
+	                    	if(persona.id_per!=0 || persona.dni!=''){
 	                    		persona.getPersona();
 	                    	}else{
 	                    		persona.getSelectUbi();
@@ -3316,9 +3317,9 @@
 				Ext.Ajax.request({
                     url:persona.url+'getListPersona/',
                     params:{
-                    	vp_op:'C',
+                    	vp_op:persona.opcion,
 						vp_id:persona.id_per,
-						vp_dni:'',
+						vp_dni:persona.dni,
 						vp_nombres:''
                     },
                     timeout: 30000000,
@@ -3364,7 +3365,7 @@
 
 						//var obj = Ext.getCmp(persona.id+'-sol-documentos-adjuntos');
 						//persona.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
-						win.getGalery({container:'contenedor-documentos',forma:'L',url:persona.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
+						win.getGalery({container:'contenedor-documentos-persona',forma:'L',url:persona.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
 
 						if(data.id_dir!=0){
 							persona.getDirecciones(data.id_dir);
@@ -3884,7 +3885,7 @@
 			},
 			setPhotoForm:function(img,nombre){
 				var img = persona.getAddMagicRefresh(img);
-				win.getGalery({container:'imagen-contenedor',forma:'F',width:170,height:200,params:{img_path:img,title:nombre}});
+				win.getGalery({container:'imagen-contenedor-persona',forma:'F',width:170,height:200,params:{img_path:img,title:nombre}});
 				/*
 				var panel = Ext.getCmp(persona.id + '-photo-person');
 				panel.removeAll();
