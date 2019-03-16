@@ -18,7 +18,8 @@
 	                    {name: 'id_creditos', type: 'string'},
 	                    {name: 'nro_solicitud', type: 'string'},
 	                    {name: 'id_age', type: 'string'},
-	                    {name: 'id_per', type: 'string'},                    
+	                    {name: 'id_per', type: 'string'},    
+	                    {name: 'nombre', type: 'string'},                  
 	                    {name: 'id_garante', type: 'string'},
 	                    {name: 'id_asesor', type: 'string'},
 	                    {name: 'moneda', type: 'string'},
@@ -52,7 +53,7 @@
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: cobranza.url+'get_list_client_creditos/',
+	                    url: cobranza.url+'get_list_creditos_asesor/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -843,142 +844,412 @@
 					border:false,
 					autoScroll:true,
 					closable:true,
-					layout:'border',
+					layout:'border',bodyStyle: 'background: #FFF;',
 					items:[
 						{
 							layout:'fit',
-				            width: '30%',
+				            //width: '40%',
 				            border:true,
-				            region:'west',
+				            region:'center',bodyStyle: 'background: transparent',
 				            items:[
 				            	{
 				            		layout:'border',
+				            		bodyStyle: 'background: transparent',
 				            		items:[
 				            			{
 											region:'north',
-											//layout:'hbox',
-											height:100,
-											//border:false,
+											layout:'border',
+											height:260,
+											border:false,
 											//layout:'border',
-											xtype: 'fieldset',
-											title: 'Filtros',
-											padding:'5px 5px 5px 5px',
-											margin:'5px 5px 5px 5px',
+											padding:10,
 											bodyStyle: 'background: transparent',
 											items:[
 												{
-													layout:'hbox',
-													bodyStyle: 'background: transparent',
-													border:false,
+													region:'north',
+													xtype: 'fieldset',
+													title: 'Filtros',
 													padding:'5px 5px 5px 5px',
+													//margin:'5px 5px 5px 5px',
+													bodyStyle: 'background: transparent',
+													//border:false,
 													items:[
 														{
-				                                            xtype:'combo',
-				                                            fieldLabel: 'Agencia',
-				                                            id:cobranza.id+'-sol-cmb-agencia-filtro',
-				                                            store: store_agencias,
-				                                            queryMode: 'local',
-				                                            triggerAction: 'all',
-				                                            valueField: 'cod_age',
-				                                            displayField: 'nombre',
-				                                            emptyText: '[Seleccione]',
-				                                            labelAlign:'right',
-				                                            //allowBlank: false,
-				                                            //labelAlign:'top',
-								                            //width:'92%',
-								                            labelWidth:75,
-								                            flex:1,
-								                            //height:40,
-								                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-				                                            anchor:'100%',
-				                                            
-				                                            //readOnly: true,
-				                                            listeners:{
-				                                                afterrender:function(obj, e){
-				                                                	//cobranza.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
-				                                                	obj.setValue(1);
+															layout:'hbox',
+															bodyStyle: 'background: transparent',
+															border:false,
+															padding:'5px 5px 5px 5px',
+															items:[
+																{
+						                                            xtype:'combo',
+						                                            fieldLabel: 'AGENCIA',
+						                                            id:cobranza.id+'-sol-cmb-agencia-filtro',
+						                                            store: store_agencias,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'cod_age',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            //labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:65,
+										                            //flex:1,
+										                            width:200,
+										                            //height:40,
+										                            labelStyle: "font-size:11px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//cobranza.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	obj.setValue(1);
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        			var obja = Ext.getCmp(cobranza.id+'-sol-cmb-asesor');
+				                        									cobranza.getReload(obja,{vp_cod_age:obj.getValue()});
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+				                                                    xtype:'combo',
+				                                                    fieldLabel: 'BUSCAR POR',
+				                                                    bodyStyle: 'background: transparent',
+													                //labelStyle: "font-size:18px;font-weight:bold;padding:6px 0px 0px 0px;text-align: center;font-weight: bold",
+											                        //fieldStyle: 'font-size:20px; text-align: center; font-weight: bold',
+				                                                    id:cobranza.id+'-txt-estado-filter',
+				                                                    store: store_filtro,
+				                                                    queryMode: 'local',
+				                                                    triggerAction: 'all',
+				                                                    valueField: 'code',
+				                                                    displayField: 'name',
+				                                                    emptyText: '[Seleccione]',
+				                                                    labelAlign:'right',
+				                                                    //allowBlank: false,
+				                                                    labelWidth: 85,
+				                                                    //width:'95%',
+				                                                    width:200,
+				                                                    anchor:'100%',
+				                                                    labelStyle: "font-size:11px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+				                                                    //readOnly: true,
+				                                                    listeners:{
+				                                                        afterrender:function(obj, e){
+				                                                            // obj.getStore().load();
+				                                                            Ext.getCmp(cobranza.id+'-txt-estado-filter').setValue('C');
+				                                                        },
+				                                                        select:function(obj, records, eOpts){
+				                                                
+				                                                        }
+				                                                    }
 				                                                },
-				                                                select:function(obj, records, eOpts){
-				                                        			var obja = Ext.getCmp(cobranza.id+'-sol-cmb-asesor');
-		                        									cobranza.getReload(obja,{vp_cod_age:obj.getValue()});
-				                                                }
-				                                            }
-				                                        }
-				                                    ]
-				                                },
-				                                {
-				                                	layout:'hbox',
-				                                	bodyStyle: 'background: transparent',
-				                                	border:false,
-				                                	padding:'5px 5px 5px 5px',
-				                                	items:[
-				                                		{
-		                                                    xtype:'combo',
-		                                                    fieldLabel: 'BUSCAR POR',
-		                                                    bodyStyle: 'background: transparent',
-											                //labelStyle: "font-size:18px;font-weight:bold;padding:6px 0px 0px 0px;text-align: center;font-weight: bold",
-									                        //fieldStyle: 'font-size:20px; text-align: center; font-weight: bold',
-		                                                    id:cobranza.id+'-txt-estado-filter',
-		                                                    store: store_filtro,
-		                                                    queryMode: 'local',
-		                                                    triggerAction: 'all',
-		                                                    valueField: 'code',
-		                                                    displayField: 'name',
-		                                                    emptyText: '[Seleccione]',
-		                                                    labelAlign:'right',
-		                                                    //allowBlank: false,
-		                                                    labelWidth: 75,
-		                                                    //width:'95%',
-		                                                    width:150,
-		                                                    anchor:'100%',
-		                                                    //readOnly: true,
-		                                                    listeners:{
-		                                                        afterrender:function(obj, e){
-		                                                            // obj.getStore().load();
-		                                                            Ext.getCmp(cobranza.id+'-txt-estado-filter').setValue('C');
-		                                                        },
-		                                                        select:function(obj, records, eOpts){
-		                                                
-		                                                        }
-		                                                    }
-		                                                },
-		                                                {
-		                                                    xtype: 'textfield',	
-		                                                    fieldLabel: '',
-		                                                    id:cobranza.id+'-txt-asesores',
-		                                                    labelWidth:0,
-		                                                    //readOnly:true,
-		                                                    labelAlign:'right',
-		                                                    //height:30,
-								                            //labelStyle: "font-size:20px;font-weight:bold;padding:4px 0px 0px 0px;text-align: center;font-weight: bold",
-								                            //fieldStyle: 'font-size:20px; text-align: center; font-weight: bold',
-		                                                    //width:'100%',
-		                                                    flex:1,
-		                                                    anchor:'100%'
-		                                                },
-		                                                {
-									                        xtype:'button',
-									                        width:50,
-									                        //scale: 'medium',
-									                        //text: 'Buscar',
-									                        icon: '/images/icon/binocular.png',
-									                        listeners:{
-									                            beforerender: function(obj, opts){
-									                                /*global.permisos({
-									                                    id: 15,
-									                                    id_btn: obj.getId(), 
-									                                    id_menu: gestion_devolucion.id_menu,
-									                                    fn: ['panel_asignar_gestion.limpiar']
-									                                });*/
-									                            },
-									                            click: function(obj, e){
-									                            	cobranza.getAsesores();
-									                            }
-									                        }
-									                    }
-				                                	]
-				                                }
+				                                                {
+				                                                    xtype: 'textfield',	
+				                                                    fieldLabel: '',
+				                                                    id:cobranza.id+'-txt-asesores',
+				                                                    labelWidth:0,
+				                                                    //readOnly:true,
+				                                                    labelAlign:'right',
+				                                                    //height:30,
+										                            //labelStyle: "font-size:20px;font-weight:bold;padding:4px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            //fieldStyle: 'font-size:20px; text-align: center; font-weight: bold',
+				                                                    //width:'100%',
+				                                                    flex:1,
+				                                                    anchor:'100%'
+				                                                },
+				                                                {
+															        xtype: 'datefield',
+															        id:cobranza.id+'-sol-date-fecha-cobranza',
+															        //padding:'5px 5px 0px 5px',
+															        //name: 'date1',
+															        //labelAlign:'top',
+															        format:'Y-m-d',
+															        //flex:1,
+															        //padding:'5px 5px 5px 5px',
+															        labelWidth: 85,
+															        width:180,
+															        labelStyle: "font-size:11px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+										                            //height:40,
+															        //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            //fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+															        fieldLabel: 'FECHA COBRO',
+															        value:new Date()
+															    },
+				                                                {
+											                        xtype:'button',
+											                        width:50,
+											                        //scale: 'medium',
+											                        //text: 'Buscar',
+											                        icon: '/images/icon/binocular.png',
+											                        listeners:{
+											                            beforerender: function(obj, opts){
+											                                /*global.permisos({
+											                                    id: 15,
+											                                    id_btn: obj.getId(), 
+											                                    id_menu: gestion_devolucion.id_menu,
+											                                    fn: ['panel_asignar_gestion.limpiar']
+											                                });*/
+											                            },
+											                            click: function(obj, e){
+											                            	cobranza.getAsesores();
+											                            }
+											                        }
+											                    }
+						                                    ]
+						                                }
+													]
+												},
+												{
+													region:'center',
+													layout:'border',
+													border:false,
+													items:[
+														{
+					                						region:'north',
+					                						height:40,
+					                						//border:false,
+					                						items:[
+					                							{
+																	//region:'north',
+																	xtype:'panel',
+																	layout:'hbox',
+																	border:false,
+																	height:40,
+																	//bodyStyle: 'background: #F0EFEF;text-align:center;',
+																	bodyStyle: 'background: #F0EFEF;text-align:center;',
+																	//layout:'fit',
+																	items:[
+																		{
+																	        xtype: 'label',
+																	        //forId: 'myFieldId',
+																	        text: 'COBRO ESPERADO',
+																	        style: 'font: normal 15px Sans-serif;font-weight: bold;',
+																	        padding:'10px 5px 5px 5px',
+																	        width:'100%',
+												                            anchor:'100%'
+																	    }
+																	]
+																}
+					                						]
+					                					},
+					                					{
+					                						region:'center',
+					                						//layout:'border',
+					                						border:false,
+					                						//layout:'hbox',
+					                						items:[
+					                							{
+					                								layout:'hbox',
+					                								border:false,
+					                								items:[
+												                        {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Total Cuotas',
+												                            id:cobranza.id+'-txt-esperado-cuotas',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:cobranza.id+'-txt-dni',
+												                            labelWidth:50,
+												                            readOnly:true,
+												                            labelAlign:'top',
+												                            //width:80,
+												                            flex:1,
+												                            //columnWidth: 0.2,
+												                            height:50,
+												                            labelStyle: "font-size:12px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:14px; text-align: right; font-weight: bold',
+												                            value:'',
+												                            maskRe: new RegExp("[0-9.]+"),
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Valor Cuotas',
+												                            id:cobranza.id+'-txt-esperado-valor-cuotas',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:cobranza.id+'-txt-dni',
+												                            labelWidth:50,
+												                            readOnly:true,
+												                            labelAlign:'top',
+												                            //width:80,
+												                            flex:1,
+												                            //columnWidth: 0.2,
+												                            height:50,
+												                            labelStyle: "font-size:12px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:14px; text-align: right; font-weight: bold',
+												                            value:'',
+												                            maskRe: new RegExp("[0-9.]+"),
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Mora',
+												                            id:cobranza.id+'-txt-esperado-mora',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:cobranza.id+'-txt-dni',
+												                            labelWidth:50,
+												                            readOnly:true,
+												                            labelAlign:'top',
+												                            //width:80,
+												                            flex:1,
+												                            //columnWidth: 0.2,
+												                            height:50,
+												                            labelStyle: "font-size:12px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:14px; text-align: right; font-weight: bold',
+												                            value:'',
+												                            maskRe: new RegExp("[0-9.]+"),
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Monto Esperado',
+												                            id:cobranza.id+'-txt-esperado-monto',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:cobranza.id+'-txt-dni',
+												                            labelWidth:50,
+												                            readOnly:true,
+												                            labelAlign:'top',
+												                            //width:80,
+												                            flex:1,
+												                            //columnWidth: 0.2,
+												                            height:50,
+												                            labelStyle: "font-size:12px;font-weight:bold;padding:17px 0px 0px 0px;color:green;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:14px; text-align: right; font-weight: bold',
+												                            value:'',
+												                            maskRe: new RegExp("[0-9.]+"),
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        }
+					                								]
+					                							},
+					                							{
+					                								layout:'hbox',
+					                								border:false,
+					                								items:[
+					                									{
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Cant.Solicitud',
+												                            id:cobranza.id+'-txt-esperado-cant-solicitado',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:cobranza.id+'-txt-dni',
+												                            labelWidth:50,
+												                            readOnly:true,
+												                            labelAlign:'top',
+												                            //width:80,
+												                            flex:1,
+												                            //columnWidth: 0.2,
+												                            height:50,
+												                            labelStyle: "font-size:12px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:14px; text-align: right; font-weight: bold',
+												                            value:'',
+												                            maskRe: new RegExp("[0-9.]+"),
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Total Solicitado',
+												                            id:cobranza.id+'-txt-esperado-monto-solicitado',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:cobranza.id+'-txt-dni',
+												                            labelWidth:50,
+												                            readOnly:true,
+												                            labelAlign:'top',
+												                            //width:80,
+												                            flex:1,
+												                            //columnWidth: 0.2,
+												                            height:50,
+												                            labelStyle: "font-size:12px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:14px; text-align: right; font-weight: bold',
+												                            value:'',
+												                            maskRe: new RegExp("[0-9.]+"),
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Cuotas Pendientes',
+												                            id:cobranza.id+'-txt-esperado-cuotas-pendientes',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:cobranza.id+'-txt-dni',
+												                            labelWidth:50,
+												                            readOnly:true,
+												                            labelAlign:'top',
+												                            //width:80,
+												                            flex:1,
+												                            //columnWidth: 0.2,
+												                            height:50,
+												                            labelStyle: "font-size:12px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:14px; text-align: right; font-weight: bold',
+												                            value:'',
+												                            maskRe: new RegExp("[0-9.]+"),
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Total Cobrado',
+												                            id:cobranza.id+'-txt-esperado-cobrado',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            //id:cobranza.id+'-txt-dni',
+												                            labelWidth:50,
+												                            readOnly:true,
+												                            labelAlign:'top',
+												                            //width:80,
+												                            flex:1,
+												                            //columnWidth: 0.2,
+												                            height:50,
+												                            labelStyle: "font-size:12px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;color:red;font-weight: bold",
+												                            fieldStyle: 'font-size:14px; text-align: right; font-weight: bold',
+												                            value:'',
+												                            maskRe: new RegExp("[0-9.]+"),
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        }
+					                								]
+					                							}
+					                						]
+					                					}
+													]
+												}
 											]
 										},
 										{
@@ -998,7 +1269,7 @@
 															border:false,
 															height:40,
 															//bodyStyle: 'background: #F0EFEF;text-align:center;',
-															bodyStyle: 'background: transparent;text-align:center;',
+															bodyStyle: 'background: #F0EFEF;text-align:center;',
 															//layout:'fit',
 															items:[
 																{
@@ -1020,7 +1291,7 @@
 			                						border:false,
 			                						layout:'fit',
 			                						items:[
-			                							{
+			                							/*{
 								                            xtype:'GridViewVertAS',
 								                            id:cobranza.id,
 								                            mode:2,
@@ -1028,7 +1299,582 @@
 								                            url:cobranza.url+'getDataMenuView/',
 								                            back:'-contentAsesores',
 								                            params:{sis_id:2}
-								                        }
+								                        }*/
+								                        {
+									                        xtype: 'grid',
+									                        id: cobranza.id+'-grid-asesores', 
+									                        store: Ext.create('Ext.data.Store',{
+													            fields: [
+													                {name: 'id_asesor', type: 'string'},
+													                {name: 'nombre', type: 'string'},
+													                {name: 'nombres', type: 'string'},
+													                {name: 'ape_pat', type: 'string'},
+													                {name: 'ape_mat', type: 'string'},
+													                {name: 'dni', type: 'string'},
+													                {name: 'numero', type: 'string'},
+
+													                {name: 'id_dir', type: 'string'},
+													                {name: 'dir_direccion', type: 'string'},
+													                {name: 'dir_numero', type: 'string'},
+													                {name: 'dir_mz', type: 'string'},
+													                {name: 'dir_lt', type: 'string'},
+													                {name: 'dir_dpto', type: 'string'},
+													                {name: 'dir_interior', type: 'string'},
+													                {name: 'dir_urb', type: 'string'},
+													                {name: 'dir_referencia', type: 'string'},
+													                {name: 'cod_ubi', type: 'string'},
+													                {name: 'fecha', type: 'string'},
+													                {name: 'clase', type: 'string'},
+													                {name: 'flag', type: 'string'}
+													            ],
+													            autoLoad:false,
+													            proxy:{
+													                type: 'ajax',
+													                url: cobranza.url+'getListAsesores/',
+													                reader:{
+													                    type: 'json',
+													                    rootProperty: 'data'
+													                }/*,
+													                extraParams:config.params*/
+													            },
+													            listeners:{
+													                load: function(obj, records, successful, opts){
+													                    console.log(records);
+													                    //document.getElementById("menu_spinner").innerHTML = "";
+													                }
+													            }
+													        }), 
+									                        columnLines: true,
+									                        //layout:'fit',
+									                        columns:{
+									                            items:[
+									                            	{
+									                            		text: 'N°',
+																	    xtype: 'rownumberer',
+																	    width: 30,
+																	    sortable: false,
+																	    locked: true/*,
+																	    renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+									                                        //console.log(record);
+									                                        return store.indexOf(record);
+									                                    }*/
+																	},
+																	{
+									                                    text: 'Nombres',
+									                                    dataIndex: 'nombre',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'left',
+									                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+									                                        return value;
+									                                    }
+									                                },
+																	{
+																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Solicitado</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																		align:'center',
+																		//width: 100,
+																		//flex:1,
+																		menuDisabled:true,
+																		columns:[
+											                                {
+											                                    text: 'Cantidad',
+											                                    align:'center',
+											                                    dataIndex: 'solicitudes',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                },
+											                                {
+											                                    text: 'Monto',
+											                                    align:'right',
+											                                    dataIndex: 'sol_monto',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                }
+									                                	]
+									                            	},
+									                            	{
+																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Crédito</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																		align:'center',
+																		//width: 100,
+																		//flex:1,
+																		menuDisabled:true,
+																		columns:[
+											                                {
+											                                    text: 'Cuotas',
+											                                    align:'center',
+											                                    dataIndex: 'coutas',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                },
+											                                {
+											                                    text: 'Monto',
+											                                    align:'right',
+											                                    dataIndex: 'valor_cuota',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                },
+											                                {
+											                                    text: 'Mora',
+											                                    align:'right',
+											                                    dataIndex: 'valor_cuota',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                },
+											                                {
+											                                    text: 'Total',
+											                                    align:'right',
+											                                    dataIndex: 'total',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                },
+									                                	]
+									                            	},
+									                            	{
+																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Efectividad</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																		align:'center',
+																		//width: 100,
+																		//flex:1,
+																		menuDisabled:true,
+																		columns:[
+											                                {
+											                                    text: 'Cuotas',
+											                                    align:'right',
+											                                    dataIndex: 'cuotas_cobradas',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                },
+											                                {
+											                                    text: 'Monto',
+											                                    align:'right',
+											                                    dataIndex: 'sol_monto_cobrado',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                }
+									                                	]
+									                            	},
+									                            	{
+																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Pendiente</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																		align:'center',
+																		//width: 100,
+																		//flex:1,
+																		menuDisabled:true,
+																		columns:[
+											                                {
+											                                    text: 'Cuotas',
+											                                    align:'right',
+											                                    dataIndex: 'coutas_pendientes',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                },
+											                                {
+											                                    text: 'Monto',
+											                                    align:'right',
+											                                    dataIndex: 'saldo',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                }
+									                                	]
+									                            	},
+																	{
+									                                    text: 'ST',
+									                                    dataIndex: 'estado',
+									                                    //loocked : true,
+									                                    width: 40,
+									                                    //flex:1,
+									                                    align: 'center',
+									                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+									                                        //console.log(record);
+									                                        var estado = 'check-circle-green-16.png';
+									                                        if(record.get('estado')=='P'){
+									                                        	estado = 'check-circle-black-16.png';
+									                                        }
+									                                        if(record.get('estado')=='T'){
+									                                        	estado = 'check-circle-yellow.png';
+									                                        }
+									                                        metaData.style = "padding: 0px; margin: 0px";
+									                                        return global.permisos({
+									                                            type: 'link',
+									                                            id_menu: cobranza.id_menu,
+									                                            icons:[
+									                                                {id_serv: 2, img: estado, qtip: 'Estado.', js: ""}
+
+									                                            ]
+									                                        });
+									                                    }
+									                                }/*,
+									                                {
+									                                    text: 'EDT',
+									                                    dataIndex: 'estado',
+									                                    //loocked : true,
+									                                    width: 40,
+									                                    align: 'center',
+									                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+									                                        //console.log(record);
+									                                        var estado = 'panasonic.png';
+									                                        var fun = "cobranza.setAsignar("+rowIndex+",'X')";
+									                                        if(record.get('estado')=='X'){//pago parcial
+									                                        	estado = 'padlock-closed.png';
+									                                        	fun = "cobranza.setAsignar("+rowIndex+",'P')";
+									                                        }
+									                                        if(record.get('estado')=='T'){//terminado
+									                                        	estado = '1348695561_stock_mail-send-receive.png';
+									                                        	fun=''
+									                                        }
+									                                        metaData.style = "padding: 0px; margin: 0px";
+									                                        return global.permisos({
+									                                            type: 'link',
+									                                            id_menu: cobranza.id_menu,
+									                                            icons:[
+									                                                {id_serv: 2, img: estado, qtip: 'Pagar.', js: fun}
+
+									                                            ]
+									                                        });
+									                                    }
+									                                }*/
+									                                /*,
+									                                {
+					                                                    xtype: 'checkcolumn',
+					                                                    dataIndex: 'chk',
+					                                                    width: 30,
+					                                                    listeners: {
+					                                                        checkchange: function (value, rowIndex, checked, eOpts) {
+					                                                            //callcenter.TotalRecursos();
+					                                                        }
+					                                                    }
+					                                                }*/
+									                            ],
+									                            defaults:{
+									                                menuDisabled: true
+									                            }
+									                        },
+									                        multiSelect: true,
+									                        trackMouseOver: false,
+									                        listeners:{
+									                            afterrender: function(obj){
+									                                
+									                            },
+									                            beforeselect:function(obj, record, index, eOpts ){
+									                            },
+									                            select:function(obj, record, index, eOpts ){
+									                            	//scanning.setImageFile(record.get('path'),record.get('file'));
+									                            	cobranza.getListSolicitudes(record.get('id_asesor'));
+									                            }
+									                        }
+									                    }
+													]
+												},
+												{
+			                						region:'south',
+			                						height:'50%',
+			                						//layout:'border',
+			                						border:false,
+			                						layout:'border',
+			                						items:[
+			                							/*{
+								                            xtype:'GridViewVertAS',
+								                            id:cobranza.id,
+								                            mode:2,
+								                            tab:cobranza.id+'-tabContent',
+								                            url:cobranza.url+'getDataMenuView/',
+								                            back:'-contentAsesores',
+								                            params:{sis_id:2}
+								                        }*/
+								                        {
+					                						region:'north',
+					                						height:40,
+					                						//border:false,
+					                						items:[
+					                							{
+																	//region:'north',
+																	xtype:'panel',
+																	layout:'hbox',
+																	border:false,
+																	height:40,
+																	//bodyStyle: 'background: #F0EFEF;text-align:center;',
+																	bodyStyle: 'background: #F0EFEF;text-align:center;',
+																	//layout:'fit',
+																	items:[
+																		{
+																	        xtype: 'label',
+																	        //forId: 'myFieldId',
+																	        text: 'CRÉDITOS',
+																	        style: 'font: normal 15px Sans-serif;font-weight: bold;',
+																	        padding:'10px 5px 5px 5px',
+																	        width:'100%',
+												                            anchor:'100%'
+																	    }
+																	]
+																}
+					                						]
+					                					},
+								                        {
+									                        xtype: 'grid',
+									                        region:'center',
+									                        id: cobranza.id+'-grid-solicitudes', 
+									                        store: store_creditos, 
+									                        columnLines: true,
+									                        //layout:'fit',
+									                        columns:{
+									                            items:[
+									                            	{
+									                            		text: 'N°',
+																	    xtype: 'rownumberer',
+																	    width: 30,
+																	    sortable: false,
+																	    locked: true//,
+																	    /*renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+									                                        //console.log(record);
+									                                        return store.indexOf(record);
+									                                    }*/
+																	},
+																	{
+									                                    text: 'Nombres',
+									                                    dataIndex: 'nombre',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    flex:1,
+									                                    align: 'left',
+									                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+									                                        return value;
+									                                    }
+									                                },
+									                            	{
+																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Crédito</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																		align:'center',
+																		//width: 100,
+																		//flex:1,
+																		menuDisabled:true,
+																		columns:[
+																			{
+											                                    text: 'Aprobado',
+											                                    align:'right',
+											                                    dataIndex: 'monto_aprobado',
+											                                    width: 80,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                },
+											                                {
+											                                    text: 'Cuotas',
+											                                    align:'center',
+											                                    dataIndex: 'nro_cuotas',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                },
+											                                {
+											                                    text: 'Monto',
+											                                    align:'right',
+											                                    dataIndex: 'tot_credito',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                },
+											                                {
+											                                    text: 'Mora',
+											                                    align:'right',
+											                                    dataIndex: 'tot_mora',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                },
+											                                {
+											                                    text: 'Total',
+											                                    align:'right',
+											                                    dataIndex: 'tot_neto',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                },
+									                                	]
+									                            	},
+									                            	{
+																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Efectividad</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																		align:'center',
+																		//width: 100,
+																		//flex:1,
+																		menuDisabled:true,
+																		columns:[
+											                                {
+											                                    text: 'Cuotas',
+											                                    align:'right',
+											                                    dataIndex: 'cuotas_cobradas',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                },
+											                                {
+											                                    text: 'Monto',
+											                                    align:'right',
+											                                    dataIndex: 'sol_monto_cobrado',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                }
+									                                	]
+									                            	},
+									                            	{
+																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Pendiente</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																		align:'center',
+																		//width: 100,
+																		//flex:1,
+																		menuDisabled:true,
+																		columns:[
+											                                {
+											                                    text: 'Cuotas',
+											                                    align:'right',
+											                                    dataIndex: 'coutas_pendientes',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                },
+											                                {
+											                                    text: 'Monto',
+											                                    align:'right',
+											                                    dataIndex: 'tot_saldo',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                }
+									                                	]
+									                            	},
+																	{
+									                                    text: 'ST',
+									                                    dataIndex: 'estado',
+									                                    //loocked : true,
+									                                    width: 40,
+									                                    //flex:1,
+									                                    align: 'center',
+									                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+									                                        //console.log(record);
+									                                        var estado = 'check-circle-green-16.png';
+									                                        if(record.get('estado')=='P'){
+									                                        	estado = 'check-circle-black-16.png';
+									                                        }
+									                                        if(record.get('estado')=='T'){
+									                                        	estado = 'check-circle-yellow.png';
+									                                        }
+									                                        metaData.style = "padding: 0px; margin: 0px";
+									                                        return global.permisos({
+									                                            type: 'link',
+									                                            id_menu: cobranza.id_menu,
+									                                            icons:[
+									                                                {id_serv: 2, img: estado, qtip: 'Estado.', js: ""}
+
+									                                            ]
+									                                        });
+									                                    }
+									                                }/*,
+									                                {
+									                                    text: 'EDT',
+									                                    dataIndex: 'estado',
+									                                    //loocked : true,
+									                                    width: 40,
+									                                    align: 'center',
+									                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+									                                        //console.log(record);
+									                                        var estado = 'panasonic.png';
+									                                        var fun = "cobranza.setAsignar("+rowIndex+",'X')";
+									                                        if(record.get('estado')=='X'){//pago parcial
+									                                        	estado = 'padlock-closed.png';
+									                                        	fun = "cobranza.setAsignar("+rowIndex+",'P')";
+									                                        }
+									                                        if(record.get('estado')=='T'){//terminado
+									                                        	estado = '1348695561_stock_mail-send-receive.png';
+									                                        	fun=''
+									                                        }
+									                                        metaData.style = "padding: 0px; margin: 0px";
+									                                        return global.permisos({
+									                                            type: 'link',
+									                                            id_menu: cobranza.id_menu,
+									                                            icons:[
+									                                                {id_serv: 2, img: estado, qtip: 'Pagar.', js: fun}
+
+									                                            ]
+									                                        });
+									                                    }
+									                                }*/
+									                                /*,
+									                                {
+					                                                    xtype: 'checkcolumn',
+					                                                    dataIndex: 'chk',
+					                                                    width: 30,
+					                                                    listeners: {
+					                                                        checkchange: function (value, rowIndex, checked, eOpts) {
+					                                                            //callcenter.TotalRecursos();
+					                                                        }
+					                                                    }
+					                                                }*/
+									                            ],
+									                            defaults:{
+									                                menuDisabled: true
+									                            }
+									                        },
+									                        multiSelect: true,
+									                        trackMouseOver: false,
+									                        listeners:{
+									                            afterrender: function(obj){
+									                                
+									                            },
+									                            beforeselect:function(obj, record, index, eOpts ){
+									                            },
+									                            select:function(obj, record, index, eOpts ){
+									                            	//scanning.setImageFile(record.get('path'),record.get('file'));
+									                            	//cobranza.getListSolicitudes(record.get('id_asesor'));
+									                            	//var data = record.data;
+									                            	cobranza.index=index;
+									                            	cobranza.setDataSolicitud(cobranza.index);
+									                            }
+									                        }
+									                    }
 													]
 												}
 											]
@@ -1038,1284 +1884,1161 @@
 				            ]
 				        },
 				        {
-				        	region:'center',
+				        	region:'east',
+				        	//width:'50%',
+				        	width:720,
 				        	layout:'border',
+				        	bodyStyle: 'background: #FFF;',
 				        	border:false,
 				        	items:[
 				        		{
-									layout:'border',
-									title:'DATOS DEL SOLICITANTE',
-				         			split:true,
-				         			collapsible: true,
-				         			header:false,
-						            width: '40%',
-						            border:false,
-						            region:'west',
-						            items:[
-						            	{
-				         					layout:'border',
-				         					region:'north',
-				         					height:460,
-				         					border:false,
-				         					items:[
-				         						{
-			                						region:'north',
-			                						height:40,
-			                						//border:false,
-			                						items:[
-			                							{
-															//region:'north',
-															xtype:'panel',
-															layout:'hbox',
-															border:false,
-															height:40,
-															//bodyStyle: 'background: #F0EFEF;text-align:center;',
-															bodyStyle: 'background: transparent;text-align:center;',
-															//layout:'fit',
-															items:[
-																{
-															        xtype: 'label',
-															        //forId: 'myFieldId',
-															        text: 'CLIENTES',
-															        style: 'font: normal 15px Sans-serif;font-weight: bold;',
-															        padding:'10px 5px 5px 5px',
-															        width:'100%',
-										                            anchor:'100%'
-															    }
-															]
-														}
-			                						]
-			                					},
-			                					{
-			                						region:'center',
-			                						//layout:'border',
-			                						border:false,
-			                						layout:'fit',
-			                						items:[
-										            	{
-								                            xtype:'GridViewVertCLI',
-								                            bodyStyle: 'background: transparent',
-                        									bodyCls: 'transparent',
-								                            id:cobranza.id,
-								                            mode:1,
-								                            //tab:cobranza.id+'-tabContent',
-								                            url:cobranza.url+'getDataListClientes/',
-								                            back:'-contentClientes',
-								                            params:{sis_id:2}
-								                        }
-													]
-												}
-									    	]
-									    },
-									    {
-									    	region:'center',
-									    	border:false,
-									    	layout:'border',
-									    	items:[
-									    		{
-			                						region:'north',
-			                						height:40,
-			                						//border:false,
-			                						items:[
-			                							{
-															//region:'north',
-															xtype:'panel',
-															layout:'hbox',
-															border:false,
-															height:40,
-															//bodyStyle: 'background: #F0EFEF;text-align:center;',
-															bodyStyle: 'background: transparent;text-align:center;',
-															//layout:'fit',
-															items:[
-																{
-															        xtype: 'label',
-															        //forId: 'myFieldId',
-															        text: 'CRÉDITOS',
-															        style: 'font: normal 15px Sans-serif;font-weight: bold;',
-															        padding:'10px 5px 5px 5px',
-															        width:'100%',
-										                            anchor:'100%'
-															    }
-															]
-														}
-			                						]
-			                					},
-			                					{
-			                						region:'center',
-			                						//layout:'border',
-			                						layout:'fit',
-			                						border:false,
-			                						items:[
-										            	{
-									                        xtype: 'dataview',
-									                        id: cobranza.id+'-list-solicitudes',
-									                        bodyStyle: 'background: transparent',
-									                        bodyCls: 'transparent',
-									                        layout:'fit',
-									                        store: store_creditos,
-									                        autoScroll: true,
-									                        loadMask:true,
-									                        autoHeight: false,
-									                        tpl: imageTplPointerSolicitudes,
-									                        multiSelect: false,
-									                        singleSelect: false,
-									                        loadingText:'Cargando Lista de Solicitudes...',
-									                        emptyText: '<div class="list_grid_sol__list_menu"><div class="list_grid_sol__none_data" ></div><div class="list_grid_sol__title_clear_data">NO TIENE NINGUNA SOLICITUD</div></div>',
-									                        itemSelector: 'div.list_grid_sol__list_menu_select',
-									                        trackOver: true,
-									                        overItemCls: 'list_grid_sol__list_menu-hover',
-									                        listeners: {
-									                            //'itemdblclick': function(view, record, item, idx, event, opts) {
-									                            'itemclick': function(view, record, item, idx, event, opts) {
-									                                /*me.idx=idx;
-									                                var record = this.getStore().getAt(idx);
-									                                var val =record.data;
-									                                var menu_class = val.menu_class == null || val.menu_class == '' ? '' : val.menu_class;
-									                                if(val.nivel!=0){
-									                                    if(me.config_.mode==1){
-									                                        win.show({vurl: val.url, id_menu: idx, class: menu_class});//obj.getItemId().split('-')[1]  
-									                                    }else{
-									                                        var tab=Ext.getCmp(me.config_.tab);
-									                                        var active=Ext.getCmp(me.config_.id+val.url);
-									                                        tab.setActiveTab(active);
-									                                    }
-									                                }*/
-									                                
-									                                var record = this.getStore().getAt(idx);
-									                                var val =record.data;
-																	//Ext.getCmp(creditos.id+'-select-conyugue').setValue(val.dni);
-																	cobranza.setDataSolicitud(val);
-									                                
-									                            },
-									                            afterrender:function(obj){
-									                            	
-									                            }
-									                        }
-									                    }
-													]
-												}
-									    	]
-									    }
-						            ]
-						         },
-						         {
-						         	layout:'border',
-						         	region:'center',
-						         	border:false,
-						         	items:[
-						         		{
-						         			layout:'border',
-						         			region:'center',
-						         			border:false,
-						         			items:[
-						         				{
+				         			layout:'border',
+				         			region:'center',
+				         			bodyStyle: 'background: transparent',
+				         			border:false,
+				         			items:[
+				         				{
+											region:'north',
+											xtype:'panel',
+											layout:'hbox',
+											border:false,
+											height:40,
+											bodyStyle: 'background: #F0EFEF;text-align:center;',
+											//layout:'fit',
+											items:[
+												{
+											        xtype: 'label',
+											        //forId: 'myFieldId',
+											        text: 'INFORMACIÓN DEL CRÉDITO',
+											        style: 'font: normal 18px Sans-serif;font-weight: bold;',
+											        padding:'15px 5px 5px 25px',
+											        width:'100%',
+						                            anchor:'100%'
+											    }
+											]
+										},
+										{
+											region:'center',
+											layout:'border',
+											bodyStyle: 'background: transparent',
+											items:[
+												{
+													layout:'border',
 													region:'north',
-													xtype:'panel',
-													layout:'hbox',
+													bodyStyle: 'background: transparent',
+													height:310,
 													border:false,
-													height:40,
-													bodyStyle: 'background: #B5D6E6;text-align:center;',
-													//layout:'fit',
 													items:[
 														{
-													        xtype: 'label',
-													        //forId: 'myFieldId',
-													        text: 'INFORMACIÓN DEL CRÉDITO',
-													        style: 'font: normal 18px Sans-serif;font-weight: bold;',
-													        padding:'15px 5px 5px 25px',
-													        width:'100%',
-								                            anchor:'100%'
-													    }
+															region:'north',
+															layout:'hbox',
+															bodyStyle: 'background: transparent',
+															padding:'5px 5px 5px 5px',
+															height:70,
+															border:true,
+															items:[
+																{
+										                            xtype: 'textfield',	
+										                            fieldLabel: 'IDPER',
+										                            id:cobranza.id+'-sol-txt-id-per',
+										                            hidden:true,
+										                            bodyStyle: 'background: transparent',
+												                    padding:'15px 5px 5px 25px',
+										                            //id:creditos.id+'-txt-dni',
+										                            labelWidth:50,
+										                            //readOnly:true,
+										                            labelAlign:'top',
+										                            //width:120,
+										                            //height:60,
+										                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+										                            value:'0',
+										                            //anchor:'100%',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                }
+										                            }
+										                        },
+																{
+															        xtype: 'datefield',
+															        id:cobranza.id+'-sol-date-fecha-solicitud',
+															        readOnly:true,
+															        padding:'5px 5px 5px 5px',
+															        //name: 'date1',
+															        labelAlign:'top',
+															        format:'Y-m-d',
+															        //flex:1,
+															        width:87,
+										                            //height:40,
+															        //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            //fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+															        fieldLabel: 'Solicitado',
+															        value:''
+															    },
+																{
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Agencia',
+						                                            id:cobranza.id+'-sol-cmb-agencia',
+						                                            readOnly:true,
+						                                            store: store_agencias,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'cod_age',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            flex:1,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//cobranza.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        			var obja = Ext.getCmp(cobranza.id+'-sol-cmb-asesor');
+			                            									cobranza.getReload(obja,{vp_cod_age:obj.getValue()});
+						                                                }
+						                                            }
+						                                        },
+										                        {
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Asesor',
+						                                            id:cobranza.id+'-sol-cmb-asesor',
+						                                            readOnly:true,
+						                                            store: store_asesores,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'id_asesor',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            flex:1,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//cobranza.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        
+						                                                }
+						                                            }
+						                                        },
+						                                        {
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Motivo',
+						                                            id:cobranza.id+'-sol-cmb-motivo',
+						                                            store: store_motivos,
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'id_mot',
+						                                            displayField: 'nombre',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            readOnly:true,
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            flex:1,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//cobranza.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                        
+						                                                }
+						                                            }
+						                                        }
+															]
+														},
+														{
+															region:'center',
+															bodyStyle: 'background: transparent',
+															border:false,
+															layout:'border',
+															items:[
+																{
+																	region:'center',
+																	bodyStyle: 'background: transparent',
+																	//height:80,
+																	//layout:'border',
+																	//flex:1,
+																	//padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+																		{
+																			layout:'column',
+																			//region:'north',
+																			//height:100,
+																			//flex:1,
+																			border:true,
+																			padding:'5px 5px 5px 5px',
+																			items:[
+																				{
+														                            xtype: 'textfield',	
+														                            fieldLabel: 'N° Solicitud',
+														                            id:cobranza.id+'-sol-txt-id-solicitud',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'15px 5px 5px 25px',
+														                            //id:cobranza.id+'-txt-dni',
+														                            labelWidth:50,
+														                            hidden:true,
+														                            readOnly:true,
+														                            labelAlign:'top',
+														                            //flex:1,
+														                            columnWidth: 0.2,
+														                            //width:70,
+														                            //height:60,
+														                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+														                            value:'0',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        },
+																				{
+														                            xtype: 'textfield',	
+														                            fieldLabel: 'N° Solicitud',
+														                            id:cobranza.id+'-sol-txt-nro-solicitud',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'15px 5px 5px 10px',
+														                            //id:cobranza.id+'-txt-dni',
+														                            labelWidth:50,
+														                            readOnly:true,
+														                            labelAlign:'top',
+														                            maskRe: new RegExp("[0-9]+"),
+														                            //width:70,
+														                            columnWidth: 0.2,
+														                            //flex:1,
+														                            //height:60,
+														                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
+														                            value:'0',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        },
+																				{
+														                            xtype:'combo',
+														                            fieldLabel: 'Moneda',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'15px 5px 5px 25px',
+														                            id:cobranza.id+'-sol-cmb-moneda',
+														                            store: store_moneda,
+														                            queryMode: 'local',
+														                            triggerAction: 'all',
+														                            valueField: 'code',
+														                            displayField: 'name',
+														                            emptyText: '[Seleccione]',
+														                            labelAlign:'right',
+														                            //allowBlank: false,
+														                            labelAlign:'top',
+														                            labelWidth: 50,
+														                            //width:80,
+														                            columnWidth: 0.2,
+														                            //flex:1,
+														                            anchor:'100%',
+														                            readOnly:true,
+														                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                    // obj.getStore().load();
+														                                    obj.setValue('SOL');
+														                                },
+														                                select:function(obj, records, eOpts){
+														                        
+														                                }
+														                            }
+														                        },
+																				{
+														                            xtype: 'textfield',	
+														                            fieldLabel: 'M.Solicitado',
+														                            id:cobranza.id+'-sol-txt-monto',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'15px 5px 5px 25px',
+														                            //id:cobranza.id+'-txt-dni',
+														                            labelWidth:50,
+														                            readOnly:true,
+														                            labelAlign:'top',
+														                            //width:80,
+														                            //flex:1,
+														                            columnWidth: 0.2,
+														                            //height:60,
+														                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
+														                            value:'1444.40',
+														                            maskRe: new RegExp("[0-9.]+"),
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        },
+														                        {
+														                            xtype:'combo',
+														                            fieldLabel: 'Tipo de Cliente',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'15px 5px 5px 25px',
+														                            id:cobranza.id+'-sol-txt-tipo-cliente',
+														                            store: Ext.create('Ext.data.ArrayStore', {
+																				        storeId: 'estado',
+																				        autoLoad: true,
+																				        data: [
+																							['F','Frecuente'],
+																						    ['N','Nuevo']
+																						],
+																				        fields: ['code', 'name']
+																				    }),
+														                            queryMode: 'local',
+														                            triggerAction: 'all',
+														                            valueField: 'code',
+														                            displayField: 'name',
+														                            emptyText: '[Seleccione]',
+														                            labelAlign:'right',
+														                            //allowBlank: false,
+														                            labelAlign:'top',
+														                            labelWidth: 50,
+														                            //width:100,
+														                            //flex:1,
+														                            columnWidth: 0.2,
+														                            anchor:'100%',
+														                            readOnly:true,
+														                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                    // obj.getStore().load();
+														                                    obj.setValue('N');
+														                                },
+														                                select:function(obj, records, eOpts){
+														                        
+														                                }
+														                            }
+														                        },
+														                        {
+														                            xtype:'combo',
+														                            fieldLabel: 'Excepcion',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'15px 5px 5px 25px',
+														                            id:cobranza.id+'-sol-cmb-excepcion',
+														                            store: Ext.create('Ext.data.ArrayStore', {
+																				        storeId: 'estado',
+																				        autoLoad: true,
+																				        data: [
+																							['Y','SI'],
+																						    ['N','NO']
+																						],
+																				        fields: ['code', 'name']
+																				    }),
+														                            queryMode: 'local',
+														                            triggerAction: 'all',
+														                            valueField: 'code',
+														                            displayField: 'name',
+														                            emptyText: '[Seleccione]',
+														                            labelAlign:'right',
+														                            //allowBlank: false,
+														                            labelAlign:'top',
+														                            labelWidth: 50,
+														                            //width:100,
+														                            //flex:1,
+														                            columnWidth: 0.2,
+														                            anchor:'100%',
+														                            readOnly:true,
+														                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                    // obj.getStore().load();
+														                                    obj.setValue('N');
+														                                },
+														                                select:function(obj, records, eOpts){
+														                        
+														                                }
+														                            }
+														                        },/*,
+														                        {
+																			        xtype: 'datefield',
+																			        id:cobranza.id+'-sol-date-fecha',
+																			        padding:'15px 5px 5px 25px',
+																			        //name: 'date1',
+																			        labelAlign:'top',
+																			        width:100,
+														                            //height:60,
+																			        //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            		//fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+																			        fieldLabel: 'Date Field',
+																			        value:'22/01/2019'
+																			    }*/	
+																			]
+																		},
+																		{
+																			layout:'hbox',
+																			padding:'5px 5px 5px 5px',
+																			//padding:'5px 5px 5px 5px',
+																			//border:false,
+																			//flex:1,
+																			items:[
+														                        {
+														                            xtype: 'textfield',
+														                            id:cobranza.id+'-sol-txt-import-aprobado',
+														                            fieldLabel: 'M.Aprobado',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 10px',
+														                            //id:cobranza.id+'-txt-dni',
+														                            labelWidth:50,
+														                            readOnly:true,
+														                            labelAlign:'top',
+														                            //columnWidth: 0.15,
+														                            flex:1,
+														                            //width:'100%',
+														                            //flex:1,
+														                            maskRe: new RegExp("[0-9.]+"),
+														                            //height:40,
+														                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
+														                            value:'0',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        },
+														                        {
+														                            xtype: 'textfield', 
+														                            id:cobranza.id+'-sol-txt-numero-cuotas', 
+														                            fieldLabel: 'Cuotas',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:cobranza.id+'-txt-dni',
+														                            labelWidth:50,
+														                            readOnly:true,
+														                            labelAlign:'top',
+														                            //width:'100%',
+														                            //columnWidth: 0.1,
+														                            flex:1,
+														                            maskRe: new RegExp("[0-9]+"),
+														                            height:40,
+														                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
+														                            value:'0',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        },
+														                        {
+														                            xtype: 'textfield', 
+														                            id:cobranza.id+'-sol-txt-interes', 
+														                            fieldLabel: 'Interes',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:cobranza.id+'-txt-dni',
+														                            labelWidth:50,
+														                            readOnly:true,
+														                            labelAlign:'top',
+														                            //width:'100%',
+														                            //columnWidth: 0.1,
+														                            flex:1,
+														                            maskRe: new RegExp("[0-9.]+"),
+														                            height:40,
+														                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
+														                            value:'0',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        },
+														                        {
+														                            xtype: 'textfield', 
+														                            id:cobranza.id+'-sol-txt-mora', 
+														                            fieldLabel: 'Mora',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:cobranza.id+'-txt-dni',
+														                            labelWidth:50,
+														                            readOnly:true,
+														                            labelAlign:'top',
+														                            //width:'100%',
+														                            //columnWidth: 0.1,
+														                            flex:1,
+														                            maskRe: new RegExp("[0-9.]+"),
+														                            height:40,
+														                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
+														                            value:'0',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        },
+														                        {
+																			        xtype: 'datefield',
+																			        id:cobranza.id+'-sol-date-fecha-1-letra',
+																			        hidden:true,
+																			        padding:'5px 5px 5px 5px',
+																			        //name: 'date1',
+																			        labelAlign:'top',
+																			        format:'Y-m-d',
+																			        //flex:1,
+																			        //columnWidth: 0,
+														                            height:40,
+																			        //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            //fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
+																			        fieldLabel: '1° Letra',
+																			        value:''
+																			    },
+																			    {
+														                            xtype: 'textfield', 
+														                            id:cobranza.id+'-sol-txt-tot_credito', 
+														                            fieldLabel: 'Total Crédito',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:cobranza.id+'-txt-dni',
+														                            labelWidth:50,
+														                            readOnly:true,
+														                            labelAlign:'top',
+														                            //width:'100%',
+														                            //columnWidth: 0.15,
+														                            flex:1,
+														                            maskRe: new RegExp("[0-9.]+"),
+														                            height:40,
+														                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
+														                            value:'0',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        },
+														                        {
+														                            xtype: 'textfield', 
+														                            id:cobranza.id+'-sol-txt-tot_pagado', 
+														                            fieldLabel: 'Total Pagado',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:cobranza.id+'-txt-dni',
+														                            labelWidth:50,
+														                            readOnly:true,
+														                            labelAlign:'top',
+														                            //width:'100%',
+														                            //columnWidth: 0.15,
+														                            flex:1,
+														                            maskRe: new RegExp("[0-9.]+"),
+														                            height:40,
+														                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
+														                            value:'0',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        },
+														                        {
+														                            xtype: 'textfield', 
+														                            id:cobranza.id+'-sol-txt-tot_saldo', 
+														                            fieldLabel: 'Total Saldo',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:cobranza.id+'-txt-dni',
+														                            labelWidth:50,
+														                            readOnly:true,
+														                            labelAlign:'top',
+														                            //width:'100%',
+														                            flex:1,
+														                            //columnWidth: 0.15,
+														                            maskRe: new RegExp("[0-9.]+"),
+														                            height:40,
+														                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
+														                            value:'0',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        }
+														                    ]
+														                },
+														                {
+																			layout:'column',
+																			xtype: 'fieldset',
+																			title: 'Nota',
+																			bodyStyle: 'background: transparent',
+																			//region:'north',
+																			//height:100,
+																			//flex:1,
+																			border:true,
+																			padding:'5px 5px 5px 5px',
+																			margin:'5px 5px 5px 5px',
+																			items:[
+																				{
+																			        xtype: 'textareafield',
+																			        readOnly:true,
+																			        id: cobranza.id + '-txt-nota',
+																			        columnWidth: 1,
+																			        //name: 'textarea1',
+																			        //iconAlign: 'top',
+																			        //fieldLabel: 'Nota',
+																			        value: ''
+																			    }
+																			]
+																		}
+																	]
+																}
+															]
+														}
 													]
 												},
 												{
 													region:'center',
 													layout:'border',
-													bodyStyle: 'background: transparent',
+													border:false,
 													items:[
-														{
-															layout:'border',
+														/*{
 															region:'north',
-															bodyStyle: 'background: transparent',
-															height:310,
+															xtype:'panel',
+															layout:'hbox',
 															border:false,
+															height:40,
+															bodyStyle: 'background: #9CC4DE;text-align:center;',
+															//layout:'fit',
 															items:[
 																{
-																	region:'north',
-																	layout:'hbox',
-																	bodyStyle: 'background: transparent',
-																	padding:'5px 5px 5px 5px',
-																	height:70,
-																	border:true,
-																	items:[
-																		{
+															        xtype: 'label',
+															        //forId: 'myFieldId',
+															        text: 'LISTADO DE CUOTAS',
+															        style: 'font: normal 18px Sans-serif;font-weight: bold;',
+															        padding:'15px 5px 5px 25px',
+															        width:'100%',
+										                            anchor:'100%'
+															    }
+															]
+														},*/
+														{
+											            	region:'north',
+											            	height:70,
+											            	//layout:'border',
+											            	items:[
+											            		{
+											            			layout:'hbox',
+											            			//height:50,
+											            			items:[
+											            				{
+																	        xtype: 'datefield',
+																	        id:cobranza.id+'-sol-date-fecha-pago',
+																	        //readOnly:true,
+																	        padding:'10px 5px 5px 5px',
+																	        //name: 'date1',
+																	        labelAlign:'top',
+																	        format:'Y-m-d',
+																	        //flex:1,
+																	        flex:1,
+												                            height:25,
+																	        labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:9px; text-align: right; font-weight: bold',
+																	        fieldLabel: 'Fecha Pago',
+																	        value:new Date(),
+																	        maxValue:new Date()
+																	    },
+													            		{
 												                            xtype: 'textfield',	
-												                            fieldLabel: 'IDPER',
-												                            id:cobranza.id+'-sol-txt-id-per',
-												                            hidden:true,
+												                            fieldLabel: 'Cuotas',
+												                            id:cobranza.id+'-sol-txt-cuotas-pago',
 												                            bodyStyle: 'background: transparent',
-														                    padding:'15px 5px 5px 25px',
-												                            //id:creditos.id+'-txt-dni',
+														                    padding:'10px 5px 5px 5px',
+												                            //id:cobranza.id+'-txt-dni',
 												                            labelWidth:50,
-												                            //readOnly:true,
+												                            readOnly:true,
 												                            labelAlign:'top',
-												                            //width:120,
-												                            //height:60,
-												                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-												                            value:'0',
+												                            //width:80,
+												                            flex:1,
+												                            //columnWidth: 0.2,
+												                            height:25,
+												                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:11px; text-align: right; font-weight: bold',
+												                            value:'',
+												                            maskRe: new RegExp("[0-9.]+"),
 												                            //anchor:'100%',
 												                            listeners:{
 												                                afterrender:function(obj, e){
 												                                }
 												                            }
 												                        },
-																		{
-																	        xtype: 'datefield',
-																	        id:cobranza.id+'-sol-date-fecha-solicitud',
-																	        readOnly:true,
-																	        padding:'5px 5px 5px 5px',
-																	        //name: 'date1',
-																	        labelAlign:'top',
-																	        format:'Y-m-d',
-																	        //flex:1,
-																	        width:87,
-												                            //height:40,
-																	        //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            //fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
-																	        fieldLabel: 'Solicitado',
-																	        value:'22/01/2019'
-																	    },
-																		{
-								                                            xtype:'combo',
-								                                            fieldLabel: 'Agencia',
-								                                            id:cobranza.id+'-sol-cmb-agencia',
-								                                            readOnly:true,
-								                                            store: store_agencias,
-								                                            queryMode: 'local',
-								                                            triggerAction: 'all',
-								                                            valueField: 'cod_age',
-								                                            displayField: 'nombre',
-								                                            emptyText: '[Seleccione]',
-								                                            labelAlign:'right',
-								                                            //allowBlank: false,
-								                                            labelAlign:'top',
-												                            //width:'92%',
-												                            labelWidth:75,
-												                            flex:1,
-												                            //height:40,
-												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-								                                            anchor:'100%',
-								                                            padding:'5px 5px 5px 10px',
-								                                            //readOnly: true,
-								                                            listeners:{
-								                                                afterrender:function(obj, e){
-								                                                	//cobranza.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
-								                                                },
-								                                                select:function(obj, records, eOpts){
-								                                        			var obja = Ext.getCmp(cobranza.id+'-sol-cmb-asesor');
-					                            									cobranza.getReload(obja,{vp_cod_age:obj.getValue()});
-								                                                }
-								                                            }
-								                                        },
 												                        {
-								                                            xtype:'combo',
-								                                            fieldLabel: 'Asesor',
-								                                            id:cobranza.id+'-sol-cmb-asesor',
-								                                            readOnly:true,
-								                                            store: store_asesores,
-								                                            queryMode: 'local',
-								                                            triggerAction: 'all',
-								                                            valueField: 'id_asesor',
-								                                            displayField: 'nombre',
-								                                            emptyText: '[Seleccione]',
-								                                            labelAlign:'right',
-								                                            //allowBlank: false,
-								                                            labelAlign:'top',
-												                            //width:'92%',
-												                            labelWidth:75,
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Valor',
+												                            id:cobranza.id+'-sol-txt-monto-pago',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'10px 5px 5px 5px',
+												                            //id:cobranza.id+'-txt-dni',
+												                            labelWidth:65,
+												                            readOnly:true,
+												                            labelAlign:'top',
+												                            //width:80,
 												                            flex:1,
-												                            //height:40,
-												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-								                                            anchor:'100%',
-								                                            padding:'5px 5px 5px 10px',
-								                                            //readOnly: true,
-								                                            listeners:{
-								                                                afterrender:function(obj, e){
-								                                                	//cobranza.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
-								                                                },
-								                                                select:function(obj, records, eOpts){
-								                                        
-								                                                }
-								                                            }
-								                                        },
-								                                        {
-								                                            xtype:'combo',
-								                                            fieldLabel: 'Motivo',
-								                                            id:cobranza.id+'-sol-cmb-motivo',
-								                                            store: store_motivos,
-								                                            queryMode: 'local',
-								                                            triggerAction: 'all',
-								                                            valueField: 'id_mot',
-								                                            displayField: 'nombre',
-								                                            emptyText: '[Seleccione]',
-								                                            labelAlign:'right',
-								                                            readOnly:true,
-								                                            //allowBlank: false,
-								                                            labelAlign:'top',
-												                            //width:'92%',
-												                            labelWidth:75,
+												                            //columnWidth: 0.2,
+												                            height:25,
+												                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:11px; text-align: right; font-weight: bold',
+												                            value:'',
+												                            maskRe: new RegExp("[0-9.]+"),
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Mora',
+												                            id:cobranza.id+'-sol-txt-monto-mora',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'10px 5px 5px 5px',
+												                            //id:cobranza.id+'-txt-dni',
+												                            labelWidth:65,
+												                            readOnly:true,
+												                            labelAlign:'top',
+												                            //width:80,
 												                            flex:1,
-												                            //height:40,
-												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-								                                            anchor:'100%',
-								                                            padding:'5px 5px 5px 10px',
-								                                            //readOnly: true,
-								                                            listeners:{
-								                                                afterrender:function(obj, e){
-								                                                	//cobranza.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
-								                                                },
-								                                                select:function(obj, records, eOpts){
-								                                        
-								                                                }
-								                                            }
-								                                        }
-																	]
-																},
-																{
-																	region:'center',
-																	bodyStyle: 'background: transparent',
-																	border:false,
-																	layout:'border',
-																	items:[
-																		{
-																			region:'center',
-																			bodyStyle: 'background: transparent',
-																			//height:80,
-																			//layout:'border',
-																			//flex:1,
-																			//padding:'5px 5px 5px 5px',
-																			border:false,
-																			items:[
-																				{
-																					layout:'column',
-																					//region:'north',
-																					//height:100,
-																					//flex:1,
-																					border:true,
-																					padding:'5px 5px 5px 5px',
-																					items:[
-																						{
-																                            xtype: 'textfield',	
-																                            fieldLabel: 'N° Solicitud',
-																                            id:cobranza.id+'-sol-txt-id-solicitud',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'15px 5px 5px 25px',
-																                            //id:cobranza.id+'-txt-dni',
-																                            labelWidth:50,
-																                            hidden:true,
-																                            readOnly:true,
-																                            labelAlign:'top',
-																                            //flex:1,
-																                            columnWidth: 0.2,
-																                            //width:70,
-																                            //height:60,
-																                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-																                            value:'0',
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                }
-																                            }
-																                        },
-																						{
-																                            xtype: 'textfield',	
-																                            fieldLabel: 'N° Solicitud',
-																                            id:cobranza.id+'-sol-txt-nro-solicitud',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'15px 5px 5px 10px',
-																                            //id:cobranza.id+'-txt-dni',
-																                            labelWidth:50,
-																                            readOnly:true,
-																                            labelAlign:'top',
-																                            maskRe: new RegExp("[0-9]+"),
-																                            //width:70,
-																                            columnWidth: 0.2,
-																                            //flex:1,
-																                            //height:60,
-																                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
-																                            value:'0',
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                }
-																                            }
-																                        },
-																						{
-																                            xtype:'combo',
-																                            fieldLabel: 'Moneda',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'15px 5px 5px 25px',
-																                            id:cobranza.id+'-sol-cmb-moneda',
-																                            store: store_moneda,
-																                            queryMode: 'local',
-																                            triggerAction: 'all',
-																                            valueField: 'code',
-																                            displayField: 'name',
-																                            emptyText: '[Seleccione]',
-																                            labelAlign:'right',
-																                            //allowBlank: false,
-																                            labelAlign:'top',
-																                            labelWidth: 50,
-																                            //width:80,
-																                            columnWidth: 0.2,
-																                            //flex:1,
-																                            anchor:'100%',
-																                            readOnly:true,
-																                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                    // obj.getStore().load();
-																                                    obj.setValue('SOL');
-																                                },
-																                                select:function(obj, records, eOpts){
-																                        
-																                                }
-																                            }
-																                        },
-																						{
-																                            xtype: 'textfield',	
-																                            fieldLabel: 'M.Solicitado',
-																                            id:cobranza.id+'-sol-txt-monto',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'15px 5px 5px 25px',
-																                            //id:cobranza.id+'-txt-dni',
-																                            labelWidth:50,
-																                            readOnly:true,
-																                            labelAlign:'top',
-																                            //width:80,
-																                            //flex:1,
-																                            columnWidth: 0.2,
-																                            //height:60,
-																                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
-																                            value:'1444.40',
-																                            maskRe: new RegExp("[0-9.]+"),
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                }
-																                            }
-																                        },
-																                        {
-																                            xtype:'combo',
-																                            fieldLabel: 'Tipo de Cliente',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'15px 5px 5px 25px',
-																                            id:cobranza.id+'-sol-txt-tipo-cliente',
-																                            store: Ext.create('Ext.data.ArrayStore', {
-																						        storeId: 'estado',
-																						        autoLoad: true,
-																						        data: [
-																									['F','Frecuente'],
-																								    ['N','Nuevo']
-																								],
-																						        fields: ['code', 'name']
-																						    }),
-																                            queryMode: 'local',
-																                            triggerAction: 'all',
-																                            valueField: 'code',
-																                            displayField: 'name',
-																                            emptyText: '[Seleccione]',
-																                            labelAlign:'right',
-																                            //allowBlank: false,
-																                            labelAlign:'top',
-																                            labelWidth: 50,
-																                            //width:100,
-																                            //flex:1,
-																                            columnWidth: 0.2,
-																                            anchor:'100%',
-																                            readOnly:true,
-																                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                    // obj.getStore().load();
-																                                    obj.setValue('N');
-																                                },
-																                                select:function(obj, records, eOpts){
-																                        
-																                                }
-																                            }
-																                        },
-																                        {
-																                            xtype:'combo',
-																                            fieldLabel: 'Excepcion',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'15px 5px 5px 25px',
-																                            id:cobranza.id+'-sol-cmb-excepcion',
-																                            store: Ext.create('Ext.data.ArrayStore', {
-																						        storeId: 'estado',
-																						        autoLoad: true,
-																						        data: [
-																									['Y','SI'],
-																								    ['N','NO']
-																								],
-																						        fields: ['code', 'name']
-																						    }),
-																                            queryMode: 'local',
-																                            triggerAction: 'all',
-																                            valueField: 'code',
-																                            displayField: 'name',
-																                            emptyText: '[Seleccione]',
-																                            labelAlign:'right',
-																                            //allowBlank: false,
-																                            labelAlign:'top',
-																                            labelWidth: 50,
-																                            //width:100,
-																                            //flex:1,
-																                            columnWidth: 0.2,
-																                            anchor:'100%',
-																                            readOnly:true,
-																                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            //fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                    // obj.getStore().load();
-																                                    obj.setValue('N');
-																                                },
-																                                select:function(obj, records, eOpts){
-																                        
-																                                }
-																                            }
-																                        },/*,
-																                        {
-																					        xtype: 'datefield',
-																					        id:cobranza.id+'-sol-date-fecha',
-																					        padding:'15px 5px 5px 25px',
-																					        //name: 'date1',
-																					        labelAlign:'top',
-																					        width:100,
-																                            //height:60,
-																					        //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-														                            		//fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-																					        fieldLabel: 'Date Field',
-																					        value:'22/01/2019'
-																					    }*/	
-																					]
-																				},
-																				{
-																					layout:'column',
-																					padding:'5px 5px 5px 5px',
-																					//padding:'5px 5px 5px 5px',
-																					//border:false,
-																					//flex:1,
-																					items:[
-																                        {
-																                            xtype: 'textfield',
-																                            id:cobranza.id+'-sol-txt-import-aprobado',
-																                            fieldLabel: 'M.Aprobado',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'5px 10px 5px 10px',
-																                            //id:cobranza.id+'-txt-dni',
-																                            labelWidth:50,
-																                            readOnly:true,
-																                            labelAlign:'top',
-																                            columnWidth: 0.15,
-																                            //width:'100%',
-																                            //flex:1,
-																                            maskRe: new RegExp("[0-9.]+"),
-																                            //height:40,
-																                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
-																                            value:'0',
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                }
-																                            }
-																                        },
-																                        {
-																                            xtype: 'textfield', 
-																                            id:cobranza.id+'-sol-txt-numero-cuotas', 
-																                            fieldLabel: 'Cuotas',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'5px 10px 5px 5px',
-																                            //id:cobranza.id+'-txt-dni',
-																                            labelWidth:50,
-																                            readOnly:true,
-																                            labelAlign:'top',
-																                            //width:'100%',
-																                            columnWidth: 0.1,
-																                            maskRe: new RegExp("[0-9]+"),
-																                            height:40,
-																                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
-																                            value:'0',
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                }
-																                            }
-																                        },
-																                        {
-																                            xtype: 'textfield', 
-																                            id:cobranza.id+'-sol-txt-interes', 
-																                            fieldLabel: 'Interes',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'5px 10px 5px 5px',
-																                            //id:cobranza.id+'-txt-dni',
-																                            labelWidth:50,
-																                            readOnly:true,
-																                            labelAlign:'top',
-																                            //width:'100%',
-																                            columnWidth: 0.1,
-																                            maskRe: new RegExp("[0-9.]+"),
-																                            height:40,
-																                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
-																                            value:'0',
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                }
-																                            }
-																                        },
-																                        {
-																                            xtype: 'textfield', 
-																                            id:cobranza.id+'-sol-txt-mora', 
-																                            fieldLabel: 'Mora',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'5px 10px 5px 5px',
-																                            //id:cobranza.id+'-txt-dni',
-																                            labelWidth:50,
-																                            readOnly:true,
-																                            labelAlign:'top',
-																                            //width:'100%',
-																                            columnWidth: 0.1,
-																                            maskRe: new RegExp("[0-9.]+"),
-																                            height:40,
-																                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
-																                            value:'0',
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                }
-																                            }
-																                        },
-																                        {
-																					        xtype: 'datefield',
-																					        id:cobranza.id+'-sol-date-fecha-1-letra',
-																					        hidden:true,
-																					        padding:'5px 5px 5px 5px',
-																					        //name: 'date1',
-																					        labelAlign:'top',
-																					        format:'Y-m-d',
-																					        //flex:1,
-																					        columnWidth: 0,
-																                            height:40,
-																					        //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            //fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
-																					        fieldLabel: '1° Letra',
-																					        value:'22/01/2019'
-																					    },
-																					    {
-																                            xtype: 'textfield', 
-																                            id:cobranza.id+'-sol-txt-tot_credito', 
-																                            fieldLabel: 'Total Crédito',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'5px 10px 5px 5px',
-																                            //id:cobranza.id+'-txt-dni',
-																                            labelWidth:50,
-																                            readOnly:true,
-																                            labelAlign:'top',
-																                            //width:'100%',
-																                            columnWidth: 0.15,
-																                            maskRe: new RegExp("[0-9.]+"),
-																                            height:40,
-																                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
-																                            value:'0',
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                }
-																                            }
-																                        },
-																                        {
-																                            xtype: 'textfield', 
-																                            id:cobranza.id+'-sol-txt-tot_pagado', 
-																                            fieldLabel: 'Total Pagado',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'5px 10px 5px 5px',
-																                            //id:cobranza.id+'-txt-dni',
-																                            labelWidth:50,
-																                            readOnly:true,
-																                            labelAlign:'top',
-																                            //width:'100%',
-																                            columnWidth: 0.15,
-																                            maskRe: new RegExp("[0-9.]+"),
-																                            height:40,
-																                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
-																                            value:'0',
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                }
-																                            }
-																                        },
-																                        {
-																                            xtype: 'textfield', 
-																                            id:cobranza.id+'-sol-txt-tot_saldo', 
-																                            fieldLabel: 'Total Saldo',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'5px 10px 5px 5px',
-																                            //id:cobranza.id+'-txt-dni',
-																                            labelWidth:50,
-																                            readOnly:true,
-																                            labelAlign:'top',
-																                            //width:'100%',
-																                            columnWidth: 0.15,
-																                            maskRe: new RegExp("[0-9.]+"),
-																                            height:40,
-																                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
-																                            value:'0',
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                }
-																                            }
-																                        }
-																                    ]
-																                },
-																                {
-																					layout:'column',
-																					xtype: 'fieldset',
-																					title: 'Nota',
-																					bodyStyle: 'background: transparent',
-																					//region:'north',
-																					//height:100,
-																					//flex:1,
-																					border:true,
-																					padding:'5px 5px 5px 5px',
-																					margin:'5px 5px 5px 5px',
-																					items:[
-																						{
-																					        xtype: 'textareafield',
-																					        readOnly:true,
-																					        id: cobranza.id + '-txt-nota',
-																					        columnWidth: 1,
-																					        //name: 'textarea1',
-																					        //iconAlign: 'top',
-																					        //fieldLabel: 'Nota',
-																					        value: ''
-																					    }
-																					]
-																				}
-																			]
-																		}
-																	]
-																}
-															]
-														},
+												                            //columnWidth: 0.2,
+												                            height:25,
+												                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:11px; text-align: right; font-weight: bold',
+												                            value:'',
+												                            maskRe: new RegExp("[0-9.]+"),
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Total',
+												                            id:cobranza.id+'-sol-txt-monto-total',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'10px 5px 5px 5px',
+												                            //id:cobranza.id+'-txt-dni',
+												                            labelWidth:65,
+												                            readOnly:true,
+												                            labelAlign:'top',
+												                            //width:80,
+												                            flex:1,
+												                            //columnWidth: 0.2,
+												                            height:25,
+												                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:11px; text-align: right; font-weight: bold',
+												                            value:'',
+												                            maskRe: new RegExp("[0-9.]+"),
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'Pago',
+												                            id:cobranza.id+'-sol-txt-monto-real-pago',	
+												                            bodyStyle: 'background: transparent',
+														                    padding:'10px 5px 5px 5px',
+												                            //id:cobranza.id+'-txt-dni',
+												                            labelWidth:65,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:80,
+												                            flex:1,
+												                            //columnWidth: 0.2,
+												                            height:25,
+												                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:11px; text-align: right; font-weight: bold',
+												                            value:'',
+												                            maskRe: new RegExp("[0-9.]+"),
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                },
+												                                keypress:function(e) {
+												                                	//cobranza.setPagarCuotas();
+												                                }
+												                            }
+												                        },
+												                        {
+														                    xtype: 'button',
+														                    margin:'5px 5px 5px 5px',
+														                    icon: '/images/icon/1315404769_gear_wheel.png',
+														                    //glyph: 72,
+														                    //columnWidth: 0.1,
+														                    width:70,
+														                    text: 'PAGAR',
+														                    scale: 'medium',
+														                    iconAlign: 'top',
+														                    listeners:{
+													                            beforerender: function(obj, opts){
+													                                /*global.permisos({
+													                                    id: 15,
+													                                    id_btn: obj.getId(), 
+													                                    id_menu: gestion_devolucion.id_menu,
+													                                    fn: ['panel_asignar_gestion.limpiar']
+													                                });*/
+													                            },
+													                            click: function(obj, e){	  
+													                            	cobranza.setPagarCuotas('C');
+													                            }
+													                        }
+														                },
+														                {
+														                    xtype: 'button',
+														                    margin:'5px 5px 5px 5px',
+														                    icon: '/images/icon/pdf.png',
+														                    //glyph: 72,
+														                    //columnWidth: 0.1,
+														                    width:70,
+														                    text: 'IMPRIMIR',
+														                    scale: 'medium',
+														                    iconAlign: 'top',
+														                    listeners:{
+													                            beforerender: function(obj, opts){
+													                                /*global.permisos({
+													                                    id: 15,
+													                                    id_btn: obj.getId(), 
+													                                    id_menu: gestion_devolucion.id_menu,
+													                                    fn: ['panel_asignar_gestion.limpiar']
+													                                });*/
+													                            },
+													                            click: function(obj, e){	  
+													                            	cobranza.setPagar();
+													                            }
+													                        }
+														                }
+											            			]
+											            		}
+											            	]
+											            },
 														{
 															region:'center',
-															layout:'border',
+															layout:'fit',
 															border:false,
 															items:[
-																/*{
-																	region:'north',
-																	xtype:'panel',
-																	layout:'hbox',
-																	border:false,
-																	height:40,
-																	bodyStyle: 'background: #9CC4DE;text-align:center;',
-																	//layout:'fit',
-																	items:[
-																		{
-																	        xtype: 'label',
-																	        //forId: 'myFieldId',
-																	        text: 'LISTADO DE CUOTAS',
-																	        style: 'font: normal 18px Sans-serif;font-weight: bold;',
-																	        padding:'15px 5px 5px 25px',
-																	        width:'100%',
-												                            anchor:'100%'
-																	    }
-																	]
-																},*/
 																{
-													            	region:'north',
-													            	height:100,
-													            	layout:'border',
-													            	items:[
-													            		{
-													            			region:'center',
-													            			border:false,
-													            			items:[
-													            				{
-															            			layout:'hbox',
-															            			height:50,
-															            			items:[
-															            				{
-																					        xtype: 'datefield',
-																					        id:cobranza.id+'-sol-date-fecha-pago',
-																					        //readOnly:true,
-																					        padding:'10px 5px 5px 5px',
-																					        //name: 'date1',
-																					        //labelAlign:'top',
-																					        format:'Y-m-d',
-																					        //flex:1,
-																					        flex:1.3,
-																                            height:25,
-																					        labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:11px; text-align: right; font-weight: bold',
-																					        fieldLabel: 'Fecha Pago',
-																					        value:''
-																					    },
-																	            		{
-																                            xtype: 'textfield',	
-																                            fieldLabel: 'Cuotas',
-																                            id:cobranza.id+'-sol-txt-cuotas-pago',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'10px 5px 5px 5px',
-																                            //id:cobranza.id+'-txt-dni',
-																                            labelWidth:50,
-																                            readOnly:true,
-																                            //labelAlign:'top',
-																                            //width:80,
-																                            flex:0.7,
-																                            //columnWidth: 0.2,
-																                            height:25,
-																                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:11px; text-align: right; font-weight: bold',
-																                            value:'',
-																                            maskRe: new RegExp("[0-9.]+"),
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                }
-																                            }
-																                        },
-																                        {
-																                            xtype: 'textfield',	
-																                            fieldLabel: 'Suma',
-																                            id:cobranza.id+'-sol-txt-monto-pago',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'10px 5px 5px 5px',
-																                            //id:cobranza.id+'-txt-dni',
-																                            labelWidth:65,
-																                            readOnly:true,
-																                            //labelAlign:'top',
-																                            //width:80,
-																                            flex:1,
-																                            //columnWidth: 0.2,
-																                            height:25,
-																                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:11px; text-align: right; font-weight: bold',
-																                            value:'',
-																                            maskRe: new RegExp("[0-9.]+"),
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                }
-																                            }
-																                        }
-															            			]
-															            		},
-															            		{
-															            			layout:'hbox',
-															            			height:50,
-															            			items:[
-															            				{
-																                            xtype: 'textfield',	
-																                            fieldLabel: 'Pago',
-																                            id:cobranza.id+'-sol-txt-monto-real-pago',	
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'10px 5px 5px 5px',
-																                            //id:cobranza.id+'-txt-dni',
-																                            labelWidth:65,
-																                            //readOnly:true,
-																                            //labelAlign:'top',
-																                            //width:80,
-																                            flex:1,
-																                            //columnWidth: 0.2,
-																                            height:25,
-																                            labelStyle: "font-size:12px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:11px; text-align: right; font-weight: bold',
-																                            value:'',
-																                            maskRe: new RegExp("[0-9.]+"),
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                },
-																                                keypress:function(e) {
-																                                	cobranza.setPagarCuotas();
-																                                }
-																                            }
-																                        }
-																                        
-															            			]
-															            		}
-													            			]
-													            		},
-													            		{
-													            			region:'east',
-													            			layout:'hbox',
-													            			border:false,
-													            			items:[
-													            				{
-																                    xtype: 'button',
-																                    margin:'5px 5px 5px 5px',
-																                    icon: '/images/icon/1315404769_gear_wheel.png',
-																                    //glyph: 72,
-																                    //columnWidth: 0.1,
-																                    width:70,
-																                    text: 'PAGAR',
-																                    scale: 'medium',
-																                    iconAlign: 'top',
-																                    listeners:{
-															                            beforerender: function(obj, opts){
-															                                /*global.permisos({
-															                                    id: 15,
-															                                    id_btn: obj.getId(), 
-															                                    id_menu: gestion_devolucion.id_menu,
-															                                    fn: ['panel_asignar_gestion.limpiar']
-															                                });*/
-															                            },
-															                            click: function(obj, e){	  
-															                            	cobranza.setPagar();
-															                            }
-															                        }
-																                },
-																                {
-																                    xtype: 'button',
-																                    margin:'5px 5px 5px 5px',
-																                    icon: '/images/icon/pdf.png',
-																                    //glyph: 72,
-																                    //columnWidth: 0.1,
-																                    width:70,
-																                    text: 'IMPRIMIR',
-																                    scale: 'medium',
-																                    iconAlign: 'top',
-																                    listeners:{
-															                            beforerender: function(obj, opts){
-															                                /*global.permisos({
-															                                    id: 15,
-															                                    id_btn: obj.getId(), 
-															                                    id_menu: gestion_devolucion.id_menu,
-															                                    fn: ['panel_asignar_gestion.limpiar']
-															                                });*/
-															                            },
-															                            click: function(obj, e){	  
-															                            	cobranza.setPagar();
-															                            }
-															                        }
-																                }
-													            			]
-													            		}
-													            	]
-													            },
-																{
-																	region:'center',
-																	layout:'fit',
-																	border:false,
-																	items:[
-																		{
-													                        xtype: 'grid',
-													                        id: cobranza.id + '-grid-cuotas',
-													                        store: store_cobranza_detalle, 
-													                        columnLines: true,
-													                        //layout:'fit',
-													                        columns:{
-													                            items:[
-													                            	{
-													                            		text: 'N°',
-																					    xtype: 'rownumberer',
-																					    width: 40,
-																					    sortable: false,
-																					    locked: true,
-																					    renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-													                                        //console.log(record);
-													                                        return store.indexOf(record);
-													                                    }
-																					},
-																					{
-																						text:'<div style="display: inline-flex;"><div style="width: 76px;">FECHA</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
-																						align:'center',
-																						//width: 100,
-																						//flex:1,
-																						menuDisabled:true,
-																						columns:[
-															                                {
-															                                    text: 'DIA',
-															                                    align:'center',
-															                                    dataIndex: 'DIA',
-															                                    width: 50,
-															                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
-															                                        //console.log(record);
-															                                        var DAT = value;
-															                                        if(record.get('estado')=='S'){
-															                                        	DAT = '';
-															                                        }
-															                                        metaData.style = "padding: 0px; margin: 0px";
-															                                        return DAT;
-															                                    }
-															                                },
-															                                {
-															                                    text: 'MES',
-															                                    align:'center',
-															                                    dataIndex: 'MES',
-															                                    width: 50,
-															                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
-															                                        //console.log(record);
-															                                        var DAT = value;
-															                                        if(record.get('estado')=='S'){
-															                                        	DAT = '';
-															                                        }
-															                                        metaData.style = "padding: 0px; margin: 0px";
-															                                        return DAT;
-															                                    }
-															                                }
-													                                	]
-													                            	},
-													                            	{
-																						text:'<div style="display: inline-flex;"><div style="width: 76px;">CUOTA</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
-																						align:'center',
-																						//flex:1,
-																						menuDisabled:true,
-																						columns:[
-															                                {
-															                                    text: 'DIARIA',
-															                                    align:'right',
-															                                    dataIndex: 'valor_cuota',
-															                                    width: 80,
-															                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
-															                                        //console.log(record);
-															                                        var DAT = value;
-															                                        if(record.get('estado')=='S'){
-															                                        	DAT = '';
-															                                        }
-															                                        metaData.style = "padding: 0px; margin: 0px";
-															                                        return DAT;
-															                                    }
-															                                }
-															                            ]
-															                        },
-															                        {
-																						text:'<div style="display: inline-flex;"><div style="width: 76px;">MONTO</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
-																						align:'center',
-																						//flex:1,
-																						menuDisabled:true,
-																						columns:[
-															                                {
-															                                    text: 'PAGADO',
-															                                    align:'right',
-															                                    dataIndex: 'pagado',
-															                                    width: 80,
-															                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
-															                                        //console.log(record);
-															                                        var DAT = value;
-															                                        if(record.get('estado')=='S'){
-															                                        	DAT = '';
-															                                        }
-															                                        metaData.style = "padding: 0px; margin: 0px";
-															                                        return DAT;
-															                                    }
-															                                }
-															                            ]
-															                        },
-															                        {
-																						text:'<div style="display: inline-flex;"><div style="width: 76px;">FECHA</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
-																						align:'center',
-																						//flex:1,
-																						menuDisabled:true,
-																						columns:[
-															                                {
-															                                    text: 'DIA',
-															                                    align:'center',
-															                                    dataIndex: 'PDIA',
-															                                    width: 50,
-															                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
-															                                        //console.log(record);
-															                                        var DAT = value;
-															                                        if(record.get('estado')=='S'){
-															                                        	DAT = '';
-															                                        }
-															                                        metaData.style = "padding: 0px; margin: 0px";
-															                                        return DAT;
-															                                    }
-															                                },
-															                                {
-															                                    text: 'MES',
-															                                    align:'center',
-															                                    dataIndex: 'PMES',
-															                                    width: 50,
-															                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
-															                                        //console.log(record);
-															                                        var DAT = value;
-															                                        if(record.get('estado')=='S'){
-															                                        	DAT = '';
-															                                        }
-															                                        metaData.style = "padding: 0px; margin: 0px";
-															                                        return DAT;
-															                                    }
-															                                }
-													                                	]
-													                            	},
-													                            	{
-																						text:'<div style="display: inline-flex;"><div style="width: 76px;">MORA</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
-																						align:'center',
-																						//flex:1,
-																						menuDisabled:true,
-																						columns:[
-															                                {
-															                                    text: 'S/.',
-															                                    align:'right',
-															                                    dataIndex: 'mora',
-															                                    width: 60,
-															                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
-															                                        //console.log(record);
-															                                        var DAT = value;
-															                                        if(record.get('estado')=='S'){
-															                                        	DAT = '';
-															                                        }
-															                                        metaData.style = "padding: 0px; margin: 0px";
-															                                        return DAT;
-															                                    }
-															                                },
-															                                {
-															                                    text: 'DIAS',
-															                                    align:'center',
-															                                    dataIndex: 'dias',
-															                                    width: 50,
-															                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
-															                                        //console.log(record);
-															                                        var DAT = value;
-															                                        if(record.get('estado')=='S'){
-															                                        	DAT = '';
-															                                        }
-															                                        metaData.style = "padding: 0px; margin: 0px";
-															                                        return DAT;
-															                                    }
-															                                }
-													                                	]
-													                            	},
+											                        xtype: 'grid',
+											                        id: cobranza.id + '-grid-cuotas',
+											                        store: store_cobranza_detalle, 
+											                        columnLines: true,
+											                        //layout:'fit',
+											                        columns:{
+											                            items:[
+											                            	{
+											                            		text: 'N°',
+																			    xtype: 'rownumberer',
+																			    width: 40,
+																			    sortable: false,
+																			    locked: true,
+																			    renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+											                                        //console.log(record);
+											                                        return store.indexOf(record);
+											                                    }
+																			},
+																			{
+																				text:'<div style="display: inline-flex;"><div style="width: 76px;">FECHA</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																				align:'center',
+																				//width: 100,
+																				//flex:1,
+																				menuDisabled:true,
+																				columns:[
 													                                {
-																						text:'<div style="display: inline-flex;"><div style="width: 76px;">SALDO A</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
-																						align:'center',
-																						//flex:1,
-																						menuDisabled:true,
-																						columns:[
-															                                {
-															                                    text: 'PAGAR',
-															                                    align:'right',
-															                                    dataIndex: 'saldo_cuota',
-															                                    width: 80
-															                                }
-															                            ]
-															                        },
-																					{
-													                                    text: 'ST',
-													                                    dataIndex: 'estado',
-													                                    //loocked : true,
-													                                    //width: 40,
-													                                    flex:1,
-													                                    align: 'center',
+													                                    text: 'DIA',
+													                                    align:'center',
+													                                    dataIndex: 'DIA',
+													                                    width: 50,
 													                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 													                                        //console.log(record);
-													                                        var estado = 'check-circle-green-16.png';
-													                                        if(record.get('estado')=='P'){
-													                                        	estado = 'check-circle-black-16.png';
-													                                        }
-													                                        if(record.get('estado')=='T'){
-													                                        	estado = 'check-circle-yellow.png';
+													                                        var DAT = value;
+													                                        if(record.get('estado')=='S'){
+													                                        	DAT = '';
 													                                        }
 													                                        metaData.style = "padding: 0px; margin: 0px";
-													                                        return global.permisos({
-													                                            type: 'link',
-													                                            id_menu: cobranza.id_menu,
-													                                            icons:[
-													                                                {id_serv: 2, img: estado, qtip: 'Estado.', js: ""}
-
-													                                            ]
-													                                        });
+													                                        return DAT;
 													                                    }
 													                                },
 													                                {
-													                                    text: 'EDT',
-													                                    dataIndex: 'estado',
-													                                    //loocked : true,
-													                                    width: 40,
-													                                    align: 'center',
+													                                    text: 'MES',
+													                                    align:'center',
+													                                    dataIndex: 'MES',
+													                                    width: 50,
 													                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 													                                        //console.log(record);
-													                                        var estado = 'panasonic.png';
-													                                        var fun = "cobranza.setAsignar("+rowIndex+",'X')";
-													                                        if(record.get('estado')=='X'){//pago parcial
-													                                        	estado = 'padlock-closed.png';
-													                                        	fun = "cobranza.setAsignar("+rowIndex+",'P')";
-													                                        }
-													                                        if(record.get('estado')=='T'){//terminado
-													                                        	estado = '1348695561_stock_mail-send-receive.png';
-													                                        	fun=''
+													                                        var DAT = value;
+													                                        if(record.get('estado')=='S'){
+													                                        	DAT = '';
 													                                        }
 													                                        metaData.style = "padding: 0px; margin: 0px";
-													                                        return global.permisos({
-													                                            type: 'link',
-													                                            id_menu: cobranza.id_menu,
-													                                            icons:[
-													                                                {id_serv: 2, img: estado, qtip: 'Pagar.', js: fun}
-
-													                                            ]
-													                                        });
+													                                        return DAT;
 													                                    }
 													                                }
-													                                /*,
+											                                	]
+											                            	},
+											                            	{
+																				text:'<div style="display: inline-flex;"><div style="width: 76px;">CUOTA</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																				align:'center',
+																				//flex:1,
+																				menuDisabled:true,
+																				columns:[
 													                                {
-									                                                    xtype: 'checkcolumn',
-									                                                    dataIndex: 'chk',
-									                                                    width: 30,
-									                                                    listeners: {
-									                                                        checkchange: function (value, rowIndex, checked, eOpts) {
-									                                                            //callcenter.TotalRecursos();
-									                                                        }
-									                                                    }
-									                                                }*/
-													                            ],
-													                            defaults:{
-													                                menuDisabled: true
-													                            }
+													                                    text: 'DIARIA',
+													                                    align:'right',
+													                                    dataIndex: 'valor_cuota',
+													                                    width: 80,
+													                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+													                                        //console.log(record);
+													                                        var DAT = value;
+													                                        if(record.get('estado')=='S'){
+													                                        	DAT = '';
+													                                        }
+													                                        metaData.style = "padding: 0px; margin: 0px";
+													                                        return DAT;
+													                                    }
+													                                }
+													                            ]
 													                        },
-													                        multiSelect: true,
-													                        trackMouseOver: false,
-													                        listeners:{
-													                            afterrender: function(obj){
-													                                
-													                            },
-													                            beforeselect:function(obj, record, index, eOpts ){
-													                            	//scanning.setImageFile(record.get('path'),record.get('file'));
-													                            }
-													                        }
-													                    }
-													                ]
-													            }
-															]
-														}
+													                        {
+																				text:'<div style="display: inline-flex;"><div style="width: 76px;">MONTO</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																				align:'center',
+																				//flex:1,
+																				menuDisabled:true,
+																				columns:[
+													                                {
+													                                    text: 'PAGADO',
+													                                    align:'right',
+													                                    dataIndex: 'pagado',
+													                                    width: 80,
+													                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+													                                        //console.log(record);
+													                                        var DAT = value;
+													                                        if(record.get('estado')=='S'){
+													                                        	DAT = '';
+													                                        }
+													                                        metaData.style = "padding: 0px; margin: 0px";
+													                                        return DAT;
+													                                    }
+													                                }
+													                            ]
+													                        },
+													                        {
+																				text:'<div style="display: inline-flex;"><div style="width: 76px;">FECHA</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																				align:'center',
+																				//flex:1,
+																				menuDisabled:true,
+																				columns:[
+													                                {
+													                                    text: 'DIA',
+													                                    align:'center',
+													                                    dataIndex: 'PDIA',
+													                                    width: 50,
+													                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+													                                        //console.log(record);
+													                                        var DAT = value;
+													                                        if(record.get('estado')=='S'){
+													                                        	DAT = '';
+													                                        }
+													                                        metaData.style = "padding: 0px; margin: 0px";
+													                                        return DAT;
+													                                    }
+													                                },
+													                                {
+													                                    text: 'MES',
+													                                    align:'center',
+													                                    dataIndex: 'PMES',
+													                                    width: 50,
+													                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+													                                        //console.log(record);
+													                                        var DAT = value;
+													                                        if(record.get('estado')=='S'){
+													                                        	DAT = '';
+													                                        }
+													                                        metaData.style = "padding: 0px; margin: 0px";
+													                                        return DAT;
+													                                    }
+													                                }
+											                                	]
+											                            	},
+											                            	{
+																				text:'<div style="display: inline-flex;"><div style="width: 76px;">MORA</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																				align:'center',
+																				//flex:1,
+																				menuDisabled:true,
+																				columns:[
+													                                {
+													                                    text: 'S/.',
+													                                    align:'right',
+													                                    dataIndex: 'mora',
+													                                    width: 60,
+													                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+													                                        //console.log(record);
+													                                        var DAT = value;
+													                                        if(record.get('estado')=='S'){
+													                                        	DAT = '';
+													                                        }
+													                                        metaData.style = "padding: 0px; margin: 0px";
+													                                        return DAT;
+													                                    }
+													                                },
+													                                {
+													                                    text: 'DIAS',
+													                                    align:'center',
+													                                    dataIndex: 'dias',
+													                                    width: 50,
+													                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+													                                        //console.log(record);
+													                                        var DAT = value;
+													                                        if(record.get('estado')=='S'){
+													                                        	DAT = '';
+													                                        }
+													                                        metaData.style = "padding: 0px; margin: 0px";
+													                                        return DAT;
+													                                    }
+													                                }
+											                                	]
+											                            	},
+											                                {
+																				text:'<div style="display: inline-flex;"><div style="width: 76px;">SALDO A</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																				align:'center',
+																				//flex:1,
+																				menuDisabled:true,
+																				columns:[
+													                                {
+													                                    text: 'PAGAR',
+													                                    align:'right',
+													                                    dataIndex: 'saldo_cuota',
+													                                    width: 80
+													                                }
+													                            ]
+													                        },
+																			{
+											                                    text: 'ST',
+											                                    dataIndex: 'estado',
+											                                    //loocked : true,
+											                                    //width: 40,
+											                                    flex:1,
+											                                    align: 'center',
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        //console.log(record);
+											                                        var estado = 'check-circle-green-16.png';
+											                                        if(record.get('estado')=='P'){
+											                                        	estado = 'check-circle-black-16.png';
+											                                        }
+											                                        if(record.get('estado')=='T'){
+											                                        	estado = 'check-circle-yellow.png';
+											                                        }
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return global.permisos({
+											                                            type: 'link',
+											                                            id_menu: cobranza.id_menu,
+											                                            icons:[
+											                                                {id_serv: 3, img: estado, qtip: 'Estado.', js: ""}
+
+											                                            ]
+											                                        });
+											                                    }
+											                                },
+											                                {
+											                                    text: 'EDT',
+											                                    dataIndex: 'estado',
+											                                    //loocked : true,
+											                                    width: 40,
+											                                    align: 'center',
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        //console.log(record);
+											                                        var estado = 'panasonic.png';
+											                                        var fun = "cobranza.setAsignar("+rowIndex+",'X')";
+											                                        if(record.get('estado')=='X'){//pago parcial
+											                                        	estado = 'padlock-closed.png';
+											                                        	fun = "cobranza.setAsignar("+rowIndex+",'P')";
+											                                        }
+											                                        if(record.get('estado')=='T'){//terminado
+											                                        	estado = '1348695561_stock_mail-send-receive.png';
+											                                        	fun=''
+											                                        }
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return global.permisos({
+											                                            type: 'link',
+											                                            id_menu: cobranza.id_menu,
+											                                            icons:[
+											                                                {id_serv: 3, img: estado, qtip: 'Pagar.', js: fun}
+
+											                                            ]
+											                                        });
+											                                    }
+											                                }
+											                                /*,
+											                                {
+							                                                    xtype: 'checkcolumn',
+							                                                    dataIndex: 'chk',
+							                                                    width: 30,
+							                                                    listeners: {
+							                                                        checkchange: function (value, rowIndex, checked, eOpts) {
+							                                                            //callcenter.TotalRecursos();
+							                                                        }
+							                                                    }
+							                                                }*/
+											                            ],
+											                            defaults:{
+											                                menuDisabled: true
+											                            }
+											                        },
+											                        multiSelect: true,
+											                        trackMouseOver: false,
+											                        listeners:{
+											                            afterrender: function(obj){
+											                                
+											                            },
+											                            beforeselect:function(obj, record, index, eOpts ){
+											                            	//scanning.setImageFile(record.get('path'),record.get('file'));
+											                            }
+											                        }
+											                    }
+											                ]
+											            }
 													]
 												}
-						         			]
-						         		}
-						         	]
-						         }
+											]
+										}
+				         			]
+				         		}
 				        	]
 				        }
 					],
@@ -2331,7 +3054,7 @@
 	                        /*var obj = Ext.getCmp(cobranza.id+'-sol-txt-centro-trabajo');
 							cobranza.getReload(obj,{vp_op:'N',vp_id:0,vp_nombre:''});
 							cobranza.getSelectUbi();*/
-							cobranza.setCollapse();
+							//cobranza.setCollapse();
 	                    },
 	                    beforeclose:function(obj,opts){
 	                    	global.state_item_menu(cobranza.id_menu, false);
@@ -2339,17 +3062,20 @@
 					}
 
 				}).show();
-				Ext.EventManager.onWindowResize(function(){
+				/*Ext.EventManager.onWindowResize(function(){
 					cobranza.setCollapse();
-				});
+				});*/
 			},
-			setPagarCuotas:function(){
-				var vp_sol_id_cli = Ext.getCmp(cobranza.id+'-sol-txt-id-cli').getValue();
-				var vp_sol_id_per = Ext.getCmp(cobranza.id+'-sol-txt-id-per').getValue();
+			setPagarCuotas:function(op){
+				
+				var vp_id_agencia 		= Ext.getCmp(cobranza.id+'-sol-cmb-agencia').getValue(); 
+				var vp_id_asesor 		= Ext.getCmp(cobranza.id+'-sol-cmb-asesor').getValue();
+				var vp_id_solicitud 	= Ext.getCmp(cobranza.id+'-sol-txt-id-solicitud').getValue();
 
-				var fecha=Ext.getCmp(cobranza.id+'-sol-date-fecha-pago').getValue();
+				var fecha=Ext.getCmp(cobranza.id+'-sol-date-fecha-pago').getRawValue();
 				var cuotas=Ext.getCmp(cobranza.id+'-sol-txt-cuotas-pago').getValue();
 				var monto = Ext.getCmp(cobranza.id+'-sol-txt-monto-pago').getValue();
+				var mora = Ext.getCmp(cobranza.id+'-sol-txt-monto-mora').getValue();
 				var real=Ext.getCmp(cobranza.id+'-sol-txt-monto-real-pago').getValue();
 				
 				global.Msg({
@@ -2363,9 +3089,12 @@
 			                Ext.Ajax.request({
 			                    url:cobranza.url+'setSaveCuota/',
 			                    params:{
-			                    	vp_sol_id_cli	:vp_sol_id_cli,
-			                    	vp_fecha 		:fecha,
-									vp_real			:vp_real
+			                    	vp_op 			:op,
+			                    	vp_id_creditos 	:vp_id_solicitud,
+			                    	vp_id_asesor	:vp_id_asesor,
+			                    	vp_id_age 		:vp_id_agencia,
+			                    	vp_fecha_pago	:fecha,
+									vp_efectivo		:real
 			                    },
 			                    timeout: 30000000,
 			                    success: function(response, options){
@@ -2378,9 +3107,10 @@
 			                                icon: 1,
 			                                buttons: 1,
 			                                fn: function(btn){
+			                                	cobranza.setDataSolicitud(cobranza.index);
 			                                	//Ext.getCmp(cobranza.id+'-select-garante').setValue('');
 			                                	//var objp = Ext.getCmp(cobranza.id+'-list-garante');
-												//cobranza.getReload(objp,{vp_op:'G',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+												//cobranza.getReload(objp,{vp_op:'G',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'}); 
 			                                }
 			                            });
 			                        }else{
@@ -2402,7 +3132,7 @@
 			setAsignar: function (index,estado) {
                 var grid = Ext.getCmp(cobranza.id + '-grid-cuotas');
                 var store = grid.getStore();
-                var cuotas=0,monto=0;
+                var cuotas=0,monto=0,mora=0;
 
                 store.each(function (v, idx) {
                 	var st=v.get('estado');
@@ -2429,13 +3159,19 @@
                 	var st=v.get('estado');
                 	if(st=='X'){
 	                	monto+=parseFloat(v.get('valor_cuota'));
+	                	mora+=parseFloat(v.get('mora'));
 	                	cuotas += 1;
 	                	
 	            	}
                 });
                 Ext.getCmp(cobranza.id+'-sol-txt-cuotas-pago').setValue(cuotas);
             	Ext.getCmp(cobranza.id+'-sol-txt-monto-pago').setValue(monto);
-            	Ext.getCmp(cobranza.id+'-sol-txt-monto-real-pago').setValue(monto);
+
+            	Ext.getCmp(cobranza.id+'-sol-txt-monto-mora').setValue(mora);
+            	var total=monto+mora;
+            	Ext.getCmp(cobranza.id+'-sol-txt-monto-total').setValue(total);
+
+            	Ext.getCmp(cobranza.id+'-sol-txt-monto-real-pago').setValue(total);
             },
             setCalculaPagoCuotas:function(){
             	var grid = Ext.getCmp(cobranza.id + '-grid-cuotas');
@@ -2508,25 +3244,31 @@
 			getAsesores:function(){
 				var vp_op=Ext.getCmp(cobranza.id+'-txt-estado-filter').getValue();
             	var vp_nombre=Ext.getCmp(cobranza.id+'-txt-asesores').getValue();
-		            Ext.getCmp(cobranza.id+'-menu-view').getStore().removeAll();
-				Ext.getCmp(cobranza.id+'-menu-view').getStore().load(
+		        Ext.getCmp(cobranza.id+'-grid-asesores').getStore().removeAll();
+				Ext.getCmp(cobranza.id+'-grid-asesores').getStore().load(
 	                {params: {vp_op:vp_op,vp_nombre:vp_nombre},
 	                callback:function(){
 	                	//Ext.getCmp(asesores.id+'-form').el.unmask();
 	                }
 	            });
 			},
-			getClientes:function(vp_id){
-				var vp_op=Ext.getCmp(cobranza.id+'-txt-estado-filter').getValue();
-		        Ext.getCmp(cobranza.id+'-list-clientes').getStore().removeAll();
-				Ext.getCmp(cobranza.id+'-list-clientes').getStore().load(
-	                {params: {vp_id:vp_id},
+			getListSolicitudes:function(vp_id){
+				//var vp_op=Ext.getCmp(cobranza.id+'-txt-estado-filter').getValue();
+		        Ext.getCmp(cobranza.id+'-grid-solicitudes').getStore().removeAll();
+				Ext.getCmp(cobranza.id+'-grid-solicitudes').getStore().load(
+	                {params: {vp_id_asesor:vp_id},
 	                callback:function(){
 	                	//Ext.getCmp(asesores.id+'-form').el.unmask();
 	                }
 	            });
+	            //var objv = Ext.getCmp(cobranza.id+'-list-solicitudes');
+				//cobranza.getReload(objv,{VP_T_DOC:'P',VP_ID_PER:data.id_per,VP_DOC:''});
 			},
-			setDataSolicitud:function(data){
+			setDataSolicitud:function(index){
+				var grid= Ext.getCmp(cobranza.id+'-grid-solicitudes');
+				var records = grid.getStore().getAt(index);
+				var data =records.data;
+
 				Ext.getCmp(cobranza.id+'-sol-date-fecha-solicitud').setValue(data.fecha_sol);
 				Ext.getCmp(cobranza.id+'-sol-cmb-agencia').setValue(data.id_age);
 				
@@ -3435,8 +4177,8 @@
 			getcobranza:function(){
 				var vp_op=Ext.getCmp(cobranza.id+'-txt-estado-filter').getValue();
             	var vp_nombre=Ext.getCmp(cobranza.id+'-txt-cobranza').getValue();
-		            Ext.getCmp(cobranza.id+'-menu-view').getStore().removeAll();
-				Ext.getCmp(cobranza.id+'-menu-view').getStore().load(
+		            Ext.getCmp(cobranza.id+'-grid-asesores').getStore().removeAll();
+				Ext.getCmp(cobranza.id+'-grid-asesores').getStore().load(
 	                {params: {vp_op:vp_op,vp_nombre:vp_nombre},
 	                callback:function(){
 	                	//Ext.getCmp(cobranza.id+'-form').el.unmask();

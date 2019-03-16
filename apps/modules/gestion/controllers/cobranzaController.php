@@ -23,8 +23,8 @@ class cobranzaController extends AppController {
     public function index($p){        
         $this->view('cobranza/form_index.php', $p);
     }
-    public function get_list_client_creditos($p){
-        $rs = $this->objDatos->SP_CREDITOS_CLIENTE_LIST($p);
+    public function get_list_creditos_asesor($p){
+        $rs = $this->objDatos->SP_CREDITOS_ASESORES_LIST($p);
         //var_export($rs);
         $array = array();
         $lote = 0;
@@ -34,6 +34,7 @@ class cobranzaController extends AppController {
             $value_['id_age'] = trim($value['id_age']);
             //substr(trim($value['fec_ingreso']),0,10)
             $value_['id_per'] = trim($value['id_per']);
+            $value_['nombre'] =utf8_encode(trim($value['nombres'])).', '.utf8_encode(trim($value['ape_pat'])).' '.utf8_encode(trim($value['ape_mat']));
             $value_['id_garante'] = trim($value['id_garante']);
             $value_['id_asesor'] =trim($value['id_asesor']);
             $value_['moneda'] = trim($value['moneda']);
@@ -51,6 +52,7 @@ class cobranzaController extends AppController {
             $value_['tot_pagado'] = trim($value['tot_pagado']);
             $value_['tot_interes'] = trim($value['tot_interes']);
             $value_['tot_mora'] = trim($value['tot_mora']);
+            $value_['tot_neto'] = trim($value['tot_neto']);
             $value_['tot_saldo'] = trim($value['tot_saldo']);
             $value_['id_motivo'] = trim($value['id_motivo']);
             $value_['estado'] = trim($value['estado']);
@@ -234,7 +236,7 @@ class cobranzaController extends AppController {
         return $this->response($data);
     }
     public function setSaveCuota($p){
-        $rs = $this->objDatos->SP_CREDITO_PERSONA($p);
+        $rs = $this->objDatos->SP_CREDITOS_COBROS($p);
         $rs = $rs[0];
         $data = array(
             'success' => true,
@@ -413,7 +415,7 @@ class cobranzaController extends AppController {
         header('Content-Type: application/json');
         return $this->response($data);
     }
-    public function getDataMenuView($p){
+    public function getListAsesores($p){
         //session_start();
         //$_SESSION['sis_id'] = $p['sis_id'];
 
@@ -432,6 +434,7 @@ class cobranzaController extends AppController {
                 $value_['nombres'] =utf8_encode(trim($value['nombres']));
                 $value_['ape_pat'] =utf8_encode(trim($value['ape_pat']));
                 $value_['ape_mat'] =utf8_encode(trim($value['ape_mat']));
+                $value_['nombre'] =utf8_encode(trim($value['nombres'])).','.utf8_encode(trim($value['ape_pat'])).' '.utf8_encode(trim($value['ape_mat']));
                 $value_['dni'] =trim($value['dni']);
                 $value_['numero'] =trim($value['numero']);
 

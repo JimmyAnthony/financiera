@@ -58,6 +58,23 @@ class cobranzaModels extends Adodb {
         $array = parent::ExecuteSPArray();
         return $array;
     }
+    public function SP_CREDITOS_COBROS($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_CREDITOS_COBROS');
+        parent::SetParameterSP($p['vp_op'], 'varchar');//19 
+        parent::SetParameterSP($p['vp_id_creditos'], 'int');//19
+        parent::SetParameterSP($p['vp_id_asesor'], 'int');//19
+        parent::SetParameterSP($p['vp_id_age'], 'int');//19
+        parent::SetParameterSP($p['vp_fecha_pago'], 'varchar');//19
+        parent::SetParameterSP($p['vp_efectivo'], 'varchar');//19
+        parent::SetParameterSP(USR_ID, 'int');//19
+        parent::SetParameterSP('@OUT', 'int');//140
+        parent::SetParameterSP('@OUT', 'int');//140
+        parent::SetParameterSP('@OUT', 'int');//140
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
     public function SP_CREDITOS_DETALLE_LIST($p){
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_CREDITOS_DETALLE_LIST');
@@ -89,12 +106,10 @@ class cobranzaModels extends Adodb {
         $array = parent::ExecuteSPArray();
         return $array;
     }
-    public function SP_CREDITOS_CLIENTE_LIST($p){
+    public function SP_CREDITOS_ASESORES_LIST($p){
         parent::ReiniciarSQL();
-        parent::ConnectionOpen($this->dsn, 'SP_CREDITOS_CLIENTE_LIST');
-        parent::SetParameterSP($p['VP_T_DOC'], 'varchar');//1
-        parent::SetParameterSP($p['VP_ID_PER'], 'int');//19 
-        parent::SetParameterSP($p['VP_DOC'], 'varchar');//8
+        parent::ConnectionOpen($this->dsn, 'SP_CREDITOS_ASESORES_LIST');
+        parent::SetParameterSP($p['vp_id_asesor'], 'int');//19 
         parent::SetParameterSP(USR_ID, 'int');//19
         // echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
@@ -202,15 +217,16 @@ class cobranzaModels extends Adodb {
         $array = parent::ExecuteSPArray();
         return $array;
     }
-    public function SP_ASESORES_LIST($p){
+    public function SP_ASESORES_COBROS_LIST($p){
         parent::ReiniciarSQL();
-        parent::ConnectionOpen($this->dsn, 'SP_ASESORES_LIST');
-      // parent::SetParameterSP($p['vp_shi_codigo'], 'int');
-      //  parent::SetParameterSP($p['vp_fac_cliente'], 'int');
+        parent::ConnectionOpen($this->dsn, 'SP_ASESORES_COBROS_LIST');
         parent::SetParameterSP($p['vp_op'], 'varchar');
-        parent::SetParameterSP($p['vp_id'], 'int');
-        parent::SetParameterSP($p['vp_dni'], 'varchar');
+        parent::SetParameterSP($p['vp_id_age'], 'int');
+        parent::SetParameterSP($p['vp_fecha'], 'varchar');
+        parent::SetParameterSP($p['vp_doc_dni'], 'varchar');
+        parent::SetParameterSP($p['vp_fecha'], 'varchar');
         parent::SetParameterSP($p['vp_nombres'], 'varchar');
+        parent::SetParameterSP(USR_ID, 'int');//141
         // echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
         return $array;

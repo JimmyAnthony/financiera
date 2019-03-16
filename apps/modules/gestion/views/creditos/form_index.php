@@ -10,6 +10,7 @@
 			opcion:'I',
 			id_per:'<?php echo $p["id_per"];?>',
 			id_id:'<?php echo $p["id_id"];?>',
+			idx:-1,
 			paramsStore:{},
 			init:function(){
 				Ext.tip.QuickTipManager.init();
@@ -56,7 +57,14 @@
 	                },
 	                listeners:{
 	                    load: function(obj, records, successful, opts){
-	                        
+	                    	try{
+		                        if(creditos.idx!=-1){
+									var grid=Ext.getCmp(creditos.id+'-list-solicitudes');
+									grid.getSelectionModel().select(creditos.idx);
+								}
+							}catch(a){
+
+							}
 	                    }
 	                }
 	            });
@@ -1003,7 +1011,7 @@
 											items:[
 												{
 													region:'north',
-													height:130,
+													height:80,
 													border:false,
 													items:[
 														{
@@ -1089,6 +1097,7 @@
 												                    padding:'10px 5px 5px 5px',
 										                            id:creditos.id+'-txt-nro-sol',
 										                            labelWidth:40,
+										                            hidden:true,
 										                            //readOnly:true,
 										                            labelAlign:'top',
 										                            labelStyle: "font-size:15px;font-weight:bold;padding:12px 0px 0px 0px;",
@@ -1165,11 +1174,10 @@
 											                                        tab.setActiveTab(active);
 											                                    }
 											                                }*/
+											                                creditos.idx=idx;
 											                                
-											                                var record = this.getStore().getAt(idx);
-											                                var val =record.data;
 																			//Ext.getCmp(creditos.id+'-select-conyugue').setValue(val.dni);
-																			creditos.setDataSolicitud(val);
+																			creditos.setDataSolicitud(idx);
 											                                
 											                            },
 											                            afterrender:function(obj){
@@ -1250,7 +1258,7 @@
 				         			split:true,
 				         			collapsible: true,
 				         			header:false,
-						            width: 540,
+						            width: 520,
 						            border:false,
 						            region:'west',
 						            items:[
@@ -1319,7 +1327,7 @@
 																                    padding:'15px 5px 5px 25px',
 														                            //id:creditos.id+'-txt-dni',
 														                            labelWidth:50,
-														                            //readOnly:true,
+														                            readOnly:true,
 														                            labelAlign:'top',
 														                            //width:120,
 														                            //height:60,
@@ -1341,7 +1349,7 @@
 																                    padding:'15px 5px 5px 25px',
 														                            //id:creditos.id+'-txt-dni',
 														                            labelWidth:50,
-														                            //readOnly:true,
+														                            readOnly:true,
 														                            labelAlign:'top',
 														                            //width:120,
 														                            //height:60,
@@ -1362,7 +1370,7 @@
 																                    padding:'5px 5px 5px 5px',
 														                            //id:creditos.id+'-txt-dni',
 														                            labelWidth:50,
-														                            //readOnly:true,
+														                            readOnly:true,
 														                            labelAlign:'top',
 														                            width:'50%',
 														                            height:40,
@@ -1383,7 +1391,7 @@
 																                    padding:'5px 5px 5px 5px',
 														                            //id:creditos.id+'-txt-dni',
 														                            labelWidth:50,
-														                            //readOnly:true,
+														                            readOnly:true,
 														                            labelAlign:'top',
 														                            width:'50%',
 														                            height:40,
@@ -1412,7 +1420,7 @@
 																                    padding:'5px 5px 5px 5px',
 														                            //id:creditos.id+'-txt-dni',
 														                            labelWidth:50,
-														                            //readOnly:true,
+														                            readOnly:true,
 														                            //labelAlign:'top',
 														                            //width:'100%',
 														                            flex:2,
@@ -1430,6 +1438,7 @@
 																			        xtype: 'datefield',
 																			        id:creditos.id+'-sol-date-fecha-nac',
 																			        padding:'5px 5px 5px 5px',
+																			        readOnly:true,
 																			        //name: 'date1',
 																			        //labelAlign:'top',
 																			        format:'Y-m-d',
@@ -1472,6 +1481,7 @@
 														                            //allowBlank: false,
 														                            width:'95%',
 														                            flex:1,
+														                            readOnly:true,
 														                            //height:30,
 														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 														                            fieldStyle: 'font-size:12px; text-align: center; font-weight: bold',
@@ -1503,6 +1513,7 @@
 														                            labelAlign:'right',
 														                            //allowBlank: false,
 														                            //labelAlign:'top',
+														                            readOnly:true,
 														                            labelWidth: 80,
 														                            width:200,
 														                            anchor:'98%',
@@ -1539,6 +1550,7 @@
 														                            //readOnly:true,
 														                            labelAlign:'top',
 														                            //width:'50%',
+														                            readOnly:true,
 														                            flex:1,
 														                            height:40,
 														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
@@ -1558,7 +1570,7 @@
 																                    padding:'5px 5px 5px 5px',
 														                            //id:creditos.id+'-txt-dni',
 														                            labelWidth:50,
-														                            //readOnly:true,
+														                            readOnly:true,
 														                            labelAlign:'top',
 														                            //width:'50%',
 														                            flex:1,
@@ -1580,7 +1592,7 @@
 																                    padding:'5px 5px 5px 5px',
 														                            //id:creditos.id+'-txt-dni',
 														                            labelWidth:50,
-														                            //readOnly:true,
+														                            readOnly:true,
 														                            labelAlign:'top',
 														                            //width:'50%',
 														                            flex:1,
@@ -1602,7 +1614,7 @@
 																                    padding:'5px 5px 5px 5px',
 														                            //id:creditos.id+'-txt-dni',
 														                            labelWidth:50,
-														                            //readOnly:true,
+														                            readOnly:true,
 														                            labelAlign:'top',
 														                            //width:'50%',
 														                            flex:1,
@@ -1624,7 +1636,7 @@
 																                    padding:'5px 5px 5px 5px',
 														                            //id:creditos.id+'-txt-dni',
 														                            labelWidth:50,
-														                            //readOnly:true,
+														                            readOnly:true,
 														                            labelAlign:'top',
 														                            //width:'50%',
 														                            flex:1,
@@ -1675,7 +1687,7 @@
 														                            width:200,
 														                            anchor:'98%',
 														                            height:20,
-														                            //readOnly: true,
+														                            readOnly: true,
 														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 														                            fieldStyle: 'font-size:12px; text-align: center; font-weight: bold',
 														                            listeners:{
@@ -1726,7 +1738,7 @@
 														                            width:200,
 														                            anchor:'98%',
 														                            height:20,
-														                            //readOnly: true,
+														                            readOnly: true,
 														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 														                            fieldStyle: 'font-size:12px; text-align: center; font-weight: bold',
 														                            listeners:{
@@ -1747,7 +1759,7 @@
 																                    padding:'5px 5px 5px 5px',
 														                            //id:creditos.id+'-txt-dni',
 														                            labelWidth:55,
-														                            //readOnly:true,
+														                            readOnly:true,
 														                            //labelAlign:'top',
 														                            //width:'50%',
 														                            flex:1,
@@ -1798,7 +1810,7 @@
 														                            width:200,
 														                            anchor:'98%',
 														                            height:20,
-														                            //readOnly: true,
+														                            readOnly: true,
 														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 														                            fieldStyle: 'font-size:12px; text-align: center; font-weight: bold',
 														                            listeners:{
@@ -1819,7 +1831,7 @@
 																                    padding:'5px 5px 5px 5px',
 														                            //id:creditos.id+'-txt-dni',
 														                            labelWidth:55,
-														                            //readOnly:true,
+														                            readOnly:true,
 														                            //labelAlign:'top',
 														                            //width:'50%',
 														                            flex:1,
@@ -1861,7 +1873,7 @@
 														                            flex:1,
 														                            anchor:'98%',
 														                            height:20,
-														                            //readOnly: true,
+														                            readOnly: true,
 														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
 														                            listeners:{
@@ -1892,6 +1904,7 @@
 																			        //flex:1,
 														                            //height:40,
 														                            width:220,
+														                            readOnly:true,
 														                            labelWidth: 110,
 																			        labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
@@ -2238,7 +2251,7 @@
 						         			split:true,
 						         			collapsible: true,
 						         			header:false,
-						         			width:340,
+						         			width:320,
 						         			//border:false,
 						         			items:[
 						         				{
@@ -2323,7 +2336,7 @@
 																                    padding:'5px 10px 5px 5px',
 														                            //id:creditos.id+'-txt-dni',
 														                            labelWidth:50,
-														                            //readOnly:true,
+														                            readOnly:true,
 														                            labelAlign:'top',
 														                            width:'95%',
 														                            flex:1,
@@ -2354,10 +2367,10 @@
 																		                    padding:'5px 10px 5px 5px',
 																                            //id:creditos.id+'-txt-dni',
 																                            labelWidth:50,
-																                            //readOnly:true,
+																                            readOnly:true,
 																                            labelAlign:'top',
-																                            width:50,
-																                            //flex:1,
+																                            //width:50,
+																                            flex:1,
 																                            height:40,
 																                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 																                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
@@ -2379,10 +2392,10 @@
 																		                    padding:'5px 10px 5px 5px',
 																                            //id:creditos.id+'-txt-dni',
 																                            labelWidth:50,
-																                            //readOnly:true,
+																                            readOnly:true,
 																                            labelAlign:'top',
-																                            width:50,
-																                            //flex:1,
+																                            //width:50,
+																                            flex:1,
 																                            height:40,
 																                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 																                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
@@ -2404,10 +2417,10 @@
 																		                    padding:'5px 10px 5px 5px',
 																                            //id:creditos.id+'-txt-dni',
 																                            labelWidth:50,
-																                            //readOnly:true,
+																                            readOnly:true,
 																                            labelAlign:'top',
-																                            width:50,
-																                            //flex:1,
+																                            //width:50,
+																                            flex:1,
 																                            height:40,
 																                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 																                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
@@ -2429,10 +2442,10 @@
 																		                    padding:'5px 10px 5px 5px',
 																                            //id:creditos.id+'-txt-dni',
 																                            labelWidth:50,
-																                            //readOnly:true,
+																                            readOnly:true,
 																                            labelAlign:'top',
-																                            width:50,
-																                            //flex:1,
+																                            //width:50,
+																                            flex:1,
 																                            height:40,
 																                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 																                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
@@ -2454,10 +2467,10 @@
 																		                    padding:'5px 10px 5px 5px',
 																                            //id:creditos.id+'-txt-dni',
 																                            labelWidth:50,
-																                            //readOnly:true,
+																                            readOnly:true,
 																                            labelAlign:'top',
-																                            width:50,
-																                            //flex:1,
+																                            //width:50,
+																                            	flex:1,
 																                            height:40,
 																                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 																                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
@@ -2487,7 +2500,7 @@
 																		                    padding:'5px 10px 5px 5px',
 																                            //id:creditos.id+'-txt-dni',
 																                            labelWidth:50,
-																                            //readOnly:true,
+																                            readOnly:true,
 																                            labelAlign:'top',
 																                            //width:'100%',
 																                            flex:1,
@@ -2514,7 +2527,7 @@
 																                    padding:'5px 5px 5px 10px',
 														                            //id:creditos.id+'-txt-dni',
 														                            labelWidth:55,
-														                            //readOnly:true,
+														                            readOnly:true,
 														                            labelAlign:'top',
 														                            width:'92%',
 														                            flex:1,
@@ -2547,6 +2560,7 @@
 														                            width:'92%',
 														                            labelWidth:75,
 														                            flex:1,
+														                            readOnly:true,
 														                            //height:40,
 														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
@@ -2584,6 +2598,7 @@
 														                            width:'92%',
 														                            labelWidth:75,
 														                            flex:1,
+														                            readOnly:true,
 														                            //height:40,
 														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
@@ -2617,6 +2632,7 @@
 														                            width:'92%',
 														                            labelWidth:75,
 														                            flex:1,
+														                            readOnly:true,
 														                            //height:40,
 														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
@@ -2793,7 +2809,8 @@
 																			        //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 														                            //fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
 																			        fieldLabel: 'F.Solicitado',
-																			        value:'22/01/2019'
+																			        value:new Date(),
+																			        maxValue:new Date()
 																			    },
 																			    {
 														                            xtype: 'textfield',	
@@ -2866,6 +2883,7 @@
 														                        },
 														                        {
 																                    xtype: 'button',
+																                    id:creditos.id+'-btn-guardar-solicitud',
 																                    margin:'2px 2px 2px 2px',
 																                    icon: '/images/icon/1315404769_gear_wheel.png',
 																                    //glyph: 72,
@@ -2890,6 +2908,7 @@
 																                },
 																                {
 																                    xtype: 'button',
+																                    id:creditos.id+'-btn-aprobar-solicitud',
 																                    margin:'2px 2px 2px 2px',
 																                    icon: '/images/icon/ok.png',
 																                    //glyph: 72,
@@ -2914,6 +2933,7 @@
 																                },
 																                {
 																                    xtype: 'button',
+																                    id:creditos.id+'-btn-nuevo-solicitud',
 																                    margin:'2px 2px 2px 2px',
 																                    icon: '/images/icon/Document.png',
 																                    //glyph: 72,
@@ -2932,12 +2952,15 @@
 															                                });*/
 															                            },
 															                            click: function(obj, e){	  
-															                            	creditos.setSaveSolicitud('N');
+															                            	creditos.idx=-1;
+															                            	creditos.setDisabledBTNSolicitud(false);
+																							creditos.setClearSolicitud();
 															                            }
 															                        }
 																                },
 																                {
 																                    xtype: 'button',
+																                    id:creditos.id+'-btn-anular-solicitud',
 																                    margin:'2px 2px 2px 2px',
 																                    icon: '/images/icon/remove.png',
 																                    //glyph: 72,
@@ -2956,7 +2979,7 @@
 															                                });*/
 															                            },
 															                            click: function(obj, e){	  
-															                            	creditos.setSaveSolicitud('D');
+															                            	creditos.setSaveSolicitud('X');
 															                            }
 															                        }
 																                }
@@ -3699,9 +3722,9 @@
 	                        tab.setActiveTab(obj);
 	                        global.state_item_menu_config(obj,creditos.id_menu);
 	                        //Ext.getCmp(creditos.id+'-txt-dni').focus();
-	                        /*var obj = Ext.getCmp(creditos.id+'-sol-txt-centro-trabajo');
+	                        var obj = Ext.getCmp(creditos.id+'-sol-txt-centro-trabajo');
 							creditos.getReload(obj,{vp_op:'N',vp_id:0,vp_nombre:''});
-							creditos.getSelectUbi();*/
+							//creditos.getSelectUbi();
 							creditos.setCollapse();
 	                    },
 	                    beforeclose:function(obj,opts){
@@ -3714,7 +3737,85 @@
 					creditos.setCollapse();
 				});
 			},
-			setDataSolicitud:function(data){
+			setDisabledBTNSolicitud:function(bool){
+				Ext.getCmp(creditos.id+'-btn-guardar-solicitud').setDisabled(bool);
+				Ext.getCmp(creditos.id+'-btn-aprobar-solicitud').setDisabled(bool);
+				Ext.getCmp(creditos.id+'-btn-nuevo-solicitud').setDisabled(false);
+				Ext.getCmp(creditos.id+'-btn-anular-solicitud').setDisabled(bool);
+			},
+			setClearSolicitud:function(){
+				Ext.getCmp(creditos.id+'-sol-date-fecha-solicitud').setValue(new Date());
+				Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').setValue('');
+				Ext.getCmp(creditos.id+'-sol-txt-nro-solicitud').setValue('');
+				Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('');
+				Ext.getCmp(creditos.id+'-sol-cmb-agencia').setValue('');
+				Ext.getCmp(creditos.id+'-sol-cmb-asesor').setValue('');
+				Ext.getCmp(creditos.id+'-sol-cmb-motivo').setValue('');
+				Ext.getCmp(creditos.id+'-sol-cmb-moneda').setValue('SOL');
+				Ext.getCmp(creditos.id+'-sol-txt-monto').setValue('');
+				Ext.getCmp(creditos.id+'-sol-txt-tipo-cliente').setValue('N');
+				Ext.getCmp(creditos.id+'-sol-cmb-excepcion').setValue('N');
+				Ext.getCmp(creditos.id+'-sol-txt-import-aprobado').setValue('');
+				Ext.getCmp(creditos.id+'-sol-txt-numero-cuotas').setValue('');
+				Ext.getCmp(creditos.id+'-sol-txt-interes').setValue('1');
+				Ext.getCmp(creditos.id+'-sol-txt-mora').setValue('0.05');
+				Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').setValue(new Date());
+				Ext.getCmp(creditos.id + '-txt-nota').setValue('');
+			},
+			setReadOnlySolicitud:function(bool){
+				Ext.getCmp(creditos.id+'-sol-date-fecha-solicitud').setReadOnly(bool);
+				Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').setReadOnly(bool);
+				Ext.getCmp(creditos.id+'-sol-txt-nro-solicitud').setReadOnly(bool);
+				Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setReadOnly(bool);
+				Ext.getCmp(creditos.id+'-sol-cmb-agencia').setReadOnly(bool);
+				Ext.getCmp(creditos.id+'-sol-cmb-asesor').setReadOnly(bool);
+				Ext.getCmp(creditos.id+'-sol-cmb-motivo').setReadOnly(bool);
+				Ext.getCmp(creditos.id+'-sol-cmb-moneda').setReadOnly(bool);
+				Ext.getCmp(creditos.id+'-sol-txt-monto').setReadOnly(bool);
+				Ext.getCmp(creditos.id+'-sol-txt-tipo-cliente').setReadOnly(bool);
+				Ext.getCmp(creditos.id+'-sol-cmb-excepcion').setReadOnly(bool);
+				Ext.getCmp(creditos.id+'-sol-txt-import-aprobado').setReadOnly(bool);
+				Ext.getCmp(creditos.id+'-sol-txt-numero-cuotas').setReadOnly(bool);
+				Ext.getCmp(creditos.id+'-sol-txt-interes').setReadOnly(bool);
+				Ext.getCmp(creditos.id+'-sol-txt-mora').setReadOnly(bool);
+				Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').setReadOnly(bool);
+				Ext.getCmp(creditos.id + '-txt-nota').setReadOnly(bool);
+			},
+			setDataSolicitud:function(idx){
+				var grid=Ext.getCmp(creditos.id+'-list-solicitudes');
+				var record = grid.getStore().getAt(idx);
+				var data =record.data;
+				creditos.setDisabledBTNSolicitud(true);
+				creditos.setClearSolicitud();
+				creditos.setReadOnlySolicitud(true);
+
+				if(data.estado=='S'){//solicitado
+					creditos.setDisabledBTNSolicitud(false);
+					Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('SOLICITADO');
+					creditos.setReadOnlySolicitud(false);
+				}
+				if(data.estado=='A'){
+					//Ext.getCmp(creditos.id+'-btn-guardar-solicitud').setDisabled(bool);
+					//Ext.getCmp(creditos.id+'-btn-aprobar-solicitud').setDisabled(bool);
+					//Ext.getCmp(creditos.id+'-btn-nuevo-solicitud').setDisabled(bool);
+					Ext.getCmp(creditos.id+'-btn-anular-solicitud').setDisabled(true);
+					Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('APROBADO');
+				}
+				if(data.estado=='C'){//ASIGNADO A ASESOR
+					//Ext.getCmp(creditos.id+'-btn-guardar-solicitud').setDisabled(bool);
+					//Ext.getCmp(creditos.id+'-btn-aprobar-solicitud').setDisabled(bool);
+					//Ext.getCmp(creditos.id+'-btn-nuevo-solicitud').setDisabled(bool);
+					//Ext.getCmp(creditos.id+'-btn-anular-solicitud').setDisabled(false);
+					Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('EN COBRANZA');
+				}
+				if(data.estado=='F'){//ASIGNADO A ASESOR
+					//Ext.getCmp(creditos.id+'-btn-guardar-solicitud').setDisabled(bool);
+					//Ext.getCmp(creditos.id+'-btn-aprobar-solicitud').setDisabled(bool);
+					//Ext.getCmp(creditos.id+'-btn-nuevo-solicitud').setDisabled(bool);
+					//Ext.getCmp(creditos.id+'-btn-anular-solicitud').setDisabled(false);
+					Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('FINALIZADO');
+				}
+
 				Ext.getCmp(creditos.id+'-sol-date-fecha-solicitud').setValue(data.fecha_sol);
 				Ext.getCmp(creditos.id+'-sol-cmb-agencia').setValue(data.id_age);
 				
@@ -3843,11 +3944,30 @@
 					return false;
 				}
 
-				
+				var msn='';				
+				if(op=='I'){
+					op=(vp_id_solicitud=='' || vp_id_solicitud==0)?'I':'U';
+					msn=op=='I'?'¿Seguro de generar el crédito?':'¿Seguro de actualizar el crédito?';
+				}
+				if(op=='U'){
+					op=(vp_id_solicitud=='' || vp_id_solicitud==0)?'I':'U';
+					msn=op=='I'?'¿Seguro de generar el crédito?':'¿Seguro de actualizar el crédito?';
+				}
 
-				op=(vp_id_solicitud=='' || vp_id_solicitud==0)?'I':'U';
-
-				var msn=op=='I'?'¿Seguro de generar el crédito?':'¿Seguro de actualizar el crédito?';
+				if(op=='A'){
+					if(!vp_id_solicitud){
+						global.Msg({msg:"Seleccione una solicitud.",icon:2,fn:function(){}});
+						return false;
+					}
+					msn='¿Seguro de aprobar el crédito?';
+				}
+				if(op=='X'){
+					if(!vp_id_solicitud){
+						global.Msg({msg:"Seleccione una solicitud.",icon:2,fn:function(){}});
+						return false;
+					}
+					msn='¿Seguro de Anular el crédito?';
+				}
 				global.Msg({
                     msg: msn,
                     icon: 3,
@@ -3872,7 +3992,7 @@
 									vp_tipo_cliente		:vp_tipo_cliente,
 									vp_excepcion		:vp_excepcion,
 									vp_import_aprobado	:vp_import_aprobado,
-									vp_nro_cuotas		:vp_nro_cuotas,
+									vp_nro_cuotas		:vp_nro_cuotas, 
 									vp_interes			:vp_interes,
 									vp_mora 			:vp_mora,
 									vp_fecha_1ra_letra	:vp_fecha_1ra_letra,
@@ -3890,6 +4010,10 @@
 			                                icon: 1,
 			                                buttons: 1,
 			                                fn: function(btn){
+			                                	var vp_dni = Ext.getCmp(creditos.id+'-sol-txt-doc-dni').getValue();
+			                                	Ext.getCmp(creditos.id+'-txt-dni').setValue(vp_dni);
+			                                	creditos.getListaSolicitudes(vp_dni);
+			                                	creditos.setDataSolicitud(creditos.idx);
 			                                	//Ext.getCmp(creditos.id+'-select-garante').setValue('');
 			                                	//var objp = Ext.getCmp(creditos.id+'-list-garante');
 												//creditos.getReload(objp,{vp_op:'G',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
@@ -4228,6 +4352,9 @@
 			},
 			getListaSolicitudes:function(dato){ 
 				creditos.setClearcreditos();
+				creditos.setDisabledBTNSolicitud(false);
+				creditos.setClearSolicitud();
+
 				Ext.Ajax.request({
                     url:creditos.url+'getListPersona/',
                     params:{
@@ -4242,66 +4369,70 @@
                         var res = Ext.JSON.decode(response.responseText);
                         console.log(res.data[0]);
                         var data = res.data[0];
-                        Ext.getCmp(creditos.id+'-sol-txt-id-cli').setValue(creditos.id_id);
-                        Ext.getCmp(creditos.id+'-sol-txt-id-per').setValue(data.id_per);
-						Ext.getCmp(creditos.id+'-sol-txt-apellido-paterno').setValue(data.ape_pat);
-						Ext.getCmp(creditos.id+'-sol-txt-apellido-materno').setValue(data.ape_mat);
-						Ext.getCmp(creditos.id+'-sol-txt-nombres').setValue(data.nombres);
-						Ext.getCmp(creditos.id+'-sol-cmb-sexo').setValue(data.sexo);
-						Ext.getCmp(creditos.id+'-sol-txt-doc-dni').setValue(data.doc_dni);
-						Ext.getCmp(creditos.id+'-sol-txt-doc-ce').setValue(data.doc_ce);
-						Ext.getCmp(creditos.id+'-sol-txt-doc-cip').setValue(data.doc_cip);
-						Ext.getCmp(creditos.id+'-sol-txt-doc-ruc').setValue(data.doc_ruc);
-						Ext.getCmp(creditos.id+'-sol-txt-doc-cm').setValue(data.doc_cm);
-						Ext.getCmp(creditos.id+'-sol-cmb-estado-civil').setValue(data.estado_civil);
-						Ext.getCmp(creditos.id+'-sol-date-fecha-nac').setValue(data.fecha_nac);
+                        if(data){
+	                        Ext.getCmp(creditos.id+'-sol-txt-id-cli').setValue(creditos.id_id);
+	                        Ext.getCmp(creditos.id+'-sol-txt-id-per').setValue(data.id_per);
+							Ext.getCmp(creditos.id+'-sol-txt-apellido-paterno').setValue(data.ape_pat);
+							Ext.getCmp(creditos.id+'-sol-txt-apellido-materno').setValue(data.ape_mat);
+							Ext.getCmp(creditos.id+'-sol-txt-nombres').setValue(data.nombres);
+							Ext.getCmp(creditos.id+'-sol-cmb-sexo').setValue(data.sexo);
+							Ext.getCmp(creditos.id+'-sol-txt-doc-dni').setValue(data.doc_dni);
+							Ext.getCmp(creditos.id+'-sol-txt-doc-ce').setValue(data.doc_ce);
+							Ext.getCmp(creditos.id+'-sol-txt-doc-cip').setValue(data.doc_cip);
+							Ext.getCmp(creditos.id+'-sol-txt-doc-ruc').setValue(data.doc_ruc);
+							Ext.getCmp(creditos.id+'-sol-txt-doc-cm').setValue(data.doc_cm);
+							Ext.getCmp(creditos.id+'-sol-cmb-estado-civil').setValue(data.estado_civil);
+							Ext.getCmp(creditos.id+'-sol-date-fecha-nac').setValue(data.fecha_nac);
 
-						
-						/*Ext.getCmp(creditos.id+'-sol-chk-domi-propio').setValue(data.domi_propio=='S'?true:false);
-						Ext.getCmp(creditos.id+'-sol-chk-domi-pagando').setValue(data.domi_pagando=='S'?true:false);
-						Ext.getCmp(creditos.id+'-sol-chk-domi-alquilado').setValue(data.domi_alquilado=='S'?true:false);
-						Ext.getCmp(creditos.id+'-sol-chk-domi-familiar').setValue(data.domi_familiar=='S'?true:false);*/
+							
+							/*Ext.getCmp(creditos.id+'-sol-chk-domi-propio').setValue(data.domi_propio=='S'?true:false);
+							Ext.getCmp(creditos.id+'-sol-chk-domi-pagando').setValue(data.domi_pagando=='S'?true:false);
+							Ext.getCmp(creditos.id+'-sol-chk-domi-alquilado').setValue(data.domi_alquilado=='S'?true:false);
+							Ext.getCmp(creditos.id+'-sol-chk-domi-familiar').setValue(data.domi_familiar=='S'?true:false);*/
 
-						Ext.getCmp(creditos.id+'-sol-cmb-domicilio').setValue(data.domicilio);
-						Ext.getCmp(creditos.id+'-sol-cmb-estudios').setValue(data.estudios);
-						Ext.getCmp(creditos.id+'-sol-txt-profesion').setValue(data.profesion);
-						Ext.getCmp(creditos.id+'-sol-cmb-laboral').setValue(data.laboral);
-						Ext.getCmp(creditos.id+'-sol-txt-cargo').setValue(data.cargo);
-						Ext.getCmp(creditos.id+'-sol-txt-centro-trabajo').setValue(data.id_empresa);
-						Ext.getCmp(creditos.id+'-sol-date-fecha-ingreso').setValue(data.fecha_ingreso);
+							Ext.getCmp(creditos.id+'-sol-cmb-domicilio').setValue(data.domicilio);
+							Ext.getCmp(creditos.id+'-sol-cmb-estudios').setValue(data.estudios);
+							Ext.getCmp(creditos.id+'-sol-txt-profesion').setValue(data.profesion);
+							Ext.getCmp(creditos.id+'-sol-cmb-laboral').setValue(data.laboral);
+							Ext.getCmp(creditos.id+'-sol-txt-cargo').setValue(data.cargo);
+							Ext.getCmp(creditos.id+'-sol-txt-centro-trabajo').setValue(data.id_empresa);
+							Ext.getCmp(creditos.id+'-sol-date-fecha-ingreso').setValue(data.fecha_ingreso);
 
-						//Ext.getCmp(creditos.id+'-sol-txt-id-tel').setValue(data.id_tel);
-						Ext.getCmp(creditos.id+'-sol-txt-id-dir').setValue(data.id_dir);
-						var obj = Ext.getCmp(creditos.id+'-list-telefonos');
-						creditos.getReload(obj,{vp_op:'P',vp_id:data.id_per,vp_flag:'A'});
+							//Ext.getCmp(creditos.id+'-sol-txt-id-tel').setValue(data.id_tel);
+							Ext.getCmp(creditos.id+'-sol-txt-id-dir').setValue(data.id_dir);
+							var obj = Ext.getCmp(creditos.id+'-list-telefonos');
+							creditos.getReload(obj,{vp_op:'P',vp_id:data.id_per,vp_flag:'A'});
 
-						
+							
 
-						//var obj = Ext.getCmp(creditos.id+'-sol-documentos-adjuntos');
-						//creditos.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
-						win.getGalery({container:'contenedor-documentos',forma:'L',url:creditos.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
+							//var obj = Ext.getCmp(creditos.id+'-sol-documentos-adjuntos');
+							//creditos.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
+							win.getGalery({container:'contenedor-documentos',forma:'L',url:creditos.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
 
-						if(data.id_dir!=0){
-							creditos.getDirecciones(data.id_dir);
+							if(data.id_dir!=0){
+								creditos.getDirecciones(data.id_dir);
+							}else{
+								creditos.getSelectUbi();
+							}
+							//var objd = Ext.getCmp(creditos.id+'-list-direcciones');
+							//creditos.getReload(objd,{vp_op:'R',vp_id:data.id_per,vp_nombre:''});
+
+							if(data.img!==''){
+								var img = '/persona/'+data.id_per+'/PHOTO/'+data.img;
+								creditos.setPhotoForm(img,data.ape_pat+' '+data.ape_mat +', '+data.nombres);
+							}
+
+							var objp = Ext.getCmp(creditos.id+'-list-Conyugues');
+							creditos.getReload(objp,{vp_op:'Y',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+
+							var objg = Ext.getCmp(creditos.id+'-list-garante');
+							creditos.getReload(objg,{vp_op:'G',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+
+							var objv = Ext.getCmp(creditos.id+'-list-solicitudes');
+							creditos.getReload(objv,{VP_T_DOC:'P',VP_ID_PER:data.id_per,VP_DOC:''});
 						}else{
-							creditos.getSelectUbi();
+							global.Msg({msg:"No existe una persona con el número de DNI Ingresado.",icon:2,fn:function(){}});
 						}
-						//var objd = Ext.getCmp(creditos.id+'-list-direcciones');
-						//creditos.getReload(objd,{vp_op:'R',vp_id:data.id_per,vp_nombre:''});
-
-						if(data.img!==''){
-							var img = '/persona/'+data.id_per+'/PHOTO/'+data.img;
-							creditos.setPhotoForm(img,data.ape_pat+' '+data.ape_mat +', '+data.nombres);
-						}
-
-						var objp = Ext.getCmp(creditos.id+'-list-Conyugues');
-						creditos.getReload(objp,{vp_op:'Y',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
-
-						var objg = Ext.getCmp(creditos.id+'-list-garante');
-						creditos.getReload(objg,{vp_op:'G',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
-
-						var objv = Ext.getCmp(creditos.id+'-list-solicitudes');
-						creditos.getReload(objv,{VP_T_DOC:'P',VP_ID_PER:data.id_per,VP_DOC:''});
                     }
                 });
 			},
@@ -4369,6 +4500,41 @@
 				Ext.getCmp(creditos.id+'-sol-chk-domi-pagando').setValue(false);
 				Ext.getCmp(creditos.id+'-sol-chk-domi-alquilado').setValue(false);
 				Ext.getCmp(creditos.id+'-sol-chk-domi-familiar').setValue(false);*/
+
+				Ext.getCmp(creditos.id+'-sol-cmb-domicilio').setValue('PRO');
+				Ext.getCmp(creditos.id+'-sol-cmb-estudios').setValue('OT');
+				Ext.getCmp(creditos.id+'-sol-txt-profesion').setValue('');
+				Ext.getCmp(creditos.id+'-sol-cmb-laboral').setValue('OT');
+				Ext.getCmp(creditos.id+'-sol-txt-cargo').setValue('');
+				Ext.getCmp(creditos.id+'-sol-txt-centro-trabajo').setValue('');
+				Ext.getCmp(creditos.id+'-sol-date-fecha-ingreso').setValue('');
+
+				//Ext.getCmp(creditos.id+'-sol-txt-id-tel').setValue(0);
+				//Ext.getCmp(creditos.id+'-sol-txt-id-dir').setValue(0);
+				Ext.getCmp(creditos.id+'-list-telefonos').getStore().removeAll();
+				//creditos.getReload(obj,{vp_op:'P',vp_id:0,vp_flag:'A'});
+
+				
+
+				//var obj = Ext.getCmp(persona.id+'-sol-documentos-adjuntos');
+				//persona.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
+				win.getGalery({container:'contenedor-documentos',forma:'L',url:creditos.url+'get_list_documentos/',params:{vp_sol_id_per:0,vp_flag:'A'} });
+
+				creditos.getSelectUbi();
+				
+				//persona.getReload(objd,{vp_op:'R',vp_id:0,vp_nombre:''});
+
+				var img = '/images/photo.png';
+				creditos.setPhotoForm(img,'ANONIMO');
+
+				Ext.getCmp(creditos.id+'-list-Conyugues').getStore().removeAll();
+				//persona.getReload(objp,{vp_op:'Y',vp_id:0,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+
+				Ext.getCmp(creditos.id+'-list-garante').getStore().removeAll();
+				//persona.getReload(objg,{vp_op:'G',vp_id:0,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+
+				//creditos.setClearTelefono();
+				creditos.setClearDireccion();
 			},
 			setSavecreditosIMG:function(){
 				var vp_sol_id_cli = Ext.getCmp(creditos.id+'-sol-txt-id-cli').getValue();
@@ -4378,7 +4544,7 @@
 
 			},
 			setClearTelefono:function(){
-				Ext.getCmp(creditos.id+'-sol-txt-id-tel').setValue(0);
+				//Ext.getCmp(creditos.id+'-sol-txt-id-tel').setValue(0);
 				Ext.getCmp(creditos.id+'-sol-cmb-tipo-tel').setValue('CE');
 				Ext.getCmp(creditos.id+'-sol-cmb-line-tel').setValue('CL');
 				Ext.getCmp(creditos.id+'-sol-txt-tel-cel').setValue('');
@@ -4476,7 +4642,7 @@
 
 			},
 			setClearDireccion:function(){
-				Ext.getCmp(creditos.id+'-sol-txt-id-dir').setValue(0);
+				//Ext.getCmp(creditos.id+'-sol-txt-id-dir').setValue(0);
 				Ext.getCmp(creditos.id+'-sol-txt-dir-direccion').setValue('');
 				Ext.getCmp(creditos.id+'-sol-txt-dir-numero').setValue('');
 				Ext.getCmp(creditos.id+'-sol-txt-dir-mz').setValue('');
@@ -4485,6 +4651,7 @@
 				Ext.getCmp(creditos.id+'-sol-txt-dir-interior').setValue('');
 				Ext.getCmp(creditos.id+'-sol-txt-dir-urb').setValue('');
 				Ext.getCmp(creditos.id+'-sol-txt-dir-referencia').setValue('');
+				//Ext.getCmp(creditos.id+'-list-direcciones').getStore().removeAll();
 			},
 			setSaveDireccion:function(){
 

@@ -774,12 +774,12 @@
 						        //storeId: 'estado',
 						        autoLoad: true,
 						        data: [
-						        	['NB','Nombres'],
-									['DN','DNI'],
-								    ['CE','CE'],
-								    ['CI','CIP'],
-								    ['RU','RUC'],
-								    ['CM','CE']
+						        	//['N','Nombres'],
+									['D','DNI'],
+								    /*['C','CE'],
+								    ['I','CIP'],
+								    ['U','RUC'],
+								    ['E','CE']*/
 								],
 						        fields: ['code', 'name']
 						    }),
@@ -801,7 +801,7 @@
                             listeners:{
                                 afterrender:function(obj, e){
                                     // obj.getStore().load();
-                                    obj.setValue('DN');
+                                    obj.setValue((persona.opcion)?persona.opcion:'D');
                                 },
                                 select:function(obj, records, eOpts){
                         
@@ -821,11 +821,16 @@
                             width:160,
                             //height:40,
                             labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-                            value:'',
+                            fieldStyle: 'font-size:14px; text-align: center; font-weight: bold',
+                            value:persona.dni,
                             //anchor:'100%',
                             listeners:{
                                 afterrender:function(obj, e){
+                                },
+                                specialkey: function(f,e){
+                                    if(e.getKey() == e.ENTER){
+                                        persona.getPersona();
+                                    }
                                 }
                             }
                         },
@@ -834,12 +839,57 @@
 	                        //height:30,
 	                        margin:'5px 5px 5px 5px',
 	                        //text: 'Grabar',
-	                        icon: '/images/icon/Trash.png',
+	                        icon: '/images/icon/binocular.png',
 	                        listeners:{
 	                            beforerender: function(obj, opts){
 								},
 	                            click: function(obj, e){
-	                            	persona.setSaveTelefono('D');
+	                            	persona.getPersona();
+	                            }
+	                        }
+	                    },/*
+	                    {
+	                        xtype:'button',
+	                        //height:30,
+	                        margin:'5px 5px 5px 5px',
+	                        //text: 'Grabar',
+	                        icon: '/images/icon/check-circle-black-16.png',
+	                        listeners:{
+	                            beforerender: function(obj, opts){
+								},
+	                            click: function(obj, e){
+	                            	persona.getPersona();
+	                            }
+	                        }
+	                    },*/
+	                    {
+	                        xtype:'button',
+	                        //height:30,
+	                        margin:'5px 5px 5px 5px',
+	                        //text: 'Grabar',
+	                        icon: '/images/icon/Document.png',
+	                        listeners:{
+	                            beforerender: function(obj, opts){
+								},
+	                            click: function(obj, e){
+	                            	Ext.getCmp(persona.id+'-txt-dni').setValue('');
+	                            	persona.setClearPersona();
+	                            	Ext.getCmp(persona.id+'-txt-dni').focus();
+	                            }
+	                        }
+	                    },
+	                    '->',
+	                    {
+	                        xtype:'button',
+	                        //height:30,
+	                        margin:'5px 5px 5px 5px',
+	                        text: 'Salir',
+	                        icon: '/images/icon/Door.png',
+	                        listeners:{
+	                            beforerender: function(obj, opts){
+								},
+	                            click: function(obj, e){
+	                            	Ext.getCmp(persona.id+'-win-form').close();
 	                            }
 	                        }
 	                    }
@@ -3314,12 +3364,15 @@
 				});
 			},
 			getPersona:function(){
+				var op=Ext.getCmp(persona.id+'-cmb-buscar').getValue();
+				var value=Ext.getCmp(persona.id+'-txt-dni').getValue();
+				persona.setClearPersona();
 				Ext.Ajax.request({
                     url:persona.url+'getListPersona/',
                     params:{
-                    	vp_op:persona.opcion,
+                    	vp_op:op,
 						vp_id:persona.id_per,
-						vp_dni:persona.dni,
+						vp_dni:value,
 						vp_nombres:''
                     },
                     timeout: 30000000,
@@ -3328,63 +3381,67 @@
                         var res = Ext.JSON.decode(response.responseText);
                         console.log(res.data[0]);
                         var data = res.data[0];
-                        Ext.getCmp(persona.id+'-sol-txt-id-cli').setValue(persona.id_id);
-                        Ext.getCmp(persona.id+'-sol-txt-id-per').setValue(data.id_per);
-						Ext.getCmp(persona.id+'-sol-txt-apellido-paterno').setValue(data.ape_pat);
-						Ext.getCmp(persona.id+'-sol-txt-apellido-materno').setValue(data.ape_mat);
-						Ext.getCmp(persona.id+'-sol-txt-nombres').setValue(data.nombres);
-						Ext.getCmp(persona.id+'-sol-cmb-sexo').setValue(data.sexo);
-						Ext.getCmp(persona.id+'-sol-txt-doc-dni').setValue(data.doc_dni);
-						Ext.getCmp(persona.id+'-sol-txt-doc-ce').setValue(data.doc_ce);
-						Ext.getCmp(persona.id+'-sol-txt-doc-cip').setValue(data.doc_cip);
-						Ext.getCmp(persona.id+'-sol-txt-doc-ruc').setValue(data.doc_ruc);
-						Ext.getCmp(persona.id+'-sol-txt-doc-cm').setValue(data.doc_cm);
-						Ext.getCmp(persona.id+'-sol-cmb-estado-civil').setValue(data.estado_civil);
-						Ext.getCmp(persona.id+'-sol-date-fecha-nac').setValue(data.fecha_nac);
+                        if(data){
+	                        Ext.getCmp(persona.id+'-sol-txt-id-cli').setValue(persona.id_id);
+	                        Ext.getCmp(persona.id+'-sol-txt-id-per').setValue(data.id_per);
+							Ext.getCmp(persona.id+'-sol-txt-apellido-paterno').setValue(data.ape_pat);
+							Ext.getCmp(persona.id+'-sol-txt-apellido-materno').setValue(data.ape_mat);
+							Ext.getCmp(persona.id+'-sol-txt-nombres').setValue(data.nombres);
+							Ext.getCmp(persona.id+'-sol-cmb-sexo').setValue(data.sexo);
+							Ext.getCmp(persona.id+'-sol-txt-doc-dni').setValue(data.doc_dni);
+							Ext.getCmp(persona.id+'-sol-txt-doc-ce').setValue(data.doc_ce);
+							Ext.getCmp(persona.id+'-sol-txt-doc-cip').setValue(data.doc_cip);
+							Ext.getCmp(persona.id+'-sol-txt-doc-ruc').setValue(data.doc_ruc);
+							Ext.getCmp(persona.id+'-sol-txt-doc-cm').setValue(data.doc_cm);
+							Ext.getCmp(persona.id+'-sol-cmb-estado-civil').setValue(data.estado_civil);
+							Ext.getCmp(persona.id+'-sol-date-fecha-nac').setValue(data.fecha_nac);
 
-						
-						/*Ext.getCmp(persona.id+'-sol-chk-domi-propio').setValue(data.domi_propio=='S'?true:false);
-						Ext.getCmp(persona.id+'-sol-chk-domi-pagando').setValue(data.domi_pagando=='S'?true:false);
-						Ext.getCmp(persona.id+'-sol-chk-domi-alquilado').setValue(data.domi_alquilado=='S'?true:false);
-						Ext.getCmp(persona.id+'-sol-chk-domi-familiar').setValue(data.domi_familiar=='S'?true:false);*/
+							
+							/*Ext.getCmp(persona.id+'-sol-chk-domi-propio').setValue(data.domi_propio=='S'?true:false);
+							Ext.getCmp(persona.id+'-sol-chk-domi-pagando').setValue(data.domi_pagando=='S'?true:false);
+							Ext.getCmp(persona.id+'-sol-chk-domi-alquilado').setValue(data.domi_alquilado=='S'?true:false);
+							Ext.getCmp(persona.id+'-sol-chk-domi-familiar').setValue(data.domi_familiar=='S'?true:false);*/
 
-						Ext.getCmp(persona.id+'-sol-cmb-domicilio').setValue(data.domicilio);
-						Ext.getCmp(persona.id+'-sol-cmb-estudios').setValue(data.estudios);
-						Ext.getCmp(persona.id+'-sol-txt-profesion').setValue(data.profesion);
-						Ext.getCmp(persona.id+'-sol-cmb-laboral').setValue(data.laboral);
-						Ext.getCmp(persona.id+'-sol-txt-cargo').setValue(data.cargo);
-						Ext.getCmp(persona.id+'-sol-txt-centro-trabajo').setValue(data.id_empresa);
-						Ext.getCmp(persona.id+'-sol-date-fecha-ingreso').setValue(data.fecha_ingreso);
+							Ext.getCmp(persona.id+'-sol-cmb-domicilio').setValue(data.domicilio);
+							Ext.getCmp(persona.id+'-sol-cmb-estudios').setValue(data.estudios);
+							Ext.getCmp(persona.id+'-sol-txt-profesion').setValue(data.profesion);
+							Ext.getCmp(persona.id+'-sol-cmb-laboral').setValue(data.laboral);
+							Ext.getCmp(persona.id+'-sol-txt-cargo').setValue(data.cargo);
+							Ext.getCmp(persona.id+'-sol-txt-centro-trabajo').setValue(data.id_empresa);
+							Ext.getCmp(persona.id+'-sol-date-fecha-ingreso').setValue(data.fecha_ingreso);
 
-						Ext.getCmp(persona.id+'-sol-txt-id-tel').setValue(data.id_tel);
-						Ext.getCmp(persona.id+'-sol-txt-id-dir').setValue(data.id_dir);
-						var obj = Ext.getCmp(persona.id+'-list-telefonos');
-						persona.getReload(obj,{vp_op:'P',vp_id:data.id_per,vp_flag:'A'});
+							Ext.getCmp(persona.id+'-sol-txt-id-tel').setValue(data.id_tel);
+							Ext.getCmp(persona.id+'-sol-txt-id-dir').setValue(data.id_dir);
+							var obj = Ext.getCmp(persona.id+'-list-telefonos');
+							persona.getReload(obj,{vp_op:'P',vp_id:data.id_per,vp_flag:'A'});
 
-						
+							
 
-						//var obj = Ext.getCmp(persona.id+'-sol-documentos-adjuntos');
-						//persona.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
-						win.getGalery({container:'contenedor-documentos-persona',forma:'L',url:persona.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
+							//var obj = Ext.getCmp(persona.id+'-sol-documentos-adjuntos');
+							//persona.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
+							win.getGalery({container:'contenedor-documentos-persona',forma:'L',url:persona.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
 
-						if(data.id_dir!=0){
-							persona.getDirecciones(data.id_dir);
+							if(data.id_dir!=0){
+								persona.getDirecciones(data.id_dir);
+							}else{
+								persona.getSelectUbi();
+							}
+							var objd = Ext.getCmp(persona.id+'-list-direcciones');
+							persona.getReload(objd,{vp_op:'R',vp_id:data.id_per,vp_nombre:''});
+
+							if(data.img!==''){
+								var img = '/persona/'+data.id_per+'/PHOTO/'+data.img;
+								persona.setPhotoForm(img,data.ape_pat+' '+data.ape_mat +', '+data.nombres);
+							}
+
+							var objp = Ext.getCmp(persona.id+'-list-Conyugues');
+							persona.getReload(objp,{vp_op:'Y',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+
+							var objg = Ext.getCmp(persona.id+'-list-garante');
+							persona.getReload(objg,{vp_op:'G',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 						}else{
-							persona.getSelectUbi();
+							global.Msg({msg:"No existe una persona con el número de DNI Ingresado.",icon:2,fn:function(){}});
 						}
-						var objd = Ext.getCmp(persona.id+'-list-direcciones');
-						persona.getReload(objd,{vp_op:'R',vp_id:data.id_per,vp_nombre:''});
-
-						if(data.img!==''){
-							var img = '/persona/'+data.id_per+'/PHOTO/'+data.img;
-							persona.setPhotoForm(img,data.ape_pat+' '+data.ape_mat +', '+data.nombres);
-						}
-
-						var objp = Ext.getCmp(persona.id+'-list-Conyugues');
-						persona.getReload(objp,{vp_op:'Y',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
-
-						var objg = Ext.getCmp(persona.id+'-list-garante');
-						persona.getReload(objg,{vp_op:'G',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
                     }
                 });
 			},
@@ -3433,7 +3490,7 @@
                 });
 			},
 			setClearPersona:function(){
-				//Ext.getCmp(persona.id+'-sol-txt-id-per').setValue(0);
+				Ext.getCmp(persona.id+'-sol-txt-id-per').setValue(0);
 				Ext.getCmp(persona.id+'-sol-txt-apellido-paterno').setValue('');
 				Ext.getCmp(persona.id+'-sol-txt-apellido-materno').setValue('');
 				Ext.getCmp(persona.id+'-sol-txt-nombres').setValue('');
@@ -3448,10 +3505,45 @@
 				Ext.getCmp(persona.id+'-sol-date-fecha-nac').setValue('');
 
 				
-				Ext.getCmp(persona.id+'-sol-chk-domi-propio').setValue(false);
+				/*Ext.getCmp(persona.id+'-sol-chk-domi-propio').setValue(false);
 				Ext.getCmp(persona.id+'-sol-chk-domi-pagando').setValue(false);
 				Ext.getCmp(persona.id+'-sol-chk-domi-alquilado').setValue(false);
-				Ext.getCmp(persona.id+'-sol-chk-domi-familiar').setValue(false);
+				Ext.getCmp(persona.id+'-sol-chk-domi-familiar').setValue(false);*/
+
+				Ext.getCmp(persona.id+'-sol-cmb-domicilio').setValue('PRO');
+				Ext.getCmp(persona.id+'-sol-cmb-estudios').setValue('OT');
+				Ext.getCmp(persona.id+'-sol-txt-profesion').setValue('');
+				Ext.getCmp(persona.id+'-sol-cmb-laboral').setValue('OT');
+				Ext.getCmp(persona.id+'-sol-txt-cargo').setValue('');
+				Ext.getCmp(persona.id+'-sol-txt-centro-trabajo').setValue('');
+				Ext.getCmp(persona.id+'-sol-date-fecha-ingreso').setValue('');
+
+				Ext.getCmp(persona.id+'-sol-txt-id-tel').setValue(0);
+				Ext.getCmp(persona.id+'-sol-txt-id-dir').setValue(0);
+				Ext.getCmp(persona.id+'-list-telefonos').getStore().removeAll();
+				//persona.getReload(obj,{vp_op:'P',vp_id:0,vp_flag:'A'});
+
+				
+
+				//var obj = Ext.getCmp(persona.id+'-sol-documentos-adjuntos');
+				//persona.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
+				win.getGalery({container:'contenedor-documentos-persona',forma:'L',url:persona.url+'get_list_documentos/',params:{vp_sol_id_per:0,vp_flag:'A'} });
+
+				persona.getSelectUbi();
+				Ext.getCmp(persona.id+'-list-direcciones').getStore().removeAll();
+				//persona.getReload(objd,{vp_op:'R',vp_id:0,vp_nombre:''});
+
+				var img = '/images/photo.png';
+				persona.setPhotoForm(img,'ANONIMO');
+
+				Ext.getCmp(persona.id+'-list-Conyugues').getStore().removeAll();
+				//persona.getReload(objp,{vp_op:'Y',vp_id:0,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+
+				Ext.getCmp(persona.id+'-list-garante').getStore().removeAll();
+				//persona.getReload(objg,{vp_op:'G',vp_id:0,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+
+				persona.setClearTelefono();
+				persona.setClearDireccion();
 			},
 			setSavePersonaIMG:function(){
 				var vp_sol_id_cli = Ext.getCmp(persona.id+'-sol-txt-id-cli').getValue();
