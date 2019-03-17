@@ -7,7 +7,7 @@
  * @version 2.0
  */
 
-class creditosModels extends Adodb {
+class solicitudesModels extends Adodb {
 
     private $dsn;
 
@@ -47,22 +47,6 @@ class creditosModels extends Adodb {
         parent::SetParameterSP('@OUT', 'int');//140
         parent::SetParameterSP('@OUT', 'int');//140
          //echo '=>' . parent::getSql().'<br>'; exit();
-        $array = parent::ExecuteSPArray();
-        return $array;
-    }
-
-    public function SP_CREDITOS_LIST($p){
-        parent::ReiniciarSQL();
-        parent::ConnectionOpen($this->dsn, 'SP_CREDITOS_LIST');
-        parent::SetParameterSP($p['vp_op'], 'varchar');//19 
-        parent::SetParameterSP($p['vp_id_age'], 'int');//19 
-        parent::SetParameterSP($p['vp_cliente'], 'varchar');//19 
-        parent::SetParameterSP($p['vp_desde'], 'varchar');//19 
-        parent::SetParameterSP($p['vp_hasta'], 'varchar');//19 
-        parent::SetParameterSP($p['vp_estado'], 'varchar');//19 
-        parent::SetParameterSP($p['vp_fuente'], 'varchar');//19 
-        parent::SetParameterSP(USR_ID, 'int');//19
-        // echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
         return $array;
     }

@@ -90,6 +90,7 @@ class indexController extends AppController {
                 $p['vp_mod_id'] = 1;
                 $p['vp_menu_id'] = intval($value['id_menu']);
                 $value_['id'] =intval($value['id_menu']);
+                $value_['id_menu'] =intval($value['id_menu']);
                 $value_['nombre'] =utf8_encode(trim($value['nombre']));
                 $value_['url'] =trim($value['url']);
                 $value_['nivel'] =trim($value['nivel']);

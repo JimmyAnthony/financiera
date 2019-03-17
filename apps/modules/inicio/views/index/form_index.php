@@ -556,7 +556,7 @@
                                                         fn: ['panel_asignar_gestion.limpiar']
                                                     });*/
                                                 },
-                                                click: function(obj, e){                    
+                                                click: function(obj, e){
                                                     var activeTab = Ext.getCmp(inicio.id+'-tabContent').getActiveTab();
                                                     var activeTabIndex = Ext.getCmp(inicio.id+'-tabContent').items.findIndex('id', activeTab.id);
                                                     if(activeTabIndex!=0){

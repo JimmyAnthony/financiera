@@ -995,7 +995,7 @@
 											                                });*/
 											                            },
 											                            click: function(obj, e){
-											                            	cobranza.getAsesores();
+											                            	cobranza.getCreditosGestionDiaria();
 											                            }
 											                        }
 											                    }
@@ -1198,8 +1198,8 @@
 												                        },
 												                        {
 												                            xtype: 'textfield',	
-												                            fieldLabel: 'Cuotas Pendientes',
-												                            id:cobranza.id+'-txt-esperado-cuotas-pendientes',
+												                            fieldLabel: 'Cuotas Cobradas',
+												                            id:cobranza.id+'-txt-esperado-cuotas-cobradas',
 												                            bodyStyle: 'background: transparent',
 														                    padding:'5px 5px 5px 5px',
 												                            //id:cobranza.id+'-txt-dni',
@@ -1311,21 +1311,16 @@
 													                {name: 'ape_pat', type: 'string'},
 													                {name: 'ape_mat', type: 'string'},
 													                {name: 'dni', type: 'string'},
-													                {name: 'numero', type: 'string'},
 
-													                {name: 'id_dir', type: 'string'},
-													                {name: 'dir_direccion', type: 'string'},
-													                {name: 'dir_numero', type: 'string'},
-													                {name: 'dir_mz', type: 'string'},
-													                {name: 'dir_lt', type: 'string'},
-													                {name: 'dir_dpto', type: 'string'},
-													                {name: 'dir_interior', type: 'string'},
-													                {name: 'dir_urb', type: 'string'},
-													                {name: 'dir_referencia', type: 'string'},
-													                {name: 'cod_ubi', type: 'string'},
-													                {name: 'fecha', type: 'string'},
-													                {name: 'clase', type: 'string'},
-													                {name: 'flag', type: 'string'}
+													                {name: 'solicitudes', type: 'string'},
+													                {name: 'sol_monto', type: 'string'},
+													                {name: 'tot_cuotas', type: 'string'},
+													                {name: 'valor_cuota', type: 'string'},
+													                {name: 'mora', type: 'string'},
+													                {name: 'total', type: 'string'},
+													                {name: 'pagado', type: 'string'},
+													                {name: 'saldo_cuota', type: 'string'},
+													                {name: 'efectivo', type: 'string'}
 													            ],
 													            autoLoad:false,
 													            proxy:{
@@ -1409,7 +1404,7 @@
 											                                {
 											                                    text: 'Cuotas',
 											                                    align:'center',
-											                                    dataIndex: 'coutas',
+											                                    dataIndex: 'tot_cuotas',
 											                                    width: 60,
 											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 											                                        metaData.style = "padding: 0px; margin: 0px";
@@ -1429,7 +1424,7 @@
 											                                {
 											                                    text: 'Mora',
 											                                    align:'right',
-											                                    dataIndex: 'valor_cuota',
+											                                    dataIndex: 'mora',
 											                                    width: 60,
 											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 											                                        metaData.style = "padding: 0px; margin: 0px";
@@ -1448,8 +1443,8 @@
 											                                },
 									                                	]
 									                            	},
-									                            	{
-																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Efectividad</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+									                            	/*{
+																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Cobrado</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
 																		align:'center',
 																		//width: 100,
 																		//flex:1,
@@ -1468,7 +1463,7 @@
 											                                {
 											                                    text: 'Monto',
 											                                    align:'right',
-											                                    dataIndex: 'sol_monto_cobrado',
+											                                    dataIndex: 'pagado',
 											                                    width: 60,
 											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 											                                        metaData.style = "padding: 0px; margin: 0px";
@@ -1476,7 +1471,20 @@
 											                                    }
 											                                }
 									                                	]
-									                            	},
+									                            	},*/
+									                            	{
+									                                    text: 'Cobrado',
+									                                    dataIndex: 'pagado',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    //flex:1,
+									                                    width: 60,
+									                                    align: 'left',
+									                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+									                                        return value;
+									                                    }
+									                                },
+									                            	/*
 									                            	{
 																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Pendiente</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
 																		align:'center',
@@ -1497,7 +1505,7 @@
 											                                {
 											                                    text: 'Monto',
 											                                    align:'right',
-											                                    dataIndex: 'saldo',
+											                                    dataIndex: 'saldo_cuota',
 											                                    width: 60,
 											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 											                                        metaData.style = "padding: 0px; margin: 0px";
@@ -1505,7 +1513,7 @@
 											                                    }
 											                                }
 									                                	]
-									                            	},
+									                            	},*/
 																	{
 									                                    text: 'ST',
 									                                    dataIndex: 'estado',
@@ -1588,7 +1596,7 @@
 									                            },
 									                            select:function(obj, record, index, eOpts ){
 									                            	//scanning.setImageFile(record.get('path'),record.get('file'));
-									                            	cobranza.getListSolicitudes(record.get('id_asesor'));
+									                            	cobranza.getListSolicitudes(record.get('id_asesor'),record.get('id_age'),record.get('fecha'));
 									                            }
 									                        }
 									                    }
@@ -1642,7 +1650,45 @@
 									                        xtype: 'grid',
 									                        region:'center',
 									                        id: cobranza.id+'-grid-solicitudes', 
-									                        store: store_creditos, 
+									                        store: Ext.create('Ext.data.Store',{
+													            fields: [
+													            	{name: 'id_age', type: 'string'},
+													            	{name: 'fecha', type: 'string'},
+													            	{name: 'id_creditos', type: 'string'},
+													                {name: 'id_asesor', type: 'string'},
+													                {name: 'nombre', type: 'string'},
+													                {name: 'nombres', type: 'string'},
+													                {name: 'ape_pat', type: 'string'},
+													                {name: 'ape_mat', type: 'string'},
+													                {name: 'dni', type: 'string'},
+
+													                {name: 'solicitudes', type: 'string'},
+													                {name: 'sol_monto', type: 'string'},
+													                {name: 'tot_cuotas', type: 'string'},
+													                {name: 'valor_cuota', type: 'string'},
+													                {name: 'mora', type: 'string'},
+													                {name: 'total', type: 'string'},
+													                {name: 'pagado', type: 'string'},
+													                {name: 'saldo_cuota', type: 'string'},
+													                {name: 'efectivo', type: 'string'}
+													            ],
+													            autoLoad:false,
+													            proxy:{
+													                type: 'ajax',
+													                url: cobranza.url+'getListAsesores/',
+													                reader:{
+													                    type: 'json',
+													                    rootProperty: 'data'
+													                }/*,
+													                extraParams:config.params*/
+													            },
+													            listeners:{
+													                load: function(obj, records, successful, opts){
+													                    console.log(records);
+													                    //document.getElementById("menu_spinner").innerHTML = "";
+													                }
+													            }
+													        }), 
 									                        columnLines: true,
 									                        //layout:'fit',
 									                        columns:{
@@ -1669,27 +1715,17 @@
 									                                        return value;
 									                                    }
 									                                },
-									                            	{
-																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Crédito</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																	{
+																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Solicitado</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
 																		align:'center',
 																		//width: 100,
 																		//flex:1,
 																		menuDisabled:true,
 																		columns:[
-																			{
-											                                    text: 'Aprobado',
-											                                    align:'right',
-											                                    dataIndex: 'monto_aprobado',
-											                                    width: 80,
-											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
-											                                        metaData.style = "padding: 0px; margin: 0px";
-											                                        return value;
-											                                    }
-											                                },
 											                                {
-											                                    text: 'Cuotas',
+											                                    text: 'Cantidad',
 											                                    align:'center',
-											                                    dataIndex: 'nro_cuotas',
+											                                    dataIndex: 'solicitudes',
 											                                    width: 60,
 											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 											                                        metaData.style = "padding: 0px; margin: 0px";
@@ -1699,7 +1735,36 @@
 											                                {
 											                                    text: 'Monto',
 											                                    align:'right',
-											                                    dataIndex: 'tot_credito',
+											                                    dataIndex: 'sol_monto',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                }
+									                                	]
+									                            	},
+									                            	{
+																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Crédito</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																		align:'center',
+																		//width: 100,
+																		//flex:1,
+																		menuDisabled:true,
+																		columns:[
+											                                {
+											                                    text: 'Cuotas',
+											                                    align:'center',
+											                                    dataIndex: 'tot_cuotas',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                },
+											                                {
+											                                    text: 'Monto',
+											                                    align:'right',
+											                                    dataIndex: 'valor_cuota',
 											                                    width: 60,
 											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 											                                        metaData.style = "padding: 0px; margin: 0px";
@@ -1709,7 +1774,7 @@
 											                                {
 											                                    text: 'Mora',
 											                                    align:'right',
-											                                    dataIndex: 'tot_mora',
+											                                    dataIndex: 'mora',
 											                                    width: 60,
 											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 											                                        metaData.style = "padding: 0px; margin: 0px";
@@ -1719,7 +1784,7 @@
 											                                {
 											                                    text: 'Total',
 											                                    align:'right',
-											                                    dataIndex: 'tot_neto',
+											                                    dataIndex: 'total',
 											                                    width: 60,
 											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 											                                        metaData.style = "padding: 0px; margin: 0px";
@@ -1728,8 +1793,49 @@
 											                                },
 									                                	]
 									                            	},
+									                            	/*{
+																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Cobrado</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																		align:'center',
+																		//width: 100,
+																		//flex:1,
+																		menuDisabled:true,
+																		columns:[
+											                                {
+											                                    text: 'Cuotas',
+											                                    align:'right',
+											                                    dataIndex: 'cuotas_cobradas',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                },
+											                                {
+											                                    text: 'Monto',
+											                                    align:'right',
+											                                    dataIndex: 'pagado',
+											                                    width: 60,
+											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+											                                        metaData.style = "padding: 0px; margin: 0px";
+											                                        return value;
+											                                    }
+											                                }
+									                                	]
+									                            	},*/
 									                            	{
-																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Efectividad</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+									                                    text: 'Cobrado',
+									                                    dataIndex: 'pagado',
+									                                    //loocked : true,
+									                                    //width: 40,
+									                                    //flex:1,
+									                                    width: 60,
+									                                    align: 'left',
+									                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+									                                        return value;
+									                                    }
+									                                },
+									                            	/*{
+																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Cobrado</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
 																		align:'center',
 																		//width: 100,
 																		//flex:1,
@@ -1756,7 +1862,7 @@
 											                                    }
 											                                }
 									                                	]
-									                            	},
+									                            	},*//*
 									                            	{
 																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Pendiente</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
 																		align:'center',
@@ -1785,7 +1891,7 @@
 											                                    }
 											                                }
 									                                	]
-									                            	},
+									                            	},*/
 																	{
 									                                    text: 'ST',
 									                                    dataIndex: 'estado',
@@ -3243,20 +3349,33 @@
 			},
 			getAsesores:function(){
 				var vp_op=Ext.getCmp(cobranza.id+'-txt-estado-filter').getValue();
-            	var vp_nombre=Ext.getCmp(cobranza.id+'-txt-asesores').getValue();
+				var vp_id_age = Ext.getCmp(cobranza.id+'-sol-cmb-agencia-filtro').getValue();
+				var vp_nombre='';
+				var vp_id_asesor=0;
+				var vp_fecha = Ext.getCmp(cobranza.id+'-sol-date-fecha-cobranza').getRawValue();
+				var vp_doc_dni ='';
+				if(vp_op=='C'){
+					vp_id_asesor=Ext.getCmp(cobranza.id+'-txt-asesores').getValue();
+				}
+				if(vp_op=='N'){
+            		vp_nombre=Ext.getCmp(cobranza.id+'-txt-asesores').getValue();
+            	}
+            	if(vp_op=='D'){
+            		vp_doc_dni=Ext.getCmp(cobranza.id+'-txt-asesores').getValue();
+            	}
 		        Ext.getCmp(cobranza.id+'-grid-asesores').getStore().removeAll();
 				Ext.getCmp(cobranza.id+'-grid-asesores').getStore().load(
-	                {params: {vp_op:vp_op,vp_nombre:vp_nombre},
+	                {params: {vp_op:'A',vp_id_age:vp_id_age,vp_id_asesor:vp_id_asesor,vp_fecha:vp_fecha,vp_nombre:vp_nombre,vp_doc_dni:vp_doc_dni},
 	                callback:function(){
 	                	//Ext.getCmp(asesores.id+'-form').el.unmask();
 	                }
 	            });
 			},
-			getListSolicitudes:function(vp_id){
+			getListSolicitudes:function(vp_id_asesor,vp_id_age,vp_fecha){
 				//var vp_op=Ext.getCmp(cobranza.id+'-txt-estado-filter').getValue();
 		        Ext.getCmp(cobranza.id+'-grid-solicitudes').getStore().removeAll();
 				Ext.getCmp(cobranza.id+'-grid-solicitudes').getStore().load(
-	                {params: {vp_id_asesor:vp_id},
+	                {params: {vp_op:'C',vp_id_asesor:vp_id_asesor,vp_id_age:vp_id_age,vp_fecha:vp_fecha},
 	                callback:function(){
 	                	//Ext.getCmp(asesores.id+'-form').el.unmask();
 	                }
@@ -3264,43 +3383,100 @@
 	            //var objv = Ext.getCmp(cobranza.id+'-list-solicitudes');
 				//cobranza.getReload(objv,{VP_T_DOC:'P',VP_ID_PER:data.id_per,VP_DOC:''});
 			},
+			getCreditosGestionDiaria:function(){
+				var vp_id_age = Ext.getCmp(cobranza.id+'-sol-cmb-agencia-filtro').getValue();
+				var vp_fecha = Ext.getCmp(cobranza.id+'-sol-date-fecha-cobranza').getRawValue();
+
+				Ext.getCmp(cobranza.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
+                //scanning.getLoader(true);
+                Ext.Ajax.request({
+                    url:cobranza.url+'getCreditosGestionDiaria/',
+                    params:{
+						vp_id_age		:vp_id_age,
+						vp_fecha 		:vp_fecha
+                    },
+                    timeout: 30000000,
+                    success: function(response, options){
+                        Ext.getCmp(cobranza.id+'-win-form').el.unmask();
+                        var res = Ext.JSON.decode(response.responseText);
+                        console.log(res);
+                        //control.getLoader(false);
+                        cobranza.getAsesores();
+                        try{
+                        	var data = res.data[0];
+							Ext.getCmp(cobranza.id+'-txt-esperado-cuotas').setValue(data.tot_cuotas);
+							Ext.getCmp(cobranza.id+'-txt-esperado-valor-cuotas').setValue(data.valor_cuota);
+							Ext.getCmp(cobranza.id+'-txt-esperado-mora').setValue(data.mora);
+							Ext.getCmp(cobranza.id+'-txt-esperado-monto').setValue(data.total);
+							Ext.getCmp(cobranza.id+'-txt-esperado-cant-solicitado').setValue(data.solicitudes);
+							Ext.getCmp(cobranza.id+'-txt-esperado-monto-solicitado').setValue(data.sol_monto);
+							Ext.getCmp(cobranza.id+'-txt-esperado-cuotas-cobradas').setValue(data.tot_cuotas_cobradas);
+							Ext.getCmp(cobranza.id+'-txt-esperado-cobrado').setValue(data.pagado);
+
+                        }catch(a){
+
+                        }
+                    }
+                });
+			},
 			setDataSolicitud:function(index){
 				var grid= Ext.getCmp(cobranza.id+'-grid-solicitudes');
 				var records = grid.getStore().getAt(index);
 				var data =records.data;
 
-				Ext.getCmp(cobranza.id+'-sol-date-fecha-solicitud').setValue(data.fecha_sol);
-				Ext.getCmp(cobranza.id+'-sol-cmb-agencia').setValue(data.id_age);
-				
-				var obja = Ext.getCmp(cobranza.id+'-sol-cmb-asesor');
-				cobranza.getReload(obja,{vp_cod_age:data.id_age});
+				Ext.getCmp(cobranza.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
+                //scanning.getLoader(true);
+                Ext.Ajax.request({
+                    url:cobranza.url+'getCreditoRecord/',
+                    params:{
+						vp_id_creditos		:data.id_creditos
+                    },
+                    timeout: 30000000,
+                    success: function(response, options){
+                        Ext.getCmp(cobranza.id+'-win-form').el.unmask();
+                        var res = Ext.JSON.decode(response.responseText);
+                        console.log(res);
+                        //control.getLoader(false);
 
-				Ext.getCmp(cobranza.id+'-sol-txt-id-per').setValue(data.id_per);
-				Ext.getCmp(cobranza.id+'-sol-cmb-asesor').setValue(data.id_asesor);
+                        try{
+                        	var data = res.data[0];
+                        	Ext.getCmp(cobranza.id+'-sol-date-fecha-solicitud').setValue(data.fecha_sol);
+							Ext.getCmp(cobranza.id+'-sol-cmb-agencia').setValue(data.id_age);
+							
+							var obja = Ext.getCmp(cobranza.id+'-sol-cmb-asesor');
+							cobranza.getReload(obja,{vp_cod_age:data.id_age});
+
+							Ext.getCmp(cobranza.id+'-sol-txt-id-per').setValue(data.id_per);
+							Ext.getCmp(cobranza.id+'-sol-cmb-asesor').setValue(data.id_asesor);
 
 
-				Ext.getCmp(cobranza.id+'-sol-cmb-motivo').setValue(data.id_motivo);
-				Ext.getCmp(cobranza.id+'-sol-txt-id-solicitud').setValue(data.id_creditos);
-				Ext.getCmp(cobranza.id+'-sol-txt-nro-solicitud').setValue(data.nro_solicitud);
-				Ext.getCmp(cobranza.id+'-sol-cmb-moneda').setValue(data.moneda);
-				Ext.getCmp(cobranza.id+'-sol-txt-monto').setValue(data.monto_solicitado);
-				Ext.getCmp(cobranza.id+'-sol-txt-tipo-cliente').setValue(data.tipo_cliente);
-				Ext.getCmp(cobranza.id+'-sol-cmb-excepcion').setValue(data.excepcion);
-				Ext.getCmp(cobranza.id+'-sol-txt-import-aprobado').setValue(data.monto_aprobado);
-				Ext.getCmp(cobranza.id+'-sol-txt-numero-cuotas').setValue(data.nro_cuotas);
-				Ext.getCmp(cobranza.id+'-sol-txt-interes').setValue(data.interes);
-				Ext.getCmp(cobranza.id+'-sol-txt-mora').setValue(data.mora);
+							Ext.getCmp(cobranza.id+'-sol-cmb-motivo').setValue(data.id_motivo);
+							Ext.getCmp(cobranza.id+'-sol-txt-id-solicitud').setValue(data.id_creditos);
+							Ext.getCmp(cobranza.id+'-sol-txt-nro-solicitud').setValue(data.nro_solicitud);
+							Ext.getCmp(cobranza.id+'-sol-cmb-moneda').setValue(data.moneda);
+							Ext.getCmp(cobranza.id+'-sol-txt-monto').setValue(data.monto_solicitado);
+							Ext.getCmp(cobranza.id+'-sol-txt-tipo-cliente').setValue(data.tipo_cliente);
+							Ext.getCmp(cobranza.id+'-sol-cmb-excepcion').setValue(data.excepcion);
+							Ext.getCmp(cobranza.id+'-sol-txt-import-aprobado').setValue(data.monto_aprobado);
+							Ext.getCmp(cobranza.id+'-sol-txt-numero-cuotas').setValue(data.nro_cuotas);
+							Ext.getCmp(cobranza.id+'-sol-txt-interes').setValue(data.interes);
+							Ext.getCmp(cobranza.id+'-sol-txt-mora').setValue(data.mora);
 
-				Ext.getCmp(cobranza.id+'-sol-txt-tot_credito').setValue(data.tot_credito);
-				Ext.getCmp(cobranza.id+'-sol-txt-tot_pagado').setValue(data.tot_pagado);
-				Ext.getCmp(cobranza.id+'-sol-txt-tot_saldo').setValue(data.tot_saldo);
+							Ext.getCmp(cobranza.id+'-sol-txt-tot_credito').setValue(data.tot_credito);
+							Ext.getCmp(cobranza.id+'-sol-txt-tot_pagado').setValue(data.tot_pagado);
+							Ext.getCmp(cobranza.id+'-sol-txt-tot_saldo').setValue(data.tot_saldo);
 
-				Ext.getCmp(cobranza.id+'-sol-date-fecha-1-letra').setValue(data.fecha_1ra_letra);
-				Ext.getCmp(cobranza.id + '-txt-nota').setValue(data.nota);
+							Ext.getCmp(cobranza.id+'-sol-date-fecha-1-letra').setValue(data.fecha_1ra_letra);
+							Ext.getCmp(cobranza.id + '-txt-nota').setValue(data.nota);
 
-				
-				var objc = Ext.getCmp(cobranza.id + '-grid-cuotas');
-				cobranza.getReload(objc,{VP_CODIGO:data.id_creditos});
+							
+							var objc = Ext.getCmp(cobranza.id + '-grid-cuotas');
+							cobranza.getReload(objc,{VP_CODIGO:data.id_creditos});
+                        }catch(a){
+
+                        }
+                    }
+                });
 			},
 			setCollapse:function(){
 				/*var W = Ext.getCmp(inicio.id + '-contenedor').getWidth();

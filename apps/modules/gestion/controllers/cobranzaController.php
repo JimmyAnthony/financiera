@@ -73,6 +73,57 @@ class cobranzaController extends AppController {
         header('Content-Type: application/json');
         return $this->response($data);
     }
+    
+    public function getCreditoRecord($p){
+        $rs = $this->objDatos->SP_CREDITOS_RECORD($p);
+        //var_export($rs);
+        $array = array();
+        $lote = 0;
+        foreach ($rs as $index => $value){
+            $value_['id_creditos'] = intval($value['id_creditos']);
+            $value_['nro_solicitud'] = trim($value['nro_solicitud']);
+            $value_['id_age'] = trim($value['id_age']);
+            //substr(trim($value['fec_ingreso']),0,10)
+            $value_['id_per'] = trim($value['id_per']);
+            $value_['nombre'] =utf8_encode(trim($value['nombres'])).', '.utf8_encode(trim($value['ape_pat'])).' '.utf8_encode(trim($value['ape_mat']));
+            $value_['id_garante'] = trim($value['id_garante']);
+            $value_['id_asesor'] =trim($value['id_asesor']);
+            $value_['moneda'] = trim($value['moneda']);
+            $value_['monto_solicitado'] = trim($value['monto_solicitado']);
+            $value_['tipo_cliente'] = trim($value['tipo_cliente']);
+            $value_['excepcion'] = trim($value['excepcion']);
+            $value_['nro_cuotas'] = trim($value['nro_cuotas']);
+            $value_['interes'] = trim($value['interes']);
+            $value_['mora'] = trim($value['mora']);
+            $value_['fecha_1ra_letra'] = trim($value['fecha_1ra_letra']);
+            $value_['monto_aprobado'] = trim($value['monto_aprobado']);
+            $value_['tot_credito'] = trim($value['tot_credito']);
+            $value_['tot_acumulado'] = trim($value['tot_acumulado']);
+            $value_['tot_ganancia'] = trim($value['tot_ganancia']);
+            $value_['tot_pagado'] = trim($value['tot_pagado']); 
+            $value_['tot_interes'] = trim($value['tot_interes']);
+            $value_['tot_mora'] = trim($value['tot_mora']);
+            $value_['tot_neto'] = trim($value['tot_neto']);
+            $value_['tot_saldo'] = trim($value['tot_saldo']);
+            $value_['id_motivo'] = trim($value['id_motivo']);
+            $value_['estado'] = trim($value['estado']);
+            $value_['fecha_sol'] = trim($value['fecha_sol']);
+            $value_['nota'] = utf8_encode(trim($value['nota']));
+            $value_['fecha_mod'] = trim($value['fecha_mod']);
+            $value_['enviado'] = trim($value['enviado']);
+            $value_['flag'] = trim($value['flag']);
+            $array[]=$value_;
+        }
+
+        $data = array(
+            'success' => true,
+            'error'=>0,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
     public function get_list_creditos_detalle($p){
         $rs = $this->objDatos->SP_CREDITOS_DETALLE_LIST($p);
         //var_export($rs);
@@ -424,37 +475,70 @@ class cobranzaController extends AppController {
         //$p['vp_menu_id'] = 0;
         // $this->objServicios = $this->objDatos->usr_sis_servicios($p);
 
-        $this->arrayMenu = $this->objDatos->SP_ASESORES_LIST($p);
+        $this->arrayMenu = $this->objDatos->SP_ASESORES_COBROS_LIST($p);
         //var_export($this->arrayMenu);
         $array = array();
         foreach ($this->arrayMenu as $index => $value){
                 //$p['id_asesor'] = intval($value['id_asesor']);
+                $value_['id_age'] =intval($value['id_age']);
+                $value_['fecha'] =trim($value['fecha']);
                 $value_['id_asesor'] = intval($value['id_asesor']);
+                $value_['id_creditos'] = intval($value['id_creditos']);
                 $value_['icono'] = 'if_person_3_1376034.png';
                 $value_['nombres'] =utf8_encode(trim($value['nombres']));
                 $value_['ape_pat'] =utf8_encode(trim($value['ape_pat']));
                 $value_['ape_mat'] =utf8_encode(trim($value['ape_mat']));
                 $value_['nombre'] =utf8_encode(trim($value['nombres'])).','.utf8_encode(trim($value['ape_pat'])).' '.utf8_encode(trim($value['ape_mat']));
                 $value_['dni'] =trim($value['dni']);
-                $value_['numero'] =trim($value['numero']);
-
-                $value_['id_dir'] =trim($value['id_dir']);
-                $value_['dir_direccion'] =utf8_encode(trim($value['dir_direccion']));
-                $value_['dir_numero'] =utf8_encode(trim($value['dir_numero']));
-                $value_['dir_mz'] =utf8_encode(trim($value['dir_mz']));
-                $value_['dir_lt'] =utf8_encode(trim($value['dir_lt']));
-                $value_['dir_dpto'] =utf8_encode(trim($value['dir_dpto']));
-                $value_['dir_interior'] =utf8_encode(trim($value['dir_interior']));
-                $value_['dir_urb'] =utf8_encode(trim($value['dir_urb']));
-                $value_['dir_referencia'] =utf8_encode(trim($value['dir_referencia']));
-                $value_['fecha'] =trim($value['fecha']);
-                $value_['cod_ubi'] =utf8_encode(trim($value['cod_ubi']));
-                $value_['clase'] = $value['flag']=='A'?'databox_list_menu':'databox_list_menu_disabled';
+                
                 $value_['solicitudes'] =trim($value['solicitudes']);
                 $value_['sol_monto'] =trim($value['sol_monto']);
-                $value_['flag'] =trim($value['flag']);
-                $value_['tab'] =trim($value['tab']);
-                //$value_['permisos'] = $this->objDatos->usr_sis_servicios($p);
+
+                $value_['tot_cuotas'] =trim($value['tot_cuotas']);
+                $value_['valor_cuota'] =trim($value['valor_cuota']);
+                $value_['mora'] =trim($value['mora']);
+                $value_['total'] =trim($value['total']);
+                $value_['pagado'] =trim($value['pagado']);
+                $value_['saldo_cuota'] =trim($value['saldo_cuota']);
+                $value_['efectivo'] =trim($value['efectivo']);
+                $array[]=$value_;
+        }
+        $data = array(
+            'success' => true,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+    public function getCreditosGestionDiaria($p){
+        $this->arrayMenu = $this->objDatos->SP_CREDITOS_GESTION_DIARIO($p);
+        //var_export($this->arrayMenu);
+        $array = array();
+        foreach ($this->arrayMenu as $index => $value){
+                //$p['id_asesor'] = intval($value['id_asesor']);
+                $value_['id_age'] =intval($value['id_age']);
+                $value_['fecha'] =trim($value['fecha']);
+                $value_['id_asesor'] = intval($value['id_asesor']);
+                $value_['id_creditos'] = intval($value['id_creditos']);
+                $value_['icono'] = 'if_person_3_1376034.png';
+                $value_['nombres'] =utf8_encode(trim($value['nombres']));
+                $value_['ape_pat'] =utf8_encode(trim($value['ape_pat']));
+                $value_['ape_mat'] =utf8_encode(trim($value['ape_mat']));
+                $value_['nombre'] =utf8_encode(trim($value['nombres'])).','.utf8_encode(trim($value['ape_pat'])).' '.utf8_encode(trim($value['ape_mat']));
+                $value_['dni'] =trim($value['dni']);
+                
+                $value_['solicitudes'] =trim($value['solicitudes']);
+                $value_['sol_monto'] =trim($value['sol_monto']);
+
+                $value_['tot_cuotas'] =trim($value['tot_cuotas']);
+                $value_['valor_cuota'] =trim($value['valor_cuota']);
+                $value_['mora'] =trim($value['mora']);
+                $value_['total'] =trim($value['total']);
+                $value_['tot_cuotas_cobradas'] =trim($value['tot_cuotas_cobradas']);
+                $value_['pagado'] =trim($value['pagado']);
+                $value_['saldo_cuota'] =trim($value['saldo_cuota']);
+                $value_['efectivo'] =trim($value['efectivo']);
                 $array[]=$value_;
         }
         $data = array(

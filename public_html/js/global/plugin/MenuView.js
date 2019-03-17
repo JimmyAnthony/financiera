@@ -108,7 +108,7 @@ Ext.define('Ext.global.plugin.MenuView',{
                                 var menu_class = val.menu_class == null || val.menu_class == '' ? '' : val.menu_class;
                                 if(val.nivel!=0)
                                     if(val.menu_estado!=0)
-                                        win.show({vurl: val.url, id_menu: idx, class: menu_class});//obj.getItemId().split('-')[1]  
+                                        win.show({vurl: val.url, id_menu: record.get('id_menu'), class: menu_class});//obj.getItemId().split('-')[1]  
                             }
                         }
                     }

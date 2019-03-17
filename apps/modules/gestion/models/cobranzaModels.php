@@ -58,6 +58,15 @@ class cobranzaModels extends Adodb {
         $array = parent::ExecuteSPArray();
         return $array;
     }
+    public function SP_CREDITOS_RECORD($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_CREDITOS_RECORD');
+        parent::SetParameterSP($p['vp_id_creditos'], 'int');//19 
+        parent::SetParameterSP(USR_ID, 'int');//19
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
     public function SP_CREDITOS_COBROS($p){
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_CREDITOS_COBROS');
@@ -222,10 +231,20 @@ class cobranzaModels extends Adodb {
         parent::ConnectionOpen($this->dsn, 'SP_ASESORES_COBROS_LIST');
         parent::SetParameterSP($p['vp_op'], 'varchar');
         parent::SetParameterSP($p['vp_id_age'], 'int');
+        parent::SetParameterSP($p['vp_id_asesor'], 'int');
         parent::SetParameterSP($p['vp_fecha'], 'varchar');
         parent::SetParameterSP($p['vp_doc_dni'], 'varchar');
-        parent::SetParameterSP($p['vp_fecha'], 'varchar');
         parent::SetParameterSP($p['vp_nombres'], 'varchar');
+        parent::SetParameterSP(USR_ID, 'int');//141
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+    public function SP_CREDITOS_GESTION_DIARIO($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_CREDITOS_GESTION_DIARIO');
+        parent::SetParameterSP($p['vp_id_age'], 'int');
+        parent::SetParameterSP($p['vp_fecha'], 'varchar');
         parent::SetParameterSP(USR_ID, 'int');//141
         // echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();

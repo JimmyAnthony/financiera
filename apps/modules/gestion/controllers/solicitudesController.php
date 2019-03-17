@@ -4,7 +4,7 @@
  * @version 2.0
  */
 
-class creditosController extends AppController {
+class solicitudesController extends AppController {
 
     private $objDatos;
     private $arrayMenu;
@@ -15,11 +15,11 @@ class creditosController extends AppController {
          */
         $this->valida();
 
-        $this->objDatos = new creditosModels();
+        $this->objDatos = new solicitudesModels();
     }
 
     public function index($p){        
-        $this->view('creditos/form_index.php', $p);
+        $this->view('solicitudes/form_index.php', $p);
     }
     public function get_list_client_creditos($p){
         $rs = $this->objDatos->SP_CREDITOS_CLIENTE_LIST($p);
@@ -66,58 +66,7 @@ class creditosController extends AppController {
         header('Content-Type: application/json');
         return $this->response($data);
     }
-    
-    public function getListSolicitudes($p){
-        $rs = $this->objDatos->SP_CREDITOS_LIST($p);
-        //var_export($rs);
-        $array = array();
-        $lote = 0;
-        foreach ($rs as $index => $value){
-            $value_['id_creditos'] = intval($value['id_creditos']);
-            $value_['nro_solicitud'] = trim($value['nro_solicitud']);
-            $value_['id_age'] = trim($value['id_age']);
-            //substr(trim($value['fec_ingreso']),0,10)
-            $value_['id_per'] = trim($value['id_per']);
-            $value_['nombre'] =utf8_encode(trim($value['nombres'])).', '.utf8_encode(trim($value['ape_pat'])).' '.utf8_encode(trim($value['ape_mat']));
-            $value_['id_garante'] = trim($value['id_garante']);
-            $value_['id_asesor'] =trim($value['id_asesor']);
-            $value_['moneda'] = trim($value['moneda']);
-            $value_['doc_dni'] =trim($value['doc_dni']);
-            $value_['usuario'] =trim($value['usuario']);
-            $value_['fuente'] =trim($value['fuente'])=='W'?'WEB':'Móvil';
-            $value_['monto_solicitado'] = trim($value['monto_solicitado']);
-            $value_['tipo_cliente'] = trim($value['tipo_cliente']);
-            $value_['excepcion'] = trim($value['excepcion']);
-            $value_['nro_cuotas'] = trim($value['nro_cuotas']);
-            $value_['interes'] = trim($value['interes']);
-            $value_['mora'] = trim($value['mora']);
-            $value_['fecha_1ra_letra'] = trim($value['fecha_1ra_letra']);
-            $value_['monto_aprobado'] = trim($value['monto_aprobado']);
-            $value_['tot_pagado'] = trim($value['tot_pagado']);
-            $value_['tot_interes'] = trim($value['tot_interes']);
-            $value_['tot_mora'] = trim($value['tot_mora']);
-            $value_['tot_saldo'] = trim($value['tot_saldo']);
-            $value_['id_motivo'] = trim($value['id_motivo']);
-            $value_['estado'] = trim($value['estado']);
-            $value_['fecha_sol'] = trim($value['fecha_sol']);
-            $value_['nombre_motivo'] = utf8_encode(trim($value['nombre_motivo']));
-            $value_['nota'] = utf8_encode(trim($value['nota']));
-            $value_['fecha_mod'] = trim($value['fecha_mod']);
-            $value_['fecha_creado'] = trim($value['fecha_creado']);
-            $value_['enviado'] = trim($value['enviado']);
-            $value_['flag'] = trim($value['flag']);
-            $array[]=$value_;
-        }
 
-        $data = array(
-            'success' => true,
-            'error'=>0,
-            'total' => count($array),
-            'data' => $array
-        );
-        header('Content-Type: application/json');
-        return $this->response($data);
-    }
     public function get_list_creditos_detalle($p){
         $rs = $this->objDatos->SP_CREDITOS_DETALLE_LIST($p);
         //var_export($rs);
@@ -275,7 +224,7 @@ class creditosController extends AppController {
                 $value_['ape_mat'] =utf8_encode(trim($value['ape_mat']));
                 $value_['nombres'] =utf8_encode(trim($value['nombres']));
                 $value_['sexo'] =trim($value['sexo']);
-                
+                $value_['doc_dni'] =trim($value['doc_dni']);
 
                 $value_['doc_dni'] =trim($value['doc_dni']);
                 $value_['doc_ce'] =trim($value['doc_ce']);

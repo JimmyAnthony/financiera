@@ -982,7 +982,8 @@
 			                                                labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 						                            		fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
 			                                                width: '100%',
-			                                                anchor:'100%'
+			                                                anchor:'100%',
+			                                                maxValue:new Date()
 			                                            }
 			                                        ]
 			                                    },
