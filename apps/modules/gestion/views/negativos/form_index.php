@@ -1,10 +1,10 @@
 <script type="text/javascript">
 	var tab = Ext.getCmp(inicio.id+'-tabContent');
-	if(!Ext.getCmp('creditos-tab')){
-		var creditos = {
-			id:'creditos',
+	if(!Ext.getCmp('negativos-tab')){
+		var negativos = {
+			id:'negativos',
 			id_menu:'<?php echo $p["id_menu"];?>',
-			url:'/gestion/creditos/',
+			url:'/gestion/negativos/',
 			url_ct:'/gestion/centroTrabajo/',
 			url_per:'/gestion/persona/',
 			opcion:'I',
@@ -15,9 +15,9 @@
 			init:function(){
 				Ext.tip.QuickTipManager.init();
 
-				var store_creditos = Ext.create('Ext.data.Store',{
+				var store_negativos = Ext.create('Ext.data.Store',{
 	                fields: [
-	                    {name: 'id_creditos', type: 'string'},
+	                    {name: 'id_negativos', type: 'string'},
 	                    {name: 'nro_solicitud', type: 'string'},
 	                    {name: 'id_age', type: 'string'},
 	                    {name: 'id_per', type: 'string'},                    
@@ -49,7 +49,7 @@
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: creditos.url+'get_list_client_creditos/',
+	                    url: negativos.url+'get_list_client_negativos/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -58,9 +58,9 @@
 	                listeners:{
 	                    load: function(obj, records, successful, opts){
 	                    	try{
-		                        if(creditos.idx!=-1){
-									var grid=Ext.getCmp(creditos.id+'-list-solicitudes');
-									grid.getSelectionModel().select(creditos.idx);
+		                        if(negativos.idx!=-1){
+									var grid=Ext.getCmp(negativos.id+'-list-solicitudes');
+									grid.getSelectionModel().select(negativos.idx);
 								}
 							}catch(a){
 
@@ -69,7 +69,7 @@
 	                }
 	            });
 
-	            var store_creditos_detalle = Ext.create('Ext.data.Store',{
+	            var store_negativos_detalle = Ext.create('Ext.data.Store',{
 	                fields: [
 	                    {name: 'id_det_credito', type: 'string'},
 	                    {name: 'id_credito', type: 'string'},
@@ -95,7 +95,7 @@
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: creditos.url+'get_list_creditos_detalle/',
+	                    url: negativos.url+'get_list_negativos_detalle/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -126,13 +126,13 @@
 	                    {name: 'shi_logo', type: 'string'},
 	                    {name: 'fec_ingreso', type: 'string'},                    
 	                    {name: 'shi_estado', type: 'string'},
-	                    {name: 'id_creditos', type: 'string'},
+	                    {name: 'id_negativos', type: 'string'},
 	                    {name: 'fecha_actual', type: 'string'}
 	                ],
 	                autoLoad:true,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: creditos.url+'get_list_shipper/',
+	                    url: negativos.url+'get_list_shipper/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -153,7 +153,7 @@
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: creditos.url+'get_list_contratos/',
+	                    url: negativos.url+'get_list_contratos/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -191,7 +191,7 @@
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: creditos.url+'get_ocr_plantillas/',
+	                    url: negativos.url+'get_ocr_plantillas/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -224,7 +224,7 @@
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: creditos.url+'get_ocr_trazos/',
+	                    url: negativos.url+'get_ocr_trazos/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -276,7 +276,6 @@
 			    });
 
 			    var myDataEstadoSol = [
-			    	['L','(TODOS)'],
 					['S','Solicitado'],
 					['A','Aprobado'],
 				    ['X','Anulado'],
@@ -305,7 +304,7 @@
 				    ['C','Casado'],
 				    ['V','Viudo']
 				];
-				creditos.store_estado_civil = Ext.create('Ext.data.ArrayStore', {
+				negativos.store_estado_civil = Ext.create('Ext.data.ArrayStore', {
 			        storeId: 'estado',
 			        autoLoad: true,
 			        data: myDataEstadoCivil,
@@ -316,7 +315,7 @@
 					['CE','Celular'],
 				    ['FI','Fijo']
 				];
-				creditos.store_tipo_tel = Ext.create('Ext.data.ArrayStore', {
+				negativos.store_tipo_tel = Ext.create('Ext.data.ArrayStore', {
 			        storeId: 'tel',
 			        autoLoad: true,
 			        data: myDataTipoTel,
@@ -331,14 +330,14 @@
 				    ['FI','Fijo'],
 				    ['OT','Otros']
 				];
-				creditos.store_linea_tel = Ext.create('Ext.data.ArrayStore', {
+				negativos.store_linea_tel = Ext.create('Ext.data.ArrayStore', {
 			        storeId: 'tel',
 			        autoLoad: true,
 			        data: myDataLineaTel,
 			        fields: ['code', 'name']
 			    });
 
-			    creditos.store_ubigeo = Ext.create('Ext.data.Store',{
+			    negativos.store_ubigeo = Ext.create('Ext.data.Store',{
 	                fields: [
 	                    {name: 'cod_ubi', type: 'string'},
 	                    {name: 'Distrito', type: 'string'},
@@ -352,7 +351,7 @@
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: creditos.url+'get_list_ubigeo/',
+	                    url: negativos.url+'get_list_ubigeo/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -365,7 +364,7 @@
 	                }
 	            });
 
-	            creditos.store_ubigeo2 = Ext.create('Ext.data.Store',{
+	            negativos.store_ubigeo2 = Ext.create('Ext.data.Store',{
 	                fields: [
 	                    {name: 'cod_ubi', type: 'string'},
 	                    {name: 'Distrito', type: 'string'},
@@ -379,7 +378,7 @@
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: creditos.url+'get_list_ubigeo/',
+	                    url: negativos.url+'get_list_ubigeo/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -392,7 +391,7 @@
 	                }
 	            });
 
-	            creditos.store_ubigeo3 = Ext.create('Ext.data.Store',{
+	            negativos.store_ubigeo3 = Ext.create('Ext.data.Store',{
 	                fields: [
 	                    {name: 'cod_ubi', type: 'string'},
 	                    {name: 'Distrito', type: 'string'},
@@ -406,7 +405,7 @@
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: creditos.url+'get_list_ubigeo/',
+	                    url: negativos.url+'get_list_ubigeo/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -434,14 +433,14 @@
 			        fields: ['code', 'name']
 			    });
 
-			    var myDatacreditos = [
+			    var myDatanegativos = [
 					[1,'Activo'], 
 				    [0,'Inactivo']
 				];
-				var store_estado_creditos = Ext.create('Ext.data.ArrayStore', {
+				var store_estado_negativos = Ext.create('Ext.data.ArrayStore', {
 			        storeId: 'perfil',
 			        autoLoad: true,
-			        data: myDatacreditos,
+			        data: myDatanegativos,
 			        fields: ['code', 'name']
 			    });
 
@@ -546,7 +545,7 @@
 		                            '<div class="list_grid_as__menu_bar">',
 		                                
 		                                '<div class="list_grid_as__menu_title">',
-		                                    '<img src="/images/icon/Trash.png" onClick="creditos.setDeleteDir({id_dir});"/>',
+		                                    '<img src="/images/icon/Trash.png" onClick="negativos.setDeleteDir({id_dir});"/>',
 		                                '</div>',
 		                            '</div>',
 		                        '</div>',*/
@@ -634,7 +633,7 @@
 		            autoLoad:false,
 		            proxy:{
 		                type: 'ajax',
-		                url: creditos.url+'getListPersona/',
+		                url: negativos.url+'getListPersona/',
 		                reader:{
 		                    type: 'json',
 		                    rootProperty: 'data'
@@ -674,7 +673,7 @@
 		            autoLoad:false,
 		            proxy:{
 		                type: 'ajax',
-		                url: creditos.url+'getListPersona/',
+		                url: negativos.url+'getListPersona/',
 		                reader:{
 		                    type: 'json',
 		                    rootProperty: 'data'
@@ -760,7 +759,7 @@
 		            autoLoad:false, 
 		            proxy:{
 		                type: 'ajax',
-		                url: creditos.url+'get_list_telefonos/',
+		                url: negativos.url+'get_list_telefonos/',
 		                reader:{
 		                    type: 'json',
 		                    rootProperty: 'data'
@@ -792,7 +791,7 @@
 		            autoLoad:false, 
 		            proxy:{
 		                type: 'ajax',
-		                url: creditos.url+'getListDirecciones/',
+		                url: negativos.url+'getListDirecciones/',
 		                reader:{
 		                    type: 'json',
 		                    rootProperty: 'data'
@@ -828,7 +827,7 @@
 	                autoLoad:true,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: creditos.url+'get_list_agencias/',
+	                    url: negativos.url+'get_list_agencias/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -853,7 +852,7 @@
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: creditos.url+'get_list_asesores/',
+	                    url: negativos.url+'get_list_asesores/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -876,7 +875,7 @@
 	                autoLoad:true,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: creditos.url+'get_list_motivos/',
+	                    url: negativos.url+'get_list_motivos/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -903,7 +902,7 @@
 	                autoLoad:false,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: creditos.url+'get_list_documentos/',
+	                    url: negativos.url+'get_list_documentos/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -939,7 +938,7 @@
 		            autoLoad:false, 
 		            proxy:{
 		                type: 'ajax',
-		                url: creditos.url_ct+'getListEmpresa/',
+		                url: negativos.url_ct+'getListEmpresa/',
 		                reader:{
 		                    type: 'json',
 		                    rootProperty: 'data'
@@ -955,7 +954,7 @@
 		        });
 
 				tab.add({
-					id:creditos.id+'-win-form',
+					id:negativos.id+'-win-form',
 					border:false,
 					autoScroll:true,
 					closable:true,
@@ -976,7 +975,7 @@
 					items:[
 						{
 							border:false,bodyCls: 'transparent',
-							id:creditos.id+'-border-one',
+							id:negativos.id+'-border-one',
 							layout:'border',
 							items:[
 								//{region:'west',bodyCls: 'transparent',width:'10%'},{region:'east',bodyCls: 'transparent',width:'10%'},
@@ -995,7 +994,7 @@
 						                            border:false,
 						                            xtype: 'uePanelS',
 						                            logo: 'SC',
-						                            title: 'LISTADO DE SOLICITUDES Y CRÉDITOS',
+						                            title: 'LISTADO DE CRÉDITOS EN NEGATIVO',
 						                            legend: 'Panel de Aprobación de Créditos',
 						                            width:1300,
 						                            height:90,
@@ -1011,7 +1010,7 @@
 						                                    	{
 						                                            xtype:'combo',
 						                                            fieldLabel: 'Agencia',
-						                                            id:creditos.id+'-sol-cmb-agencia-filtro',
+						                                            id:negativos.id+'-sol-cmb-agencia-filtro',
 						                                            store: store_agencias,
 						                                            queryMode: 'local',
 						                                            triggerAction: 'all',
@@ -1037,7 +1036,7 @@
 						                                                },
 						                                                select:function(obj, records, eOpts){
 						                                        			//var obja = Ext.getCmp(cierre.id+'-sol-cmb-asesor');
-				                        									//creditos.getReload(obja,{vp_cod_age:obj.getValue()});
+				                        									//negativos.getReload(obja,{vp_cod_age:obj.getValue()});
 						                                                }
 						                                            }
 						                                        },
@@ -1046,7 +1045,7 @@
 										                            fieldLabel: 'DNI',
 										                            bodyStyle: 'background: transparent',
 												                    padding:'0px 5px 0px 5px',
-										                            id:creditos.id+'-txt-cliente',
+										                            id:negativos.id+'-txt-cliente',
 										                            labelWidth:40,
 										                            //readOnly:true,
 										                            //labelAlign:'top',
@@ -1072,7 +1071,7 @@
 										                                specialkey: function(f,e){
                                                                             if(e.getKey() == e.ENTER){
                                                                                 //panel_novedades.buscar_novedad();
-                                                                                creditos.getSolicitudes();
+                                                                                negativos.getSolicitudes();
                                                                             }
                                                                         }
 										                            }
@@ -1086,7 +1085,7 @@
 							                                        items:[
 							                                            {
 																	        xtype: 'radiofield',
-																	        id:creditos.id+'-rd-creado',
+																	        id:negativos.id+'-rd-creado',
 																	        name: 'radio1',
 																	        value: 'radiovalue1',
 																	        labelWidth:0,
@@ -1096,7 +1095,7 @@
 																	    }, 
 																	    {
 																	        xtype: 'radiofield',
-																	        id:creditos.id+'-rd-solicitado',
+																	        id:negativos.id+'-rd-solicitado',
 																	        name: 'radio1',
 																	        value: 'radiovalue2',
 																	        fieldLabel: '',
@@ -1109,13 +1108,14 @@
 							                                    },
 						                                        {
 							                                        width: 180,border:false,
+							                                        hidden:true,
 							                                        //hidden:true,
 							                                        padding:'0px 2px 0px 0px',  
 							                                    	bodyStyle: 'background: transparent',
 							                                        items:[
 							                                            {
 							                                                xtype:'datefield',
-							                                                id:creditos.id+'-txt-fecha-desde',
+							                                                id:negativos.id+'-txt-fecha-desde',
 							                                                fieldLabel:'Fecha desde',
 							                                                labelWidth:80,
 							                                                labelAlign:'right',
@@ -1132,13 +1132,14 @@
 							                                    },
 							                                    {
 							                                        width: 145,border:false,
+							                                        hidden:true,
 							                                        //hidden:true,
 							                                        padding:'0px 2px 0px 0px',  
 							                                    	bodyStyle: 'background: transparent',
 							                                        items:[
 							                                            {
 							                                                xtype:'datefield',
-							                                                id:creditos.id+'-txt-fecha-hasta',
+							                                                id:negativos.id+'-txt-fecha-hasta',
 							                                                fieldLabel:'Hasta',
 							                                                labelWidth:50,
 							                                                labelAlign:'right',
@@ -1152,76 +1153,6 @@
 							                                                maxValue:new Date()
 							                                            }
 							                                        ]
-							                                    },
-						                                        {
-							                                   		width: 140,border:false,
-							                                    	padding:'0px 2px 0px 0px',  
-							                                    	bodyStyle: 'background: transparent',
-							                                 		items:[
-							                                                {
-							                                                    xtype:'combo',
-							                                                    fieldLabel: 'Estado',
-							                                                    id:creditos.id+'-cmb-estado',
-							                                                    store: store_estado_sol,
-							                                                    queryMode: 'local',
-							                                                    triggerAction: 'all',
-							                                                    valueField: 'code',
-							                                                    displayField: 'name',
-							                                                    emptyText: '[Seleccione]',
-							                                                    labelAlign:'right',
-							                                                    //allowBlank: false,
-							                                                    labelWidth: 50,
-							                                                    labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-										                            				fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-							                                                    width:'100%',
-							                                                    anchor:'100%',
-							                                                    //readOnly: true,
-							                                                    listeners:{
-							                                                        afterrender:function(obj, e){
-							                                                            // obj.getStore().load();
-							                                                            Ext.getCmp(creditos.id+'-cmb-estado').setValue('S');
-							                                                        },
-							                                                        select:function(obj, records, eOpts){
-							                                                
-							                                                        }
-							                                                    }
-							                                                }
-							                                 		]
-							                                    },
-						                                        {
-							                                   		width: 140,border:false,
-							                                    	padding:'0px 2px 0px 0px',  
-							                                    	bodyStyle: 'background: transparent',
-							                                 		items:[
-							                                                {
-							                                                    xtype:'combo',
-							                                                    fieldLabel: 'Fuente',
-							                                                    id:creditos.id+'-cmb-fuente',
-							                                                    store: store_fuente,
-							                                                    queryMode: 'local',
-							                                                    triggerAction: 'all',
-							                                                    valueField: 'code',
-							                                                    displayField: 'name',
-							                                                    emptyText: '[Seleccione]',
-							                                                    labelAlign:'right',
-							                                                    //allowBlank: false,
-							                                                    labelWidth: 50,
-							                                                    labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-										                            				fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-							                                                    width:'100%',
-							                                                    anchor:'100%',
-							                                                    //readOnly: true,
-							                                                    listeners:{
-							                                                        afterrender:function(obj, e){
-							                                                            // obj.getStore().load();
-							                                                            Ext.getCmp(creditos.id+'-cmb-fuente').setValue('W');
-							                                                        },
-							                                                        select:function(obj, records, eOpts){
-							                                                
-							                                                        }
-							                                                    }
-							                                                }
-							                                 		]
 							                                    },
 						                                        {
 						                                            width: 70,border:false,
@@ -1242,7 +1173,7 @@
 													                                });*/
 													                            },
 													                            click: function(obj, e){	             	
-						                               					            creditos.getSolicitudes();
+						                               					            negativos.getSolicitudes();
 													                            }
 													                        }
 													                    }
@@ -1262,10 +1193,10 @@
 												{
 							                        xtype: 'grid',
 							                        region:'center',
-							                        id: creditos.id+'-grid-solicitudes', 
+							                        id: negativos.id+'-grid-solicitudes', 
 							                        store: Ext.create('Ext.data.Store',{
 											            fields: [
-											            	{name: 'id_creditos', type: 'string'},
+											            	{name: 'id_negativos', type: 'string'},
 										                    {name: 'nro_solicitud', type: 'string'},
 										                    {name: 'id_age', type: 'string'},
 										                    {name: 'id_per', type: 'string'},
@@ -1276,20 +1207,30 @@
 										                    {name: 'monto_solicitado', type: 'string'},
 										                    {name: 'tipo_cliente', type: 'string'},
 										                    {name: 'excepcion', type: 'string'},
-										                    {name: 'nro_cuotas', type: 'string'},
+										                    //{name: 'nro_cuotas', type: 'string'},
 
 										                    {name: 'interes', type: 'string'},
 										                    {name: 'mora', type: 'string'},
 										                    {name: 'fecha_1ra_letra', type: 'string'},
 										                    {name: 'monto_aprobado', type: 'string'},
-										                    {name: 'tot_pagado', type: 'string'},
+										                    {name: 'tot_credito', type: 'string'},
+										                    {name: 'tot_acumulado', type: 'string'},
+										                    //{name: 'tot_pagado', type: 'string'},
 										                    {name: 'tot_interes', type: 'string'},
-										                    {name: 'tot_mora', type: 'string'},
-										                    {name: 'tot_saldo', type: 'string'},
+										                    //{name: 'tot_mora', type: 'string'},
+										                    //{name: 'tot_saldo', type: 'string'},
 										                    {name: 'id_motivo', type: 'string'},
 										                    {name: 'estado', type: 'string'},
 										                    {name: 'fecha_sol', type: 'string'},
 										                    {name: 'nota', type: 'string'},
+
+										                    {name: 'nro_cuotas', type: 'string'},
+										                    {name: 'valor_cuota', type: 'string'},
+										                    {name: 'tot_mora', type: 'string'},
+										                    {name: 'tot_saldo', type: 'string'},
+										                    {name: 'dias', type: 'string'},
+										                    {name: 'total', type: 'string'},
+										                    {name: 'tot_pagado', type: 'string'},
 
 										                    {name: 'fecha_mod', type: 'string'},
 										                    {name: 'enviado', type: 'string'},
@@ -1298,7 +1239,7 @@
 											            autoLoad:false,
 											            proxy:{
 											                type: 'ajax',
-											                url: creditos.url+'getListSolicitudes/', 
+											                url: negativos.url+'getListSolicitudes/', 
 											                reader:{
 											                    type: 'json',
 											                    rootProperty: 'data'
@@ -1387,13 +1328,13 @@
 							                                    }
 							                                },
 							                                {
-							                                    text: 'Monto Aprobado',
-							                                    dataIndex: 'monto_aprobado',
+							                                    text: 'Motivo',
+							                                    dataIndex: 'nombre_motivo',
 							                                    //loocked : true,
 							                                    //width: 40,
-							                                    //flex:1,
-							                                    width: 100,
-							                                    align: 'right',
+							                                    flex:1,
+							                                    //width: 80,
+							                                    align: 'left',
 							                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 							                                        return value;
 							                                    }
@@ -1411,13 +1352,97 @@
 							                                    }
 							                                },
 							                                {
-							                                    text: 'Motivo',
-							                                    dataIndex: 'nombre_motivo',
+							                                    text: 'Monto Aprobado',
+							                                    dataIndex: 'monto_aprobado',
 							                                    //loocked : true,
 							                                    //width: 40,
-							                                    flex:1,
-							                                    //width: 80,
-							                                    align: 'left',
+							                                    //flex:1,
+							                                    width: 100,
+							                                    align: 'right',
+							                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+							                                        return value;
+							                                    }
+							                                },
+							                                {
+							                                    text: 'Total Crédito',
+							                                    dataIndex: 'tot_credito',
+							                                    //loocked : true,
+							                                    //width: 40,
+							                                    //flex:1,
+							                                    width: 100,
+							                                    align: 'right',
+							                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+							                                        return value;
+							                                    }
+							                                },
+							                                {
+							                                    text: 'Valor Cuotas',
+							                                    dataIndex: 'valor_cuota',
+							                                    //loocked : true,
+							                                    //width: 40,
+							                                    //flex:1,
+							                                    width: 100,
+							                                    align: 'right',
+							                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+							                                        return value;
+							                                    }
+							                                },
+							                                {
+							                                    text: 'Mora',
+							                                    dataIndex: 'tot_mora',
+							                                    //loocked : true,
+							                                    //width: 40,
+							                                    //flex:1,
+							                                    width: 80,
+							                                    align: 'center',
+							                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+							                                        return value;
+							                                    }
+							                                },
+							                                {
+							                                    text: 'Total',
+							                                    dataIndex: 'total',
+							                                    //loocked : true,
+							                                    //width: 40,
+							                                    //flex:1,
+							                                    width: 80,
+							                                    align: 'center',
+							                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+							                                        return value;
+							                                    }
+							                                },/*
+							                                {
+							                                    text: 'Saldo',
+							                                    dataIndex: 'tot_saldo',
+							                                    //loocked : true,
+							                                    //width: 40,
+							                                    //flex:1,
+							                                    width: 80,
+							                                    align: 'center',
+							                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+							                                        return value;
+							                                    }
+							                                },*/
+							                                {
+							                                    text: 'Días de Atrazo',
+							                                    dataIndex: 'dias',
+							                                    //loocked : true,
+							                                    //width: 40,
+							                                    //flex:1,
+							                                    width: 80,
+							                                    align: 'center',
+							                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+							                                        return value;
+							                                    }
+							                                },
+							                                {
+							                                    text: 'Pagado',
+							                                    dataIndex: 'tot_pagado',
+							                                    //loocked : true,
+							                                    //width: 40,
+							                                    //flex:1,
+							                                    width: 80,
+							                                    align: 'center',
 							                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 							                                        return value;
 							                                    }
@@ -1445,7 +1470,7 @@
 							                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 							                                        return value;
 							                                    }
-							                                },
+							                                },/*
 							                                {
 							                                    text: 'Usuario',
 							                                    dataIndex: 'usuario',
@@ -1469,7 +1494,7 @@
 							                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 							                                        return value;
 							                                    }
-							                                },
+							                                },*/
 															{
 							                                    text: 'Estado',
 							                                    dataIndex: 'estado',
@@ -1500,13 +1525,13 @@
 							                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 							                                        //console.log(record);
 							                                        var estado = 'panasonic.png';
-							                                        creditos.index=rowIndex;
-							                                        var fun = "creditos.setDataSolicitudX("+rowIndex+")";
+							                                        negativos.index=rowIndex;
+							                                        var fun = "negativos.setDataSolicitudX("+rowIndex+")";
 							                                        
 							                                        metaData.style = "padding: 0px; margin: 0px";
 							                                        return global.permisos({
 							                                            type: 'link',
-							                                            id_menu: creditos.id_menu,
+							                                            id_menu: negativos.id_menu,
 							                                            icons:[
 							                                                {id_serv: 2, img: estado, qtip: 'Gestionar.', js: fun}
 
@@ -1531,8 +1556,8 @@
 							                            	//scanning.setImageFile(record.get('path'),record.get('file'));
 							                            	//cobranza.getListSolicitudes(record.get('id_asesor'));
 							                            	//var data = record.data;
-							                            	//creditos.index=index;
-							                            	//creditos.setDataSolicitud(creditos.index);
+							                            	//negativos.index=index;
+							                            	//negativos.setDataSolicitud(negativos.index);
 							                            }
 							                        }
 							                    }
@@ -1544,7 +1569,7 @@
 						},
 						{
 							border:false,
-							id:creditos.id+'-border-two',
+							id:negativos.id+'-border-two',
 						    layout:'border',
 							items:[
 								{
@@ -1566,14 +1591,14 @@
 														{
 															region:'north',
 															height:220,
-															id: creditos.id + '-photo-center',
+															id: negativos.id + '-photo-center',
 															border:false,
 															layout:'fit',
 															bodyStyle: 'background: transparent',
 															items:[
 																{
 											                        //layout:'hbox',
-											                        id: creditos.id + '-photo-person',
+											                        id: negativos.id + '-photo-person',
 											                        bodyStyle: 'background: transparent',
 																	padding:'5px 5px 5px 5px',
 																	//height:70,
@@ -1581,7 +1606,7 @@
 																	border:true,
 																	padding:'5px 5px 5px 5px',
 																	margin:'10px 10px 10px 10px',
-																	html:'<div id="imagen-contenedor" ><img id="imagen-creditos" src="/images/photo.png" style="width:100%; height:"100%;overflow: scroll;" /></div>'
+																	html:'<div id="imagen-contenedor" ><img id="imagen-negativos" src="/images/photo.png" style="width:100%; height:"100%;overflow: scroll;" /></div>'
 																}
 															]
 														},
@@ -1642,7 +1667,7 @@
 														                            fieldLabel: 'DNI',
 														                            bodyStyle: 'background: transparent',
 																                    padding:'10px 0px 5px 5px',
-														                            id:creditos.id+'-txt-dni',
+														                            id:negativos.id+'-txt-dni',
 														                            labelWidth:40,
 														                            //readOnly:true,
 														                            labelAlign:'top',
@@ -1668,7 +1693,7 @@
 														                                specialkey: function(f,e){
 				                                                                            if(e.getKey() == e.ENTER){
 				                                                                                //panel_novedades.buscar_novedad();
-				                                                                                creditos.getListaSolicitudes(f.getValue());
+				                                                                                negativos.getListaSolicitudes(f.getValue());
 				                                                                            }
 				                                                                        }
 														                            }
@@ -1694,9 +1719,9 @@
 															                                });*/
 															                            },
 															                            click: function(obj, e){	  
-															                            	//win.show({vurl: creditos.url_per, id_menu: creditos.id_menu, class: ''}); 
-															                            	var dni=Ext.getCmp(creditos.id+'-txt-dni').getValue();
-															                            	win.show({vurl: creditos.url_per+'?opcion=D&id_id='+0+'&id_per='+0+'&dni='+dni, id_menu: creditos.id_menu, class: ''});
+															                            	//win.show({vurl: negativos.url_per, id_menu: negativos.id_menu, class: ''}); 
+															                            	var dni=Ext.getCmp(negativos.id+'-txt-dni').getValue();
+															                            	win.show({vurl: negativos.url_per+'?opcion=D&id_id='+0+'&id_per='+0+'&dni='+dni, id_menu: negativos.id_menu, class: ''});
 															                            }
 															                        }
 																                }
@@ -1707,7 +1732,7 @@
 												                            fieldLabel: 'N° SOLICITUD',
 												                            bodyStyle: 'background: transparent',
 														                    padding:'10px 5px 5px 5px',
-												                            id:creditos.id+'-txt-nro-sol',
+												                            id:negativos.id+'-txt-nro-sol',
 												                            labelWidth:40,
 												                            hidden:true,
 												                            //readOnly:true,
@@ -1732,7 +1757,7 @@
 												                                specialkey: function(f,e){
 		                                                                            if(e.getKey() == e.ENTER){
 		                                                                                //panel_novedades.buscar_novedad();
-		                                                                                creditos.getListaSolicitudes(f.getValue());
+		                                                                                negativos.getListaSolicitudes(f.getValue());
 		                                                                            }
 		                                                                        }
 												                            }
@@ -1755,11 +1780,11 @@
 																	items:[
 																		{
 													                        xtype: 'dataview',
-													                        id: creditos.id+'-list-solicitudes',
+													                        id: negativos.id+'-list-solicitudes',
 													                        bodyStyle: 'background: transparent',
 													                        bodyCls: 'transparent',
 													                        layout:'fit',
-													                        store: store_creditos,
+													                        store: store_negativos,
 													                        autoScroll: true,
 													                        loadMask:true,
 													                        autoHeight: false,
@@ -1786,10 +1811,10 @@
 													                                        tab.setActiveTab(active);
 													                                    }
 													                                }*/
-													                                creditos.idx=idx;
+													                                negativos.idx=idx;
 													                                
-																					//Ext.getCmp(creditos.id+'-select-conyugue').setValue(val.dni);
-																					creditos.setDataSolicitud(idx);
+																					//Ext.getCmp(negativos.id+'-select-conyugue').setValue(val.dni);
+																					negativos.setDataSolicitud(idx);
 													                                
 													                            },
 													                            afterrender:function(obj){
@@ -1806,7 +1831,7 @@
 																	items:[
 																		{
 													                        xtype: 'dataview',
-													                        id: creditos.id+'-list-solicitudes-totales',
+													                        id: negativos.id+'-list-solicitudes-totales',
 													                        bodyStyle: 'background: transparent',
 													                        bodyCls: 'transparent',
 													                        layout:'fit',
@@ -1841,7 +1866,7 @@
 													                                
 													                                var record = this.getStore().getAt(idx);
 													                                var val =record.data;
-																					//Ext.getCmp(creditos.id+'-select-conyugue').setValue(val.dni);
+																					//Ext.getCmp(negativos.id+'-select-conyugue').setValue(val.dni);
 													                                
 													                            },
 													                            afterrender:function(obj){
@@ -1933,11 +1958,11 @@
 																						{
 																                            xtype: 'textfield',	
 																                            fieldLabel: 'IDCLI',
-																                            id:creditos.id+'-sol-txt-id-cli',
+																                            id:negativos.id+'-sol-txt-id-cli',
 																                            hidden:true,
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'15px 5px 5px 25px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:50,
 																                            readOnly:true,
 																                            labelAlign:'top',
@@ -1955,11 +1980,11 @@
 																						{
 																                            xtype: 'textfield',	
 																                            fieldLabel: 'IDPER',
-																                            id:creditos.id+'-sol-txt-id-per',
+																                            id:negativos.id+'-sol-txt-id-per',
 																                            hidden:true,
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'15px 5px 5px 25px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:50,
 																                            readOnly:true,
 																                            labelAlign:'top',
@@ -1976,11 +2001,11 @@
 																                        },
 																						{
 																                            xtype: 'textfield',
-																                            id:creditos.id+'-sol-txt-apellido-paterno',
+																                            id:negativos.id+'-sol-txt-apellido-paterno',
 																                            fieldLabel: 'Apellido Paterno',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 5px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:50,
 																                            readOnly:true,
 																                            labelAlign:'top',
@@ -1997,11 +2022,11 @@
 																                        },
 																                        {
 																                            xtype: 'textfield',	
-																                            id:creditos.id+'-sol-txt-apellido-materno',
+																                            id:negativos.id+'-sol-txt-apellido-materno',
 																                            fieldLabel: 'Apellido Materno',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 5px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:50,
 																                            readOnly:true,
 																                            labelAlign:'top',
@@ -2027,10 +2052,10 @@
 																		                {
 																                            xtype: 'textfield',
 																                            fieldLabel: 'Nombres',
-																                            id:creditos.id+'-sol-txt-nombres',
+																                            id:negativos.id+'-sol-txt-nombres',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 5px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:50,
 																                            readOnly:true,
 																                            //labelAlign:'top',
@@ -2048,7 +2073,7 @@
 																                        },
 																						{
 																					        xtype: 'datefield',
-																					        id:creditos.id+'-sol-date-fecha-nac',
+																					        id:negativos.id+'-sol-date-fecha-nac',
 																					        padding:'5px 5px 5px 5px',
 																					        readOnly:true,
 																					        //name: 'date1',
@@ -2074,7 +2099,7 @@
 																                            xtype:'combo',
 																                            fieldLabel: 'Sexo',
 																                            bodyStyle: 'background: transparent',
-																                            id:creditos.id+'-sol-cmb-sexo',
+																                            id:negativos.id+'-sol-cmb-sexo',
 																                            store: Ext.create('Ext.data.ArrayStore', {
 																						        //storeId: 'estado',
 																						        autoLoad: true,
@@ -2115,8 +2140,8 @@
 																                            fieldLabel: 'Estado Civil',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 5px',
-																                            id:creditos.id+'-sol-cmb-estado-civil',
-																                            store: creditos.store_estado_civil,
+																                            id:negativos.id+'-sol-cmb-estado-civil',
+																                            store: negativos.store_estado_civil,
 																                            queryMode: 'local',
 																                            triggerAction: 'all',
 																                            valueField: 'code',
@@ -2153,11 +2178,11 @@
 																					items:[
 																					    {
 																                            xtype: 'textfield',	
-																                            id:creditos.id+'-sol-txt-doc-dni',
+																                            id:negativos.id+'-sol-txt-doc-dni',
 																                            fieldLabel: 'DNI',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 5px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:50,
 																                            //readOnly:true,
 																                            labelAlign:'top',
@@ -2176,11 +2201,11 @@
 																                        },
 																                        {
 																                            xtype: 'textfield',	
-																                            id:creditos.id+'-sol-txt-doc-ce',
+																                            id:negativos.id+'-sol-txt-doc-ce',
 																                            fieldLabel: 'CE',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 5px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:50,
 																                            readOnly:true,
 																                            labelAlign:'top',
@@ -2198,11 +2223,11 @@
 																                        },
 																					    {
 																                            xtype: 'textfield',	
-																                            id:creditos.id+'-sol-txt-doc-cip',
+																                            id:negativos.id+'-sol-txt-doc-cip',
 																                            fieldLabel: 'CIP',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 5px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:50,
 																                            readOnly:true,
 																                            labelAlign:'top',
@@ -2220,11 +2245,11 @@
 																                        },
 																					    {
 																                            xtype: 'textfield',	
-																                            id:creditos.id+'-sol-txt-doc-ruc',
+																                            id:negativos.id+'-sol-txt-doc-ruc',
 																                            fieldLabel: 'RUC',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 5px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:50,
 																                            readOnly:true,
 																                            labelAlign:'top',
@@ -2242,11 +2267,11 @@
 																                        },
 																					    {
 																                            xtype: 'textfield',	
-																                            id:creditos.id+'-sol-txt-doc-cm',
+																                            id:negativos.id+'-sol-txt-doc-cm',
 																                            fieldLabel: 'CM',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 5px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:50,
 																                            readOnly:true,
 																                            labelAlign:'top',
@@ -2275,7 +2300,7 @@
 																                            fieldLabel: 'Domicilio',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 5px',
-																                            id:creditos.id+'-sol-cmb-domicilio',
+																                            id:negativos.id+'-sol-cmb-domicilio',
 																                            store: Ext.create('Ext.data.ArrayStore', {
 																						        storeId: 'estado',
 																						        autoLoad: true,
@@ -2325,7 +2350,7 @@
 																                            fieldLabel: 'Estudios',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 5px',
-																                            id:creditos.id+'-sol-cmb-estudios',
+																                            id:negativos.id+'-sol-cmb-estudios',
 																                            store: Ext.create('Ext.data.ArrayStore', {
 																						        storeId: 'estado',
 																						        autoLoad: true,
@@ -2365,11 +2390,11 @@
 																                        },
 																					    {
 																                            xtype: 'textfield',	
-																                            id:creditos.id+'-sol-txt-profesion',
+																                            id:negativos.id+'-sol-txt-profesion',
 																                            fieldLabel: 'Profesión',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 5px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:55,
 																                            readOnly:true,
 																                            //labelAlign:'top',
@@ -2398,7 +2423,7 @@
 																                            fieldLabel: 'Laboral',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 5px',
-																                            id:creditos.id+'-sol-cmb-laboral',
+																                            id:negativos.id+'-sol-cmb-laboral',
 																                            store: Ext.create('Ext.data.ArrayStore', {
 																						        storeId: 'estado',
 																						        autoLoad: true,
@@ -2437,11 +2462,11 @@
 																                        },
 																                        {
 																                            xtype: 'textfield',	
-																                            id:creditos.id+'-sol-txt-cargo',
+																                            id:negativos.id+'-sol-txt-cargo',
 																                            fieldLabel: 'Cargo',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 5px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:55,
 																                            readOnly:true,
 																                            //labelAlign:'top',
@@ -2470,7 +2495,7 @@
 																                            fieldLabel: 'Centro de Trabajo',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 5px',
-																                            id:creditos.id+'-sol-txt-centro-trabajo',
+																                            id:negativos.id+'-sol-txt-centro-trabajo',
 																                            store: store_centro_trabajo,
 																                            queryMode: 'local',
 																                            triggerAction: 'all',
@@ -2508,7 +2533,7 @@
 																					items:[
 																                        {
 																					        xtype: 'datefield',
-																					        id:creditos.id+'-sol-date-fecha-ingreso',
+																					        id:negativos.id+'-sol-date-fecha-ingreso',
 																					        padding:'5px 5px 5px 5px',
 																					        //name: 'date1',
 																					        //labelAlign:'top',
@@ -2544,7 +2569,7 @@
 									                		//height:205,
 															//title:'Datos',
 															bodyStyle: 'background: transparent',
-								                            id: creditos.id+'-tabContentDatos',
+								                            id: negativos.id+'-tabContentDatos',
 								                            activeItem: 0,
 								                            autoScroll: false,
 								                            defaults:{
@@ -2575,7 +2600,7 @@
 																			items:[
 																				/*{
 																		            xtype: 'dataview',
-																		            id:creditos.id+'-sol-documentos-adjuntos',
+																		            id:negativos.id+'-sol-documentos-adjuntos',
 																		            tpl: [
 																		                '<tpl for=".">',
 																		                    '<div class="dataview-multisort-item">',
@@ -2609,11 +2634,11 @@
 																	/*bbar:[
 																		{
 												                            xtype: 'textfield',
-												                            id:creditos.id+'-select-conyugue',
+												                            id:negativos.id+'-select-conyugue',
 												                            fieldLabel: 'DNI',
 												                            bodyStyle: 'background: transparent',
 														                    padding:'5px 10px 5px 5px',
-												                            //id:creditos.id+'-txt-dni',
+												                            //id:negativos.id+'-txt-dni',
 												                            labelWidth:40,
 												                            //readOnly:true,
 												                            //labelAlign:'top',
@@ -2642,7 +2667,7 @@
 													                            beforerender: function(obj, opts){
 																				},
 													                            click: function(obj, e){
-													                            	creditos.setSavecreditosConyugue('Y');
+													                            	negativos.setSavenegativosConyugue('Y');
 													                            }
 													                        }
 													                    },
@@ -2656,7 +2681,7 @@
 													                            beforerender: function(obj, opts){
 																				},
 													                            click: function(obj, e){
-													                            	Ext.getCmp(creditos.id+'-select-conyugue').setValue('');
+													                            	Ext.getCmp(negativos.id+'-select-conyugue').setValue('');
 													                            }
 													                        }
 													                    },
@@ -2670,7 +2695,7 @@
 													                            beforerender: function(obj, opts){
 																				},
 													                            click: function(obj, e){
-													                            	creditos.setSavecreditosConyugue('Z');
+													                            	negativos.setSavenegativosConyugue('Z');
 													                            }
 													                        }
 													                    }
@@ -2678,7 +2703,7 @@
 																	items:[
 																		 {
 													                        xtype: 'dataview',
-													                        id: creditos.id+'-list-Conyugues',
+													                        id: negativos.id+'-list-Conyugues',
 													                        bodyStyle: 'background: transparent',
 													                        bodyCls: 'transparent',
 													                        layout:'fit',
@@ -2712,7 +2737,7 @@
 													                                
 													                                var record = this.getStore().getAt(idx);
 													                                var val =record.data;
-																					Ext.getCmp(creditos.id+'-select-conyugue').setValue(val.dni);
+																					Ext.getCmp(negativos.id+'-select-conyugue').setValue(val.dni);
 													                                
 													                            },
 													                            afterrender:function(obj){
@@ -2731,11 +2756,11 @@
 																	bbar:[
 																		{
 												                            xtype: 'textfield',
-												                            id:creditos.id+'-select-garante',
+												                            id:negativos.id+'-select-garante',
 												                            fieldLabel: 'DNI',
 												                            bodyStyle: 'background: transparent',
 														                    padding:'5px 10px 5px 5px',
-												                            //id:creditos.id+'-txt-dni',
+												                            //id:negativos.id+'-txt-dni',
 												                            labelWidth:40,
 												                            //readOnly:true,
 												                            //labelAlign:'top',
@@ -2764,7 +2789,7 @@
 													                            beforerender: function(obj, opts){
 																				},
 													                            click: function(obj, e){
-													                            	creditos.setSavecreditosGarante('G');
+													                            	negativos.setSavenegativosGarante('G');
 													                            }
 													                        }
 													                    },
@@ -2778,7 +2803,7 @@
 													                            beforerender: function(obj, opts){
 																				},
 													                            click: function(obj, e){
-													                            	Ext.getCmp(creditos.id+'-select-garante').setValue('');
+													                            	Ext.getCmp(negativos.id+'-select-garante').setValue('');
 													                            }
 													                        }
 													                    },
@@ -2792,7 +2817,7 @@
 													                            beforerender: function(obj, opts){
 																				},
 													                            click: function(obj, e){
-													                            	creditos.setSavecreditosGarante('H');
+													                            	negativos.setSavenegativosGarante('H');
 													                            }
 													                        }
 													                    }
@@ -2800,7 +2825,7 @@
 																	items:[
 																		 {
 													                        xtype: 'dataview',
-													                        id: creditos.id+'-list-garante',
+													                        id: negativos.id+'-list-garante',
 													                        bodyStyle: 'background: transparent',
 													                        bodyCls: 'transparent',
 													                        layout:'fit',
@@ -2834,7 +2859,7 @@
 													                                
 													                                var record = this.getStore().getAt(idx);
 													                                var val =record.data;
-																					Ext.getCmp(creditos.id+'-select-garante').setValue(val.dni);
+																					Ext.getCmp(negativos.id+'-select-garante').setValue(val.dni);
 													                                
 													                            },
 													                            afterrender:function(obj){
@@ -2856,7 +2881,7 @@
 								         	border:false,
 								         	items:[
 								         		{
-								         			id:creditos.id+'-panel-direccion',
+								         			id:negativos.id+'-panel-direccion',
 								         			layout:'border',
 								         			region:'west',
 								         			title:'DIRECCIÓN',
@@ -2921,11 +2946,11 @@
 																						{
 																                            xtype: 'textfield',	
 																                            fieldLabel: 'IDdir',
-																                            id:creditos.id+'-sol-txt-id-dir',
+																                            id:negativos.id+'-sol-txt-id-dir',
 																                            hidden:true,
 																                            bodyStyle: 'background: transparent',
 																		                    //padding:'15px 5px 5px 25px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:50,
 																                            //readOnly:true,
 																                            labelAlign:'top',
@@ -2943,10 +2968,10 @@
 																		                {
 																                            xtype: 'textfield',
 																                            fieldLabel: 'Avenida/Calle/Jirón/Pasaje',
-																                            id:creditos.id+'-sol-txt-dir-direccion',
+																                            id:negativos.id+'-sol-txt-dir-direccion',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 10px 5px 5px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:50,
 																                            readOnly:true,
 																                            labelAlign:'top',
@@ -2973,11 +2998,11 @@
 																							items:[
 																		                        {
 																		                            xtype: 'textfield',
-																		                            id:creditos.id+'-sol-txt-dir-numero',
+																		                            id:negativos.id+'-sol-txt-dir-numero',
 																		                            fieldLabel: 'N°',
 																		                            bodyStyle: 'background: transparent',
 																				                    padding:'5px 10px 5px 5px',
-																		                            //id:creditos.id+'-txt-dni',
+																		                            //id:negativos.id+'-txt-dni',
 																		                            labelWidth:50,
 																		                            readOnly:true,
 																		                            labelAlign:'top',
@@ -2998,11 +3023,11 @@
 																		                        },
 																		                        {
 																		                            xtype: 'textfield',
-																		                            id:creditos.id+'-sol-txt-dir-mz',
+																		                            id:negativos.id+'-sol-txt-dir-mz',
 																		                            fieldLabel: 'MZ',
 																		                            bodyStyle: 'background: transparent',
 																				                    padding:'5px 10px 5px 5px',
-																		                            //id:creditos.id+'-txt-dni',
+																		                            //id:negativos.id+'-txt-dni',
 																		                            labelWidth:50,
 																		                            readOnly:true,
 																		                            labelAlign:'top',
@@ -3023,11 +3048,11 @@
 																		                        },
 																		                        {
 																		                            xtype: 'textfield',
-																		                            id:creditos.id+'-sol-txt-dir-lt',
+																		                            id:negativos.id+'-sol-txt-dir-lt',
 																		                            fieldLabel: 'LT',
 																		                            bodyStyle: 'background: transparent',
 																				                    padding:'5px 10px 5px 5px',
-																		                            //id:creditos.id+'-txt-dni',
+																		                            //id:negativos.id+'-txt-dni',
 																		                            labelWidth:50,
 																		                            readOnly:true,
 																		                            labelAlign:'top',
@@ -3048,11 +3073,11 @@
 																		                        },
 																		                        {
 																		                            xtype: 'textfield',
-																		                            id:creditos.id+'-sol-txt-dir-dpto',
+																		                            id:negativos.id+'-sol-txt-dir-dpto',
 																		                            fieldLabel: 'DPTO',
 																		                            bodyStyle: 'background: transparent',
 																				                    padding:'5px 10px 5px 5px',
-																		                            //id:creditos.id+'-txt-dni',
+																		                            //id:negativos.id+'-txt-dni',
 																		                            labelWidth:50,
 																		                            readOnly:true,
 																		                            labelAlign:'top',
@@ -3073,11 +3098,11 @@
 																		                        },
 																								{
 																		                            xtype: 'textfield',
-																		                            id:creditos.id+'-sol-txt-dir-interior',
+																		                            id:negativos.id+'-sol-txt-dir-interior',
 																		                            fieldLabel: 'INT.',
 																		                            bodyStyle: 'background: transparent',
 																				                    padding:'5px 10px 5px 5px',
-																		                            //id:creditos.id+'-txt-dni',
+																		                            //id:negativos.id+'-txt-dni',
 																		                            labelWidth:50,
 																		                            readOnly:true,
 																		                            labelAlign:'top',
@@ -3106,11 +3131,11 @@
 																							items:[
 																				                {
 																		                            xtype: 'textfield',
-																		                            id:creditos.id+'-sol-txt-dir-urb',
+																		                            id:negativos.id+'-sol-txt-dir-urb',
 																		                            fieldLabel: 'Urbanización/AA.HH/PJ/ASOC',
 																		                            bodyStyle: 'background: transparent',
 																				                    padding:'5px 10px 5px 5px',
-																		                            //id:creditos.id+'-txt-dni',
+																		                            //id:negativos.id+'-txt-dni',
 																		                            labelWidth:50,
 																		                            readOnly:true,
 																		                            labelAlign:'top',
@@ -3133,11 +3158,11 @@
 																		                },
 																                        {
 																                            xtype: 'textfield',
-																                            id:creditos.id+'-sol-txt-dir-referencia',
+																                            id:negativos.id+'-sol-txt-dir-referencia',
 																                            fieldLabel: 'Referencia de Domicilio',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 10px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:55,
 																                            readOnly:true,
 																                            labelAlign:'top',
@@ -3159,8 +3184,8 @@
 																		                {
 												                                            xtype:'combo',
 												                                            fieldLabel: 'Departamento',
-												                                            id:creditos.id+'-sol-cmb-departamento',
-												                                            store: creditos.store_ubigeo,
+												                                            id:negativos.id+'-sol-cmb-departamento',
+												                                            store: negativos.store_ubigeo,
 												                                            queryMode: 'local',
 												                                            triggerAction: 'all',
 												                                            valueField: 'cod_ubi',
@@ -3181,24 +3206,24 @@
 												                                            //readOnly: true,
 												                                            listeners:{
 												                                                afterrender:function(obj, e){
-												                                        			/*Ext.getCmp(creditos.id+'-sol-cmb-provincia').getStore().removeAll();
-												                                        			Ext.getCmp(creditos.id+'-sol-cmb-Distrito').getStore().removeAll();
-												                                                	creditos.getUbigeo({VP_OP:'D',VP_VALUE:''},obj,'100101');*/
+												                                        			/*Ext.getCmp(negativos.id+'-sol-cmb-provincia').getStore().removeAll();
+												                                        			Ext.getCmp(negativos.id+'-sol-cmb-Distrito').getStore().removeAll();
+												                                                	negativos.getUbigeo({VP_OP:'D',VP_VALUE:''},obj,'100101');*/
 												                                                },
 												                                                select:function(obj, records, eOpts){
-												                                        			var pro = Ext.getCmp(creditos.id+'-sol-cmb-provincia');
-												                                        			Ext.getCmp(creditos.id+'-sol-cmb-provincia').setValue('');
-												                                        			Ext.getCmp(creditos.id+'-sol-cmb-Distrito').getStore().removeAll();
-												                                        			Ext.getCmp(creditos.id+'-sol-cmb-Distrito').setValue('');
-												                                                	creditos.getUbigeo({VP_OP:'P',VP_VALUE:obj.getValue()},pro,'');
+												                                        			var pro = Ext.getCmp(negativos.id+'-sol-cmb-provincia');
+												                                        			Ext.getCmp(negativos.id+'-sol-cmb-provincia').setValue('');
+												                                        			Ext.getCmp(negativos.id+'-sol-cmb-Distrito').getStore().removeAll();
+												                                        			Ext.getCmp(negativos.id+'-sol-cmb-Distrito').setValue('');
+												                                                	negativos.getUbigeo({VP_OP:'P',VP_VALUE:obj.getValue()},pro,'');
 												                                                }
 												                                            }
 												                                        },
 												                                        {
 												                                            xtype:'combo',
 												                                            fieldLabel: 'Provincia',
-												                                            id:creditos.id+'-sol-cmb-provincia',
-												                                            store: creditos.store_ubigeo2,
+												                                            id:negativos.id+'-sol-cmb-provincia',
+												                                            store: negativos.store_ubigeo2,
 												                                            queryMode: 'local',
 												                                            triggerAction: 'all',
 												                                            valueField: 'cod_ubi',
@@ -3219,20 +3244,20 @@
 												                                            //readOnly: true,
 												                                            listeners:{
 												                                                afterrender:function(obj, e){
-												                                        			/*Ext.getCmp(creditos.id+'-sol-cmb-Distrito').getStore().removeAll();
-												                                                	creditos.getUbigeo({VP_OP:'P',VP_VALUE:'100101'},obj,'100601');*/
+												                                        			/*Ext.getCmp(negativos.id+'-sol-cmb-Distrito').getStore().removeAll();
+												                                                	negativos.getUbigeo({VP_OP:'P',VP_VALUE:'100101'},obj,'100601');*/
 												                                                },
 												                                                select:function(obj, records, eOpts){
-												                                        			var dis=Ext.getCmp(creditos.id+'-sol-cmb-Distrito');
-												                                                	creditos.getUbigeo({VP_OP:'X',VP_VALUE:obj.getValue()},dis,'');
+												                                        			var dis=Ext.getCmp(negativos.id+'-sol-cmb-Distrito');
+												                                                	negativos.getUbigeo({VP_OP:'X',VP_VALUE:obj.getValue()},dis,'');
 												                                                }
 												                                            }
 												                                        },
 												                                        {
 												                                            xtype:'combo',
 												                                            fieldLabel: 'Distrito',
-												                                            id:creditos.id+'-sol-cmb-Distrito',
-												                                            store: creditos.store_ubigeo3,
+												                                            id:negativos.id+'-sol-cmb-Distrito',
+												                                            store: negativos.store_ubigeo3,
 												                                            queryMode: 'local',
 												                                            triggerAction: 'all',
 												                                            valueField: 'cod_ubi',
@@ -3253,7 +3278,7 @@
 												                                            //readOnly: true,
 												                                            listeners:{
 												                                                afterrender:function(obj, e){
-												                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+												                                                	//negativos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
 												                                                },
 												                                                select:function(obj, records, eOpts){
 												                                        
@@ -3307,7 +3332,7 @@
 							                						items:[
 							                							{
 													                        xtype: 'dataview',
-													                        id: creditos.id+'-list-telefonos',
+													                        id: negativos.id+'-list-telefonos',
 													                        bodyStyle: 'background: transparent',
 													                        bodyCls: 'transparent',
 													                        layout:'fit',
@@ -3409,7 +3434,7 @@
 																					items:[
 																						{
 																					        xtype: 'datefield',
-																					        id:creditos.id+'-sol-date-fecha-solicitud',
+																					        id:negativos.id+'-sol-date-fecha-solicitud',
 																					        padding:'5px 5px 0px 5px',
 																					        //name: 'date1',
 																					        labelAlign:'top',
@@ -3427,10 +3452,10 @@
 																					    {
 																                            xtype: 'textfield',	
 																                            fieldLabel: 'N° Solicitud',
-																                            id:creditos.id+'-sol-txt-id-solicitud',
+																                            id:negativos.id+'-sol-txt-id-solicitud',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 0px 5px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:50,
 																                            hidden:true,
 																                            readOnly:true,
@@ -3451,10 +3476,10 @@
 																						{
 																                            xtype: 'textfield',	
 																                            fieldLabel: 'N° Solicitud',
-																                            id:creditos.id+'-sol-txt-nro-solicitud',
+																                            id:negativos.id+'-sol-txt-nro-solicitud',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 5px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:50,
 																                            readOnly:true,
 																                            labelAlign:'top',
@@ -3474,11 +3499,11 @@
 																                        },
 																                        {
 																                            xtype: 'textfield',
-																                            id:creditos.id+'-sol-txt-estado-solicitud',
+																                            id:negativos.id+'-sol-txt-estado-solicitud',
 																                            fieldLabel: 'Estado',
 																                            bodyStyle: 'background: transparent',
 																		                    padding:'5px 5px 5px 5px',
-																                            //id:creditos.id+'-txt-dni',
+																                            //id:negativos.id+'-txt-dni',
 																                            labelWidth:50,
 																                            //readOnly:true,
 																                            labelAlign:'top',
@@ -3495,7 +3520,7 @@
 																                        },
 																                        {
 																		                    xtype: 'button',
-																		                    id:creditos.id+'-btn-guardar-solicitud',
+																		                    id:negativos.id+'-btn-guardar-solicitud',
 																		                    margin:'2px 2px 2px 2px',
 																		                    icon: '/images/icon/1315404769_gear_wheel.png',
 																		                    //glyph: 72,
@@ -3514,13 +3539,13 @@
 																	                                });*/
 																	                            },
 																	                            click: function(obj, e){	  
-																	                            	creditos.setSaveSolicitud('I');
+																	                            	negativos.setSaveSolicitud('I');
 																	                            }
 																	                        }
 																		                },
 																		                {
 																		                    xtype: 'button',
-																		                    id:creditos.id+'-btn-aprobar-solicitud',
+																		                    id:negativos.id+'-btn-aprobar-solicitud',
 																		                    margin:'2px 2px 2px 2px',
 																		                    icon: '/images/icon/ok.png',
 																		                    //glyph: 72,
@@ -3539,13 +3564,13 @@
 																	                                });*/
 																	                            },
 																	                            click: function(obj, e){	  
-																	                            	creditos.setSaveSolicitud('A');
+																	                            	negativos.setSaveSolicitud('A');
 																	                            }
 																	                        }
 																		                },
 																		                {
 																		                    xtype: 'button',
-																		                    id:creditos.id+'-btn-anular-solicitud',
+																		                    id:negativos.id+'-btn-anular-solicitud',
 																		                    margin:'2px 2px 2px 2px',
 																		                    icon: '/images/icon/remove.png',
 																		                    //glyph: 72,
@@ -3564,13 +3589,13 @@
 																	                                });*/
 																	                            },
 																	                            click: function(obj, e){	  
-																	                            	creditos.setSaveSolicitud('X');
+																	                            	negativos.setSaveSolicitud('X');
 																	                            }
 																	                        }
 																		                },
 																		                {
 																		                    xtype: 'button',
-																		                    id:creditos.id+'-btn-nuevo-solicitud',
+																		                    id:negativos.id+'-btn-nuevo-solicitud',
 																		                    margin:'2px 2px 2px 2px',
 																		                    icon: '/images/icon/Door.png',
 																		                    //glyph: 72,
@@ -3589,11 +3614,11 @@
 																	                                });*/
 																	                            },
 																	                            click: function(obj, e){	  
-																	                            	creditos.idx=-1;
-																	                            	creditos.setDisabledBTNSolicitud(false);
-																									creditos.setClearSolicitud();
-																									var tab=Ext.getCmp(creditos.id+'-win-form'); 
-																					                var active=Ext.getCmp(creditos.id+'-border-one');
+																	                            	negativos.idx=-1;
+																	                            	negativos.setDisabledBTNSolicitud(false);
+																									negativos.setClearSolicitud();
+																									var tab=Ext.getCmp(negativos.id+'-win-form'); 
+																					                var active=Ext.getCmp(negativos.id+'-border-one');
 																					                tab.setActiveTab(active);
 																	                            }
 																	                        }
@@ -3609,7 +3634,7 @@
 																						{
 												                                            xtype:'combo',
 												                                            fieldLabel: 'Agencia',
-												                                            id:creditos.id+'-sol-cmb-agencia',
+												                                            id:negativos.id+'-sol-cmb-agencia',
 												                                            store: store_agencias,
 												                                            queryMode: 'local',
 												                                            triggerAction: 'all',
@@ -3630,18 +3655,18 @@
 												                                            //readOnly: true,
 												                                            listeners:{
 												                                                afterrender:function(obj, e){
-												                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+												                                                	//negativos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
 												                                                },
 												                                                select:function(obj, records, eOpts){
-												                                        			var obja = Ext.getCmp(creditos.id+'-sol-cmb-asesor');
-									                            									creditos.getReload(obja,{vp_cod_age:obj.getValue()});
+												                                        			var obja = Ext.getCmp(negativos.id+'-sol-cmb-asesor');
+									                            									negativos.getReload(obja,{vp_cod_age:obj.getValue()});
 												                                                }
 												                                            }
 												                                        },
 																                        {
 												                                            xtype:'combo',
 												                                            fieldLabel: 'Asesor',
-												                                            id:creditos.id+'-sol-cmb-asesor',
+												                                            id:negativos.id+'-sol-cmb-asesor',
 												                                            store: store_asesores,
 												                                            queryMode: 'local',
 												                                            triggerAction: 'all',
@@ -3662,7 +3687,7 @@
 												                                            //readOnly: true,
 												                                            listeners:{
 												                                                afterrender:function(obj, e){
-												                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+												                                                	//negativos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
 												                                                },
 												                                                select:function(obj, records, eOpts){
 												                                        
@@ -3672,7 +3697,7 @@
 												                                        {
 												                                            xtype:'combo',
 												                                            fieldLabel: 'Motivo',
-												                                            id:creditos.id+'-sol-cmb-motivo',
+												                                            id:negativos.id+'-sol-cmb-motivo',
 												                                            store: store_motivos,
 												                                            queryMode: 'local',
 												                                            triggerAction: 'all',
@@ -3693,7 +3718,7 @@
 												                                            //readOnly: true,
 												                                            listeners:{
 												                                                afterrender:function(obj, e){
-												                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+												                                                	//negativos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
 												                                                },
 												                                                select:function(obj, records, eOpts){
 												                                        
@@ -3732,7 +3757,7 @@
 																		                            fieldLabel: 'Moneda',
 																		                            bodyStyle: 'background: transparent',
 																				                    padding:'5px 5px 5px 5px',
-																		                            id:creditos.id+'-sol-cmb-moneda',
+																		                            id:negativos.id+'-sol-cmb-moneda',
 																		                            store: store_moneda,
 																		                            queryMode: 'local',
 																		                            triggerAction: 'all',
@@ -3764,10 +3789,10 @@
 																								{
 																		                            xtype: 'textfield',	
 																		                            fieldLabel: 'M.Solicitado',
-																		                            id:creditos.id+'-sol-txt-monto',
+																		                            id:negativos.id+'-sol-txt-monto',
 																		                            bodyStyle: 'background: transparent',
 																				                    padding:'5px 5px 5px 5px',
-																		                            //id:creditos.id+'-txt-dni',
+																		                            //id:negativos.id+'-txt-dni',
 																		                            labelWidth:50,
 																		                            //readOnly:true,
 																		                            labelAlign:'top',
@@ -3790,7 +3815,7 @@
 																		                            fieldLabel: 'Tipo de Cliente',
 																		                            bodyStyle: 'background: transparent',
 																				                    padding:'5px 5px 5px 5px',
-																		                            id:creditos.id+'-sol-txt-tipo-cliente',
+																		                            id:negativos.id+'-sol-txt-tipo-cliente',
 																		                            store: Ext.create('Ext.data.ArrayStore', {
 																								        storeId: 'estado',
 																								        autoLoad: true,
@@ -3831,7 +3856,7 @@
 																		                            fieldLabel: 'Excepcion',
 																		                            bodyStyle: 'background: transparent',
 																				                    padding:'5px 5px 5px 5px',
-																		                            id:creditos.id+'-sol-cmb-excepcion',
+																		                            id:negativos.id+'-sol-cmb-excepcion',
 																		                            store: Ext.create('Ext.data.ArrayStore', {
 																								        storeId: 'estado',
 																								        autoLoad: true,
@@ -3869,7 +3894,7 @@
 																		                        },/*,
 																		                        {
 																							        xtype: 'datefield',
-																							        id:creditos.id+'-sol-date-fecha',
+																							        id:negativos.id+'-sol-date-fecha',
 																							        padding:'15px 5px 5px 25px',
 																							        //name: 'date1',
 																							        labelAlign:'top',
@@ -3891,11 +3916,11 @@
 																							items:[
 																		                        {
 																		                            xtype: 'textfield',
-																		                            id:creditos.id+'-sol-txt-import-aprobado',
+																		                            id:negativos.id+'-sol-txt-import-aprobado',
 																		                            fieldLabel: 'M.Aprobado',
 																		                            bodyStyle: 'background: transparent',
 																				                    padding:'5px 10px 5px 10px',
-																		                            //id:creditos.id+'-txt-dni',
+																		                            //id:negativos.id+'-txt-dni',
 																		                            labelWidth:50,
 																		                            //readOnly:true,
 																		                            labelAlign:'top',
@@ -3915,11 +3940,11 @@
 																		                        },
 																		                        {
 																		                            xtype: 'textfield', 
-																		                            id:creditos.id+'-sol-txt-numero-cuotas', 
+																		                            id:negativos.id+'-sol-txt-numero-cuotas', 
 																		                            fieldLabel: 'Cuotas',
 																		                            bodyStyle: 'background: transparent',
 																				                    padding:'5px 10px 5px 5px',
-																		                            //id:creditos.id+'-txt-dni',
+																		                            //id:negativos.id+'-txt-dni',
 																		                            labelWidth:50,
 																		                            //readOnly:true,
 																		                            labelAlign:'top',
@@ -3939,11 +3964,11 @@
 																		                        },
 																		                        {
 																		                            xtype: 'textfield', 
-																		                            id:creditos.id+'-sol-txt-interes', 
+																		                            id:negativos.id+'-sol-txt-interes', 
 																		                            fieldLabel: 'Interes',
 																		                            bodyStyle: 'background: transparent',
 																				                    padding:'5px 10px 5px 5px',
-																		                            //id:creditos.id+'-txt-dni',
+																		                            //id:negativos.id+'-txt-dni',
 																		                            labelWidth:50,
 																		                            //readOnly:true,
 																		                            labelAlign:'top',
@@ -3963,11 +3988,11 @@
 																		                        },
 																		                        {
 																		                            xtype: 'textfield', 
-																		                            id:creditos.id+'-sol-txt-mora', 
+																		                            id:negativos.id+'-sol-txt-mora', 
 																		                            fieldLabel: 'Mora',
 																		                            bodyStyle: 'background: transparent',
 																				                    padding:'5px 10px 5px 5px',
-																		                            //id:creditos.id+'-txt-dni',
+																		                            //id:negativos.id+'-txt-dni',
 																		                            labelWidth:50,
 																		                            //readOnly:true,
 																		                            labelAlign:'top',
@@ -3987,7 +4012,7 @@
 																		                        },
 																		                        {
 																							        xtype: 'datefield',
-																							        id:creditos.id+'-sol-date-fecha-1-letra',
+																							        id:negativos.id+'-sol-date-fecha-1-letra',
 																							        padding:'5px 5px 5px 5px',
 																							        //name: 'date1',
 																							        labelAlign:'top',
@@ -4017,7 +4042,7 @@
 																							items:[
 																								{
 																							        xtype: 'textareafield',
-																							        id: creditos.id + '-txt-nota',
+																							        id: negativos.id + '-txt-nota',
 																							        columnWidth: 1,
 																							        //name: 'textarea1',
 																							        //iconAlign: 'top',
@@ -4064,8 +4089,8 @@
 																			items:[
 																				{
 															                        xtype: 'grid',
-															                        id: creditos.id + '-grid-cuotas',
-															                        store: store_creditos_detalle, 
+															                        id: negativos.id + '-grid-cuotas',
+															                        store: store_negativos_detalle, 
 															                        columnLines: true,
 															                        //layout:'fit',
 															                        columns:{
@@ -4272,7 +4297,7 @@
 															                                        metaData.style = "padding: 0px; margin: 0px";
 															                                        return global.permisos({
 															                                            type: 'link',
-															                                            id_menu: creditos.id_menu,
+															                                            id_menu: negativos.id_menu,
 															                                            icons:[
 															                                                {id_serv: 8, img: estado, qtip: 'Estado.', js: ""}
 
@@ -4291,7 +4316,7 @@
 															                                        metaData.style = "padding: 0px; margin: 0px";
 															                                        return global.permisos({
 															                                            type: 'link',
-															                                            id_menu: creditos.id_menu,
+															                                            id_menu: negativos.id_menu,
 															                                            icons:[
 															                                                {id_serv: 8, img: 'edit.png', qtip: 'Editar.', js: "agencias.getEdit("+rowIndex+")"}
 
@@ -4332,105 +4357,105 @@
 					],
 					listeners:{
 						beforerender: function(obj, opts){
-	                        global.state_item_menu(creditos.id_menu, true);
+	                        global.state_item_menu(negativos.id_menu, true);
 	                    },
 	                    afterrender: function(obj, e){
-	                    	//creditos.getReloadGridcreditos('');
+	                    	//negativos.getReloadGridnegativos('');
 	                    	obj.getTabBar().hide();
 	                        tab.setActiveTab(obj);
-	                        global.state_item_menu_config(obj,creditos.id_menu);
-	                        //Ext.getCmp(creditos.id+'-txt-dni').focus();
-	                        var obj = Ext.getCmp(creditos.id+'-sol-txt-centro-trabajo');
-							creditos.getReload(obj,{vp_op:'N',vp_id:0,vp_nombre:''});
-							//creditos.getSelectUbi();
-							creditos.setCollapse();
+	                        global.state_item_menu_config(obj,negativos.id_menu);
+	                        //Ext.getCmp(negativos.id+'-txt-dni').focus();
+	                        var obj = Ext.getCmp(negativos.id+'-sol-txt-centro-trabajo');
+							negativos.getReload(obj,{vp_op:'N',vp_id:0,vp_nombre:''});
+							//negativos.getSelectUbi();
+							negativos.setCollapse();
 	                    },
 	                    beforeclose:function(obj,opts){
-	                    	global.state_item_menu(creditos.id_menu, false);
+	                    	global.state_item_menu(negativos.id_menu, false);
 	                    }
 					}
 
 				}).show();
 				Ext.EventManager.onWindowResize(function(){
-					creditos.setCollapse();
+					negativos.setCollapse();
 				});
 			},
 			getSolicitudes:function(){
-				var id_age=Ext.getCmp(creditos.id+'-sol-cmb-agencia-filtro').getValue();
-				var cliente=Ext.getCmp(creditos.id+'-txt-cliente').getValue();
-				var creado=Ext.getCmp(creditos.id+'-rd-creado').getValue();
-				//var solicitado=Ext.getCmp(creditos.id+'-rd-solicitado').getValue();
+				var id_age=Ext.getCmp(negativos.id+'-sol-cmb-agencia-filtro').getValue();
+				var cliente=Ext.getCmp(negativos.id+'-txt-cliente').getValue();
+				var creado=Ext.getCmp(negativos.id+'-rd-creado').getValue();
+				//var solicitado=Ext.getCmp(negativos.id+'-rd-solicitado').getValue();
 				var op = (creado)?'C':'S';
 
 				if(cliente!='')op='N';
-				var fecha_desde=Ext.getCmp(creditos.id+'-txt-fecha-desde').getRawValue();
-				var fecha_hasta=Ext.getCmp(creditos.id+'-txt-fecha-hasta').getRawValue();
-				var estado=Ext.getCmp(creditos.id+'-cmb-estado').getValue();
-				var fuente=Ext.getCmp(creditos.id+'-cmb-fuente').getValue();
+				var fecha_desde=Ext.getCmp(negativos.id+'-txt-fecha-desde').getRawValue();
+				var fecha_hasta=Ext.getCmp(negativos.id+'-txt-fecha-hasta').getRawValue();
+				/*var estado=Ext.getCmp(negativos.id+'-cmb-estado').getValue();
+				var fuente=Ext.getCmp(negativos.id+'-cmb-fuente').getValue();*/
 				
-				var obja = Ext.getCmp(creditos.id+'-grid-solicitudes');
-				creditos.getReload(obja,{vp_id_age:id_age,vp_cliente:cliente,vp_op:op,vp_desde:fecha_desde,vp_hasta:fecha_hasta,vp_estado:estado,vp_fuente:fuente});
+				var obja = Ext.getCmp(negativos.id+'-grid-solicitudes');
+				negativos.getReload(obja,{vp_id_age:id_age,vp_cliente:cliente,vp_op:op,vp_desde:fecha_desde,vp_hasta:fecha_hasta});
 			},
 			setDisabledBTNSolicitud:function(bool){
-				Ext.getCmp(creditos.id+'-btn-guardar-solicitud').setDisabled(bool);
-				Ext.getCmp(creditos.id+'-btn-aprobar-solicitud').setDisabled(bool);
-				Ext.getCmp(creditos.id+'-btn-nuevo-solicitud').setDisabled(false);
-				Ext.getCmp(creditos.id+'-btn-anular-solicitud').setDisabled(bool);
+				Ext.getCmp(negativos.id+'-btn-guardar-solicitud').setDisabled(bool);
+				Ext.getCmp(negativos.id+'-btn-aprobar-solicitud').setDisabled(bool);
+				Ext.getCmp(negativos.id+'-btn-nuevo-solicitud').setDisabled(false);
+				Ext.getCmp(negativos.id+'-btn-anular-solicitud').setDisabled(bool);
 			},
 			setClearSolicitud:function(){
-				Ext.getCmp(creditos.id+'-sol-date-fecha-solicitud').setValue(new Date());
-				Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-nro-solicitud').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('');
-				Ext.getCmp(creditos.id+'-sol-cmb-agencia').setValue('');
-				Ext.getCmp(creditos.id+'-sol-cmb-asesor').setValue('');
-				Ext.getCmp(creditos.id+'-sol-cmb-motivo').setValue('');
-				Ext.getCmp(creditos.id+'-sol-cmb-moneda').setValue('SOL');
-				Ext.getCmp(creditos.id+'-sol-txt-monto').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-tipo-cliente').setValue('N');
-				Ext.getCmp(creditos.id+'-sol-cmb-excepcion').setValue('N');
-				Ext.getCmp(creditos.id+'-sol-txt-import-aprobado').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-numero-cuotas').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-interes').setValue('0.1');
-				Ext.getCmp(creditos.id+'-sol-txt-mora').setValue('0.05');
-				Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').setValue(new Date());
-				Ext.getCmp(creditos.id + '-txt-nota').setValue('');
-				creditos.setReadOnlySolicitud(false);
+				Ext.getCmp(negativos.id+'-sol-date-fecha-solicitud').setValue(new Date());
+				Ext.getCmp(negativos.id+'-sol-txt-id-solicitud').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-nro-solicitud').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-estado-solicitud').setValue('');
+				Ext.getCmp(negativos.id+'-sol-cmb-agencia').setValue('');
+				Ext.getCmp(negativos.id+'-sol-cmb-asesor').setValue('');
+				Ext.getCmp(negativos.id+'-sol-cmb-motivo').setValue('');
+				Ext.getCmp(negativos.id+'-sol-cmb-moneda').setValue('SOL');
+				Ext.getCmp(negativos.id+'-sol-txt-monto').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-tipo-cliente').setValue('N');
+				Ext.getCmp(negativos.id+'-sol-cmb-excepcion').setValue('N');
+				Ext.getCmp(negativos.id+'-sol-txt-import-aprobado').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-numero-cuotas').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-interes').setValue('0.1');
+				Ext.getCmp(negativos.id+'-sol-txt-mora').setValue('0.05');
+				Ext.getCmp(negativos.id+'-sol-date-fecha-1-letra').setValue(new Date());
+				Ext.getCmp(negativos.id + '-txt-nota').setValue('');
+				negativos.setReadOnlySolicitud(false);
 			},
 			setReadOnlySolicitud:function(bool){
-				Ext.getCmp(creditos.id+'-sol-date-fecha-solicitud').setReadOnly(bool);
-				Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').setReadOnly(bool);
-				Ext.getCmp(creditos.id+'-sol-txt-nro-solicitud').setReadOnly(bool);
-				Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setReadOnly(bool);
-				Ext.getCmp(creditos.id+'-sol-cmb-agencia').setReadOnly(bool);
-				Ext.getCmp(creditos.id+'-sol-cmb-asesor').setReadOnly(bool);
-				Ext.getCmp(creditos.id+'-sol-cmb-motivo').setReadOnly(bool);
-				Ext.getCmp(creditos.id+'-sol-cmb-moneda').setReadOnly(bool);
-				Ext.getCmp(creditos.id+'-sol-txt-monto').setReadOnly(bool);
-				Ext.getCmp(creditos.id+'-sol-txt-tipo-cliente').setReadOnly(bool);
-				Ext.getCmp(creditos.id+'-sol-cmb-excepcion').setReadOnly(bool);
-				Ext.getCmp(creditos.id+'-sol-txt-import-aprobado').setReadOnly(bool);
-				Ext.getCmp(creditos.id+'-sol-txt-numero-cuotas').setReadOnly(bool);
-				Ext.getCmp(creditos.id+'-sol-txt-interes').setReadOnly(bool);
-				Ext.getCmp(creditos.id+'-sol-txt-mora').setReadOnly(bool);
-				Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').setReadOnly(bool);
-				Ext.getCmp(creditos.id + '-txt-nota').setReadOnly(bool);
+				Ext.getCmp(negativos.id+'-sol-date-fecha-solicitud').setReadOnly(bool);
+				Ext.getCmp(negativos.id+'-sol-txt-id-solicitud').setReadOnly(bool);
+				Ext.getCmp(negativos.id+'-sol-txt-nro-solicitud').setReadOnly(bool);
+				Ext.getCmp(negativos.id+'-sol-txt-estado-solicitud').setReadOnly(bool);
+				Ext.getCmp(negativos.id+'-sol-cmb-agencia').setReadOnly(bool);
+				Ext.getCmp(negativos.id+'-sol-cmb-asesor').setReadOnly(bool);
+				Ext.getCmp(negativos.id+'-sol-cmb-motivo').setReadOnly(bool);
+				Ext.getCmp(negativos.id+'-sol-cmb-moneda').setReadOnly(bool);
+				Ext.getCmp(negativos.id+'-sol-txt-monto').setReadOnly(bool);
+				Ext.getCmp(negativos.id+'-sol-txt-tipo-cliente').setReadOnly(bool);
+				Ext.getCmp(negativos.id+'-sol-cmb-excepcion').setReadOnly(bool);
+				Ext.getCmp(negativos.id+'-sol-txt-import-aprobado').setReadOnly(bool);
+				Ext.getCmp(negativos.id+'-sol-txt-numero-cuotas').setReadOnly(bool);
+				Ext.getCmp(negativos.id+'-sol-txt-interes').setReadOnly(bool);
+				Ext.getCmp(negativos.id+'-sol-txt-mora').setReadOnly(bool);
+				Ext.getCmp(negativos.id+'-sol-date-fecha-1-letra').setReadOnly(bool);
+				Ext.getCmp(negativos.id + '-txt-nota').setReadOnly(bool);
 			},
 			setDataSolicitudX:function(idx){
-				var tab=Ext.getCmp(creditos.id+'-win-form'); 
-                var active=Ext.getCmp(creditos.id+'-border-two');
+				var tab=Ext.getCmp(negativos.id+'-win-form'); 
+                var active=Ext.getCmp(negativos.id+'-border-two');
                 tab.setActiveTab(active);
 
-				var grid=Ext.getCmp(creditos.id+'-grid-solicitudes');
+				var grid=Ext.getCmp(negativos.id+'-grid-solicitudes');
 				var record = grid.getStore().getAt(idx);
 				var data =record.data;
 
-				creditos.setClearcreditos();
-				creditos.setDisabledBTNSolicitud(false);
-				creditos.setClearSolicitud();
+				negativos.setClearnegativos();
+				negativos.setDisabledBTNSolicitud(false);
+				negativos.setClearSolicitud();
 
 				Ext.Ajax.request({
-                    url:creditos.url+'getListPersona/',
+                    url:negativos.url+'getListPersona/',
                     params:{
                     	vp_op:'D',
 						vp_id:0,
@@ -4439,72 +4464,72 @@
                     },
                     timeout: 30000000,
                     success: function(response, options){
-                        Ext.getCmp(creditos.id+'-win-form').el.unmask();
+                        Ext.getCmp(negativos.id+'-win-form').el.unmask();
                         var res = Ext.JSON.decode(response.responseText);
                         console.log(res.data[0]);
                         var data = res.data[0];
                         if(data){
-	                        Ext.getCmp(creditos.id+'-sol-txt-id-cli').setValue(creditos.id_id);
-	                        Ext.getCmp(creditos.id+'-sol-txt-id-per').setValue(data.id_per);
-							Ext.getCmp(creditos.id+'-sol-txt-apellido-paterno').setValue(data.ape_pat);
-							Ext.getCmp(creditos.id+'-sol-txt-apellido-materno').setValue(data.ape_mat);
-							Ext.getCmp(creditos.id+'-sol-txt-nombres').setValue(data.nombres);
-							Ext.getCmp(creditos.id+'-sol-cmb-sexo').setValue(data.sexo);
-							Ext.getCmp(creditos.id+'-sol-txt-doc-dni').setValue(data.doc_dni);
-							Ext.getCmp(creditos.id+'-sol-txt-doc-ce').setValue(data.doc_ce);
-							Ext.getCmp(creditos.id+'-sol-txt-doc-cip').setValue(data.doc_cip);
-							Ext.getCmp(creditos.id+'-sol-txt-doc-ruc').setValue(data.doc_ruc);
-							Ext.getCmp(creditos.id+'-sol-txt-doc-cm').setValue(data.doc_cm);
-							Ext.getCmp(creditos.id+'-sol-cmb-estado-civil').setValue(data.estado_civil);
-							Ext.getCmp(creditos.id+'-sol-date-fecha-nac').setValue(data.fecha_nac);
+	                        Ext.getCmp(negativos.id+'-sol-txt-id-cli').setValue(negativos.id_id);
+	                        Ext.getCmp(negativos.id+'-sol-txt-id-per').setValue(data.id_per);
+							Ext.getCmp(negativos.id+'-sol-txt-apellido-paterno').setValue(data.ape_pat);
+							Ext.getCmp(negativos.id+'-sol-txt-apellido-materno').setValue(data.ape_mat);
+							Ext.getCmp(negativos.id+'-sol-txt-nombres').setValue(data.nombres);
+							Ext.getCmp(negativos.id+'-sol-cmb-sexo').setValue(data.sexo);
+							Ext.getCmp(negativos.id+'-sol-txt-doc-dni').setValue(data.doc_dni);
+							Ext.getCmp(negativos.id+'-sol-txt-doc-ce').setValue(data.doc_ce);
+							Ext.getCmp(negativos.id+'-sol-txt-doc-cip').setValue(data.doc_cip);
+							Ext.getCmp(negativos.id+'-sol-txt-doc-ruc').setValue(data.doc_ruc);
+							Ext.getCmp(negativos.id+'-sol-txt-doc-cm').setValue(data.doc_cm);
+							Ext.getCmp(negativos.id+'-sol-cmb-estado-civil').setValue(data.estado_civil);
+							Ext.getCmp(negativos.id+'-sol-date-fecha-nac').setValue(data.fecha_nac);
 
 							
-							/*Ext.getCmp(creditos.id+'-sol-chk-domi-propio').setValue(data.domi_propio=='S'?true:false);
-							Ext.getCmp(creditos.id+'-sol-chk-domi-pagando').setValue(data.domi_pagando=='S'?true:false);
-							Ext.getCmp(creditos.id+'-sol-chk-domi-alquilado').setValue(data.domi_alquilado=='S'?true:false);
-							Ext.getCmp(creditos.id+'-sol-chk-domi-familiar').setValue(data.domi_familiar=='S'?true:false);*/
+							/*Ext.getCmp(negativos.id+'-sol-chk-domi-propio').setValue(data.domi_propio=='S'?true:false);
+							Ext.getCmp(negativos.id+'-sol-chk-domi-pagando').setValue(data.domi_pagando=='S'?true:false);
+							Ext.getCmp(negativos.id+'-sol-chk-domi-alquilado').setValue(data.domi_alquilado=='S'?true:false);
+							Ext.getCmp(negativos.id+'-sol-chk-domi-familiar').setValue(data.domi_familiar=='S'?true:false);*/
 
-							Ext.getCmp(creditos.id+'-sol-cmb-domicilio').setValue(data.domicilio);
-							Ext.getCmp(creditos.id+'-sol-cmb-estudios').setValue(data.estudios);
-							Ext.getCmp(creditos.id+'-sol-txt-profesion').setValue(data.profesion);
-							Ext.getCmp(creditos.id+'-sol-cmb-laboral').setValue(data.laboral);
-							Ext.getCmp(creditos.id+'-sol-txt-cargo').setValue(data.cargo);
-							Ext.getCmp(creditos.id+'-sol-txt-centro-trabajo').setValue(data.id_empresa);
-							Ext.getCmp(creditos.id+'-sol-date-fecha-ingreso').setValue(data.fecha_ingreso);
+							Ext.getCmp(negativos.id+'-sol-cmb-domicilio').setValue(data.domicilio);
+							Ext.getCmp(negativos.id+'-sol-cmb-estudios').setValue(data.estudios);
+							Ext.getCmp(negativos.id+'-sol-txt-profesion').setValue(data.profesion);
+							Ext.getCmp(negativos.id+'-sol-cmb-laboral').setValue(data.laboral);
+							Ext.getCmp(negativos.id+'-sol-txt-cargo').setValue(data.cargo);
+							Ext.getCmp(negativos.id+'-sol-txt-centro-trabajo').setValue(data.id_empresa);
+							Ext.getCmp(negativos.id+'-sol-date-fecha-ingreso').setValue(data.fecha_ingreso);
 
-							//Ext.getCmp(creditos.id+'-sol-txt-id-tel').setValue(data.id_tel);
-							Ext.getCmp(creditos.id+'-sol-txt-id-dir').setValue(data.id_dir);
-							var obj = Ext.getCmp(creditos.id+'-list-telefonos');
-							creditos.getReload(obj,{vp_op:'P',vp_id:data.id_per,vp_flag:'A'});
+							//Ext.getCmp(negativos.id+'-sol-txt-id-tel').setValue(data.id_tel);
+							Ext.getCmp(negativos.id+'-sol-txt-id-dir').setValue(data.id_dir);
+							var obj = Ext.getCmp(negativos.id+'-list-telefonos');
+							negativos.getReload(obj,{vp_op:'P',vp_id:data.id_per,vp_flag:'A'});
 
 							
 
-							//var obj = Ext.getCmp(creditos.id+'-sol-documentos-adjuntos');
-							//creditos.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
-							win.getGalery({container:'contenedor-documentos',forma:'L',url:creditos.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
+							//var obj = Ext.getCmp(negativos.id+'-sol-documentos-adjuntos');
+							//negativos.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
+							win.getGalery({container:'contenedor-documentos',forma:'L',url:negativos.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
 
 							if(data.id_dir!=0){
-								creditos.getDirecciones(data.id_dir);
+								negativos.getDirecciones(data.id_dir);
 							}else{
-								creditos.getSelectUbi();
+								negativos.getSelectUbi();
 							}
-							//var objd = Ext.getCmp(creditos.id+'-list-direcciones');
-							//creditos.getReload(objd,{vp_op:'R',vp_id:data.id_per,vp_nombre:''});
+							//var objd = Ext.getCmp(negativos.id+'-list-direcciones');
+							//negativos.getReload(objd,{vp_op:'R',vp_id:data.id_per,vp_nombre:''});
 
 							if(data.img!==''){
 								var img = '/persona/'+data.id_per+'/PHOTO/'+data.img;
-								creditos.setPhotoForm(img,data.ape_pat+' '+data.ape_mat +', '+data.nombres);
+								negativos.setPhotoForm(img,data.ape_pat+' '+data.ape_mat +', '+data.nombres);
 							}
 
-							var objp = Ext.getCmp(creditos.id+'-list-Conyugues');
-							creditos.getReload(objp,{vp_op:'Y',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+							var objp = Ext.getCmp(negativos.id+'-list-Conyugues');
+							negativos.getReload(objp,{vp_op:'Y',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 
-							var objg = Ext.getCmp(creditos.id+'-list-garante');
-							creditos.getReload(objg,{vp_op:'G',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+							var objg = Ext.getCmp(negativos.id+'-list-garante');
+							negativos.getReload(objg,{vp_op:'G',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 
-							var objv = Ext.getCmp(creditos.id+'-list-solicitudes');
-							creditos.getReload(objv,{VP_T_DOC:'P',VP_ID_PER:data.id_per,VP_DOC:''});
-							creditos.setDataSolicitudXX(idx);
+							var objv = Ext.getCmp(negativos.id+'-list-solicitudes');
+							negativos.getReload(objv,{VP_T_DOC:'P',VP_ID_PER:data.id_per,VP_DOC:''});
+							negativos.setDataSolicitudXX(idx);
 						}else{
 							global.Msg({msg:"No existe una persona con el número de DNI Ingresado.",icon:2,fn:function(){}});
 						}
@@ -4512,174 +4537,174 @@
                 });
 			},
 			setDataSolicitudXX:function(idx){
-				var grid=Ext.getCmp(creditos.id+'-grid-solicitudes');
+				var grid=Ext.getCmp(negativos.id+'-grid-solicitudes');
 				var record = grid.getStore().getAt(idx);
 				var data =record.data;
 
-				creditos.setDisabledBTNSolicitud(true);
-				//creditos.setClearSolicitud();
-				creditos.setReadOnlySolicitud(true);
+				negativos.setDisabledBTNSolicitud(true);
+				//negativos.setClearSolicitud();
+				negativos.setReadOnlySolicitud(true);
 
 				if(data.estado=='S'){//solicitado
-					creditos.setDisabledBTNSolicitud(false);
-					Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('SOLICITADO');
-					creditos.setReadOnlySolicitud(false);
+					negativos.setDisabledBTNSolicitud(false);
+					Ext.getCmp(negativos.id+'-sol-txt-estado-solicitud').setValue('SOLICITADO');
+					negativos.setReadOnlySolicitud(false);
 				}
 				if(data.estado=='A'){
-					//Ext.getCmp(creditos.id+'-btn-guardar-solicitud').setDisabled(bool);
-					//Ext.getCmp(creditos.id+'-btn-aprobar-solicitud').setDisabled(bool);
-					//Ext.getCmp(creditos.id+'-btn-nuevo-solicitud').setDisabled(bool);
-					Ext.getCmp(creditos.id+'-btn-anular-solicitud').setDisabled(true);
-					Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('APROBADO');
+					//Ext.getCmp(negativos.id+'-btn-guardar-solicitud').setDisabled(bool);
+					//Ext.getCmp(negativos.id+'-btn-aprobar-solicitud').setDisabled(bool);
+					//Ext.getCmp(negativos.id+'-btn-nuevo-solicitud').setDisabled(bool);
+					Ext.getCmp(negativos.id+'-btn-anular-solicitud').setDisabled(true);
+					Ext.getCmp(negativos.id+'-sol-txt-estado-solicitud').setValue('APROBADO');
 				}
 				if(data.estado=='C'){//ASIGNADO A ASESOR
-					//Ext.getCmp(creditos.id+'-btn-guardar-solicitud').setDisabled(bool);
-					//Ext.getCmp(creditos.id+'-btn-aprobar-solicitud').setDisabled(bool);
-					//Ext.getCmp(creditos.id+'-btn-nuevo-solicitud').setDisabled(bool);
-					//Ext.getCmp(creditos.id+'-btn-anular-solicitud').setDisabled(false);
-					Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('EN COBRANZA');
+					//Ext.getCmp(negativos.id+'-btn-guardar-solicitud').setDisabled(bool);
+					//Ext.getCmp(negativos.id+'-btn-aprobar-solicitud').setDisabled(bool);
+					//Ext.getCmp(negativos.id+'-btn-nuevo-solicitud').setDisabled(bool);
+					//Ext.getCmp(negativos.id+'-btn-anular-solicitud').setDisabled(false);
+					Ext.getCmp(negativos.id+'-sol-txt-estado-solicitud').setValue('EN COBRANZA');
 				}
 				if(data.estado=='F'){//ASIGNADO A ASESOR
-					//Ext.getCmp(creditos.id+'-btn-guardar-solicitud').setDisabled(bool);
-					//Ext.getCmp(creditos.id+'-btn-aprobar-solicitud').setDisabled(bool);
-					//Ext.getCmp(creditos.id+'-btn-nuevo-solicitud').setDisabled(bool);
-					//Ext.getCmp(creditos.id+'-btn-anular-solicitud').setDisabled(false);
-					Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('FINALIZADO');
+					//Ext.getCmp(negativos.id+'-btn-guardar-solicitud').setDisabled(bool);
+					//Ext.getCmp(negativos.id+'-btn-aprobar-solicitud').setDisabled(bool);
+					//Ext.getCmp(negativos.id+'-btn-nuevo-solicitud').setDisabled(bool);
+					//Ext.getCmp(negativos.id+'-btn-anular-solicitud').setDisabled(false);
+					Ext.getCmp(negativos.id+'-sol-txt-estado-solicitud').setValue('FINALIZADO');
 				}
 
-				Ext.getCmp(creditos.id+'-sol-date-fecha-solicitud').setValue(data.fecha_sol);
-				Ext.getCmp(creditos.id+'-sol-cmb-agencia').setValue(data.id_age);
+				Ext.getCmp(negativos.id+'-sol-date-fecha-solicitud').setValue(data.fecha_sol);
+				Ext.getCmp(negativos.id+'-sol-cmb-agencia').setValue(data.id_age);
 				
-				var obja = Ext.getCmp(creditos.id+'-sol-cmb-asesor');
-				creditos.getReload(obja,{vp_cod_age:data.id_age});
+				var obja = Ext.getCmp(negativos.id+'-sol-cmb-asesor');
+				negativos.getReload(obja,{vp_cod_age:data.id_age});
 
-				Ext.getCmp(creditos.id+'-sol-txt-id-per').setValue(data.id_per);
-				Ext.getCmp(creditos.id+'-sol-cmb-asesor').setValue(data.id_asesor);
+				Ext.getCmp(negativos.id+'-sol-txt-id-per').setValue(data.id_per);
+				Ext.getCmp(negativos.id+'-sol-cmb-asesor').setValue(data.id_asesor);
 
 
-				Ext.getCmp(creditos.id+'-sol-cmb-motivo').setValue(data.id_motivo);
-				Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').setValue(data.id_creditos);
-				Ext.getCmp(creditos.id+'-sol-txt-nro-solicitud').setValue(data.nro_solicitud);
-				Ext.getCmp(creditos.id+'-sol-cmb-moneda').setValue(data.moneda);
-				Ext.getCmp(creditos.id+'-sol-txt-monto').setValue(data.monto_solicitado);
-				Ext.getCmp(creditos.id+'-sol-txt-tipo-cliente').setValue(data.tipo_cliente);
-				Ext.getCmp(creditos.id+'-sol-cmb-excepcion').setValue(data.excepcion);
-				Ext.getCmp(creditos.id+'-sol-txt-import-aprobado').setValue(data.monto_aprobado);
-				Ext.getCmp(creditos.id+'-sol-txt-numero-cuotas').setValue(data.nro_cuotas);
-				Ext.getCmp(creditos.id+'-sol-txt-interes').setValue(data.interes);
-				Ext.getCmp(creditos.id+'-sol-txt-mora').setValue(data.mora);
-				Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').setValue(data.fecha_1ra_letra);
-				Ext.getCmp(creditos.id + '-txt-nota').setValue(data.nota);
+				Ext.getCmp(negativos.id+'-sol-cmb-motivo').setValue(data.id_motivo);
+				Ext.getCmp(negativos.id+'-sol-txt-id-solicitud').setValue(data.id_negativos);
+				Ext.getCmp(negativos.id+'-sol-txt-nro-solicitud').setValue(data.nro_solicitud);
+				Ext.getCmp(negativos.id+'-sol-cmb-moneda').setValue(data.moneda);
+				Ext.getCmp(negativos.id+'-sol-txt-monto').setValue(data.monto_solicitado);
+				Ext.getCmp(negativos.id+'-sol-txt-tipo-cliente').setValue(data.tipo_cliente);
+				Ext.getCmp(negativos.id+'-sol-cmb-excepcion').setValue(data.excepcion);
+				Ext.getCmp(negativos.id+'-sol-txt-import-aprobado').setValue(data.monto_aprobado);
+				Ext.getCmp(negativos.id+'-sol-txt-numero-cuotas').setValue(data.nro_cuotas);
+				Ext.getCmp(negativos.id+'-sol-txt-interes').setValue(data.interes);
+				Ext.getCmp(negativos.id+'-sol-txt-mora').setValue(data.mora);
+				Ext.getCmp(negativos.id+'-sol-date-fecha-1-letra').setValue(data.fecha_1ra_letra);
+				Ext.getCmp(negativos.id + '-txt-nota').setValue(data.nota);
 
 				
-				var objc = Ext.getCmp(creditos.id + '-grid-cuotas');
-				creditos.getReload(objc,{VP_CODIGO:data.id_creditos});
+				var objc = Ext.getCmp(negativos.id + '-grid-cuotas');
+				negativos.getReload(objc,{VP_CODIGO:data.id_negativos});
 			},
 			setDataSolicitud:function(idx){
-				var grid=Ext.getCmp(creditos.id+'-grid-solicitudes');
+				var grid=Ext.getCmp(negativos.id+'-grid-solicitudes');
 				var record = grid.getStore().getAt(idx);
 				var data =record.data;
 
-				creditos.setDisabledBTNSolicitud(true);
-				creditos.setClearSolicitud();
-				creditos.setReadOnlySolicitud(true);
+				negativos.setDisabledBTNSolicitud(true);
+				negativos.setClearSolicitud();
+				negativos.setReadOnlySolicitud(true);
 
 				if(data.estado=='S'){//solicitado
-					creditos.setDisabledBTNSolicitud(false);
-					Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('SOLICITADO');
-					creditos.setReadOnlySolicitud(false);
+					negativos.setDisabledBTNSolicitud(false);
+					Ext.getCmp(negativos.id+'-sol-txt-estado-solicitud').setValue('SOLICITADO');
+					negativos.setReadOnlySolicitud(false);
 				}
 				if(data.estado=='A'){
-					//Ext.getCmp(creditos.id+'-btn-guardar-solicitud').setDisabled(bool);
-					//Ext.getCmp(creditos.id+'-btn-aprobar-solicitud').setDisabled(bool);
-					//Ext.getCmp(creditos.id+'-btn-nuevo-solicitud').setDisabled(bool);
-					Ext.getCmp(creditos.id+'-btn-anular-solicitud').setDisabled(true);
-					Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('APROBADO');
+					//Ext.getCmp(negativos.id+'-btn-guardar-solicitud').setDisabled(bool);
+					//Ext.getCmp(negativos.id+'-btn-aprobar-solicitud').setDisabled(bool);
+					//Ext.getCmp(negativos.id+'-btn-nuevo-solicitud').setDisabled(bool);
+					Ext.getCmp(negativos.id+'-btn-anular-solicitud').setDisabled(true);
+					Ext.getCmp(negativos.id+'-sol-txt-estado-solicitud').setValue('APROBADO');
 				}
 				if(data.estado=='C'){//ASIGNADO A ASESOR
-					//Ext.getCmp(creditos.id+'-btn-guardar-solicitud').setDisabled(bool);
-					//Ext.getCmp(creditos.id+'-btn-aprobar-solicitud').setDisabled(bool);
-					//Ext.getCmp(creditos.id+'-btn-nuevo-solicitud').setDisabled(bool);
-					//Ext.getCmp(creditos.id+'-btn-anular-solicitud').setDisabled(false);
-					Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('EN COBRANZA');
+					//Ext.getCmp(negativos.id+'-btn-guardar-solicitud').setDisabled(bool);
+					//Ext.getCmp(negativos.id+'-btn-aprobar-solicitud').setDisabled(bool);
+					//Ext.getCmp(negativos.id+'-btn-nuevo-solicitud').setDisabled(bool);
+					//Ext.getCmp(negativos.id+'-btn-anular-solicitud').setDisabled(false);
+					Ext.getCmp(negativos.id+'-sol-txt-estado-solicitud').setValue('EN COBRANZA');
 				}
 				if(data.estado=='F'){//ASIGNADO A ASESOR
-					//Ext.getCmp(creditos.id+'-btn-guardar-solicitud').setDisabled(bool);
-					//Ext.getCmp(creditos.id+'-btn-aprobar-solicitud').setDisabled(bool);
-					//Ext.getCmp(creditos.id+'-btn-nuevo-solicitud').setDisabled(bool);
-					//Ext.getCmp(creditos.id+'-btn-anular-solicitud').setDisabled(false);
-					Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('FINALIZADO');
+					//Ext.getCmp(negativos.id+'-btn-guardar-solicitud').setDisabled(bool);
+					//Ext.getCmp(negativos.id+'-btn-aprobar-solicitud').setDisabled(bool);
+					//Ext.getCmp(negativos.id+'-btn-nuevo-solicitud').setDisabled(bool);
+					//Ext.getCmp(negativos.id+'-btn-anular-solicitud').setDisabled(false);
+					Ext.getCmp(negativos.id+'-sol-txt-estado-solicitud').setValue('FINALIZADO');
 				}
 
-				Ext.getCmp(creditos.id+'-sol-date-fecha-solicitud').setValue(data.fecha_sol);
-				Ext.getCmp(creditos.id+'-sol-cmb-agencia').setValue(data.id_age);
+				Ext.getCmp(negativos.id+'-sol-date-fecha-solicitud').setValue(data.fecha_sol);
+				Ext.getCmp(negativos.id+'-sol-cmb-agencia').setValue(data.id_age);
 				
-				var obja = Ext.getCmp(creditos.id+'-sol-cmb-asesor');
-				creditos.getReload(obja,{vp_cod_age:data.id_age});
+				var obja = Ext.getCmp(negativos.id+'-sol-cmb-asesor');
+				negativos.getReload(obja,{vp_cod_age:data.id_age});
 
-				Ext.getCmp(creditos.id+'-sol-txt-id-per').setValue(data.id_per);
-				Ext.getCmp(creditos.id+'-sol-cmb-asesor').setValue(data.id_asesor);
+				Ext.getCmp(negativos.id+'-sol-txt-id-per').setValue(data.id_per);
+				Ext.getCmp(negativos.id+'-sol-cmb-asesor').setValue(data.id_asesor);
 
 
-				Ext.getCmp(creditos.id+'-sol-cmb-motivo').setValue(data.id_motivo);
-				Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').setValue(data.id_creditos);
-				Ext.getCmp(creditos.id+'-sol-txt-nro-solicitud').setValue(data.nro_solicitud);
-				Ext.getCmp(creditos.id+'-sol-cmb-moneda').setValue(data.moneda);
-				Ext.getCmp(creditos.id+'-sol-txt-monto').setValue(data.monto_solicitado);
-				Ext.getCmp(creditos.id+'-sol-txt-tipo-cliente').setValue(data.tipo_cliente);
-				Ext.getCmp(creditos.id+'-sol-cmb-excepcion').setValue(data.excepcion);
-				Ext.getCmp(creditos.id+'-sol-txt-import-aprobado').setValue(data.monto_aprobado);
-				Ext.getCmp(creditos.id+'-sol-txt-numero-cuotas').setValue(data.nro_cuotas);
-				Ext.getCmp(creditos.id+'-sol-txt-interes').setValue(data.interes);
-				Ext.getCmp(creditos.id+'-sol-txt-mora').setValue(data.mora);
-				Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').setValue(data.fecha_1ra_letra);
-				Ext.getCmp(creditos.id + '-txt-nota').setValue(data.nota);
+				Ext.getCmp(negativos.id+'-sol-cmb-motivo').setValue(data.id_motivo);
+				Ext.getCmp(negativos.id+'-sol-txt-id-solicitud').setValue(data.id_negativos);
+				Ext.getCmp(negativos.id+'-sol-txt-nro-solicitud').setValue(data.nro_solicitud);
+				Ext.getCmp(negativos.id+'-sol-cmb-moneda').setValue(data.moneda);
+				Ext.getCmp(negativos.id+'-sol-txt-monto').setValue(data.monto_solicitado);
+				Ext.getCmp(negativos.id+'-sol-txt-tipo-cliente').setValue(data.tipo_cliente);
+				Ext.getCmp(negativos.id+'-sol-cmb-excepcion').setValue(data.excepcion);
+				Ext.getCmp(negativos.id+'-sol-txt-import-aprobado').setValue(data.monto_aprobado);
+				Ext.getCmp(negativos.id+'-sol-txt-numero-cuotas').setValue(data.nro_cuotas);
+				Ext.getCmp(negativos.id+'-sol-txt-interes').setValue(data.interes);
+				Ext.getCmp(negativos.id+'-sol-txt-mora').setValue(data.mora);
+				Ext.getCmp(negativos.id+'-sol-date-fecha-1-letra').setValue(data.fecha_1ra_letra);
+				Ext.getCmp(negativos.id + '-txt-nota').setValue(data.nota);
 
 				
-				var objc = Ext.getCmp(creditos.id + '-grid-cuotas');
-				creditos.getReload(objc,{VP_CODIGO:data.id_creditos});
+				var objc = Ext.getCmp(negativos.id + '-grid-cuotas');
+				negativos.getReload(objc,{VP_CODIGO:data.id_negativos});
 			},
 			setCollapse:function(){
 				var W = Ext.getCmp(inicio.id + '-contenedor').getWidth();
 				if(W<1680){
-					Ext.getCmp(creditos.id+'-panel-direccion').collapse();
+					Ext.getCmp(negativos.id+'-panel-direccion').collapse();
 				}else{
-					Ext.getCmp(creditos.id+'-panel-direccion').expand();
+					Ext.getCmp(negativos.id+'-panel-direccion').expand();
 				}
 			},
 			getSelectUbi:function(){
-				var obj=Ext.getCmp(creditos.id+'-sol-cmb-departamento');
-				Ext.getCmp(creditos.id+'-sol-cmb-provincia').getStore().removeAll();
-				Ext.getCmp(creditos.id+'-sol-cmb-Distrito').getStore().removeAll();
-				creditos.getUbigeo({VP_OP:'D',VP_VALUE:''},obj,'100101');
-				var objp=Ext.getCmp(creditos.id+'-sol-cmb-provincia');
-				Ext.getCmp(creditos.id+'-sol-cmb-Distrito').getStore().removeAll();
-				creditos.getUbigeo({VP_OP:'P',VP_VALUE:'100101'},objp,'100601');
-				var objd=Ext.getCmp(creditos.id+'-sol-cmb-Distrito');
-				creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},objd,'100601');
+				var obj=Ext.getCmp(negativos.id+'-sol-cmb-departamento');
+				Ext.getCmp(negativos.id+'-sol-cmb-provincia').getStore().removeAll();
+				Ext.getCmp(negativos.id+'-sol-cmb-Distrito').getStore().removeAll();
+				negativos.getUbigeo({VP_OP:'D',VP_VALUE:''},obj,'100101');
+				var objp=Ext.getCmp(negativos.id+'-sol-cmb-provincia');
+				Ext.getCmp(negativos.id+'-sol-cmb-Distrito').getStore().removeAll();
+				negativos.getUbigeo({VP_OP:'P',VP_VALUE:'100101'},objp,'100601');
+				var objd=Ext.getCmp(negativos.id+'-sol-cmb-Distrito');
+				negativos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},objd,'100601');
 			},
 			setSaveSolicitud:function(op){
 				/*DATOS DE SOLICITUD*/
-				var vp_fecha_solicitud 	= Ext.getCmp(creditos.id+'-sol-date-fecha-solicitud').getRawValue();
-				var vp_id_agencia 		= Ext.getCmp(creditos.id+'-sol-cmb-agencia').getValue();
-				var vp_sol_id_per = Ext.getCmp(creditos.id+'-sol-txt-id-per').getValue();
-				var vp_id_asesor 		= Ext.getCmp(creditos.id+'-sol-cmb-asesor').getValue();
-				var vp_id_mot 			= Ext.getCmp(creditos.id+'-sol-cmb-motivo').getValue();
-				var vp_id_solicitud 	= Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').getValue();
-				var vp_nro_solicitud 	= Ext.getCmp(creditos.id+'-sol-txt-nro-solicitud').getValue();
-				var vp_moneda 			= Ext.getCmp(creditos.id+'-sol-cmb-moneda').getValue();
-				var vp_monto 			= Ext.getCmp(creditos.id+'-sol-txt-monto').getValue();
-				var vp_tipo_cliente 	= Ext.getCmp(creditos.id+'-sol-txt-tipo-cliente').getValue();
-				var vp_excepcion 		= Ext.getCmp(creditos.id+'-sol-cmb-excepcion').getValue();
-				var vp_import_aprobado 	= Ext.getCmp(creditos.id+'-sol-txt-import-aprobado').getValue();
-				var vp_nro_cuotas 		= Ext.getCmp(creditos.id+'-sol-txt-numero-cuotas').getValue();
+				var vp_fecha_solicitud 	= Ext.getCmp(negativos.id+'-sol-date-fecha-solicitud').getRawValue();
+				var vp_id_agencia 		= Ext.getCmp(negativos.id+'-sol-cmb-agencia').getValue();
+				var vp_sol_id_per = Ext.getCmp(negativos.id+'-sol-txt-id-per').getValue();
+				var vp_id_asesor 		= Ext.getCmp(negativos.id+'-sol-cmb-asesor').getValue();
+				var vp_id_mot 			= Ext.getCmp(negativos.id+'-sol-cmb-motivo').getValue();
+				var vp_id_solicitud 	= Ext.getCmp(negativos.id+'-sol-txt-id-solicitud').getValue();
+				var vp_nro_solicitud 	= Ext.getCmp(negativos.id+'-sol-txt-nro-solicitud').getValue();
+				var vp_moneda 			= Ext.getCmp(negativos.id+'-sol-cmb-moneda').getValue();
+				var vp_monto 			= Ext.getCmp(negativos.id+'-sol-txt-monto').getValue();
+				var vp_tipo_cliente 	= Ext.getCmp(negativos.id+'-sol-txt-tipo-cliente').getValue();
+				var vp_excepcion 		= Ext.getCmp(negativos.id+'-sol-cmb-excepcion').getValue();
+				var vp_import_aprobado 	= Ext.getCmp(negativos.id+'-sol-txt-import-aprobado').getValue();
+				var vp_nro_cuotas 		= Ext.getCmp(negativos.id+'-sol-txt-numero-cuotas').getValue();
 
-				var vp_interes  		= Ext.getCmp(creditos.id+'-sol-txt-interes').getValue();
-				var vp_mora  	 		= Ext.getCmp(creditos.id+'-sol-txt-mora').getValue();
+				var vp_interes  		= Ext.getCmp(negativos.id+'-sol-txt-interes').getValue();
+				var vp_mora  	 		= Ext.getCmp(negativos.id+'-sol-txt-mora').getValue();
 
 
-				var vp_fecha_1ra_letra 	= Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').getRawValue();
-				var vp_nota 			= Ext.getCmp(creditos.id + '-txt-nota').getValue();
+				var vp_fecha_1ra_letra 	= Ext.getCmp(negativos.id+'-sol-date-fecha-1-letra').getRawValue();
+				var vp_nota 			= Ext.getCmp(negativos.id + '-txt-nota').getValue();
 
 
 				
@@ -4769,10 +4794,10 @@
                     buttons: 3,
                     fn: function(btn){
                     	if (btn == 'yes'){
-                    		Ext.getCmp(creditos.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
+                    		Ext.getCmp(negativos.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
 	                        //scanning.getLoader(true);
 			                Ext.Ajax.request({
-			                    url:creditos.url+'setSavecreditos/',
+			                    url:negativos.url+'setSavenegativos/',
 			                    params:{
 			                    	vp_op 				:op,
 			                    	vp_fecha_solicitud	:vp_fecha_solicitud,
@@ -4796,7 +4821,7 @@
 			                    },
 			                    timeout: 30000000,
 			                    success: function(response, options){
-			                        Ext.getCmp(creditos.id+'-win-form').el.unmask();
+			                        Ext.getCmp(negativos.id+'-win-form').el.unmask();
 			                        var res = Ext.JSON.decode(response.responseText);
 			                        //control.getLoader(false);
 			                        if (res.error == 'OK'){
@@ -4805,13 +4830,13 @@
 			                                icon: 1,
 			                                buttons: 1,
 			                                fn: function(btn){
-			                                	var vp_dni = Ext.getCmp(creditos.id+'-sol-txt-doc-dni').getValue();
-			                                	Ext.getCmp(creditos.id+'-txt-dni').setValue(vp_dni);
-			                                	creditos.getListaSolicitudes(vp_dni);
-			                                	creditos.setDataSolicitud(creditos.idx);
-			                                	//Ext.getCmp(creditos.id+'-select-garante').setValue('');
-			                                	//var objp = Ext.getCmp(creditos.id+'-list-garante');
-												//creditos.getReload(objp,{vp_op:'G',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+			                                	var vp_dni = Ext.getCmp(negativos.id+'-sol-txt-doc-dni').getValue();
+			                                	Ext.getCmp(negativos.id+'-txt-dni').setValue(vp_dni);
+			                                	negativos.getListaSolicitudes(vp_dni);
+			                                	negativos.setDataSolicitud(negativos.idx);
+			                                	//Ext.getCmp(negativos.id+'-select-garante').setValue('');
+			                                	//var objp = Ext.getCmp(negativos.id+'-list-garante');
+												//negativos.getReload(objp,{vp_op:'G',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 			                                }
 			                            });
 			                        }else{
@@ -4830,44 +4855,44 @@
 					}
 				});
 			},
-			setSavecreditos:function(forma){
+			setSavenegativos:function(forma){
 				
-				var vp_sol_id_cli = Ext.getCmp(creditos.id+'-sol-txt-id-cli').getValue();
-				var vp_sol_id_per = Ext.getCmp(creditos.id+'-sol-txt-id-per').getValue();
+				var vp_sol_id_cli = Ext.getCmp(negativos.id+'-sol-txt-id-cli').getValue();
+				var vp_sol_id_per = Ext.getCmp(negativos.id+'-sol-txt-id-per').getValue();
 
 
-				var sol_ape_pat = Ext.getCmp(creditos.id+'-sol-txt-apellido-paterno').getValue();
-				var sol_ape_mat = Ext.getCmp(creditos.id+'-sol-txt-apellido-materno').getValue();
-				var sol_nombres = Ext.getCmp(creditos.id+'-sol-txt-nombres').getValue();
-				var sol_sexo = Ext.getCmp(creditos.id+'-sol-cmb-sexo').getValue();
-				var sol_doc_dni = Ext.getCmp(creditos.id+'-sol-txt-doc-dni').getValue();
-				var sol_doc_ce = Ext.getCmp(creditos.id+'-sol-txt-doc-ce').getValue();
-				var sol_doc_cip = Ext.getCmp(creditos.id+'-sol-txt-doc-cip').getValue();
-				var sol_doc_ruc = Ext.getCmp(creditos.id+'-sol-txt-doc-ruc').getValue();
-				var sol_doc_cm = Ext.getCmp(creditos.id+'-sol-txt-doc-cm').getValue();
-				var sol_estado_civil = Ext.getCmp(creditos.id+'-sol-cmb-estado-civil').getValue();
-				var sol_fecha_nac = Ext.getCmp(creditos.id+'-sol-date-fecha-nac').getRawValue();
+				var sol_ape_pat = Ext.getCmp(negativos.id+'-sol-txt-apellido-paterno').getValue();
+				var sol_ape_mat = Ext.getCmp(negativos.id+'-sol-txt-apellido-materno').getValue();
+				var sol_nombres = Ext.getCmp(negativos.id+'-sol-txt-nombres').getValue();
+				var sol_sexo = Ext.getCmp(negativos.id+'-sol-cmb-sexo').getValue();
+				var sol_doc_dni = Ext.getCmp(negativos.id+'-sol-txt-doc-dni').getValue();
+				var sol_doc_ce = Ext.getCmp(negativos.id+'-sol-txt-doc-ce').getValue();
+				var sol_doc_cip = Ext.getCmp(negativos.id+'-sol-txt-doc-cip').getValue();
+				var sol_doc_ruc = Ext.getCmp(negativos.id+'-sol-txt-doc-ruc').getValue();
+				var sol_doc_cm = Ext.getCmp(negativos.id+'-sol-txt-doc-cm').getValue();
+				var sol_estado_civil = Ext.getCmp(negativos.id+'-sol-cmb-estado-civil').getValue();
+				var sol_fecha_nac = Ext.getCmp(negativos.id+'-sol-date-fecha-nac').getRawValue();
 
-				/*var sol_domi_propio = Ext.getCmp(creditos.id+'-sol-chk-domi-propio').getValue();
+				/*var sol_domi_propio = Ext.getCmp(negativos.id+'-sol-chk-domi-propio').getValue();
 				sol_domi_propio = sol_domi_propio?'S':'N';
-				var sol_domi_pagando = Ext.getCmp(creditos.id+'-sol-chk-domi-pagando').getValue();
+				var sol_domi_pagando = Ext.getCmp(negativos.id+'-sol-chk-domi-pagando').getValue();
 				sol_domi_pagando = sol_domi_pagando?'S':'N';
-				var sol_domi_alquilado = Ext.getCmp(creditos.id+'-sol-chk-domi-alquilado').getValue();
+				var sol_domi_alquilado = Ext.getCmp(negativos.id+'-sol-chk-domi-alquilado').getValue();
 				sol_domi_alquilado = sol_domi_alquilado?'S':'N';
-				var sol_domi_familiar = Ext.getCmp(creditos.id+'-sol-chk-domi-familiar').getValue();
+				var sol_domi_familiar = Ext.getCmp(negativos.id+'-sol-chk-domi-familiar').getValue();
 				sol_domi_familiar = sol_domi_familiar?'S':'N';*/
 
-				var sol_domicilio = Ext.getCmp(creditos.id+'-sol-cmb-domicilio').getValue();
-				var sol_estudios = Ext.getCmp(creditos.id+'-sol-cmb-estudios').getValue();
-				var sol_profesion = Ext.getCmp(creditos.id+'-sol-txt-profesion').getValue();
-				var sol_laboral = Ext.getCmp(creditos.id+'-sol-cmb-laboral').getValue();
-				var sol_cargo = Ext.getCmp(creditos.id+'-sol-txt-cargo').getValue();
-				var sol_centro_trabajo = Ext.getCmp(creditos.id+'-sol-txt-centro-trabajo').getValue();
-				var sol_fecha_ingreso = Ext.getCmp(creditos.id+'-sol-date-fecha-ingreso').getRawValue();
+				var sol_domicilio = Ext.getCmp(negativos.id+'-sol-cmb-domicilio').getValue();
+				var sol_estudios = Ext.getCmp(negativos.id+'-sol-cmb-estudios').getValue();
+				var sol_profesion = Ext.getCmp(negativos.id+'-sol-txt-profesion').getValue();
+				var sol_laboral = Ext.getCmp(negativos.id+'-sol-cmb-laboral').getValue();
+				var sol_cargo = Ext.getCmp(negativos.id+'-sol-txt-cargo').getValue();
+				var sol_centro_trabajo = Ext.getCmp(negativos.id+'-sol-txt-centro-trabajo').getValue();
+				var sol_fecha_ingreso = Ext.getCmp(negativos.id+'-sol-date-fecha-ingreso').getRawValue();
 
 
-				var vp_sol_id_tel = Ext.getCmp(creditos.id+'-sol-txt-id-tel').getValue();
-				var vp_sol_id_dir = Ext.getCmp(creditos.id+'-sol-txt-id-dir').getValue();
+				var vp_sol_id_tel = Ext.getCmp(negativos.id+'-sol-txt-id-tel').getValue();
+				var vp_sol_id_dir = Ext.getCmp(negativos.id+'-sol-txt-id-dir').getValue();
 
 				var op =forma;
 				if(op!='D'){
@@ -4925,7 +4950,7 @@
 					}
 				}
 
-				creditos.setSaveDatacreditos(op=='D'?'¿Seguro de Eliminar?':'¿Seguro de guardar?',
+				negativos.setSaveDatanegativos(op=='D'?'¿Seguro de Eliminar?':'¿Seguro de guardar?',
 					{
                     	vp_op:op,
                     	vp_sol_id_cli:vp_sol_id_cli,
@@ -4958,14 +4983,14 @@
                     }
 				);
 			},
-			setSavecreditosConyugue:function(forma){
-				var vp_sol_id_per = Ext.getCmp(creditos.id+'-sol-txt-id-per').getValue();
+			setSavenegativosConyugue:function(forma){
+				var vp_sol_id_per = Ext.getCmp(negativos.id+'-sol-txt-id-per').getValue();
 
-				var sol_doc_dni = Ext.getCmp(creditos.id+'-select-conyugue').getValue();
-				/*var sol_doc_ce = Ext.getCmp(creditos.id+'-sol-txt-doc-ce').getValue();
-				var sol_doc_cip = Ext.getCmp(creditos.id+'-sol-txt-doc-cip').getValue();
-				var sol_doc_ruc = Ext.getCmp(creditos.id+'-sol-txt-doc-ruc').getValue();
-				var sol_doc_cm = Ext.getCmp(creditos.id+'-sol-txt-doc-cm').getValue();*/
+				var sol_doc_dni = Ext.getCmp(negativos.id+'-select-conyugue').getValue();
+				/*var sol_doc_ce = Ext.getCmp(negativos.id+'-sol-txt-doc-ce').getValue();
+				var sol_doc_cip = Ext.getCmp(negativos.id+'-sol-txt-doc-cip').getValue();
+				var sol_doc_ruc = Ext.getCmp(negativos.id+'-sol-txt-doc-ruc').getValue();
+				var sol_doc_cm = Ext.getCmp(negativos.id+'-sol-txt-doc-cm').getValue();*/
 
 				var op =forma;
 				if(vp_sol_id_per==0){
@@ -4977,17 +5002,17 @@
 					return false;
 				}
 
-				var msn=op=='Z'?'¿Seguro de quitar relación?':'¿Seguro de Relacionar creditos?';
+				var msn=op=='Z'?'¿Seguro de quitar relación?':'¿Seguro de Relacionar negativos?';
 				global.Msg({
                     msg: msn,
                     icon: 3,
                     buttons: 3,
                     fn: function(btn){
                     	if (btn == 'yes'){
-                    		Ext.getCmp(creditos.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
+                    		Ext.getCmp(negativos.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
 	                        //scanning.getLoader(true);
 			                Ext.Ajax.request({
-			                    url:creditos.url+'setSavecreditos/',
+			                    url:negativos.url+'setSavenegativos/',
 			                    params:{
 			                    	vp_op:op,
 									vp_sol_id_per:vp_sol_id_per,
@@ -4996,7 +5021,7 @@
 			                    },
 			                    timeout: 30000000,
 			                    success: function(response, options){
-			                        Ext.getCmp(creditos.id+'-win-form').el.unmask();
+			                        Ext.getCmp(negativos.id+'-win-form').el.unmask();
 			                        var res = Ext.JSON.decode(response.responseText);
 			                        //control.getLoader(false);
 			                        if (res.error == 'OK'){
@@ -5005,9 +5030,9 @@
 			                                icon: 1,
 			                                buttons: 1,
 			                                fn: function(btn){
-			                                	Ext.getCmp(creditos.id+'-select-conyugue').setValue('');
-			                                	var objp = Ext.getCmp(creditos.id+'-list-Conyugues');
-												creditos.getReload(objp,{vp_op:'Y',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+			                                	Ext.getCmp(negativos.id+'-select-conyugue').setValue('');
+			                                	var objp = Ext.getCmp(negativos.id+'-list-Conyugues');
+												negativos.getReload(objp,{vp_op:'Y',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 			                                }
 			                            });
 			                        }else{
@@ -5026,14 +5051,14 @@
 					}
 				});
 			},
-			setSavecreditosGarante:function(forma){
-				var vp_sol_id_per = Ext.getCmp(creditos.id+'-sol-txt-id-per').getValue();
+			setSavenegativosGarante:function(forma){
+				var vp_sol_id_per = Ext.getCmp(negativos.id+'-sol-txt-id-per').getValue();
 
-				var sol_doc_dni = Ext.getCmp(creditos.id+'-select-garante').getValue();
-				/*var sol_doc_ce = Ext.getCmp(creditos.id+'-sol-txt-doc-ce').getValue();
-				var sol_doc_cip = Ext.getCmp(creditos.id+'-sol-txt-doc-cip').getValue();
-				var sol_doc_ruc = Ext.getCmp(creditos.id+'-sol-txt-doc-ruc').getValue();
-				var sol_doc_cm = Ext.getCmp(creditos.id+'-sol-txt-doc-cm').getValue();*/
+				var sol_doc_dni = Ext.getCmp(negativos.id+'-select-garante').getValue();
+				/*var sol_doc_ce = Ext.getCmp(negativos.id+'-sol-txt-doc-ce').getValue();
+				var sol_doc_cip = Ext.getCmp(negativos.id+'-sol-txt-doc-cip').getValue();
+				var sol_doc_ruc = Ext.getCmp(negativos.id+'-sol-txt-doc-ruc').getValue();
+				var sol_doc_cm = Ext.getCmp(negativos.id+'-sol-txt-doc-cm').getValue();*/
 
 				var op =forma;
 				if(vp_sol_id_per==0){
@@ -5045,17 +5070,17 @@
 					return false;
 				}
 
-				var msn=op=='G'?'¿Seguro de quitar relación?':'¿Seguro de Relacionar creditos?';
+				var msn=op=='G'?'¿Seguro de quitar relación?':'¿Seguro de Relacionar negativos?';
 				global.Msg({
                     msg: msn,
                     icon: 3,
                     buttons: 3,
                     fn: function(btn){
                     	if (btn == 'yes'){
-                    		Ext.getCmp(creditos.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
+                    		Ext.getCmp(negativos.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
 	                        //scanning.getLoader(true);
 			                Ext.Ajax.request({
-			                    url:creditos.url+'setSavecreditos/',
+			                    url:negativos.url+'setSavenegativos/',
 			                    params:{
 			                    	vp_op:op,
 									vp_sol_id_per:vp_sol_id_per,
@@ -5064,7 +5089,7 @@
 			                    },
 			                    timeout: 30000000,
 			                    success: function(response, options){
-			                        Ext.getCmp(creditos.id+'-win-form').el.unmask();
+			                        Ext.getCmp(negativos.id+'-win-form').el.unmask();
 			                        var res = Ext.JSON.decode(response.responseText);
 			                        //control.getLoader(false);
 			                        if (res.error == 'OK'){
@@ -5073,9 +5098,9 @@
 			                                icon: 1,
 			                                buttons: 1,
 			                                fn: function(btn){
-			                                	Ext.getCmp(creditos.id+'-select-garante').setValue('');
-			                                	var objp = Ext.getCmp(creditos.id+'-list-garante');
-												creditos.getReload(objp,{vp_op:'G',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+			                                	Ext.getCmp(negativos.id+'-select-garante').setValue('');
+			                                	var objp = Ext.getCmp(negativos.id+'-list-garante');
+												negativos.getReload(objp,{vp_op:'G',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 			                                }
 			                            });
 			                        }else{
@@ -5094,21 +5119,21 @@
 					}
 				});
 			},
-			setSaveDatacreditos:function(msn,params){
+			setSaveDatanegativos:function(msn,params){
 				global.Msg({
                     msg: msn,
                     icon: 3,
                     buttons: 3,
                     fn: function(btn){
                     	if (btn == 'yes'){
-                    		Ext.getCmp(creditos.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
+                    		Ext.getCmp(negativos.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
 	                        //scanning.getLoader(true);
 			                Ext.Ajax.request({
-			                    url:creditos.url+'setSavecreditos/',
+			                    url:negativos.url+'setSavenegativos/',
 			                    params:params,
 			                    timeout: 30000000,
 			                    success: function(response, options){
-			                        Ext.getCmp(creditos.id+'-win-form').el.unmask();
+			                        Ext.getCmp(negativos.id+'-win-form').el.unmask();
 			                        var res = Ext.JSON.decode(response.responseText);
 			                        //control.getLoader(false);
 			                        if (res.error == 'OK'){
@@ -5117,15 +5142,15 @@
 			                                icon: 1,
 			                                buttons: 1,
 			                                fn: function(btn){
-			                                	//creditos.getHistory();
+			                                	//negativos.getHistory();
 			                                	if(params.vp_op!='D'){
-				                                	Ext.getCmp(creditos.id+'-sol-txt-id-cli').setValue(res.CODIGO);
-				                                	Ext.getCmp(creditos.id+'-sol-txt-id-per').setValue(res.ID_PER);
+				                                	Ext.getCmp(negativos.id+'-sol-txt-id-cli').setValue(res.CODIGO);
+				                                	Ext.getCmp(negativos.id+'-sol-txt-id-per').setValue(res.ID_PER);
 				                            	}else{
-				                            		Ext.getCmp(creditos.id+'-win-form').close();
+				                            		Ext.getCmp(negativos.id+'-win-form').close();
 				                            	}
-				                            	var obj = Ext.getCmp(creditos.id+'-list-telefonos');
-					                            creditos.getReload(obj,{vp_op:'P',vp_id:res.ID_PER,vp_flag:'A'});
+				                            	var obj = Ext.getCmp(negativos.id+'-list-telefonos');
+					                            negativos.getReload(obj,{vp_op:'P',vp_id:res.ID_PER,vp_flag:'A'});
 			                                	//callback
 			                                }
 			                            });
@@ -5146,12 +5171,12 @@
 				});
 			},
 			getListaSolicitudes:function(dato){ 
-				creditos.setClearcreditos();
-				creditos.setDisabledBTNSolicitud(false);
-				creditos.setClearSolicitud();
+				negativos.setClearnegativos();
+				negativos.setDisabledBTNSolicitud(false);
+				negativos.setClearSolicitud();
 
 				Ext.Ajax.request({
-                    url:creditos.url+'getListPersona/',
+                    url:negativos.url+'getListPersona/',
                     params:{
                     	vp_op:'D',
 						vp_id:0,
@@ -5160,71 +5185,71 @@
                     },
                     timeout: 30000000,
                     success: function(response, options){
-                        Ext.getCmp(creditos.id+'-win-form').el.unmask();
+                        Ext.getCmp(negativos.id+'-win-form').el.unmask();
                         var res = Ext.JSON.decode(response.responseText);
                         console.log(res.data[0]);
                         var data = res.data[0];
                         if(data){
-	                        Ext.getCmp(creditos.id+'-sol-txt-id-cli').setValue(creditos.id_id);
-	                        Ext.getCmp(creditos.id+'-sol-txt-id-per').setValue(data.id_per);
-							Ext.getCmp(creditos.id+'-sol-txt-apellido-paterno').setValue(data.ape_pat);
-							Ext.getCmp(creditos.id+'-sol-txt-apellido-materno').setValue(data.ape_mat);
-							Ext.getCmp(creditos.id+'-sol-txt-nombres').setValue(data.nombres);
-							Ext.getCmp(creditos.id+'-sol-cmb-sexo').setValue(data.sexo);
-							Ext.getCmp(creditos.id+'-sol-txt-doc-dni').setValue(data.doc_dni);
-							Ext.getCmp(creditos.id+'-sol-txt-doc-ce').setValue(data.doc_ce);
-							Ext.getCmp(creditos.id+'-sol-txt-doc-cip').setValue(data.doc_cip);
-							Ext.getCmp(creditos.id+'-sol-txt-doc-ruc').setValue(data.doc_ruc);
-							Ext.getCmp(creditos.id+'-sol-txt-doc-cm').setValue(data.doc_cm);
-							Ext.getCmp(creditos.id+'-sol-cmb-estado-civil').setValue(data.estado_civil);
-							Ext.getCmp(creditos.id+'-sol-date-fecha-nac').setValue(data.fecha_nac);
+	                        Ext.getCmp(negativos.id+'-sol-txt-id-cli').setValue(negativos.id_id);
+	                        Ext.getCmp(negativos.id+'-sol-txt-id-per').setValue(data.id_per);
+							Ext.getCmp(negativos.id+'-sol-txt-apellido-paterno').setValue(data.ape_pat);
+							Ext.getCmp(negativos.id+'-sol-txt-apellido-materno').setValue(data.ape_mat);
+							Ext.getCmp(negativos.id+'-sol-txt-nombres').setValue(data.nombres);
+							Ext.getCmp(negativos.id+'-sol-cmb-sexo').setValue(data.sexo);
+							Ext.getCmp(negativos.id+'-sol-txt-doc-dni').setValue(data.doc_dni);
+							Ext.getCmp(negativos.id+'-sol-txt-doc-ce').setValue(data.doc_ce);
+							Ext.getCmp(negativos.id+'-sol-txt-doc-cip').setValue(data.doc_cip);
+							Ext.getCmp(negativos.id+'-sol-txt-doc-ruc').setValue(data.doc_ruc);
+							Ext.getCmp(negativos.id+'-sol-txt-doc-cm').setValue(data.doc_cm);
+							Ext.getCmp(negativos.id+'-sol-cmb-estado-civil').setValue(data.estado_civil);
+							Ext.getCmp(negativos.id+'-sol-date-fecha-nac').setValue(data.fecha_nac);
 
 							
-							/*Ext.getCmp(creditos.id+'-sol-chk-domi-propio').setValue(data.domi_propio=='S'?true:false);
-							Ext.getCmp(creditos.id+'-sol-chk-domi-pagando').setValue(data.domi_pagando=='S'?true:false);
-							Ext.getCmp(creditos.id+'-sol-chk-domi-alquilado').setValue(data.domi_alquilado=='S'?true:false);
-							Ext.getCmp(creditos.id+'-sol-chk-domi-familiar').setValue(data.domi_familiar=='S'?true:false);*/
+							/*Ext.getCmp(negativos.id+'-sol-chk-domi-propio').setValue(data.domi_propio=='S'?true:false);
+							Ext.getCmp(negativos.id+'-sol-chk-domi-pagando').setValue(data.domi_pagando=='S'?true:false);
+							Ext.getCmp(negativos.id+'-sol-chk-domi-alquilado').setValue(data.domi_alquilado=='S'?true:false);
+							Ext.getCmp(negativos.id+'-sol-chk-domi-familiar').setValue(data.domi_familiar=='S'?true:false);*/
 
-							Ext.getCmp(creditos.id+'-sol-cmb-domicilio').setValue(data.domicilio);
-							Ext.getCmp(creditos.id+'-sol-cmb-estudios').setValue(data.estudios);
-							Ext.getCmp(creditos.id+'-sol-txt-profesion').setValue(data.profesion);
-							Ext.getCmp(creditos.id+'-sol-cmb-laboral').setValue(data.laboral);
-							Ext.getCmp(creditos.id+'-sol-txt-cargo').setValue(data.cargo);
-							Ext.getCmp(creditos.id+'-sol-txt-centro-trabajo').setValue(data.id_empresa);
-							Ext.getCmp(creditos.id+'-sol-date-fecha-ingreso').setValue(data.fecha_ingreso);
+							Ext.getCmp(negativos.id+'-sol-cmb-domicilio').setValue(data.domicilio);
+							Ext.getCmp(negativos.id+'-sol-cmb-estudios').setValue(data.estudios);
+							Ext.getCmp(negativos.id+'-sol-txt-profesion').setValue(data.profesion);
+							Ext.getCmp(negativos.id+'-sol-cmb-laboral').setValue(data.laboral);
+							Ext.getCmp(negativos.id+'-sol-txt-cargo').setValue(data.cargo);
+							Ext.getCmp(negativos.id+'-sol-txt-centro-trabajo').setValue(data.id_empresa);
+							Ext.getCmp(negativos.id+'-sol-date-fecha-ingreso').setValue(data.fecha_ingreso);
 
-							//Ext.getCmp(creditos.id+'-sol-txt-id-tel').setValue(data.id_tel);
-							Ext.getCmp(creditos.id+'-sol-txt-id-dir').setValue(data.id_dir);
-							var obj = Ext.getCmp(creditos.id+'-list-telefonos');
-							creditos.getReload(obj,{vp_op:'P',vp_id:data.id_per,vp_flag:'A'});
+							//Ext.getCmp(negativos.id+'-sol-txt-id-tel').setValue(data.id_tel);
+							Ext.getCmp(negativos.id+'-sol-txt-id-dir').setValue(data.id_dir);
+							var obj = Ext.getCmp(negativos.id+'-list-telefonos');
+							negativos.getReload(obj,{vp_op:'P',vp_id:data.id_per,vp_flag:'A'});
 
 							
 
-							//var obj = Ext.getCmp(creditos.id+'-sol-documentos-adjuntos');
-							//creditos.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
-							win.getGalery({container:'contenedor-documentos',forma:'L',url:creditos.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
+							//var obj = Ext.getCmp(negativos.id+'-sol-documentos-adjuntos');
+							//negativos.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
+							win.getGalery({container:'contenedor-documentos',forma:'L',url:negativos.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
 
 							if(data.id_dir!=0){
-								creditos.getDirecciones(data.id_dir);
+								negativos.getDirecciones(data.id_dir);
 							}else{
-								creditos.getSelectUbi();
+								negativos.getSelectUbi();
 							}
-							//var objd = Ext.getCmp(creditos.id+'-list-direcciones');
-							//creditos.getReload(objd,{vp_op:'R',vp_id:data.id_per,vp_nombre:''});
+							//var objd = Ext.getCmp(negativos.id+'-list-direcciones');
+							//negativos.getReload(objd,{vp_op:'R',vp_id:data.id_per,vp_nombre:''});
 
 							if(data.img!==''){
 								var img = '/persona/'+data.id_per+'/PHOTO/'+data.img;
-								creditos.setPhotoForm(img,data.ape_pat+' '+data.ape_mat +', '+data.nombres);
+								negativos.setPhotoForm(img,data.ape_pat+' '+data.ape_mat +', '+data.nombres);
 							}
 
-							var objp = Ext.getCmp(creditos.id+'-list-Conyugues');
-							creditos.getReload(objp,{vp_op:'Y',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+							var objp = Ext.getCmp(negativos.id+'-list-Conyugues');
+							negativos.getReload(objp,{vp_op:'Y',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 
-							var objg = Ext.getCmp(creditos.id+'-list-garante');
-							creditos.getReload(objg,{vp_op:'G',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+							var objg = Ext.getCmp(negativos.id+'-list-garante');
+							negativos.getReload(objg,{vp_op:'G',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 
-							var objv = Ext.getCmp(creditos.id+'-list-solicitudes');
-							creditos.getReload(objv,{VP_T_DOC:'P',VP_ID_PER:data.id_per,VP_DOC:''});
+							var objv = Ext.getCmp(negativos.id+'-list-solicitudes');
+							negativos.getReload(objv,{VP_T_DOC:'P',VP_ID_PER:data.id_per,VP_DOC:''});
 						}else{
 							global.Msg({msg:"No existe una persona con el número de DNI Ingresado.",icon:2,fn:function(){}});
 						}
@@ -5233,7 +5258,7 @@
 			},
 			getDirecciones:function(id){
 				Ext.Ajax.request({
-                    url:creditos.url+'getListDirecciones/',
+                    url:negativos.url+'getListDirecciones/',
                     params:{
                     	vp_op:'C',
 						vp_id:id,
@@ -5241,124 +5266,124 @@
                     },
                     timeout: 30000000,
                     success: function(response, options){
-                        Ext.getCmp(creditos.id+'-win-form').el.unmask();
+                        Ext.getCmp(negativos.id+'-win-form').el.unmask();
                         var res = Ext.JSON.decode(response.responseText);
                         console.log(res.data[0]);
                         var data = res.data[0];
 
-                        Ext.getCmp(creditos.id+'-sol-txt-id-dir').setValue(data.id_dir);
-						Ext.getCmp(creditos.id+'-sol-txt-dir-direccion').setValue(data.dir_direccion);
-						Ext.getCmp(creditos.id+'-sol-txt-dir-numero').setValue(data.dir_numero);
-						Ext.getCmp(creditos.id+'-sol-txt-dir-mz').setValue(data.dir_mz);
-						Ext.getCmp(creditos.id+'-sol-txt-dir-lt').setValue(data.dir_lt);
-						Ext.getCmp(creditos.id+'-sol-txt-dir-dpto').setValue(data.dir_dpto);
-						Ext.getCmp(creditos.id+'-sol-txt-dir-interior').setValue(data.dir_interior);
-						Ext.getCmp(creditos.id+'-sol-txt-dir-urb').setValue(data.dir_urb);
-						Ext.getCmp(creditos.id+'-sol-txt-dir-referencia').setValue(data.dir_referencia);
+                        Ext.getCmp(negativos.id+'-sol-txt-id-dir').setValue(data.id_dir);
+						Ext.getCmp(negativos.id+'-sol-txt-dir-direccion').setValue(data.dir_direccion);
+						Ext.getCmp(negativos.id+'-sol-txt-dir-numero').setValue(data.dir_numero);
+						Ext.getCmp(negativos.id+'-sol-txt-dir-mz').setValue(data.dir_mz);
+						Ext.getCmp(negativos.id+'-sol-txt-dir-lt').setValue(data.dir_lt);
+						Ext.getCmp(negativos.id+'-sol-txt-dir-dpto').setValue(data.dir_dpto);
+						Ext.getCmp(negativos.id+'-sol-txt-dir-interior').setValue(data.dir_interior);
+						Ext.getCmp(negativos.id+'-sol-txt-dir-urb').setValue(data.dir_urb);
+						Ext.getCmp(negativos.id+'-sol-txt-dir-referencia').setValue(data.dir_referencia);
 
 						/*DIRECCIONES*/
-						var obj=Ext.getCmp(creditos.id+'-sol-cmb-departamento');
-						Ext.getCmp(creditos.id+'-sol-cmb-provincia').getStore().removeAll();
-						Ext.getCmp(creditos.id+'-sol-cmb-Distrito').getStore().removeAll();
-						creditos.getUbigeo({VP_OP:'D',VP_VALUE:''},obj,data.cod_ubi_dep); 
+						var obj=Ext.getCmp(negativos.id+'-sol-cmb-departamento');
+						Ext.getCmp(negativos.id+'-sol-cmb-provincia').getStore().removeAll();
+						Ext.getCmp(negativos.id+'-sol-cmb-Distrito').getStore().removeAll();
+						negativos.getUbigeo({VP_OP:'D',VP_VALUE:''},obj,data.cod_ubi_dep); 
 
-						var objp=Ext.getCmp(creditos.id+'-sol-cmb-provincia');
-						Ext.getCmp(creditos.id+'-sol-cmb-Distrito').getStore().removeAll();
-						creditos.getUbigeo({VP_OP:'P',VP_VALUE:data.cod_ubi_dep},objp,data.cod_ubi_pro);
+						var objp=Ext.getCmp(negativos.id+'-sol-cmb-provincia');
+						Ext.getCmp(negativos.id+'-sol-cmb-Distrito').getStore().removeAll();
+						negativos.getUbigeo({VP_OP:'P',VP_VALUE:data.cod_ubi_dep},objp,data.cod_ubi_pro);
 
-						var objd=Ext.getCmp(creditos.id+'-sol-cmb-Distrito');
-						creditos.getUbigeo({VP_OP:'X',VP_VALUE:data.cod_ubi_pro},objd,data.cod_ubi);
+						var objd=Ext.getCmp(negativos.id+'-sol-cmb-Distrito');
+						negativos.getUbigeo({VP_OP:'X',VP_VALUE:data.cod_ubi_pro},objd,data.cod_ubi);
 
-						//Ext.getCmp(creditos.id+'-sol-cmb-departamento').setValue(data.cod_ubi_dep);
-						//Ext.getCmp(creditos.id+'-sol-cmb-provincia').setValue(data.cod_ubi_pro);
-						//Ext.getCmp(creditos.id+'-sol-cmb-Distrito').setValue(data.cod_ubi);
+						//Ext.getCmp(negativos.id+'-sol-cmb-departamento').setValue(data.cod_ubi_dep);
+						//Ext.getCmp(negativos.id+'-sol-cmb-provincia').setValue(data.cod_ubi_pro);
+						//Ext.getCmp(negativos.id+'-sol-cmb-Distrito').setValue(data.cod_ubi);
                     }
                 });
 			},
-			setClearcreditos:function(){
-				//Ext.getCmp(creditos.id+'-sol-txt-id-per').setValue(0);
-				Ext.getCmp(creditos.id+'-sol-txt-apellido-paterno').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-apellido-materno').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-nombres').setValue('');
-				Ext.getCmp(creditos.id+'-sol-cmb-sexo').setValue('M');
-				Ext.getCmp(creditos.id+'-sol-txt-doc-dni').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-doc-ce').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-doc-cip').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-doc-ruc').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-doc-cm').setValue('');
-				Ext.getCmp(creditos.id+'-sol-cmb-estado-civil').setValue('S');
-				Ext.getCmp(creditos.id+'-sol-txt-centro-trabajo').setValue('0');
-				Ext.getCmp(creditos.id+'-sol-date-fecha-nac').setValue('');
+			setClearnegativos:function(){
+				//Ext.getCmp(negativos.id+'-sol-txt-id-per').setValue(0);
+				Ext.getCmp(negativos.id+'-sol-txt-apellido-paterno').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-apellido-materno').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-nombres').setValue('');
+				Ext.getCmp(negativos.id+'-sol-cmb-sexo').setValue('M');
+				Ext.getCmp(negativos.id+'-sol-txt-doc-dni').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-doc-ce').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-doc-cip').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-doc-ruc').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-doc-cm').setValue('');
+				Ext.getCmp(negativos.id+'-sol-cmb-estado-civil').setValue('S');
+				Ext.getCmp(negativos.id+'-sol-txt-centro-trabajo').setValue('0');
+				Ext.getCmp(negativos.id+'-sol-date-fecha-nac').setValue('');
 
 				
-				/*Ext.getCmp(creditos.id+'-sol-chk-domi-propio').setValue(false);
-				Ext.getCmp(creditos.id+'-sol-chk-domi-pagando').setValue(false);
-				Ext.getCmp(creditos.id+'-sol-chk-domi-alquilado').setValue(false);
-				Ext.getCmp(creditos.id+'-sol-chk-domi-familiar').setValue(false);*/
+				/*Ext.getCmp(negativos.id+'-sol-chk-domi-propio').setValue(false);
+				Ext.getCmp(negativos.id+'-sol-chk-domi-pagando').setValue(false);
+				Ext.getCmp(negativos.id+'-sol-chk-domi-alquilado').setValue(false);
+				Ext.getCmp(negativos.id+'-sol-chk-domi-familiar').setValue(false);*/
 
-				Ext.getCmp(creditos.id+'-sol-cmb-domicilio').setValue('PRO');
-				Ext.getCmp(creditos.id+'-sol-cmb-estudios').setValue('OT');
-				Ext.getCmp(creditos.id+'-sol-txt-profesion').setValue('');
-				Ext.getCmp(creditos.id+'-sol-cmb-laboral').setValue('OT');
-				Ext.getCmp(creditos.id+'-sol-txt-cargo').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-centro-trabajo').setValue('');
-				Ext.getCmp(creditos.id+'-sol-date-fecha-ingreso').setValue('');
+				Ext.getCmp(negativos.id+'-sol-cmb-domicilio').setValue('PRO');
+				Ext.getCmp(negativos.id+'-sol-cmb-estudios').setValue('OT');
+				Ext.getCmp(negativos.id+'-sol-txt-profesion').setValue('');
+				Ext.getCmp(negativos.id+'-sol-cmb-laboral').setValue('OT');
+				Ext.getCmp(negativos.id+'-sol-txt-cargo').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-centro-trabajo').setValue('');
+				Ext.getCmp(negativos.id+'-sol-date-fecha-ingreso').setValue('');
 
-				//Ext.getCmp(creditos.id+'-sol-txt-id-tel').setValue(0);
-				//Ext.getCmp(creditos.id+'-sol-txt-id-dir').setValue(0);
-				Ext.getCmp(creditos.id+'-list-telefonos').getStore().removeAll();
-				//creditos.getReload(obj,{vp_op:'P',vp_id:0,vp_flag:'A'});
+				//Ext.getCmp(negativos.id+'-sol-txt-id-tel').setValue(0);
+				//Ext.getCmp(negativos.id+'-sol-txt-id-dir').setValue(0);
+				Ext.getCmp(negativos.id+'-list-telefonos').getStore().removeAll();
+				//negativos.getReload(obj,{vp_op:'P',vp_id:0,vp_flag:'A'});
 
 				
 
 				//var obj = Ext.getCmp(persona.id+'-sol-documentos-adjuntos');
 				//persona.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
-				win.getGalery({container:'contenedor-documentos',forma:'L',url:creditos.url+'get_list_documentos/',params:{vp_sol_id_per:0,vp_flag:'A'} });
+				win.getGalery({container:'contenedor-documentos',forma:'L',url:negativos.url+'get_list_documentos/',params:{vp_sol_id_per:0,vp_flag:'A'} });
 
-				creditos.getSelectUbi();
+				negativos.getSelectUbi();
 				
 				//persona.getReload(objd,{vp_op:'R',vp_id:0,vp_nombre:''});
 
 				var img = '/images/photo.png';
-				creditos.setPhotoForm(img,'ANONIMO');
+				negativos.setPhotoForm(img,'ANONIMO');
 
-				Ext.getCmp(creditos.id+'-list-Conyugues').getStore().removeAll();
+				Ext.getCmp(negativos.id+'-list-Conyugues').getStore().removeAll();
 				//persona.getReload(objp,{vp_op:'Y',vp_id:0,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 
-				Ext.getCmp(creditos.id+'-list-garante').getStore().removeAll();
+				Ext.getCmp(negativos.id+'-list-garante').getStore().removeAll();
 				//persona.getReload(objg,{vp_op:'G',vp_id:0,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 
-				//creditos.setClearTelefono();
-				creditos.setClearDireccion();
+				//negativos.setClearTelefono();
+				negativos.setClearDireccion();
 			},
-			setSavecreditosIMG:function(){
-				var vp_sol_id_cli = Ext.getCmp(creditos.id+'-sol-txt-id-cli').getValue();
-				var vp_sol_id_per = Ext.getCmp(creditos.id+'-sol-txt-id-per').getValue();
+			setSavenegativosIMG:function(){
+				var vp_sol_id_cli = Ext.getCmp(negativos.id+'-sol-txt-id-cli').getValue();
+				var vp_sol_id_per = Ext.getCmp(negativos.id+'-sol-txt-id-per').getValue();
 
 
 
 			},
 			setClearTelefono:function(){
-				//Ext.getCmp(creditos.id+'-sol-txt-id-tel').setValue(0);
-				Ext.getCmp(creditos.id+'-sol-cmb-tipo-tel').setValue('CE');
-				Ext.getCmp(creditos.id+'-sol-cmb-line-tel').setValue('CL');
-				Ext.getCmp(creditos.id+'-sol-txt-tel-cel').setValue('');
-				Ext.getCmp(creditos.id+'-sol-cmb-tel-estado').setValue('A');
+				//Ext.getCmp(negativos.id+'-sol-txt-id-tel').setValue(0);
+				Ext.getCmp(negativos.id+'-sol-cmb-tipo-tel').setValue('CE');
+				Ext.getCmp(negativos.id+'-sol-cmb-line-tel').setValue('CL');
+				Ext.getCmp(negativos.id+'-sol-txt-tel-cel').setValue('');
+				Ext.getCmp(negativos.id+'-sol-cmb-tel-estado').setValue('A');
 			},
 			setSaveTelefono:function(forma){
-				var vp_sol_id_cli = Ext.getCmp(creditos.id+'-sol-txt-id-cli').getValue();
-				var vp_sol_id_per = Ext.getCmp(creditos.id+'-sol-txt-id-per').getValue();
-				var vp_sol_id_tel = Ext.getCmp(creditos.id+'-sol-txt-id-tel').getValue();
+				var vp_sol_id_cli = Ext.getCmp(negativos.id+'-sol-txt-id-cli').getValue();
+				var vp_sol_id_per = Ext.getCmp(negativos.id+'-sol-txt-id-per').getValue();
+				var vp_sol_id_tel = Ext.getCmp(negativos.id+'-sol-txt-id-tel').getValue();
 
 				if(vp_sol_id_per=='' || vp_sol_id_per == 0){
-					global.Msg({msg:"Debe guardar los datos de la creditos antes.",icon:2,fn:function(){}});
+					global.Msg({msg:"Debe guardar los datos de la negativos antes.",icon:2,fn:function(){}});
 					return false;
 				}
 
-				var vp_sol_tipo_tel = Ext.getCmp(creditos.id+'-sol-cmb-tipo-tel').getValue();
-				var vp_sol_line_tel = Ext.getCmp(creditos.id+'-sol-cmb-line-tel').getValue();
-				var vp_flag = Ext.getCmp(creditos.id+'-sol-cmb-tel-estado').getValue();
-				var sol_tel_cel = Ext.getCmp(creditos.id+'-sol-txt-tel-cel').getValue();
+				var vp_sol_tipo_tel = Ext.getCmp(negativos.id+'-sol-cmb-tipo-tel').getValue();
+				var vp_sol_line_tel = Ext.getCmp(negativos.id+'-sol-cmb-line-tel').getValue();
+				var vp_flag = Ext.getCmp(negativos.id+'-sol-cmb-tel-estado').getValue();
+				var sol_tel_cel = Ext.getCmp(negativos.id+'-sol-txt-tel-cel').getValue();
 
 				var op =forma;
 				if(op!='D'){
@@ -5387,7 +5412,7 @@
 
 				
 
-				creditos.setSaveTelefonoData({vp_op:op,vp_sol_id_per:vp_sol_id_per,vp_sol_id_tel:vp_sol_id_tel,vp_sol_tel_cel:sol_tel_cel,vp_sol_tipo_tel:vp_sol_tipo_tel,vp_sol_line_tel:vp_sol_line_tel,vp_flag:vp_flag},'¿Seguro de guardar?');
+				negativos.setSaveTelefonoData({vp_op:op,vp_sol_id_per:vp_sol_id_per,vp_sol_id_tel:vp_sol_id_tel,vp_sol_tel_cel:sol_tel_cel,vp_sol_tipo_tel:vp_sol_tipo_tel,vp_sol_line_tel:vp_sol_line_tel,vp_flag:vp_flag},'¿Seguro de guardar?');
 			},
 			setSaveTelefonoData:function(params,msn){
 				global.Msg({
@@ -5396,14 +5421,14 @@
                     buttons: 3,
                     fn: function(btn){
                     	if (btn == 'yes'){
-                    		Ext.getCmp(creditos.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
+                    		Ext.getCmp(negativos.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
 	                        //scanning.getLoader(true);
 			                Ext.Ajax.request({
-			                    url:creditos.url+'setSavePhone/',
+			                    url:negativos.url+'setSavePhone/',
 			                    params:params,
 			                    timeout: 30000000,
 			                    success: function(response, options){
-			                        Ext.getCmp(creditos.id+'-win-form').el.unmask();
+			                        Ext.getCmp(negativos.id+'-win-form').el.unmask();
 			                        var res = Ext.JSON.decode(response.responseText);
 			                        //control.getLoader(false);
 			                        if (res.error == 'OK'){
@@ -5412,11 +5437,11 @@
 			                                icon: 1,
 			                                buttons: 1,
 			                                fn: function(btn){
-			                                	//creditos.getHistory();
-			                                	//Ext.getCmp(creditos.id+'-sol-txt-id-tel').setValue(res.CODIGO);
-			                                	creditos.setClearTelefono();
-			                                	var obj = Ext.getCmp(creditos.id+'-list-telefonos');
-				                            	creditos.getReload(obj,{vp_op:'P',vp_id:params.vp_sol_id_per,vp_flag:'A'});
+			                                	//negativos.getHistory();
+			                                	//Ext.getCmp(negativos.id+'-sol-txt-id-tel').setValue(res.CODIGO);
+			                                	negativos.setClearTelefono();
+			                                	var obj = Ext.getCmp(negativos.id+'-list-telefonos');
+				                            	negativos.getReload(obj,{vp_op:'P',vp_id:params.vp_sol_id_per,vp_flag:'A'});
 			                                }
 			                            });
 			                        } else{
@@ -5437,38 +5462,38 @@
 
 			},
 			setClearDireccion:function(){
-				//Ext.getCmp(creditos.id+'-sol-txt-id-dir').setValue(0);
-				Ext.getCmp(creditos.id+'-sol-txt-dir-direccion').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-dir-numero').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-dir-mz').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-dir-lt').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-dir-dpto').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-dir-interior').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-dir-urb').setValue('');
-				Ext.getCmp(creditos.id+'-sol-txt-dir-referencia').setValue('');
-				//Ext.getCmp(creditos.id+'-list-direcciones').getStore().removeAll();
+				//Ext.getCmp(negativos.id+'-sol-txt-id-dir').setValue(0);
+				Ext.getCmp(negativos.id+'-sol-txt-dir-direccion').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-dir-numero').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-dir-mz').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-dir-lt').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-dir-dpto').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-dir-interior').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-dir-urb').setValue('');
+				Ext.getCmp(negativos.id+'-sol-txt-dir-referencia').setValue('');
+				//Ext.getCmp(negativos.id+'-list-direcciones').getStore().removeAll();
 			},
 			setSaveDireccion:function(){
 
-				var vp_sol_id_cli = Ext.getCmp(creditos.id+'-sol-txt-id-cli').getValue();
-				var vp_sol_id_per = Ext.getCmp(creditos.id+'-sol-txt-id-per').getValue();
+				var vp_sol_id_cli = Ext.getCmp(negativos.id+'-sol-txt-id-cli').getValue();
+				var vp_sol_id_per = Ext.getCmp(negativos.id+'-sol-txt-id-per').getValue();
 				
-				var vp_sol_id_dir = Ext.getCmp(creditos.id+'-sol-txt-id-dir').getValue();
+				var vp_sol_id_dir = Ext.getCmp(negativos.id+'-sol-txt-id-dir').getValue();
 				var vp_op = vp_sol_id_dir==0?'I':'U';
-				var sol_dir_direccion = Ext.getCmp(creditos.id+'-sol-txt-dir-direccion').getValue();
-				var sol_dir_numero = Ext.getCmp(creditos.id+'-sol-txt-dir-numero').getValue();
-				var sol_dir_mz = Ext.getCmp(creditos.id+'-sol-txt-dir-mz').getValue();
-				var sol_dir_lt = Ext.getCmp(creditos.id+'-sol-txt-dir-lt').getValue();
-				var sol_dir_dpto = Ext.getCmp(creditos.id+'-sol-txt-dir-dpto').getValue();
-				var sol_dir_interior = Ext.getCmp(creditos.id+'-sol-txt-dir-interior').getValue();
-				var sol_dir_urb = Ext.getCmp(creditos.id+'-sol-txt-dir-urb').getValue();
-				var sol_dir_referencia = Ext.getCmp(creditos.id+'-sol-txt-dir-referencia').getValue();
-				var sol_departamento = Ext.getCmp(creditos.id+'-sol-cmb-departamento').getValue();
-				var sol_provincia = Ext.getCmp(creditos.id+'-sol-cmb-provincia').getValue();
-				var sol_distrito = Ext.getCmp(creditos.id+'-sol-cmb-Distrito').getValue();
+				var sol_dir_direccion = Ext.getCmp(negativos.id+'-sol-txt-dir-direccion').getValue();
+				var sol_dir_numero = Ext.getCmp(negativos.id+'-sol-txt-dir-numero').getValue();
+				var sol_dir_mz = Ext.getCmp(negativos.id+'-sol-txt-dir-mz').getValue();
+				var sol_dir_lt = Ext.getCmp(negativos.id+'-sol-txt-dir-lt').getValue();
+				var sol_dir_dpto = Ext.getCmp(negativos.id+'-sol-txt-dir-dpto').getValue();
+				var sol_dir_interior = Ext.getCmp(negativos.id+'-sol-txt-dir-interior').getValue();
+				var sol_dir_urb = Ext.getCmp(negativos.id+'-sol-txt-dir-urb').getValue();
+				var sol_dir_referencia = Ext.getCmp(negativos.id+'-sol-txt-dir-referencia').getValue();
+				var sol_departamento = Ext.getCmp(negativos.id+'-sol-cmb-departamento').getValue();
+				var sol_provincia = Ext.getCmp(negativos.id+'-sol-cmb-provincia').getValue();
+				var sol_distrito = Ext.getCmp(negativos.id+'-sol-cmb-Distrito').getValue();
 
 				if(vp_sol_id_per=='' || vp_sol_id_per == 0){
-					global.Msg({msg:"Debe guardar los datos de la creditos antes.",icon:2,fn:function(){}});
+					global.Msg({msg:"Debe guardar los datos de la negativos antes.",icon:2,fn:function(){}});
 					return false;
 				}
 
@@ -5478,10 +5503,10 @@
                     buttons: 3,
                     fn: function(btn){
                     	if (btn == 'yes'){
-                    		Ext.getCmp(creditos.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
+                    		Ext.getCmp(negativos.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
 	                        //scanning.getLoader(true);
 			                Ext.Ajax.request({
-			                    url:creditos.url+'setSaveDireccion/',
+			                    url:negativos.url+'setSaveDireccion/',
 			                    params:{
 			                    	vp_op:vp_op,
 			                    	vp_sol_id_cli:vp_sol_id_cli,
@@ -5502,7 +5527,7 @@
 			                    },
 			                    timeout: 30000000,
 			                    success: function(response, options){
-			                        Ext.getCmp(creditos.id+'-win-form').el.unmask();
+			                        Ext.getCmp(negativos.id+'-win-form').el.unmask();
 			                        var res = Ext.JSON.decode(response.responseText);
 			                        //control.getLoader(false);
 			                        if (res.error == 'OK'){
@@ -5511,10 +5536,10 @@
 			                                icon: 1,
 			                                buttons: 1,
 			                                fn: function(btn){
-			                                	//creditos.getHistory();
-			                                	//Ext.getCmp(creditos.id+'-win-form').close();
-			                                	var objd = Ext.getCmp(creditos.id+'-list-direcciones');
-												creditos.getReload(objd,{vp_op:'R',vp_id:vp_sol_id_per,vp_nombre:''});
+			                                	//negativos.getHistory();
+			                                	//Ext.getCmp(negativos.id+'-win-form').close();
+			                                	var objd = Ext.getCmp(negativos.id+'-list-direcciones');
+												negativos.getReload(objd,{vp_op:'R',vp_id:vp_sol_id_per,vp_nombre:''});
 			                                }
 			                            });
 			                        } else{
@@ -5534,17 +5559,17 @@
 				});
 			},
 			setDeleteDir:function(id_dir){
-				var vp_sol_id_per = Ext.getCmp(creditos.id+'-sol-txt-id-per').getValue();
+				var vp_sol_id_per = Ext.getCmp(negativos.id+'-sol-txt-id-per').getValue();
 				global.Msg({
                     msg: '¿Seguro de Eliminar?',
                     icon: 3,
                     buttons: 3,
                     fn: function(btn){
                     	if (btn == 'yes'){
-                    		Ext.getCmp(creditos.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
+                    		Ext.getCmp(negativos.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
 	                        //scanning.getLoader(true);
 			                Ext.Ajax.request({
-			                    url:creditos.url+'setSaveDireccion/',
+			                    url:negativos.url+'setSaveDireccion/',
 			                    params:{
 			                    	vp_op:'D',
 			                    	vp_sol_id_per:vp_sol_id_per,
@@ -5552,7 +5577,7 @@
 			                    },
 			                    timeout: 30000000,
 			                    success: function(response, options){
-			                        Ext.getCmp(creditos.id+'-win-form').el.unmask();
+			                        Ext.getCmp(negativos.id+'-win-form').el.unmask();
 			                        var res = Ext.JSON.decode(response.responseText);
 			                        //control.getLoader(false);
 			                        if (res.error == 'OK'){
@@ -5561,10 +5586,10 @@
 			                                icon: 1,
 			                                buttons: 1,
 			                                fn: function(btn){
-			                                	//creditos.getHistory();
-			                                	//Ext.getCmp(creditos.id+'-win-form').close();
-			                                	var objd = Ext.getCmp(creditos.id+'-list-direcciones');
-												creditos.getReload(objd,{vp_op:'R',vp_id:vp_sol_id_per,vp_nombre:''});
+			                                	//negativos.getHistory();
+			                                	//Ext.getCmp(negativos.id+'-win-form').close();
+			                                	var objd = Ext.getCmp(negativos.id+'-list-direcciones');
+												negativos.getReload(objd,{vp_op:'R',vp_id:vp_sol_id_per,vp_nombre:''});
 			                                }
 			                            });
 			                        } else{
@@ -5589,7 +5614,7 @@
 				obj.getStore().load(
 	                {params: json,
 	                callback:function(){
-	                	//Ext.getCmp(creditos.id+'-form').el.unmask();
+	                	//Ext.getCmp(negativos.id+'-form').el.unmask();
 	                	obj.setValue(value);
 	                }
 	            });
@@ -5603,38 +5628,38 @@
 	            });
 			},
 			setBack:function(){
-				var tab=Ext.getCmp(creditos.id+'-tabContent');
-				var active=Ext.getCmp(creditos.id+creditos.back);
+				var tab=Ext.getCmp(negativos.id+'-tabContent');
+				var active=Ext.getCmp(negativos.id+negativos.back);
 				tab.setActiveTab(active);
 			},
-			getcreditos:function(){
-				var vp_op=Ext.getCmp(creditos.id+'-txt-estado-filter').getValue();
-            	var vp_nombre=Ext.getCmp(creditos.id+'-txt-creditos').getValue();
-		            Ext.getCmp(creditos.id+'-menu-view').getStore().removeAll();
-				Ext.getCmp(creditos.id+'-menu-view').getStore().load(
+			getnegativos:function(){
+				var vp_op=Ext.getCmp(negativos.id+'-txt-estado-filter').getValue();
+            	var vp_nombre=Ext.getCmp(negativos.id+'-txt-negativos').getValue();
+		            Ext.getCmp(negativos.id+'-menu-view').getStore().removeAll();
+				Ext.getCmp(negativos.id+'-menu-view').getStore().load(
 	                {params: {vp_op:vp_op,vp_nombre:vp_nombre},
 	                callback:function(){
-	                	//Ext.getCmp(creditos.id+'-form').el.unmask();
+	                	//Ext.getCmp(negativos.id+'-form').el.unmask();
 	                }
 	            });
 			},
 			getClientes:function(vp_id){
-				var vp_op=Ext.getCmp(creditos.id+'-txt-estado-filter').getValue();
-            	var vp_nombre=Ext.getCmp(creditos.id+'-txt-creditos').getValue();
-		        Ext.getCmp(creditos.id+'-list-clientes').getStore().removeAll();
-				Ext.getCmp(creditos.id+'-list-clientes').getStore().load(
+				var vp_op=Ext.getCmp(negativos.id+'-txt-estado-filter').getValue();
+            	var vp_nombre=Ext.getCmp(negativos.id+'-txt-negativos').getValue();
+		        Ext.getCmp(negativos.id+'-list-clientes').getStore().removeAll();
+				Ext.getCmp(negativos.id+'-list-clientes').getStore().load(
 	                {params: {vp_op:vp_op,vp_id:vp_id},
 	                callback:function(){
-	                	//Ext.getCmp(creditos.id+'-form').el.unmask();
+	                	//Ext.getCmp(negativos.id+'-form').el.unmask();
 	                }
 	            });
 			},
 			getEdit:function(index){
-				var rec = Ext.getCmp(creditos.id + '-grid-creditos').getStore().getAt(index);
-				creditos.setForm('U',rec.data);
+				var rec = Ext.getCmp(negativos.id + '-grid-negativos').getStore().getAt(index);
+				negativos.setForm('U',rec.data);
 			},
 			getNew:function(){
-				creditos.setForm('I',{id_creditos:0,usr_codigo:'',usr_nombre:'',usr_perfil:1,usr_estado:1});
+				negativos.setForm('I',{id_negativos:0,usr_codigo:'',usr_nombre:'',usr_perfil:1,usr_estado:1});
 			},
 			setForm:function(op,data){
 
@@ -5651,14 +5676,14 @@
 	                }
 	            });
 			},
-			setSavecreditos:function(op){
+			setSavenegativos:function(op){
 
-		    	var codigo = Ext.getCmp(creditos.id+'-txt-codigo').getValue();
-		    	var usuario = Ext.getCmp(creditos.id+'-txt-usuario-creditos').getValue();
-		    	var clave = Ext.getCmp(creditos.id+'-txt-clave').getValue();
-		    	var nombre = Ext.getCmp(creditos.id+'-txt-nombre-creditos').getValue();
-		    	var perfil = Ext.getCmp(creditos.id+'-cmb-perfil').getValue();
-		    	var estado = Ext.getCmp(creditos.id+'-cmb-estado-creditos').getValue();
+		    	var codigo = Ext.getCmp(negativos.id+'-txt-codigo').getValue();
+		    	var usuario = Ext.getCmp(negativos.id+'-txt-usuario-negativos').getValue();
+		    	var clave = Ext.getCmp(negativos.id+'-txt-clave').getValue();
+		    	var nombre = Ext.getCmp(negativos.id+'-txt-nombre-negativos').getValue();
+		    	var perfil = Ext.getCmp(negativos.id+'-cmb-perfil').getValue();
+		    	var estado = Ext.getCmp(negativos.id+'-cmb-estado-negativos').getValue();
 
 				if(usuario==''){ 
 					global.Msg({msg:"Ingrese Usuario.",icon:2,fn:function(){}});
@@ -5688,13 +5713,13 @@
                     buttons: 3,
                     fn: function(btn){
                     	if (btn == 'yes'){
-                    		Ext.getCmp(creditos.id+'-win-form').el.mask('Elinando Páginas…', 'x-mask-loading');
+                    		Ext.getCmp(negativos.id+'-win-form').el.mask('Elinando Páginas…', 'x-mask-loading');
 	                        scanning.getLoader(true);
 			                Ext.Ajax.request({
 			                    url:control.url+'set_save/',
 			                    params:{
 			                    	vp_op:op,
-			                    	vp_id_creditos:codigo,
+			                    	vp_id_negativos:codigo,
 			                    	vp_usr_codigo:usuario,
 			                    	vp_usr_passwd:clave,
 			                    	vp_usr_nombre:nombre,
@@ -5703,7 +5728,7 @@
 			                    },
 			                    timeout: 300000,
 			                    success: function(response, options){
-			                        Ext.getCmp(creditos.id+'-win-form').el.unmask();
+			                        Ext.getCmp(negativos.id+'-win-form').el.unmask();
 			                        var res = Ext.JSON.decode(response.responseText);
 			                        //control.getLoader(false);
 			                        if (res.error == 'OK'){
@@ -5712,8 +5737,8 @@
 			                                icon: 1,
 			                                buttons: 1,
 			                                fn: function(btn){
-			                                	creditos.getHistory();
-			                                	Ext.getCmp(creditos.id+'-win-form').close();
+			                                	negativos.getHistory();
+			                                	Ext.getCmp(negativos.id+'-win-form').close();
 			                                }
 			                            });
 			                        } else{
@@ -5733,27 +5758,27 @@
 				});
 			},
 		    getHistory:function(){
-		    	var vp_op = Ext.getCmp(creditos.id+'-txt-estado-filter').getValue();
-				var nombre = Ext.getCmp(creditos.id+'-txt-creditos').getValue();
+		    	var vp_op = Ext.getCmp(negativos.id+'-txt-estado-filter').getValue();
+				var nombre = Ext.getCmp(negativos.id+'-txt-negativos').getValue();
 
-		    	Ext.getCmp(creditos.id + '-grid-creditos').getStore().removeAll();
-				Ext.getCmp(creditos.id + '-grid-creditos').getStore().load(
+		    	Ext.getCmp(negativos.id + '-grid-negativos').getStore().removeAll();
+				Ext.getCmp(negativos.id + '-grid-negativos').getStore().load(
 	                {params: {vp_op:vp_op,vp_nombre:nombre},
 	                callback:function(){
-	                	//Ext.getCmp(creditos.id+'-form').el.unmask();
+	                	//Ext.getCmp(negativos.id+'-form').el.unmask();
 	                }
 	            });
 	            
 		    },
 			getImagen:function(param){
-				win.getGalery({container:'GaleryFull',width:390,height:250,params:{forma:'F',img_path:'/creditos/icon/'+param}});///creditos/
+				win.getGalery({container:'GaleryFull',width:390,height:250,params:{forma:'F',img_path:'/negativos/icon/'+param}});///negativos/
 			},
 			getContratos:function(shi_codigo){
-				Ext.getCmp(creditos.id+'-cbx-contrato').getStore().removeAll();
-				Ext.getCmp(creditos.id+'-cbx-contrato').getStore().load(
+				Ext.getCmp(negativos.id+'-cbx-contrato').getStore().removeAll();
+				Ext.getCmp(negativos.id+'-cbx-contrato').getStore().load(
 	                {params: {vp_shi_codigo:shi_codigo},
 	                callback:function(){
-	                	//Ext.getCmp(creditos.id+'-form').el.unmask();
+	                	//Ext.getCmp(negativos.id+'-form').el.unmask();
 	                }
 	            });
 			},
@@ -5763,37 +5788,37 @@
 			    return url + symbol + 'magic=' + magic;
 			},
 			setPhotoForm:function(img,nombre){
-				var img = creditos.getAddMagicRefresh(img);
+				var img = negativos.getAddMagicRefresh(img);
 				win.getGalery({container:'imagen-contenedor',forma:'F',width:170,height:200,params:{img_path:img,title:nombre}});
 				/*
-				var panel = Ext.getCmp(creditos.id + '-photo-person');
+				var panel = Ext.getCmp(negativos.id + '-photo-person');
 				panel.removeAll();
 				panel.add({
-                    html: '<img id="imagen-creditos" src="'+img+'" style="width:100%; height:"100%;overflow: scroll;" />',
+                    html: '<img id="imagen-negativos" src="'+img+'" style="width:100%; height:"100%;overflow: scroll;" />',
                     border:false,
                     bodyStyle: 'background: transparent;text-align:center;'//style=""
                 });
 
                 panel.doLayout();
 
-                var image = document.getElementById('imagen-creditos');
+                var image = document.getElementById('imagen-negativos');
 				var downloadingImage = new Image();
 				downloadingImage.onload = function(){
 				    image.src = this.src;
-	                Ext.getCmp(creditos.id + '-photo-person').doLayout();
+	                Ext.getCmp(negativos.id + '-photo-person').doLayout();
 				};
 				downloadingImage.src = img;
 				console.log(img);*/
 			},
 			getCentroTrabajo:function(){
-				win.show({vurl: creditos.url_ct+'get_centro_trabajo/?rollback=creditos.getReloadCentroTrabajo();', id_menu: clientes.id_menu, class: ''});
+				win.show({vurl: negativos.url_ct+'get_centro_trabajo/?rollback=negativos.getReloadCentroTrabajo();', id_menu: clientes.id_menu, class: ''});
 			},
 			getReloadCentroTrabajo:function(){
 				
 			}
 		}
-		Ext.onReady(creditos.init,creditos);
+		Ext.onReady(negativos.init,negativos);
 	}else{
-		tab.setActiveTab(creditos.id+'-win-form');
+		tab.setActiveTab(negativos.id+'-win-form');
 	}
 </script>

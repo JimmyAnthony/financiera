@@ -1535,7 +1535,7 @@
 									                                            type: 'link',
 									                                            id_menu: cobranza.id_menu,
 									                                            icons:[
-									                                                {id_serv: 2, img: estado, qtip: 'Estado.', js: ""}
+									                                                {id_serv: 4, img: estado, qtip: 'Estado.', js: ""}
 
 									                                            ]
 									                                        });
@@ -1913,7 +1913,7 @@
 									                                            type: 'link',
 									                                            id_menu: cobranza.id_menu,
 									                                            icons:[
-									                                                {id_serv: 2, img: estado, qtip: 'Estado.', js: ""}
+									                                                {id_serv: 4, img: estado, qtip: 'Estado.', js: ""}
 
 									                                            ]
 									                                        });
@@ -3075,7 +3075,7 @@
 											                                            type: 'link',
 											                                            id_menu: cobranza.id_menu,
 											                                            icons:[
-											                                                {id_serv: 3, img: estado, qtip: 'Estado.', js: ""}
+											                                                {id_serv: 4, img: estado, qtip: 'Estado.', js: ""}
 
 											                                            ]
 											                                        });
@@ -3104,7 +3104,7 @@
 											                                            type: 'link',
 											                                            id_menu: cobranza.id_menu,
 											                                            icons:[
-											                                                {id_serv: 3, img: estado, qtip: 'Pagar.', js: fun}
+											                                                {id_serv: 4, img: estado, qtip: 'Pagar.', js: fun}
 
 											                                            ]
 											                                        });

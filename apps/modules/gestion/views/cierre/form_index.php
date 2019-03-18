@@ -202,6 +202,29 @@
 			        fields: ['code', 'name']
 			    });
 
+			    cierre.store_conceptos = Ext.create('Ext.data.Store',{
+	                fields: [
+	                    {name: 'id_concepto', type: 'string'},
+	                    {name: 'nombre', type: 'string'},
+	                    {name: 'gestion', type: 'string'},
+	                    {name: 'tipo', type: 'string'}
+	                ],
+	                autoLoad:true,
+	                proxy:{
+	                    type: 'ajax',
+	                    url: cierre.url+'get_list_concepto/',
+	                    reader:{
+	                        type: 'json',
+	                        rootProperty: 'data'
+	                    }
+	                },
+	                listeners:{
+	                    load: function(obj, records, successful, opts){
+	                        
+	                    }
+	                }
+	            });
+
 			    cierre.store_ubigeo = Ext.create('Ext.data.Store',{
 	                fields: [
 	                    {name: 'cod_ubi', type: 'string'},
@@ -868,7 +891,7 @@
 		                            logo: 'CC',
 		                            title: 'Cierre de Caja',
 		                            legend: 'Ingrese los parametros para Ubicar al Asesor',
-		                            width:1250,
+		                            width:1400,
 		                            height:90,
 		                            items:[
 		                                {
@@ -973,7 +996,7 @@
 			                                            {
 			                                                xtype:'datefield',
 			                                                id:cierre.id+'-txt-fecha',
-			                                                fieldLabel:'Fecha Cobro',
+			                                                fieldLabel:'Fecha Caja',
 			                                                labelWidth:80,
 			                                                labelAlign:'right',
 			                                                value:new Date(),
@@ -1061,6 +1084,37 @@
 									                        }
 									                    }
 		                                            ]
+		                                        },
+		                                        {
+		                                            width: 130,border:false,
+		                                            padding:'0px 2px 0px 0px',  
+		                                            bodyStyle: 'background: transparent',
+		                                            items:[
+		                                                {
+									                        xtype:'button',
+									                        text: 'Generar Movimiento',
+									                        icon: '/images/icon/actualizar.png',
+									                        listeners:{
+									                            beforerender: function(obj, opts){
+									                                /*global.permisos({
+									                                    id: 15,
+									                                    id_btn: obj.getId(), 
+									                                    id_menu: gestion_devolucion.id_menu,
+									                                    fn: ['panel_asignar_gestion.limpiar']
+									                                });*/
+									                            },
+									                            click: function(obj, e){
+									                            	var id_caja =Ext.getCmp(cierre.id+'-txt-id-caja').getValue();
+													            	if(!id_caja ||id_caja==0){
+													            		global.Msg({msg:"Debe Generar una caja para cobros para esta fecha.",icon:2,fn:function(){}});
+																		return false;
+													            	}else{
+		                               					            	cierre.setGenerateMovimiento();
+		                               					            }
+									                            }
+									                        }
+									                    }
+		                                            ]
 		                                        }
 		                                    ]
 		                                }
@@ -1080,8 +1134,9 @@
 				            		items:[
 				            			{
 				            				region:'north',
-				            				layout:'border',bodyStyle: 'background: #fff;',
-				            				height:105,
+				            				layout:'border',
+				            				bodyStyle: 'background: #fff;',
+				            				height:200,
 				            				border:false,
 				            				items:[
 				            					{
@@ -1116,221 +1171,312 @@
 			                						region:'center',
 			                						//layout:'border',
 			                						border:false,
-			                						layout:'hbox',
-			                						padding:5,
+			                						//layout:'hbox',
+			                						//padding:5,
 			                						items:[
 			                							{
-								                            xtype: 'textfield',	
-								                            fieldLabel: 'CODIGO',
-								                            id:cierre.id+'-txt-id-caja',
-								                            bodyStyle: 'background: transparent',
-										                    padding:'5px 5px 4px 5px',
-								                            //id:cobranza.id+'-txt-dni',
-								                            labelWidth:65,
-								                            readOnly:true,
-								                            align:'right',
-								                            labelAlign:'top',
-								                            //width:80,
-								                            flex:0.5,
-								                            //width:'95%',
-								                            //columnWidth: 0.2,
-								                            height:25,
-								                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
-								                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
-								                            value:0,
-								                            maskRe: new RegExp("[0-9.]+"),
-								                            //anchor:'100%',
-								                            listeners:{
-								                                afterrender:function(obj, e){
-								                                }
-								                            }
-								                        },
+			                								layout:'hbox',
+			                								padding:5,
+			                								items:[
+			                									{
+										                            xtype: 'textfield',	
+										                            fieldLabel: 'CODIGO',
+										                            id:cierre.id+'-txt-id-caja',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'5px 5px 4px 5px',
+										                            //id:cobranza.id+'-txt-dni',
+										                            labelWidth:65,
+										                            readOnly:true,
+										                            align:'right',
+										                            labelAlign:'top',
+										                            //width:80,
+										                            flex:0.5,
+										                            //width:'95%',
+										                            //columnWidth: 0.2,
+										                            height:25,
+										                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+										                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
+										                            value:0,
+										                            maskRe: new RegExp("[0-9.]+"),
+										                            //anchor:'100%',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                }
+										                            }
+										                        },
+					                							{
+				                                                    xtype:'combo',
+				                                                    fieldLabel: 'ESTADO',
+				                                                    id:cierre.id+'-cmb-estado-caja',
+				                                                    store: store_estado_caja,
+				                                                    queryMode: 'local',
+				                                                    triggerAction: 'all',
+				                                                    valueField: 'code',
+				                                                    displayField: 'name',
+				                                                    emptyText: '[Seleccione]',
+				                                                    labelAlign:'top',
+				                                                    //allowBlank: false,
+				                                                    labelWidth: 70,
+				                                                    padding:'5px 5px 5px 5px',
+				                                                    labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:11px; text-align: center; font-weight: bold',
+				                                                    //width:'100%',
+				                                                    flex:1,
+				                                                    anchor:'100%',
+				                                                    readOnly: true,
+				                                                    listeners:{
+				                                                        afterrender:function(obj, e){
+				                                                            // obj.getStore().load();
+				                                                            Ext.getCmp(cierre.id+'-cmb-estado-caja').setValue('N');
+				                                                        },
+				                                                        select:function(obj, records, eOpts){
+				                                                
+				                                                        }
+				                                                    }
+				                                                },
+				                                                {
+										                            xtype: 'textfield',	
+										                            fieldLabel: 'MONTO APERTURADO',
+										                            id:cierre.id+'-txt-monto-apertura-caja',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'5px 5px 4px 5px',
+										                            //id:cobranza.id+'-txt-dni',
+										                            labelWidth:65,
+										                            readOnly:true,
+										                            align:'right',
+										                            labelAlign:'top',
+										                            //width:80,
+										                            flex:1,
+										                            //width:'95%',
+										                            //columnWidth: 0.2,
+										                            height:25,
+										                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+										                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
+										                            value:'',
+										                            maskRe: new RegExp("[0-9.]+"),
+										                            //anchor:'100%',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                }
+										                            }
+										                        },
+										                        {
+										                            xtype: 'textfield',	
+										                            fieldLabel: 'MONTO ACTUAL',
+										                            id:cierre.id+'-txt-monto-actual-caja',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'5px 5px 4px 5px',
+										                            //id:cobranza.id+'-txt-dni',
+										                            labelWidth:65,
+										                            readOnly:true,
+										                            align:'right',
+										                            labelAlign:'top',
+										                            //width:80,
+										                            flex:1,
+										                            //width:'95%',
+										                            //columnWidth: 0.2,
+										                            height:25,
+										                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+										                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
+										                            value:'',
+										                            maskRe: new RegExp("[0-9.]+"),
+										                            //anchor:'100%',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                }
+										                            }
+										                        },
+										                        {
+										                            xtype: 'textfield',	
+										                            fieldLabel: 'MONTO CIERRE',
+										                            id:cierre.id+'-txt-monto-cierre-caja',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'5px 5px 4px 5px',
+										                            //id:cobranza.id+'-txt-dni',
+										                            labelWidth:65,
+										                            readOnly:true,
+										                            align:'right',
+										                            labelAlign:'top',
+										                            //width:80,
+										                            flex:1,
+										                            //width:'95%',
+										                            //columnWidth: 0.2,
+										                            height:25,
+										                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+										                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
+										                            value:'',
+										                            maskRe: new RegExp("[0-9.]+"),
+										                            //anchor:'100%',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                }
+										                            }
+										                        }
+			                								]
+			                							},
 			                							{
-		                                                    xtype:'combo',
-		                                                    fieldLabel: 'ESTADO',
-		                                                    id:cierre.id+'-cmb-estado-caja',
-		                                                    store: store_estado_caja,
-		                                                    queryMode: 'local',
-		                                                    triggerAction: 'all',
-		                                                    valueField: 'code',
-		                                                    displayField: 'name',
-		                                                    emptyText: '[Seleccione]',
-		                                                    labelAlign:'top',
-		                                                    //allowBlank: false,
-		                                                    labelWidth: 70,
-		                                                    padding:'5px 5px 5px 5px',
-		                                                    labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
-								                            fieldStyle: 'font-size:11px; text-align: center; font-weight: bold',
-		                                                    //width:'100%',
-		                                                    flex:1,
-		                                                    anchor:'100%',
-		                                                    readOnly: true,
-		                                                    listeners:{
-		                                                        afterrender:function(obj, e){
-		                                                            // obj.getStore().load();
-		                                                            Ext.getCmp(cierre.id+'-cmb-estado-caja').setValue('N');
-		                                                        },
-		                                                        select:function(obj, records, eOpts){
-		                                                
-		                                                        }
-		                                                    }
-		                                                },
-		                                                {
-								                            xtype: 'textfield',	
-								                            fieldLabel: 'ASESORES',
-								                            id:cierre.id+'-txt-asesores-caja',
-								                            bodyStyle: 'background: transparent',
-										                    padding:'5px 5px 4px 5px',
-								                            //id:cobranza.id+'-txt-dni',
-								                            labelWidth:65,
-								                            readOnly:true,
-								                            align:'right',
-								                            labelAlign:'top',
-								                            //width:80,
-								                            flex:1,
-								                            //width:'95%',
-								                            //columnWidth: 0.2,
-								                            height:25,
-								                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
-								                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
-								                            value:'',
-								                            maskRe: new RegExp("[0-9.]+"),
-								                            //anchor:'100%',
-								                            listeners:{
-								                                afterrender:function(obj, e){
-								                                }
-								                            }
-								                        },
-								                        {
-								                            xtype: 'textfield',	
-								                            fieldLabel: 'CUOTAS',
-								                            id:cierre.id+'-txt-cuotas-caja',
-								                            bodyStyle: 'background: transparent',
-										                    padding:'5px 5px 4px 5px',
-								                            //id:cobranza.id+'-txt-dni',
-								                            labelWidth:65,
-								                            readOnly:true,
-								                            align:'right',
-								                            labelAlign:'top',
-								                            //width:80,
-								                            flex:1,
-								                            //width:'95%',
-								                            //columnWidth: 0.2,
-								                            height:25,
-								                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
-								                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
-								                            value:'',
-								                            maskRe: new RegExp("[0-9.]+"),
-								                            //anchor:'100%',
-								                            listeners:{
-								                                afterrender:function(obj, e){
-								                                }
-								                            }
-								                        },
-								                        {
-								                            xtype: 'textfield',	
-								                            fieldLabel: 'VALOR CUOTAS',
-								                            id:cierre.id+'-txt-valor-cuotas-caja',
-								                            bodyStyle: 'background: transparent',
-										                    padding:'5px 5px 4px 5px',
-								                            //id:cobranza.id+'-txt-dni',
-								                            labelWidth:65,
-								                            readOnly:true,
-								                            align:'right',
-								                            labelAlign:'top',
-								                            //width:80,
-								                            flex:1,
-								                            //width:'95%',
-								                            //columnWidth: 0.2,
-								                            height:25,
-								                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
-								                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
-								                            value:'',
-								                            maskRe: new RegExp("[0-9.]+"),
-								                            //anchor:'100%',
-								                            listeners:{
-								                                afterrender:function(obj, e){
-								                                }
-								                            }
-								                        },
-								                        {
-								                            xtype: 'textfield',	
-								                            fieldLabel: 'MORA',
-								                            id:cierre.id+'-txt-mora-caja',
-								                            bodyStyle: 'background: transparent',
-										                    padding:'5px 5px 4px 5px',
-								                            //id:cobranza.id+'-txt-dni',
-								                            labelWidth:65,
-								                            readOnly:true,
-								                            align:'right',
-								                            labelAlign:'top',
-								                            //width:80,
-								                            flex:1,
-								                            //width:'95%',
-								                            //columnWidth: 0.2,
-								                            height:25,
-								                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
-								                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
-								                            value:'',
-								                            maskRe: new RegExp("[0-9.]+"),
-								                            //anchor:'100%',
-								                            listeners:{
-								                                afterrender:function(obj, e){
-								                                }
-								                            }
-								                        },
-								                        {
-								                            xtype: 'textfield',	
-								                            fieldLabel: 'TOTAL DÍA',
-								                            id:cierre.id+'-txt-total-dia-caja',
-								                            bodyStyle: 'background: transparent',
-										                    padding:'5px 5px 4px 5px',
-								                            //id:cobranza.id+'-txt-dni',
-								                            labelWidth:65,
-								                            readOnly:true,
-								                            align:'right',
-								                            labelAlign:'top',
-								                            //width:80,
-								                            flex:1,
-								                            width:'95%',
-								                            //columnWidth: 0.2,
-								                            height:25,
-								                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
-								                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
-								                            value:'',
-								                            maskRe: new RegExp("[0-9.]+"),
-								                            //anchor:'100%',
-								                            listeners:{
-								                                afterrender:function(obj, e){
-								                                }
-								                            }
-								                        },
-								                        {
-								                            xtype: 'textfield',	
-								                            fieldLabel: 'TOTAL COBRADO',
-								                            id:cierre.id+'-txt-total-cobrado-caja',
-								                            bodyStyle: 'background: transparent',
-										                    padding:'5px 5px 4px 5px',
-								                            //id:cobranza.id+'-txt-dni',
-								                            labelWidth:65,
-								                            readOnly:true,
-								                            align:'right',
-								                            labelAlign:'top',
-								                            //width:80,
-								                            flex:1,
-								                            //width:'95%',
-								                            //columnWidth: 0.2,
-								                            height:25,
-								                            labelStyle: "font-size:10px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
-								                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
-								                            value:'',
-								                            maskRe: new RegExp("[0-9.]+"),
-								                            //anchor:'100%',
-								                            listeners:{
-								                                afterrender:function(obj, e){
-								                                }
-								                            }
-								                        },
+			                								layout:'hbox',
+			                								height:80,
+			                								padding:5,
+			                								items:[
+				                                                {
+										                            xtype: 'textfield',	
+										                            fieldLabel: 'ASESORES',
+										                            id:cierre.id+'-txt-asesores-caja',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'5px 5px 4px 5px',
+										                            //id:cobranza.id+'-txt-dni',
+										                            labelWidth:65,
+										                            readOnly:true,
+										                            align:'right',
+										                            labelAlign:'top',
+										                            //width:80,
+										                            flex:1,
+										                            //width:'95%',
+										                            //columnWidth: 0.2,
+										                            height:50,
+										                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+										                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
+										                            value:'',
+										                            maskRe: new RegExp("[0-9.]+"),
+										                            //anchor:'100%',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                }
+										                            }
+										                        },
+										                        {
+										                            xtype: 'textfield',	
+										                            fieldLabel: 'CUOTAS',
+										                            id:cierre.id+'-txt-cuotas-caja',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'5px 5px 4px 5px',
+										                            //id:cobranza.id+'-txt-dni',
+										                            labelWidth:65,
+										                            readOnly:true,
+										                            align:'right',
+										                            labelAlign:'top',
+										                            //width:80,
+										                            flex:1,
+										                            //width:'95%',
+										                            //columnWidth: 0.2,
+										                            height:50,
+										                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+										                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
+										                            value:'',
+										                            maskRe: new RegExp("[0-9.]+"),
+										                            //anchor:'100%',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                }
+										                            }
+										                        },
+										                        {
+										                            xtype: 'textfield',	
+										                            fieldLabel: 'VALOR CUOTAS',
+										                            id:cierre.id+'-txt-valor-cuotas-caja',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'5px 5px 4px 5px',
+										                            //id:cobranza.id+'-txt-dni',
+										                            labelWidth:65,
+										                            readOnly:true,
+										                            align:'right',
+										                            labelAlign:'top',
+										                            //width:80,
+										                            flex:1,
+										                            //width:'95%',
+										                            //columnWidth: 0.2,
+										                            height:50,
+										                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+										                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
+										                            value:'',
+										                            maskRe: new RegExp("[0-9.]+"),
+										                            //anchor:'100%',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                }
+										                            }
+										                        },
+										                        {
+										                            xtype: 'textfield',	
+										                            fieldLabel: 'MORA',
+										                            id:cierre.id+'-txt-mora-caja',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'5px 5px 4px 5px',
+										                            //id:cobranza.id+'-txt-dni',
+										                            labelWidth:65,
+										                            readOnly:true,
+										                            align:'right',
+										                            labelAlign:'top',
+										                            //width:80,
+										                            flex:1,
+										                            //width:'95%',
+										                            //columnWidth: 0.2,
+										                            height:50,
+										                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+										                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
+										                            value:'',
+										                            maskRe: new RegExp("[0-9.]+"),
+										                            //anchor:'100%',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                }
+										                            }
+										                        },
+										                        {
+										                            xtype: 'textfield',	
+										                            fieldLabel: 'TOTAL DÍA',
+										                            id:cierre.id+'-txt-total-dia-caja',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'5px 5px 4px 5px',
+										                            //id:cobranza.id+'-txt-dni',
+										                            labelWidth:65,
+										                            readOnly:true,
+										                            align:'right',
+										                            labelAlign:'top',
+										                            //width:80,
+										                            flex:1,
+										                            width:'95%',
+										                            //columnWidth: 0.2,
+										                            height:50,
+										                            labelStyle: "font-size:11px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+										                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
+										                            value:'',
+										                            maskRe: new RegExp("[0-9.]+"),
+										                            //anchor:'100%',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                }
+										                            }
+										                        },
+										                        {
+										                            xtype: 'textfield',	
+										                            fieldLabel: 'TOTAL COBRADO',
+										                            id:cierre.id+'-txt-total-cobrado-caja',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'5px 5px 4px 5px',
+										                            //id:cobranza.id+'-txt-dni',
+										                            labelWidth:65,
+										                            readOnly:true,
+										                            align:'right',
+										                            labelAlign:'top',
+										                            //width:80,
+										                            flex:1,
+										                            //width:'95%',
+										                            //columnWidth: 0.2,
+										                            height:50,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:0px 0px 0px 0px;text-align: left;font-weight: bold",
+										                            fieldStyle: 'font-size:15px; text-align: right; font-weight: bold',
+										                            value:'',
+										                            maskRe: new RegExp("[0-9.]+"),
+										                            //anchor:'100%',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                }
+										                            }
+										                        }
+			                								]
+			                							}
 			                						]
 			                					}
 				            				]
@@ -2198,6 +2344,10 @@
 			                                	Ext.getCmp(cierre.id+'-txt-asesores-caja').setValue(res.asesores);
 			                                	Ext.getCmp(cierre.id+'-cmb-estado-caja').setValue(res.estado);
 			                                	Ext.getCmp(cierre.id+'-txt-id-caja').setValue(res.CODIGO);
+
+			                                	Ext.getCmp(cierre.id+'-txt-monto-cierre-caja').setValue(res.monto_cierre);
+			                                	Ext.getCmp(cierre.id+'-txt-monto-actual-caja').setValue(res.monto_actual);
+			                                	Ext.getCmp(cierre.id+'-txt-monto-apertura-caja').setValue(res.monto_apertura);
 			                                	cierre.getAsesores();
 			                                }
 			                            });
@@ -2266,6 +2416,10 @@
 			                                	Ext.getCmp(cierre.id+'-txt-asesores-caja').setValue(res.asesores);
 			                                	Ext.getCmp(cierre.id+'-cmb-estado-caja').setValue(res.estado);
 			                                	Ext.getCmp(cierre.id+'-txt-id-caja').setValue(res.CODIGO);
+
+			                                	Ext.getCmp(cierre.id+'-txt-monto-cierre-caja').setValue(res.monto_cierre);
+			                                	Ext.getCmp(cierre.id+'-txt-monto-actual-caja').setValue(res.monto_actual);
+			                                	Ext.getCmp(cierre.id+'-txt-monto-apertura-caja').setValue(res.monto_apertura);
 			                                	cierre.getAsesores();
 			                                }
 			                            });
@@ -2773,8 +2927,54 @@
 	                }
 	            }).show().center();
 			},
+			setCleaDataCaja:function(){
+				Ext.getCmp(cierre.id+'-txt-total-cobrado-caja').setValue(0);
+            	Ext.getCmp(cierre.id+'-txt-total-dia-caja').setValue(0);
+            	Ext.getCmp(cierre.id+'-txt-mora-caja').setValue(0);
+            	Ext.getCmp(cierre.id+'-txt-valor-cuotas-caja').setValue(0);
+            	Ext.getCmp(cierre.id+'-txt-cuotas-caja').setValue(0);
+            	Ext.getCmp(cierre.id+'-txt-asesores-caja').setValue(0);
+            	Ext.getCmp(cierre.id+'-cmb-estado-caja').setValue('N');
+            	Ext.getCmp(cierre.id+'-txt-id-caja').setValue(0);
+
+            	Ext.getCmp(cierre.id+'-txt-monto-cierre-caja').setValue(0);
+            	Ext.getCmp(cierre.id+'-txt-monto-actual-caja').setValue(0);
+            	Ext.getCmp(cierre.id+'-txt-monto-apertura-caja').setValue(0); 
+			},
 			getCaja:function(){
-				cierre.getAsesores();
+				cierre.setCleaDataCaja();
+				var vp_id_age=Ext.getCmp(cierre.id+'-sol-cmb-agencia-filtro').getValue();
+				var vp_fecha=Ext.getCmp(cierre.id+'-txt-fecha').getRawValue();
+				Ext.getCmp(cierre.id+'-win-form').el.mask('Cargando…', 'x-mask-loading');
+				Ext.Ajax.request({
+					url:cierre.url+'getGenerarCaja/',
+					params:{
+						vp_agencia:vp_id_age,
+						vp_fecha:vp_fecha
+					},
+					success: function(response, options){
+						Ext.getCmp(cierre.id+'-win-form').el.unmask();
+						var res = Ext.JSON.decode(response.responseText);
+                        //control.getLoader(false);
+                        try{
+                        	Ext.getCmp(cierre.id+'-txt-total-cobrado-caja').setValue(res.cobado);
+                        	Ext.getCmp(cierre.id+'-txt-total-dia-caja').setValue(res.total);
+                        	Ext.getCmp(cierre.id+'-txt-mora-caja').setValue(res.mora);
+                        	Ext.getCmp(cierre.id+'-txt-valor-cuotas-caja').setValue(res.valor_cuotas);
+                        	Ext.getCmp(cierre.id+'-txt-cuotas-caja').setValue(res.cuotas);
+                        	Ext.getCmp(cierre.id+'-txt-asesores-caja').setValue(res.asesores);
+                        	Ext.getCmp(cierre.id+'-cmb-estado-caja').setValue(res.estado);
+                        	Ext.getCmp(cierre.id+'-txt-id-caja').setValue(res.CODIGO);
+
+                        	Ext.getCmp(cierre.id+'-txt-monto-cierre-caja').setValue(res.monto_cierre);
+                        	Ext.getCmp(cierre.id+'-txt-monto-actual-caja').setValue(res.monto_actual);
+                        	Ext.getCmp(cierre.id+'-txt-monto-apertura-caja').setValue(res.monto_apertura);
+                        	cierre.getAsesores();
+                        }catch(e){
+                        	cierre.setCleaDataCaja();
+                        }
+					}
+				});
 			},
 			getAsesores:function(){
 				var vp_id_caja=Ext.getCmp(cierre.id+'-txt-id-caja').getValue();
@@ -3884,6 +4084,150 @@
 			},
 			getReloadCentroTrabajo:function(){
 				
+			},
+			setGenerateMovimiento:function(){
+				Ext.create('Ext.window.Window',{
+	                id:cierre.id+'-win-form-movimiento',
+	                plain: true,
+	                title:'Generar Movimiento',
+	                icon: '/images/icon/actualizar.png',
+	                height: 280,
+	                width: 250,
+	                resizable:false,
+	                modal: true,
+	                border:false,
+	                closable:true,
+	                padding:20,
+	                //layout:'fit',
+	                items:[
+	                	{
+                            xtype:'combo',
+                            fieldLabel: 'CONCEPTO',
+                            id:cierre.id+'-cmb-conceptos',
+                            store: cierre.store_conceptos,
+                            queryMode: 'local',
+                            triggerAction: 'all',
+                            valueField: 'cod_age',
+                            displayField: 'nombre',
+                            emptyText: '[Seleccione]',
+                            labelAlign:'right',
+                            //allowBlank: false,
+                            padding:'5px 5px 5px 5px',
+                            labelAlign:'top',
+                            width:'98%',
+                            labelWidth:70,
+                            //flex:1,
+                            //height:40,
+                            labelStyle: "font-size:13px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
+                            fieldStyle: 'font-size:20px; text-align: right; font-weight: bold',
+                            anchor:'100%',
+                            
+                            //readOnly: true,
+                            listeners:{
+                                afterrender:function(obj, e){
+                                	//cierre.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+                                	//obj.setValue(2);
+                                },
+                                select:function(obj, records, eOpts){
+                        			//var obja = Ext.getCmp(cierre.id+'-sol-cmb-asesor');
+									//cierre.getReload(obja,{vp_cod_age:obj.getValue()});
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'textfield',	
+                            fieldLabel: 'MONTO ACTUAL',
+                            id:cierre.id+'-txt-monto-actual-caja-mov',
+                            bodyStyle: 'background: transparent',
+		                    padding:'10px 5px 5px 5px',
+                            //id:cobranza.id+'-txt-dni',
+                            labelWidth:65,
+                            //readOnly:true,
+                            labelAlign:'top',
+                            width:'98%',
+                            //flex:1,
+                            //columnWidth: 0.2,
+                            height:50,
+                            labelStyle: "font-size:13px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
+                            fieldStyle: 'font-size:20px; text-align: right; font-weight: bold',
+                            value:'',
+                            maskRe: new RegExp("[0-9.]+"),
+                            //anchor:'100%',
+                            listeners:{
+                                afterrender:function(obj, e){
+                                },
+                                keypress:function(e) {
+                                	//cobranza.setPagarCuotas();
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'textfield',	
+                            fieldLabel: 'MONTO',
+                            id:cierre.id+'-txt-monto-movimiento',	
+                            bodyStyle: 'background: transparent',
+		                    padding:'10px 5px 5px 5px',
+                            //id:cobranza.id+'-txt-dni',
+                            labelWidth:65,
+                            //readOnly:true,
+                            labelAlign:'top',
+                            width:'98%',
+                            //flex:1,
+                            //columnWidth: 0.2,
+                            height:50,
+                            labelStyle: "font-size:13px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
+                            fieldStyle: 'font-size:20px; text-align: right; font-weight: bold',
+                            value:'',
+                            maskRe: new RegExp("[0-9.]+"),
+                            //anchor:'100%',
+                            listeners:{
+                                afterrender:function(obj, e){
+                                },
+                                keypress:function(e) {
+                                	//cobranza.setPagarCuotas();
+                                }
+                            }
+                        }
+	                ],
+	                bbar:[       
+	                    '->',
+	                    '-',
+	                    {
+	                        xtype:'button',
+	                        text: 'Grabar',
+	                        icon: '/images/icon/save.png',
+	                        listeners:{
+	                            beforerender: function(obj, opts){
+								},
+	                            click: function(obj, e){
+	                            	//cierre.setSaveCredit(client_keep.opcion);
+	                            }
+	                        }
+	                    },
+	                    '-',
+	                    {
+	                        xtype:'button',
+	                        text: 'Salir',
+	                        icon: '/images/icon/get_back.png',
+	                        listeners:{
+	                            beforerender: function(obj, opts){
+	                            },
+	                            click: function(obj, e){
+	                                Ext.getCmp(cierre.id+'-win-form-movimiento').close();
+	                            }
+	                        }
+	                    },
+	                    '-'
+	                ],
+	                listeners:{
+	                    'afterrender':function(obj, e){ 
+	                    	
+	                    },
+	                    'close':function(){
+
+	                    }
+	                }
+	            }).show().center();
 			}
 		}
 		Ext.onReady(cierre.init,cierre);
