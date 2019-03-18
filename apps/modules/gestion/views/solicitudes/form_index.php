@@ -3163,7 +3163,7 @@
 																                            //height:60,
 																                            //labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
 																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
-																                            value:'1444.40',
+																                            value:'',
 																                            maskRe: new RegExp("[0-9.]+"),
 																                            //anchor:'100%',
 																                            listeners:{
@@ -3283,7 +3283,7 @@
 																		                    padding:'5px 10px 5px 10px',
 																                            //id:solicitudes.id+'-txt-dni',
 																                            labelWidth:50,
-																                            //readOnly:true,
+																                            readOnly:true,
 																                            labelAlign:'top',
 																                            //columnWidth: 0.15,
 																                            //width:'100%',
