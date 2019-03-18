@@ -241,6 +241,34 @@ class cierreController extends AppController {
         header('Content-Type: application/json');
         return $this->response($data);
     }
+    public function setRegisterMovCaja($p){
+        $rs = $this->objDatos->SP_GENERAR_MOVIMIENTO_CAJA($p); 
+        $rs = $rs[0];
+        $data = array(
+            'success' => true,
+            'error' => $rs['RESPONSE'],
+            'msn' => utf8_encode(trim($rs['MESSAGE_TEXT'])),
+            'CODIGO' => trim($rs['CODIGO']),
+            'solicitado' => trim($rs['solicitado']),
+            'monto_solicitado' => trim($rs['monto_solicitado']),
+            'asesores' => trim($rs['asesores']),
+            'cuotas' => trim($rs['cuotas']),
+            'valor_cuotas' => trim($rs['valor_cuotas']),
+            'mora' => trim($rs['mora']),
+            'total' => trim($rs['total']),
+            'cobado' => trim($rs['cobado']),
+            'efectivo' => trim($rs['efectivo']),
+            'saldo' => trim($rs['saldo']),
+            'fecha_cierre' => trim($rs['fecha_cierre']),
+            'estado' => trim($rs['estado']),
+            'fecha_creado' => trim($rs['fecha_creado']),
+            'monto_apertura' => trim($rs['monto_apertura']),
+            'monto_actual' => trim($rs['monto_actual']),
+            'monto_cierre' => trim($rs['monto_cierre'])
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
     public function get_list_motivos($p){
         $rs = $this->objDatos->get_list_motivos($p);
         //var_export($rs);

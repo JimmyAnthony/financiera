@@ -147,6 +147,22 @@ class cierreModels extends Adodb {
         $array = parent::ExecuteSPArray();
         return $array;
     }
+    public function SP_GENERAR_MOVIMIENTO_CAJA($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_GENERAR_MOVIMIENTO_CAJA');
+        parent::SetParameterSP($p['vp_id_caja'], 'int');//19 
+        parent::SetParameterSP($p['vp_id_age'], 'int');//19 
+        parent::SetParameterSP($p['vp_id_concepto'], 'int');//19
+        parent::SetParameterSP($p['vp_monto_mov'], 'varchar');//19 
+
+        parent::SetParameterSP(USR_ID, 'int');//19
+        parent::SetParameterSP('@OUT', 'int');//140
+        parent::SetParameterSP('@OUT', 'int');//140
+        parent::SetParameterSP('@OUT', 'int');//140
+        // echo '=>' . parent::getSql().'<br>'; //exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
     public function SP_CREDITOS_DETALLE_LIST($p){
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_CREDITOS_DETALLE_LIST');

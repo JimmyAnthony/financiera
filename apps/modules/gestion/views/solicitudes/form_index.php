@@ -3979,7 +3979,7 @@
                     		Ext.getCmp(solicitudes.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
 	                        //scanning.getLoader(true);
 			                Ext.Ajax.request({
-			                    url:solicitudes.url+'setSavesolicitudes/',
+			                    url:solicitudes.url+'setSaveCreditos/',
 			                    params:{
 			                    	vp_op 				:op,
 			                    	vp_fecha_solicitud	:vp_fecha_solicitud,

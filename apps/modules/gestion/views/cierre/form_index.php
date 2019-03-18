@@ -2336,19 +2336,23 @@
 			                                icon: 1,
 			                                buttons: 1,
 			                                fn: function(btn){
-			                                	Ext.getCmp(cierre.id+'-txt-total-cobrado-caja').setValue(res.cobado);
-			                                	Ext.getCmp(cierre.id+'-txt-total-dia-caja').setValue(res.total);
-			                                	Ext.getCmp(cierre.id+'-txt-mora-caja').setValue(res.mora);
-			                                	Ext.getCmp(cierre.id+'-txt-valor-cuotas-caja').setValue(res.valor_cuotas);
-			                                	Ext.getCmp(cierre.id+'-txt-cuotas-caja').setValue(res.cuotas);
-			                                	Ext.getCmp(cierre.id+'-txt-asesores-caja').setValue(res.asesores);
-			                                	Ext.getCmp(cierre.id+'-cmb-estado-caja').setValue(res.estado);
-			                                	Ext.getCmp(cierre.id+'-txt-id-caja').setValue(res.CODIGO);
+			                                	try{
+				                                	Ext.getCmp(cierre.id+'-txt-total-cobrado-caja').setValue(res.cobado);
+				                                	Ext.getCmp(cierre.id+'-txt-total-dia-caja').setValue(res.total);
+				                                	Ext.getCmp(cierre.id+'-txt-mora-caja').setValue(res.mora);
+				                                	Ext.getCmp(cierre.id+'-txt-valor-cuotas-caja').setValue(res.valor_cuotas);
+				                                	Ext.getCmp(cierre.id+'-txt-cuotas-caja').setValue(res.cuotas);
+				                                	Ext.getCmp(cierre.id+'-txt-asesores-caja').setValue(res.asesores);
+				                                	Ext.getCmp(cierre.id+'-cmb-estado-caja').setValue(res.estado);
+				                                	Ext.getCmp(cierre.id+'-txt-id-caja').setValue(res.CODIGO);
 
-			                                	Ext.getCmp(cierre.id+'-txt-monto-cierre-caja').setValue(res.monto_cierre);
-			                                	Ext.getCmp(cierre.id+'-txt-monto-actual-caja').setValue(res.monto_actual);
-			                                	Ext.getCmp(cierre.id+'-txt-monto-apertura-caja').setValue(res.monto_apertura);
-			                                	cierre.getAsesores();
+				                                	Ext.getCmp(cierre.id+'-txt-monto-cierre-caja').setValue(res.monto_cierre);
+				                                	Ext.getCmp(cierre.id+'-txt-monto-actual-caja').setValue(res.monto_actual);
+				                                	Ext.getCmp(cierre.id+'-txt-monto-apertura-caja').setValue(res.monto_apertura);
+				                                	cierre.getAsesores();
+				                                }catch(e){
+
+				                                }
 			                                }
 			                            });
 			                        }else{
@@ -4086,6 +4090,7 @@
 				
 			},
 			setGenerateMovimiento:function(){
+				var monto_actual = Ext.getCmp(cierre.id+'-txt-monto-actual-caja').getValue();
 				Ext.create('Ext.window.Window',{
 	                id:cierre.id+'-win-form-movimiento',
 	                plain: true,
@@ -4107,7 +4112,7 @@
                             store: cierre.store_conceptos,
                             queryMode: 'local',
                             triggerAction: 'all',
-                            valueField: 'cod_age',
+                            valueField: 'id_concepto',
                             displayField: 'nombre',
                             emptyText: '[Seleccione]',
                             labelAlign:'right',
@@ -4142,7 +4147,7 @@
 		                    padding:'10px 5px 5px 5px',
                             //id:cobranza.id+'-txt-dni',
                             labelWidth:65,
-                            //readOnly:true,
+                            readOnly:true,
                             labelAlign:'top',
                             width:'98%',
                             //flex:1,
@@ -4150,7 +4155,7 @@
                             height:50,
                             labelStyle: "font-size:13px;font-weight:bold;padding:0px 0px 0px 0px;text-align: center;font-weight: bold",
                             fieldStyle: 'font-size:20px; text-align: right; font-weight: bold',
-                            value:'',
+                            value:monto_actual,
                             maskRe: new RegExp("[0-9.]+"),
                             //anchor:'100%',
                             listeners:{
@@ -4200,7 +4205,7 @@
 	                            beforerender: function(obj, opts){
 								},
 	                            click: function(obj, e){
-	                            	//cierre.setSaveCredit(client_keep.opcion);
+	                            	cierre.setRegisterMovCaja();
 	                            }
 	                        }
 	                    },
@@ -4228,6 +4233,100 @@
 	                    }
 	                }
 	            }).show().center();
+			},
+			setRegisterMovCaja:function(){
+				/*DATOS DE SOLICITUD*/
+				var id_caja =Ext.getCmp(cierre.id+'-txt-id-caja').getValue();
+				var agencia =Ext.getCmp(cierre.id+'-sol-cmb-agencia-filtro').getValue();
+				var fecha   =Ext.getCmp(cierre.id+'-txt-fecha').getRawValue();
+
+				var vp_id_concepto  	= Ext.getCmp(cierre.id+'-cmb-conceptos').getValue();
+				var vp_monto_mov 		= Ext.getCmp(cierre.id+'-txt-monto-movimiento').getValue();
+				
+				if(!id_caja){
+					global.Msg({msg:"Seleccione una caja para generar el movimiento",icon:2,fn:function(){}});
+					return false;
+				}
+				if(!agencia){
+					global.Msg({msg:"Seleccione una agencia para generar la caja diaria",icon:2,fn:function(){}});
+					return false;
+				}
+
+				if(vp_id_concepto==''){
+					global.Msg({msg:"Seleccione un concepto.",icon:2,fn:function(){}});
+					return false;
+				}
+				if(vp_monto_mov==''){
+					global.Msg({msg:"Ingrese el Monto.",icon:2,fn:function(){}});
+					return false;
+				}
+				if(vp_monto_mov<=0){
+					global.Msg({msg:"Ingrese un Monto mayor a cero.",icon:2,fn:function(){}});
+					return false;
+				}
+
+				global.Msg({
+                    msg: '¿Seguro de generar el movimiento de caja?',
+                    icon: 3,
+                    buttons: 3,
+                    fn: function(btn){
+                    	if (btn == 'yes'){
+                    		Ext.getCmp(cierre.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
+	                        //scanning.getLoader(true);
+			                Ext.Ajax.request({
+			                    url:cierre.url+'setRegisterMovCaja/',
+			                    params:{
+			                    	vp_id_caja:id_caja,
+			                    	vp_id_age:agencia,
+			                    	vp_id_concepto 		:vp_id_concepto,
+			                    	vp_monto_mov  		:vp_monto_mov
+			                    },
+			                    timeout: 30000000,
+			                    success: function(response, options){
+			                        Ext.getCmp(cierre.id+'-win-form').el.unmask();
+			                        var res = Ext.JSON.decode(response.responseText);
+			                        //control.getLoader(false);
+			                        if (res.error == 'OK'){
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 1,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	Ext.getCmp(cierre.id+'-win-form-movimiento').close();
+			                                	try{
+				                                	Ext.getCmp(cierre.id+'-txt-total-cobrado-caja').setValue(res.cobado);
+				                                	Ext.getCmp(cierre.id+'-txt-total-dia-caja').setValue(res.total);
+				                                	Ext.getCmp(cierre.id+'-txt-mora-caja').setValue(res.mora);
+				                                	Ext.getCmp(cierre.id+'-txt-valor-cuotas-caja').setValue(res.valor_cuotas);
+				                                	Ext.getCmp(cierre.id+'-txt-cuotas-caja').setValue(res.cuotas);
+				                                	Ext.getCmp(cierre.id+'-txt-asesores-caja').setValue(res.asesores);
+				                                	Ext.getCmp(cierre.id+'-cmb-estado-caja').setValue(res.estado);
+				                                	Ext.getCmp(cierre.id+'-txt-id-caja').setValue(res.CODIGO);
+
+				                                	Ext.getCmp(cierre.id+'-txt-monto-cierre-caja').setValue(res.monto_cierre);
+				                                	Ext.getCmp(cierre.id+'-txt-monto-actual-caja').setValue(res.monto_actual);
+				                                	Ext.getCmp(cierre.id+'-txt-monto-apertura-caja').setValue(res.monto_apertura);
+				                                	cierre.getAsesores();
+				                                }catch(e){
+
+				                                }
+			                                }
+			                            });
+			                        }else{
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 0,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	 
+			                                }
+			                            });
+			                        }
+			                    }
+			                });
+						}
+					}
+				});
 			}
 		}
 		Ext.onReady(cierre.init,cierre);
