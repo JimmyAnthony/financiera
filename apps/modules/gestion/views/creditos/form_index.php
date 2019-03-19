@@ -166,76 +166,7 @@
 	                }
 	            });
 
-	            var store_plantillas = Ext.create('Ext.data.Store',{
-	                fields: [
-	                    {name: 'cod_plantilla', type: 'string'},
-				        {name: 'shi_codigo', type: 'string'},
-				        {name: 'fac_cliente', type: 'string'},
-				        {name: 'nombre', type: 'string'},
-	                    {name: 'cod_formato', type: 'string'},
-	                    {name: 'tot_trazos', type: 'string'},
-	                    {name: 'path', type: 'string'},
-	                    {name: 'img', type: 'string'},
-	                    {name: 'pathorigen', type: 'string'},
-	                    {name: 'imgorigen', type: 'string'},
-	                    {name: 'texto', type: 'string'},
-	                    {name: 'estado', type: 'string'},
-	                    {name: 'fecha', type: 'string'},
-	                    {name: 'usuario', type: 'string'},
-	                    {name: 'width', type: 'string'},
-	                    {name: 'height', type: 'string'},
-	                    {name: 'width_formato', type: 'string'},
-	                    {name: 'height_formato', type: 'string'},
-	                    {name: 'formato', type: 'string'}
-	                ],
-	                autoLoad:false,
-	                proxy:{
-	                    type: 'ajax',
-	                    url: creditos.url+'get_ocr_plantillas/',
-	                    reader:{
-	                        type: 'json',
-	                        rootProperty: 'data'
-	                    }
-	                },
-	                listeners:{
-	                    load: function(obj, records, successful, opts){
-	                        
-	                    }
-	                }
-	            });
-
-				var store_trazos = Ext.create('Ext.data.Store',{
-	                fields: [
-	                    {name: 'cod_trazo', type: 'string'},
-				        {name: 'cod_plantilla', type: 'string'},
-				        {name: 'nombre', type: 'string'},
-				        {name: 'tipo', type: 'string'},
-	                    {name: 'x', type: 'string'},
-	                    {name: 'y', type: 'string'},
-	                    {name: 'w', type: 'string'},
-	                    {name: 'h', type: 'string'},
-	                    {name: 'path', type: 'string'},
-	                    {name: 'img', type: 'string'},
-	                    {name: 'texto', type: 'string'},
-	                    {name: 'estado', type: 'string'},
-	                    {name: 'usuario', type: 'string'},
-	                    {name: 'fecha', type: 'string'}
-	                ],
-	                autoLoad:false,
-	                proxy:{
-	                    type: 'ajax',
-	                    url: creditos.url+'get_ocr_trazos/',
-	                    reader:{
-	                        type: 'json',
-	                        rootProperty: 'data'
-	                    }
-	                },
-	                listeners:{
-	                    load: function(obj, records, successful, opts){
-	                        
-	                    }
-	                }
-	            });
+	            
 
 				var myData = [
 				    ['databox_interno_color','databox_interno_color','databox_interno_color','databox_interno_color','databox_interno_color','databox_interno_color']
@@ -278,6 +209,7 @@
 			    var myDataEstadoSol = [
 			    	['L','(TODOS)'],
 					['S','Solicitado'],
+					['P','PRE-APROBADO'],
 					['A','Aprobado'],
 				    ['X','Anulado'],
 				    ['F','Cancelado']
@@ -997,7 +929,7 @@
 						                            logo: 'SC',
 						                            title: 'LISTADO DE SOLICITUDES Y CRÉDITOS',
 						                            legend: 'Panel de Aprobación de Créditos',
-						                            width:1300,
+						                            width:1350,
 						                            height:90,
 						                            items:[
 						                                {
@@ -1154,7 +1086,7 @@
 							                                        ]
 							                                    },
 						                                        {
-							                                   		width: 140,border:false,
+							                                   		width: 180,border:false,
 							                                    	padding:'0px 2px 0px 0px',  
 							                                    	bodyStyle: 'background: transparent',
 							                                 		items:[
@@ -1179,7 +1111,7 @@
 							                                                    listeners:{
 							                                                        afterrender:function(obj, e){
 							                                                            // obj.getStore().load();
-							                                                            Ext.getCmp(creditos.id+'-cmb-estado').setValue('S');
+							                                                            Ext.getCmp(creditos.id+'-cmb-estado').setValue('L');
 							                                                        },
 							                                                        select:function(obj, records, eOpts){
 							                                                
@@ -1482,6 +1414,9 @@
 							                                        var dato ='SOLICITADO';
 							                                        if(record.get('estado')=='A'){
 							                                        	dato = 'APROBADO';
+							                                        }
+							                                        if(record.get('estado')=='P'){
+							                                        	dato = 'PRE-APROBADO';
 							                                        }
 							                                        if(record.get('estado')=='X'){
 							                                        	dato = 'ANULADO';
@@ -3500,8 +3435,8 @@
 																		                    icon: '/images/icon/1315404769_gear_wheel.png',
 																		                    //glyph: 72,
 																		                    //columnWidth: 0.1,
-																		                    flex:0.5,
-																		                    text: 'Guardar',
+																		                    flex:0.7,
+																		                    text: 'PRE-APRO',
 																		                    scale: 'medium',
 																		                    iconAlign: 'top',
 																		                    listeners:{
@@ -4532,6 +4467,13 @@
 					Ext.getCmp(creditos.id+'-btn-anular-solicitud').setDisabled(true);
 					Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('APROBADO');
 				}
+				if(data.estado=='P'){
+					//Ext.getCmp(solicitudes.id+'-btn-guardar-solicitud').setDisabled(bool);
+					//Ext.getCmp(solicitudes.id+'-btn-aprobar-solicitud').setDisabled(bool);
+					//Ext.getCmp(solicitudes.id+'-btn-nuevo-solicitud').setDisabled(bool);
+					Ext.getCmp(creditos.id+'-btn-anular-solicitud').setDisabled(true);
+					Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('PRE APROBADO');
+				}
 				if(data.estado=='C'){//ASIGNADO A ASESOR
 					//Ext.getCmp(creditos.id+'-btn-guardar-solicitud').setDisabled(bool);
 					//Ext.getCmp(creditos.id+'-btn-aprobar-solicitud').setDisabled(bool);
@@ -4721,12 +4663,24 @@
 					global.Msg({msg:"Ingrese Importe Aprobado.",icon:2,fn:function(){}});
 					return false;
 				}
+				if(vp_import_aprobado==0){
+					global.Msg({msg:"Ingrese Importe Aprobado, debe ser mayor a cero.",icon:2,fn:function(){}});
+					return false;
+				}
 				if(vp_nro_cuotas==''){
 					global.Msg({msg:"Ingrese El número de Cuotas.",icon:2,fn:function(){}});
 					return false;
 				}
+				if(vp_nro_cuotas==0){
+					global.Msg({msg:"Ingrese El número de Cuotas mayor a cero.",icon:2,fn:function(){}});
+					return false;
+				}
 				if(vp_interes==''){
 					global.Msg({msg:"Ingrese el interés.",icon:2,fn:function(){}});
+					return false;
+				}
+				if(vp_interes==0){
+					global.Msg({msg:"Ingrese el interés mayor a cero.",icon:2,fn:function(){}});
 					return false;
 				}
 				if(vp_mora==''){

@@ -684,7 +684,7 @@
 		                                '<span>Monto:</span>',
 		                                '</div>',
 		                                '<div class="list_grid_sol__menu_title" style="text-align:right;">',
-		                                    '<span>{monto_aprobado}</span>',
+		                                    '<span>{monto_solicitado}</span>',
 		                                '</div>',
 		                            '</div>',
 		                        '</div>',
@@ -1190,6 +1190,7 @@
 														{
 															region:'south',
 															height:70,
+															hidden:true,
 															border:false,
 															items:[
 																{
@@ -2760,7 +2761,7 @@
 														{
 													        xtype: 'label',
 													        //forId: 'myFieldId',
-													        text: 'INFORMACIÓN DEL CRÉDITO',
+													        text: 'INFORMACIÓN DE LA SOLICITUD',
 													        style: 'font: normal 18px Sans-serif;font-weight: bold;',
 													        padding:'15px 5px 5px 25px',
 													        width:'100%',
@@ -3331,7 +3332,7 @@
 																		                    padding:'5px 10px 5px 5px',
 																                            //id:solicitudes.id+'-txt-dni',
 																                            labelWidth:50,
-																                            //readOnly:true,
+																                            readOnly:true,
 																                            labelAlign:'top',
 																                            //width:'100%',
 																                            //columnWidth: 0.1,
@@ -3340,7 +3341,7 @@
 																                            height:40,
 																                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
-																                            value:'0.1',
+																                            value:'0',
 																                            //anchor:'100%',
 																                            listeners:{
 																                                afterrender:function(obj, e){
@@ -3355,7 +3356,7 @@
 																		                    padding:'5px 10px 5px 5px',
 																                            //id:solicitudes.id+'-txt-dni',
 																                            labelWidth:50,
-																                            //readOnly:true,
+																                            readOnly:true,
 																                            labelAlign:'top',
 																                            //width:'100%',
 																                            //columnWidth: 0.1,
@@ -3364,7 +3365,7 @@
 																                            height:40,
 																                            //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 																                            fieldStyle: 'font-size:12px; text-align: right; font-weight: bold',
-																                            value:'0.05',
+																                            value:'0',
 																                            //anchor:'100%',
 																                            listeners:{
 																                                afterrender:function(obj, e){
@@ -3378,6 +3379,7 @@
 																					        //name: 'date1',
 																					        labelAlign:'top',
 																					        format:'Y-m-d',
+																					        readOnly:true,
 																					        //flex:1,
 																					        //columnWidth: 0.15,
 																					        flex:1,
@@ -3385,7 +3387,7 @@
 																					        //labelStyle: "font-size:15px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 																                            //fieldStyle: 'font-size:15px; text-align: center; font-weight: bold',
 																					        fieldLabel: '1° Letra',
-																					        value:'22/01/2019'
+																					        value:''
 																					    }
 																                    ]
 																                },
@@ -3756,11 +3758,11 @@
 				Ext.getCmp(solicitudes.id+'-sol-txt-monto').setValue('');
 				Ext.getCmp(solicitudes.id+'-sol-txt-tipo-cliente').setValue('N');
 				Ext.getCmp(solicitudes.id+'-sol-cmb-excepcion').setValue('N');
-				Ext.getCmp(solicitudes.id+'-sol-txt-import-aprobado').setValue('');
+				/*Ext.getCmp(solicitudes.id+'-sol-txt-import-aprobado').setValue('');
 				Ext.getCmp(solicitudes.id+'-sol-txt-numero-cuotas').setValue('');
 				Ext.getCmp(solicitudes.id+'-sol-txt-interes').setValue('0.1');
 				Ext.getCmp(solicitudes.id+'-sol-txt-mora').setValue('0.05');
-				Ext.getCmp(solicitudes.id+'-sol-date-fecha-1-letra').setValue(new Date());
+				Ext.getCmp(solicitudes.id+'-sol-date-fecha-1-letra').setValue(new Date());*/
 				Ext.getCmp(solicitudes.id + '-txt-nota').setValue('');
 				solicitudes.setReadOnlySolicitud(false);
 			},
@@ -3776,11 +3778,11 @@
 				Ext.getCmp(solicitudes.id+'-sol-txt-monto').setReadOnly(bool);
 				Ext.getCmp(solicitudes.id+'-sol-txt-tipo-cliente').setReadOnly(bool);
 				Ext.getCmp(solicitudes.id+'-sol-cmb-excepcion').setReadOnly(bool);
-				Ext.getCmp(solicitudes.id+'-sol-txt-import-aprobado').setReadOnly(bool);
+				/*Ext.getCmp(solicitudes.id+'-sol-txt-import-aprobado').setReadOnly(bool);
 				Ext.getCmp(solicitudes.id+'-sol-txt-numero-cuotas').setReadOnly(bool);
 				Ext.getCmp(solicitudes.id+'-sol-txt-interes').setReadOnly(bool);
 				Ext.getCmp(solicitudes.id+'-sol-txt-mora').setReadOnly(bool);
-				Ext.getCmp(solicitudes.id+'-sol-date-fecha-1-letra').setReadOnly(bool);
+				Ext.getCmp(solicitudes.id+'-sol-date-fecha-1-letra').setReadOnly(bool);*/
 				Ext.getCmp(solicitudes.id + '-txt-nota').setReadOnly(bool);
 			},
 			setDataSolicitud:function(idx){
@@ -3795,6 +3797,13 @@
 					solicitudes.setDisabledBTNSolicitud(false);
 					Ext.getCmp(solicitudes.id+'-sol-txt-estado-solicitud').setValue('SOLICITADO');
 					solicitudes.setReadOnlySolicitud(false);
+				}
+				if(data.estado=='P'){
+					//Ext.getCmp(solicitudes.id+'-btn-guardar-solicitud').setDisabled(bool);
+					//Ext.getCmp(solicitudes.id+'-btn-aprobar-solicitud').setDisabled(bool);
+					//Ext.getCmp(solicitudes.id+'-btn-nuevo-solicitud').setDisabled(bool);
+					Ext.getCmp(solicitudes.id+'-btn-anular-solicitud').setDisabled(true);
+					Ext.getCmp(solicitudes.id+'-sol-txt-estado-solicitud').setValue('PRE APROBADO');
 				}
 				if(data.estado=='A'){
 					//Ext.getCmp(solicitudes.id+'-btn-guardar-solicitud').setDisabled(bool);
@@ -3835,11 +3844,11 @@
 				Ext.getCmp(solicitudes.id+'-sol-txt-monto').setValue(data.monto_solicitado);
 				Ext.getCmp(solicitudes.id+'-sol-txt-tipo-cliente').setValue(data.tipo_cliente);
 				Ext.getCmp(solicitudes.id+'-sol-cmb-excepcion').setValue(data.excepcion);
-				Ext.getCmp(solicitudes.id+'-sol-txt-import-aprobado').setValue(data.monto_aprobado);
+				/*Ext.getCmp(solicitudes.id+'-sol-txt-import-aprobado').setValue(data.monto_aprobado);
 				Ext.getCmp(solicitudes.id+'-sol-txt-numero-cuotas').setValue(data.nro_cuotas);
 				Ext.getCmp(solicitudes.id+'-sol-txt-interes').setValue(data.interes);
 				Ext.getCmp(solicitudes.id+'-sol-txt-mora').setValue(data.mora);
-				Ext.getCmp(solicitudes.id+'-sol-date-fecha-1-letra').setValue(data.fecha_1ra_letra);
+				Ext.getCmp(solicitudes.id+'-sol-date-fecha-1-letra').setValue(data.fecha_1ra_letra);*/
 				Ext.getCmp(solicitudes.id + '-txt-nota').setValue(data.nota);
 
 				
@@ -3924,6 +3933,7 @@
 					return false;
 				}
 
+				/*
 				if(vp_import_aprobado==''){
 					global.Msg({msg:"Ingrese Importe Aprobado.",icon:2,fn:function(){}});
 					return false;
@@ -3944,7 +3954,7 @@
 				if(vp_fecha_1ra_letra==''){
 					global.Msg({msg:"Ingrese Fecha 1ra Letra.",icon:2,fn:function(){}});
 					return false;
-				}
+				}*/
 
 				var msn='';				
 				if(op=='I'){

@@ -17,7 +17,7 @@ class solicitudesModels extends Adodb {
 
     public function SP_CREDITO_SAVE($p){
         parent::ReiniciarSQL();
-        parent::ConnectionOpen($this->dsn, 'SP_CREDITOS_SAVE');
+        parent::ConnectionOpen($this->dsn, 'SP_SOLICITUD_SAVE');
         parent::SetParameterSP($p['vp_op'], 'varchar');//1
         parent::SetParameterSP($p['vp_id_solicitud'], 'int');//8
         parent::SetParameterSP($p['vp_sol_id_per'], 'int');//8
