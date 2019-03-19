@@ -1679,6 +1679,7 @@
 														{
 															region:'center',
 															layout:'border',
+															disabled:true,
 															title:'Lista de Solicitudes',
 															border:false,
 															items:[
@@ -4471,8 +4472,10 @@
 					//Ext.getCmp(solicitudes.id+'-btn-guardar-solicitud').setDisabled(bool);
 					//Ext.getCmp(solicitudes.id+'-btn-aprobar-solicitud').setDisabled(bool);
 					//Ext.getCmp(solicitudes.id+'-btn-nuevo-solicitud').setDisabled(bool);
-					Ext.getCmp(creditos.id+'-btn-anular-solicitud').setDisabled(true);
+					creditos.setDisabledBTNSolicitud(false);
+					//Ext.getCmp(creditos.id+'-btn-anular-solicitud').setDisabled(true);
 					Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('PRE APROBADO');
+					creditos.setReadOnlySolicitud(false);
 				}
 				if(data.estado=='C'){//ASIGNADO A ASESOR
 					//Ext.getCmp(creditos.id+'-btn-guardar-solicitud').setDisabled(bool);
@@ -4537,6 +4540,15 @@
 					//Ext.getCmp(creditos.id+'-btn-nuevo-solicitud').setDisabled(bool);
 					Ext.getCmp(creditos.id+'-btn-anular-solicitud').setDisabled(true);
 					Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('APROBADO');
+				}
+				if(data.estado=='P'){
+					//Ext.getCmp(solicitudes.id+'-btn-guardar-solicitud').setDisabled(bool);
+					//Ext.getCmp(solicitudes.id+'-btn-aprobar-solicitud').setDisabled(bool);
+					//Ext.getCmp(solicitudes.id+'-btn-nuevo-solicitud').setDisabled(bool);
+					creditos.setDisabledBTNSolicitud(false);
+					//Ext.getCmp(creditos.id+'-btn-anular-solicitud').setDisabled(true);
+					Ext.getCmp(creditos.id+'-sol-txt-estado-solicitud').setValue('PRE APROBADO');
+					creditos.setReadOnlySolicitud(false);
 				}
 				if(data.estado=='C'){//ASIGNADO A ASESOR
 					//Ext.getCmp(creditos.id+'-btn-guardar-solicitud').setDisabled(bool);
