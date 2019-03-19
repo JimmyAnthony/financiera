@@ -1479,8 +1479,9 @@
 									                                    //width: 40,
 									                                    //flex:1,
 									                                    width: 60,
-									                                    align: 'left',
+									                                    align: 'right',
 									                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+									                                    	metaData.style = "padding: 0px; margin: 0px";
 									                                        return value;
 									                                    }
 									                                },
@@ -1829,8 +1830,9 @@
 									                                    //width: 40,
 									                                    //flex:1,
 									                                    width: 60,
-									                                    align: 'left',
+									                                    align: 'right',
 									                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+									                                    	metaData.style = "padding: 0px; margin: 0px";
 									                                        return value;
 									                                    }
 									                                },
@@ -3090,21 +3092,28 @@
 											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 											                                        //console.log(record);
 											                                        var estado = 'panasonic.png';
+											                                        var qtip='Pagar.';
 											                                        var fun = "cobranza.setAsignar("+rowIndex+",'X')";
 											                                        if(record.get('estado')=='X'){//pago parcial
 											                                        	estado = 'padlock-closed.png';
 											                                        	fun = "cobranza.setAsignar("+rowIndex+",'P')";
 											                                        }
-											                                        if(record.get('estado')=='T'){//terminado
-											                                        	estado = '1348695561_stock_mail-send-receive.png';
+											                                        if(record.get('estado')=='C'){//terminado
+											                                        	estado = 'Lock.png';
 											                                        	fun=''
+											                                        	qtip='Pagado';
+											                                        }
+											                                        if(record.get('estado')=='S'){//terminado
+											                                        	estado = 'blue_flag_G.png';
+											                                        	fun=''
+											                                        	qtip='Saldo Inicial';
 											                                        }
 											                                        metaData.style = "padding: 0px; margin: 0px";
 											                                        return global.permisos({
 											                                            type: 'link',
 											                                            id_menu: cobranza.id_menu,
 											                                            icons:[
-											                                                {id_serv: 4, img: estado, qtip: 'Pagar.', js: fun}
+											                                                {id_serv: 4, img: estado, qtip: qtip, js: fun}
 
 											                                            ]
 											                                        });
@@ -3254,8 +3263,10 @@
                     if (index >= idx) {
                     	var st=v.get('estado');
                     	if(st!='S'){
-	                        v.set('estado', estado);
-	                        v.commit();
+                    		if(st!='C'){
+		                        v.set('estado', estado);
+		                        v.commit();
+	                        }
                         }
                     }
                 });
@@ -3373,6 +3384,10 @@
 			},
 			getListSolicitudes:function(vp_id_asesor,vp_id_age,vp_fecha){
 				//var vp_op=Ext.getCmp(cobranza.id+'-txt-estado-filter').getValue();
+				cobranza.setClearSolicitud();
+				Ext.getCmp(cobranza.id+'-grid-solicitudes').getStore().removeAll();
+				Ext.getCmp(cobranza.id + '-grid-cuotas').getStore().removeAll();
+
 		        Ext.getCmp(cobranza.id+'-grid-solicitudes').getStore().removeAll();
 				Ext.getCmp(cobranza.id+'-grid-solicitudes').getStore().load(
 	                {params: {vp_op:'C',vp_id_asesor:vp_id_asesor,vp_id_age:vp_id_age,vp_fecha:vp_fecha},
@@ -3384,6 +3399,10 @@
 				//cobranza.getReload(objv,{VP_T_DOC:'P',VP_ID_PER:data.id_per,VP_DOC:''});
 			},
 			getCreditosGestionDiaria:function(){
+				cobranza.setClearSolicitud();
+				Ext.getCmp(cobranza.id+'-grid-solicitudes').getStore().removeAll();
+				Ext.getCmp(cobranza.id + '-grid-cuotas').getStore().removeAll();
+
 				var vp_id_age = Ext.getCmp(cobranza.id+'-sol-cmb-agencia-filtro').getValue();
 				var vp_fecha = Ext.getCmp(cobranza.id+'-sol-date-fecha-cobranza').getRawValue();
 
@@ -3418,6 +3437,29 @@
                         }
                     }
                 });
+			},
+			setClearSolicitud:function(){
+				Ext.getCmp(cobranza.id+'-sol-txt-id-per').setValue(0);
+				Ext.getCmp(cobranza.id+'-sol-cmb-asesor').setValue('');
+
+				Ext.getCmp(cobranza.id+'-sol-cmb-motivo').setValue('');
+				Ext.getCmp(cobranza.id+'-sol-txt-id-solicitud').setValue('');
+				Ext.getCmp(cobranza.id+'-sol-txt-nro-solicitud').setValue('');
+				Ext.getCmp(cobranza.id+'-sol-cmb-moneda').setValue('');
+				Ext.getCmp(cobranza.id+'-sol-txt-monto').setValue('');
+				Ext.getCmp(cobranza.id+'-sol-txt-tipo-cliente').setValue('');
+				Ext.getCmp(cobranza.id+'-sol-cmb-excepcion').setValue('');
+				Ext.getCmp(cobranza.id+'-sol-txt-import-aprobado').setValue('');
+				Ext.getCmp(cobranza.id+'-sol-txt-numero-cuotas').setValue('');
+				Ext.getCmp(cobranza.id+'-sol-txt-interes').setValue('');
+				Ext.getCmp(cobranza.id+'-sol-txt-mora').setValue('');
+
+				Ext.getCmp(cobranza.id+'-sol-txt-tot_credito').setValue('');
+				Ext.getCmp(cobranza.id+'-sol-txt-tot_pagado').setValue('');
+				Ext.getCmp(cobranza.id+'-sol-txt-tot_saldo').setValue('');
+
+				Ext.getCmp(cobranza.id+'-sol-date-fecha-1-letra').setValue('');
+				Ext.getCmp(cobranza.id + '-txt-nota').setValue('');
 			},
 			setDataSolicitud:function(index){
 				var grid= Ext.getCmp(cobranza.id+'-grid-solicitudes');

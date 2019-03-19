@@ -1677,7 +1677,7 @@
 									                                            type: 'link',
 									                                            id_menu: cierre.id_menu,
 									                                            icons:[
-									                                                {id_serv: 2, img: estado, qtip: 'Estado.', js: jsf}
+									                                                {id_serv: 1, img: estado, qtip: 'Estado.', js: jsf}
 
 									                                            ]
 									                                        });

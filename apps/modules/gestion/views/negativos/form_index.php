@@ -1533,7 +1533,7 @@
 							                                            type: 'link',
 							                                            id_menu: negativos.id_menu,
 							                                            icons:[
-							                                                {id_serv: 2, img: estado, qtip: 'Gestionar.', js: fun}
+							                                                {id_serv: 6, img: estado, qtip: 'Ver.', js: fun}
 
 							                                            ]
 							                                        });
@@ -1777,6 +1777,7 @@
 																	region:'center',
 																	border:false,
 																	autoScroll: true,
+																	disabled:true,
 																	items:[
 																		{
 													                        xtype: 'dataview',
@@ -1828,6 +1829,7 @@
 																	region:'south',
 																	height:70,
 																	border:false,
+																	hidden:true,
 																	items:[
 																		{
 													                        xtype: 'dataview',
@@ -3520,6 +3522,7 @@
 																                        },
 																                        {
 																		                    xtype: 'button',
+																		                    hidden:true,
 																		                    id:negativos.id+'-btn-guardar-solicitud',
 																		                    margin:'2px 2px 2px 2px',
 																		                    icon: '/images/icon/1315404769_gear_wheel.png',
@@ -3545,6 +3548,7 @@
 																		                },
 																		                {
 																		                    xtype: 'button',
+																		                    hidden:true,
 																		                    id:negativos.id+'-btn-aprobar-solicitud',
 																		                    margin:'2px 2px 2px 2px',
 																		                    icon: '/images/icon/ok.png',
@@ -3570,6 +3574,7 @@
 																		                },
 																		                {
 																		                    xtype: 'button',
+																		                    hidden:true,
 																		                    id:negativos.id+'-btn-anular-solicitud',
 																		                    margin:'2px 2px 2px 2px',
 																		                    icon: '/images/icon/remove.png',
