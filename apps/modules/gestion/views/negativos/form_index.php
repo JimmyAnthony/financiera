@@ -4381,9 +4381,11 @@
 					}
 
 				}).show();
+				try{
 				Ext.EventManager.onWindowResize(function(){
 					negativos.setCollapse();
 				});
+				}catch(e){}
 			},
 			getSolicitudes:function(){
 				var id_age=Ext.getCmp(negativos.id+'-sol-cmb-agencia-filtro').getValue();
@@ -4670,12 +4672,14 @@
 				negativos.getReload(objc,{VP_CODIGO:data.id_negativos});
 			},
 			setCollapse:function(){
+				/*try{
 				var W = Ext.getCmp(inicio.id + '-contenedor').getWidth();
 				if(W<1680){
 					Ext.getCmp(negativos.id+'-panel-direccion').collapse();
 				}else{
 					Ext.getCmp(negativos.id+'-panel-direccion').expand();
 				}
+				}catch(e){}*/
 			},
 			getSelectUbi:function(){
 				var obj=Ext.getCmp(negativos.id+'-sol-cmb-departamento');

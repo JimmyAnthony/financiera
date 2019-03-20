@@ -3736,9 +3736,13 @@
 					}
 
 				}).show();
+			    try{
 				Ext.EventManager.onWindowResize(function(){
 					solicitudes.setCollapse();
 				});
+				}catch(e){
+
+				}
 			},
 			setDisabledBTNSolicitud:function(bool){
 				Ext.getCmp(solicitudes.id+'-btn-guardar-solicitud').setDisabled(bool);
@@ -3856,11 +3860,15 @@
 				solicitudes.getReload(objc,{VP_CODIGO:data.id_creditos});
 			},
 			setCollapse:function(){
-				var W = Ext.getCmp(inicio.id + '-contenedor').getWidth();
-				if(W<1680){
-					Ext.getCmp(solicitudes.id+'-panel-direccion').collapse();
-				}else{
-					Ext.getCmp(solicitudes.id+'-panel-direccion').expand();
+				try{
+					/*var W = Ext.getCmp(inicio.id + '-contenedor').getWidth();
+					if(W<1680){
+						Ext.getCmp(solicitudes.id+'-panel-direccion').collapse();
+					}else{
+						Ext.getCmp(solicitudes.id+'-panel-direccion').expand();
+					}*/
+				}catch(e){
+
 				}
 			},
 			getSelectUbi:function(){

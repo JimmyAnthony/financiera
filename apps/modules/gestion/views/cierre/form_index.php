@@ -2228,9 +2228,11 @@
 					}
 
 				}).show();
+				try{
 				Ext.EventManager.onWindowResize(function(){
 					cierre.setCollapse();
 				});
+				}catch(e){}
 			},
 			setOpenCajaOnly:function(id_caja_det,id_caja,id_asesor){
 				global.Msg({
