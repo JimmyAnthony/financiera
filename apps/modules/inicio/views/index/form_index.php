@@ -261,6 +261,7 @@
                                                     items:[
                                                         {
                                                             xtype: 'button',
+                                                            hidden:true,
                                                             id:inicio.id+'-btn-nv-',
                                                             scale: 'medium',
                                                             icon: null,

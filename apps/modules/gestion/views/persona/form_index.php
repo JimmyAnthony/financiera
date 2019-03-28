@@ -1508,6 +1508,7 @@
 																				    ['TI','Titulado'],
 																				    ['MA','Magister'],
 																				    ['TE','Tecnico'],
+																				    ['SE','Secundaria'],
 																				    ['OT','Otros']
 																				],
 																		        fields: ['code', 'name']
@@ -1533,7 +1534,14 @@
 												                                    obj.setValue('OT');
 												                                },
 												                                select:function(obj, records, eOpts){
-												                        
+												                        				if(obj.getValue()=='SE' || obj.getValue()=='OT'){
+														                        			Ext.getCmp(persona.id+'-sol-txt-profesion').setValue('');
+														                        			Ext.getCmp(persona.id+'-sol-txt-profesion').setVisible(false);
+													                        			}else{
+													                        				Ext.getCmp(persona.id+'-sol-txt-profesion').setValue('');
+														                        			Ext.getCmp(persona.id+'-sol-txt-profesion').setVisible(true);
+
+													                        			}
 												                                }
 												                            }
 												                        },
@@ -1605,7 +1613,16 @@
 												                                    obj.setValue('OT');
 												                                },
 												                                select:function(obj, records, eOpts){
-												                        
+												                                	if(obj.getValue()=='IN' || obj.getValue()=='OT'){
+													                        			Ext.getCmp(persona.id+'-sol-txt-cargo').setValue('');
+													                        			Ext.getCmp(persona.id+'-sol-txt-cargo').setVisible(false);
+													                        			Ext.getCmp(persona.id+'-sol-txt-centro-trabajo').setFieldLabel('Negocio');
+												                        			}else{
+												                        				Ext.getCmp(persona.id+'-sol-txt-cargo').setValue('');
+													                        			Ext.getCmp(persona.id+'-sol-txt-cargo').setVisible(true);
+													                        			Ext.getCmp(persona.id+'-sol-txt-centro-trabajo').setFieldLabel('Centro de Trabajo');
+
+												                        			}
 												                                }
 												                            }
 												                        },
@@ -3999,7 +4016,7 @@
 				console.log(img);*/
 			},
 			getCentroTrabajo:function(){
-				win.show({vurl: persona.url_ct+'get_centro_trabajo/?rollback=persona.getReloadCentroTrabajo();', id_menu: clientes.id_menu, class: ''});
+				win.show({vurl: persona.url_ct+'get_centro_trabajo/?rollback=persona.getReloadCentroTrabajo();', id_menu: persona.id_menu, class: ''});
 			},
 			getReloadCentroTrabajo:function(){
 				
