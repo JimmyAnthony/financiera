@@ -5011,7 +5011,7 @@
 				console.log(img);*/
 			},
 			getCentroTrabajo:function(){
-				win.show({vurl: solicitudes.url_ct+'get_centro_trabajo/?rollback=solicitudes.getReloadCentroTrabajo();', id_menu: clientes.id_menu, class: ''});
+				win.show({vurl: solicitudes.url_ct+'get_centro_trabajo/?rollback=solicitudes.getReloadCentroTrabajo();', id_menu: solicitudes.id_menu, class: ''});
 			},
 			getReloadCentroTrabajo:function(){
 				
