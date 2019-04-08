@@ -21,6 +21,9 @@ class solicitudesController extends AppController {
     public function index($p){        
         $this->view('solicitudes/form_index.php', $p);
     }
+    public function get_pdf($p){
+        require APPPATH_VIEW . 'solicitudes/pdf_solicitudes.php';
+    }
     public function get_list_client_creditos($p){
         $rs = $this->objDatos->SP_CREDITOS_CLIENTE_LIST($p);
         //var_export($rs);
