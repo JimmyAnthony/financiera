@@ -23,6 +23,30 @@ class configuracionesController extends AppController {
     public function index($p){        
         $this->view('configuraciones/form_index.php', $p);
     }
+    public function get_list_no_laborables($p){
+        $rs = $this->objDatos->get_list_no_laborables($p);
+        //var_export($rs);
+        $array = array();
+        foreach ($rs as $index => $value){
+            $value_['cod_dias_no_hab'] = intval($value['cod_dias_no_hab']);
+            $value_['dia'] =utf8_encode(trim($value['dia']));
+            $value_['mes'] =utf8_encode(trim($value['mes']));
+            $value_['year'] =utf8_encode(trim($value['year']));
+            $value_['descripcion'] =utf8_encode(trim($value['descripcion']));
+            $value_['tipo'] =trim($value['tipo']);
+            $value_['flag'] =trim($value['flag']);
+            $array[]=$value_;
+        }
+
+        $data = array(
+            'success' => true,
+            'error'=>0,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
     public function get_list_asesores($p){
         $rs = $this->objDatos->get_list_asesores($p);
         //var_export($rs);

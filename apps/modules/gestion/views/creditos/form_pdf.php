@@ -117,11 +117,11 @@ class MYPDF extends TCPDF {
         
         $this->SetAutoPageBreak(false, 0);
         
-        $img_file = PATH.'/public_html/images/front/logo_condominios.png';
-        //$this->Image($img_file, 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
-        $this->Image($img_file,7,7,60);
+        $img_file = PATH.'/public_html/images/front/trascender.jpg';
+        $this->Image($img_file, 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+        //$this->Image($img_file,7,7,60);
         $W=50;
-        $H=40;
+        $H=50;
         $X=($this->width_page/2)-($W/2);
 		$Y=($this->height_page/2)-($H/2);
 
@@ -131,134 +131,388 @@ class MYPDF extends TCPDF {
 		
 		$fecha =date("d/m/Y,H:i:s");
 		$this->SetX(10);	
-		$this->SetY(10);
-		$this->Image('images/qr_img_.png',170,7,30);
+		$this->SetY($H);
+		//$this->Image('images/qr_img_.png',170,7,30);
 		$this->SetFont('times','',10);	
-		$this->SetX(90)	;		
-		$this->SetXY(10,15);
-		$this->Cell(170,10,strtoupper($this->nombre),0,0,'L');
-		//$this->Cell(140,10,'Fecha y hora: '.$fecha,0,0,'R');
-		$this->Ln(6);
-		$this->SetXY(10,20);
-		$this->Cell(170,10,strtoupper($this->sub_titulo),0,0,'L');
-		//$this->Cell(148,10,'Usuario:'.$user,0,0,'R');
-		$this->Ln(6);
-		$this->SetFont('times','',8);	
-		$this->SetXY(10,20);
-		$this->Cell(23,20,'Dirección/Horario:',0,0,'L');
-		$this->Cell(150,20,$this->direccion.' / '.$this->horario,0,0,'L');
-		$this->Ln(5);
-		$this->SetFont('times','',8);	
-		$this->SetXY(10,25);
-		$this->Cell(20,20,'Teléfonos/Ruc:',0,0,'L');
-		$this->Cell(150,20,$this->telefono.' / '.$this->ruc,0,0,'L');
-		$this->Ln(5);
-		$this->SetFont('times','',8);	
-		$this->SetXY(10,30);
-		$this->Cell(18,20,'Web/Correo:',0,0,'L');
-		$this->Cell(150,20,$this->web.' / '.$this->email,0,0,'L');
-		$this->Ln(5);
-		$this->SetFont('times','',8);	
-		$this->SetXY(10,35);
-		$this->Cell(18,20,'Fecha y Hora:',0,0,'L');
-		$this->Cell(150,20,$fecha,0,0,'L');
-		$this->Ln(10);
+
+		$this->SetXY(9,$H);
+		$this->Cell(34,$H,strtoupper('1000.00'),0,0,'R');//$this->nombre  //monto solicitado
+
+		$this->SetXY(53,$H);
+		$this->Cell(33,$H-1,'NUEVO',0,0,'C');//tipo cliente
+
+
+		$this->SetXY(122,$H);
+		$this->Cell(10,$H-1,'X',0,0,'C');//exepcion A
+
+		$this->SetXY(136,$H);
+		$this->Cell(10,$H-1,'X',0,0,'C');//exepcion B
+
+
+		$this->SetXY(166,$H);
+		$this->Cell(10,$H-1,'01',0,0,'C');//fecha
+
+		$this->SetXY(174,$H);
+		$this->Cell(10,$H-1,'01',0,0,'C');//fecha
+
+		$this->SetXY(183,$H);
+		$this->Cell(10,$H-1,'2019',0,0,'C');//fecha
+
+		//$this->Ln(6);
+		$H+=8;
+		$this->SetXY(8.5,$H);
+		$this->Cell(10,$H,'X',0,0,'C');//DNI
+
+		$this->SetXY(53.7,$H);
+		$this->Cell(10,$H-1,'X',0,0,'C');//RECIBO DE LUZ AGUA
+
+		$this->SetXY(104.5,$H);
+		$this->Cell(10,$H-1,'X',0,0,'C');//DECLARACIÓN
+
+		$this->SetXY(144,$H);
+		$this->Cell(10,$H-1,'X',0,0,'C');//LABORAL
+
+		$this->SetXY(167.5,$H);
+		$this->Cell(10,$H-1,'X',0,0,'C');//DOMICILARIO
+
+		$H+=10.5;
+		$this->SetXY(10,$H);
+		$this->Cell(38,$H,'HERNANDEZ',0,0,'C');//APELLIDO PATERNO
 		
-		$this->SetFont('times','',15);
-		$this->Cell(190,10,'REPORTE DE CRÉDITO',0,0,'C');
-		$this->Ln(10);
-		$this->SetFont('times','',8);
-		//$this->SetXY(10,30);
-		/************************************************/
-		$this->SetFont('times','',8);
-		$this->SetXY(12,47);
-		$this->Cell(18,27,'Cod-Cliente:',0,0,'L');
-		$this->Cell(95,27,'CLI-'.$this->cod_cli,0,0,'L');
-		/*->*/
-		$this->Cell(18,27,'Cod-Prestamo:',0,0,'L');
-		$this->Cell(20,27,'P-'.$this->cod_credito,0,0,'L');
-		/*->*/
-		/*->*/
-		$this->Cell(18,27,'Emisión:',0,0,'L');
-		$this->Cell(50,27,date('d/m/Y',strtotime($this->fecha_emision)),0,0,'L');
-		/*->*/
-		$this->Ln(1);
-		/**/
-		$this->SetX(12);
-		$this->Cell(18,35,'Nombre:',0,0,'L');
-		$this->Cell(95,35,utf8_encode($this->nombres_cli),0,0,'L');
-		/*->*/
-		$this->Cell(18,35,utf8_decode('Interés %:'),0,0,'L');
-		$this->Cell(50,35,number_format($this->tasa_interes,2),0,0,'L');
-		/*->*/
-		$this->Ln(1);
-		/**/
-		$this->SetX(12);
-		$this->Cell(18,45,'Teléfono/DNI:',0,0,'L');
-		$this->Cell(95,45,$this->telefonos_cli."/".$this->dni,0,0,'L');
-		/*->*/
-		$this->Cell(18,45,'Nro Cuotas:',0,0,'L');
-		$this->Cell(50,45,$this->cuotas,0,0,'L');
-		/*->*/
-		$this->Ln(1);
-		/**/
-		$this->SetX(12);
-		$this->Cell(18,55,'Domicilio:',0,0,'L');
-		$this->Cell(95,55,utf8_encode($this->domicilio),0,0,'L');
-		/*->*/
-		$this->Cell(18,55,'Tipo Crédito:',0,0,'L');
-		$this->Cell(50,55,utf8_encode($this->tipo),0,0,'L');
-		/*->*/
-		$this->Ln(1);
-		/**/
-		$this->SetX(12);
-		$this->Cell(18,65,'Pais/Provincia:',0,0,'L');
-		$this->Cell(95,65,utf8_encode($this->nombre_pais_pro),0,0,'L');
-		/*->*/
-		$this->Cell(18,65,'Método:',0,0,'L');
-		$this->Cell(50,65,utf8_encode($this->metodo),0,0,'L');
-		/*->*/
-		$this->Ln(1);
-		/**/
-		$this->SetX(12);
-		$this->Cell(18,75,'Garante:',0,0,'L');
-		$this->Cell(95,75,utf8_encode($this->nombres_ga),0,0,'L');
-		/*->*/
-		$this->Cell(18,75,'Prestamo:',0,0,'L');
-		$this->Cell(50,75,number_format($this->prestamo,2),0,0,'L');
-		/*->*/
-		$this->Ln(1);
-		/**/
-		$this->Ln();
-		/***********************************************/
-		$this->SetXY(10,55);
-		//$this->MultiCell(190,40,'',1,1,'L');
-		$this->MultiCell(190, 40, '', 1, 'L');
-		/*$this->Ln(0);
-		$this->Cell(190,10,'_____________________',0,0,'C');*/
-		$this->Ln(1);
-		$this->SetFont('times','',13);
-	    $this->Cell(190,2,'',0,0,'C');
-		$this->Ln(1);
+		$this->SetXY(51,$H);
+		$this->Cell(35,$H,'HERNANDEZ',0,0,'C');//APELLIDO MATARNO
+
+
+		$this->SetXY(90,$H);
+		$this->Cell(43,$H,'JIMMY ANTHONY',0,0,'C');//NOMBRES
+
+		$this->SetXY(142,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(148,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(153.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(158.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(164.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(169.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(174.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(179.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(185.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(190.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+
+
+		$H+=5;
+		$this->SetXY(10,$H);
+		$this->Cell(38,$H,'SOLTERO',0,0,'C');//ESTADO CIVIL
 		
-		$this->Cell(190,2,'',0,0,'L');
-		$this->Cell(3.7,2,'____________________________________________________________________________________',0,0,'R');
-		$this->SetX(4,15);
-		$this->Ln(2);
-		$this->SetTitle('REPORTE DE CREDITO');
-		$this->SetFont('times','',10);
-		$this->SetX(15);
-		$this->Cell(23,12,'    Fecha',0,0,'C');
-		$this->Cell(21,12,' Valor Cuota',0,0,'C');
-		$this->Cell(21,12,utf8_decode('Interés'),0,0,'C');
-		$this->Cell(25,12,utf8_decode('Amortización'),0,0,'C');
-		$this->Cell(21,12,utf8_decode('Capital Vivo'),0,0,'C');
-		$this->Cell(18,12,utf8_decode('Mora'),0,0,'C');
-		$this->Cell(25,12,utf8_decode('Total Cuota'),0,0,'C');
-		$this->Cell(18,12,utf8_decode('Vencimiento'),0,0,'C');
-		$this->Cell(21,12,utf8_decode('Estado'),0,0,'C');
-		$this->Cell(0.5,15,'_____________________________________________________________________________________________________________',0,0,'R');
-		$this->Ln(9);
+		$this->SetXY(51,$H);
+		$this->Cell(35,$H,'01/01/2017',0,0,'C');//FECHA NACIMIENTO
+
+
+		$this->SetXY(90,$H);
+		$this->Cell(33,$H,'987807172',0,0,'C');//TELEFONO
+
+		$this->SetXY(125,$H);
+		$this->Cell(10,$H,'X',0,0,'C');//DOMICILIO PROPIO
+
+		$this->SetXY(140,$H);
+		$this->Cell(10,$H,'X',0,0,'C');//DOMICILIO PAGANDOLO
+
+		$this->SetXY(160,$H);
+		$this->Cell(10,$H,'X',0,0,'C');//DOMICILIO ALQUILADO
+
+		$this->SetXY(179,$H);
+		$this->Cell(10,$H,'X',0,0,'C');//DOMICILIO FAMILIAR
+		
+
+		$H+=5.5;
+		$this->SetXY(10,$H);
+		$this->Cell(95,$H,'AV LOS PINOS',0,0,'L');//DIRECCION
+
+		$this->SetXY(108.5,$H);
+		$this->Cell(7,$H,'001',0,0,'C');//NRO / MZ / LT
+
+		$this->SetXY(117.5,$H);
+		$this->Cell(7,$H,'001',0,0,'C');//NRO / MZ / LT
+
+		$this->SetXY(126.5,$H);
+		$this->Cell(7,$H,'001',0,0,'C');//NRO / MZ / LT
+
+
+		$this->SetXY(136.5,$H);
+		$this->Cell(7,$H,'001',0,0,'C');//DTO - INT
+
+		$this->SetXY(145.5,$H);
+		$this->Cell(7,$H,'001',0,0,'C');//DTO - INT
+
+		$this->SetXY(157.5,$H);
+		$this->Cell(40,$H,'LOS PORTALES',0,0,'C');//URBANIZACION
+
+		$H+=5.5;
+		$this->SetXY(10,$H);
+		$this->Cell(38,$H,'LIMA',0,0,'C');//DISTRITO
+		
+		$this->SetXY(51,$H);
+		$this->Cell(35,$H,'LIMA',0,0,'C');//PROVINCIA
+
+
+		$this->SetXY(90,$H);
+		$this->Cell(43,$H,'LIMA',0,0,'C');//DEPARTAMENTO
+
+		$this->SetXY(137,$H);
+		$this->Cell(61,$H-1,'POR EL PARQUE 2',0,0,'C');//NUMERO
+		
+
+
+		//INFORMACION LABORAL
+		$H+=10;
+		$this->SetXY(10,$H);
+		$this->Cell(95,$H,'AV LOS PINOS',0,0,'L');//DIRECCION
+
+		$this->SetXY(108.5,$H);
+		$this->Cell(7,$H,'001',0,0,'C');//NRO / MZ / LT
+
+		$this->SetXY(117.5,$H);
+		$this->Cell(7,$H,'001',0,0,'C');//NRO / MZ / LT
+
+		$this->SetXY(126.5,$H);
+		$this->Cell(7,$H,'001',0,0,'C');//NRO / MZ / LT
+
+
+		$this->SetXY(136.5,$H);
+		$this->Cell(7,$H,'001',0,0,'C');//DTO - INT
+
+		$this->SetXY(145.5,$H);
+		$this->Cell(7,$H,'001',0,0,'C');//DTO - INT
+
+		$this->SetXY(157.5,$H);
+		$this->Cell(40,$H,'LOS PORTALES',0,0,'C');//URBANIZACION
+
+
+		$H+=5.5;
+		$this->SetXY(10,$H);
+		$this->Cell(38,$H,'LIMA',0,0,'C');//DISTRITO
+		
+		$this->SetXY(51,$H);
+		$this->Cell(35,$H,'LIMA',0,0,'C');//PROVINCIA
+
+
+		$this->SetXY(90,$H);
+		$this->Cell(43,$H,'LIMA',0,0,'C');//DEPARTAMENTO
+
+		$this->SetXY(137,$H);
+		$this->Cell(61,$H-1,'POR EL PARQUE 2',0,0,'C');//NUMERO
+
+
+		$H+=5.5;
+		$this->SetXY(10,$H);
+		$this->Cell(43,$H,'LIMA',0,0,'C');//DISTRITO
+		
+		$this->SetXY(57,$H);
+		$this->Cell(44,$H,'LIMA',0,0,'C');//PROVINCIA
+
+
+		$this->SetXY(105,$H);
+		$this->Cell(93,$H-1,'POR EL PARQUE 2',0,0,'C');//NUMERO
+
+
+		/*INFORMACION DEL CONYUGUE*/
+		$H+=10.3;
+		$this->SetXY(10,$H);
+		$this->Cell(38,$H,'HERNANDEZ',0,0,'C');//APELLIDO PATERNO
+		
+		$this->SetXY(51,$H);
+		$this->Cell(35,$H,'HERNANDEZ',0,0,'C');//APELLIDO MATARNO
+
+
+		$this->SetXY(90,$H);
+		$this->Cell(43,$H,'JIMMY ANTHONY',0,0,'C');//NOMBRES
+
+		$this->SetXY(142,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(148,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(153.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(158.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(164.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(169.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(174.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(179.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(185.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(190.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+		
+
+		$H+=5.5;
+		$this->SetXY(10,$H);
+		$this->Cell(38,$H,'SOLTERO',0,0,'C');//ESTADO CIVIL
+
+
+		$this->SetXY(48,$H-4);
+		$this->Cell(10,$H,'X',0,0,'C');//CONTRATADO
+
+		$this->SetXY(48,$H);
+		$this->Cell(10,$H,'X',0,0,'C');//INDEPENDIENTE
+
+
+		$this->SetXY(85.5,$H-4);
+		$this->Cell(10,$H,'X',0,0,'C');//DEPENDIENTE GRADO
+
+		$this->SetXY(85.5,$H);
+		$this->Cell(10,$H,'X',0,0,'C');//OTROS
+
+
+		$this->SetXY(134.5,$H-4);
+		$this->Cell(10,$H,'X',0,0,'C');//BACHILLER
+
+		$this->SetXY(134.5,$H);
+		$this->Cell(10,$H,'X',0,0,'C');//TITULADO
+
+		$this->SetXY(164,$H-4);
+		$this->Cell(10,$H,'X',0,0,'C');//TECNOLOGIA
+
+		$this->SetXY(164,$H);
+		$this->Cell(10,$H,'X',0,0,'C');//MAGISTER
+
+
+		$H+=5.3;
+		$this->SetXY(10,$H);
+		$this->Cell(38,$H,'SISTEMAS',0,0,'C');//PROFESION
+		
+		$this->SetXY(51,$H);
+		$this->Cell(47,$H,'TRASCENDER',0,0,'C');//CENTRO DEL TRABAJO
+
+
+		$this->SetXY(102,$H);
+		$this->Cell(31,$H,'ANALISTA',0,0,'C');//CARGO
+
+
+		$this->SetXY(139,$H-0.3);
+		$this->Cell(29,$H,'20/01/2019',0,0,'C');//FECHA INGRESO
+
+		$this->SetXY(171,$H-0.3);
+		$this->Cell(27,$H,'20/01/2019',0,0,'C');//FECHA INGRESO
+
+
+		/*GARANTE*/
+
+		$H+=10.3;
+		$this->SetXY(10,$H);
+		$this->Cell(38,$H,'HERNANDEZ',0,0,'C');//APELLIDO PATERNO
+		
+		$this->SetXY(51,$H);
+		$this->Cell(35,$H,'HERNANDEZ',0,0,'C');//APELLIDO MATARNO
+
+
+		$this->SetXY(90,$H);
+		$this->Cell(43,$H,'JIMMY ANTHONY',0,0,'C');//NOMBRES
+
+		$this->SetXY(142,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(148,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(153.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(158.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(164.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(169.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(174.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(179.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(185.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+		$this->SetXY(190.5,$H);
+		$this->Cell(10,$H-1,'7',0,0,'C');//NUMERO
+
+
+		$H+=5;
+		$this->SetXY(10,$H);
+		$this->Cell(38,$H,'SOLTERO',0,0,'C');//ESTADO CIVIL
+		
+		$this->SetXY(51,$H);
+		$this->Cell(35,$H,'01/01/2017',0,0,'C');//FECHA NACIMIENTO
+
+
+		$this->SetXY(90,$H);
+		$this->Cell(33,$H,'987807172',0,0,'C');//TELEFONO
+
+		$this->SetXY(122,$H);
+		$this->Cell(10,$H,'X',0,0,'C');//DOMICILIO PROPIO
+
+		$this->SetXY(138,$H);
+		$this->Cell(10,$H,'X',0,0,'C');//DOMICILIO PAGANDOLO
+
+		$this->SetXY(159,$H);
+		$this->Cell(10,$H,'X',0,0,'C');//DOMICILIO ALQUILADO
+
+		$this->SetXY(178,$H);
+		$this->Cell(10,$H,'X',0,0,'C');//DOMICILIO FAMILIAR
+
+
+		$H+=5.2;
+		$this->SetXY(10,$H);
+		$this->Cell(38,$H,'SISTEMAS',0,0,'C');//PROFESION
+		
+		$this->SetXY(51,$H);
+		$this->Cell(47,$H,'TRASCENDER',0,0,'C');//CENTRO DEL TRABAJO
+
+
+		$this->SetXY(102,$H);
+		$this->Cell(31,$H,'ANALISTA',0,0,'C');//CARGO
+
+
+		$this->SetXY(139,$H-0.3);
+		$this->Cell(29,$H,'20/01/2019',0,0,'C');//FECHA INGRESO
+
+		$this->SetXY(171,$H-0.3);
+		$this->Cell(27,$H,'20/01/2019',0,0,'C');//FECHA INGRESO
+		
 
         $this->SetAutoPageBreak($auto_page_break, $bMargin);
         
@@ -290,8 +544,8 @@ $pdf->SetKeywords('PDF,DSP');
 
 /*************DATOS DE LA EMPRESA*****************/
 $parametros['VP_CODIGO']=$_REQUEST['VP_CODIGO'];
-$rs = $this->objDatos->SP_EMPRESA_RECORD($parametros);
-foreach ($rs as $index => $datos){
+#$rs = $this->objDatos->SP_CREDITOS_CLIENTE_LIST($parametros);
+/*foreach ($rs as $index => $datos){
 	//$img = $datos['img'];
 	$pdf->nombre = $datos['nombre'];
 	$pdf->sub_titulo = $datos['sub_titulo'];
@@ -302,11 +556,11 @@ foreach ($rs as $index => $datos){
 	$pdf->web = $datos['web'];
 	$pdf->email = $datos['email'];
 }
-
+*/
 /*************DATOS DEL CLIENTE*****************/
 $parametros['VP_CODIGO_CLIENTE']=$_REQUEST['VP_CODIGO_CLIENTE'];
-$rs = $this->objDatos->SP_CLIENTES_RECORD($parametros);
-foreach ($rs as $index => $datos){
+#$rs = $this->objDatos->SP_CREDITOS_CLIENTE_LIST($parametros);
+/*foreach ($rs as $index => $datos){
 	$pdf->cod_cli = $datos['cod_cli'];
 	$pdf->nombres_cli = $datos['nombres']." ".$datos['apellidos'];
 	$pdf->nacimiento = $datos['nacimiento'];
@@ -317,11 +571,11 @@ foreach ($rs as $index => $datos){
 	$pdf->limite_credito = $datos['limite_credito'];
 	$pdf->nombres_ga = $datos['nombres_ga']." ".$datos['apellidos_g'];
 	$pdf->nombre_pais_pro = $datos['nombre_pais']."/".$datos['nombre_prov'];
-}
+}*/
 /*************DATOS DEL CREDITO*****************/
-$parametros['VP_CODIGO']=$_REQUEST['VP_CODIGO'];
+/*$parametros['VP_CODIGO']=$_REQUEST['VP_CODIGO'];
 $parametros['VP_CODIGO_CLIENTE']=$_REQUEST['VP_CODIGO_CLIENTE'];
-$rs = $this->objDatos->SP_CLIENTES_DATA_REPORT($parametros);
+#$rs = $this->objDatos->SP_CREDITOS_CLIENTE_LIST($parametros);
 foreach ($rs as $index => $datos){
 	$pdf->cod_credito = $datos['cod_credito'];
 	$pdf->fecha_emision = $datos['fecha'];
@@ -334,7 +588,7 @@ foreach ($rs as $index => $datos){
 	$pdf->nota = $datos['nota'];
 	$pdf->tipo= $datos['tipo'];
 	$pdf->metodo= $datos['metodo'];
-}
+}*/
 /**********************************************/
 
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -362,7 +616,7 @@ $pdf->setPrintHeader(false);
 $cont=1;
 $total_c=0;
 $parametros['VP_CODIGO']=$_REQUEST['VP_CODIGO'];
-
+/*
 $rs =$this->objDatos->SP_CREDITOS_DETALLE_LIST($parametros);
 $y=110;
 $DETECCION=1;
@@ -424,13 +678,14 @@ foreach ($rs as $index => $item){
 			}
 		}*/
 		
-	}
+	/*}*/
+/*
  $pdf->Ln(30);
  $pdf->Ln(-4.5); 
  $pdf->Cell(172,6,'................................................',0,0,'R');
  $pdf->Ln(3); 
  $pdf->Cell(10,7,'Total de cuotas : '.(((int)$cont)-1).'               Total Crédito : '.number_format($total_c,2),0,0,'L');
- $pdf->Cell(155,7,'FIRMA CLIENTE',0,0,'R');
+ $pdf->Cell(155,7,'FIRMA CLIENTE',0,0,'R');*/
    
  $pdf->Output(); 
 

@@ -21,6 +21,10 @@ class creditosController extends AppController {
     public function index($p){        
         $this->view('creditos/form_index.php', $p);
     }
+    public function get_print($p){        
+        require APPPATH_VIEW . 'creditos/form_pdf.php';
+    }
+    
     public function get_list_client_creditos($p){
         $rs = $this->objDatos->SP_CREDITOS_CLIENTE_LIST($p);
         //var_export($rs);

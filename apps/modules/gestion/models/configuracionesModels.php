@@ -14,6 +14,15 @@ class configuracionesModels extends Adodb {
     public function __construct(){
         $this->dsn = Common::read_ini(PATH.'config/config.ini', 'server_main');
     }
+    public function get_list_no_laborables($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_DIAS_NO_LABORABLES_LIST');
+        parent::SetParameterSP(USR_ID, 'int');//141
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+
     public function SP_CREDITO_PERSONA($p){
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_PERSONA_MANT');

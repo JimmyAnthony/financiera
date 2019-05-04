@@ -3481,6 +3481,31 @@
 																		                },
 																		                {
 																		                    xtype: 'button',
+																		                    id:creditos.id+'-btn-impimir-solicitud',
+																		                    margin:'2px 2px 2px 2px',
+																		                    icon: '/images/icon/pdf.png',
+																		                    //glyph: 72,
+																		                    //columnWidth: 0.1,
+																		                    flex:0.5,
+																		                    text: 'Aprobar',
+																		                    scale: 'medium',
+																		                    iconAlign: 'top',
+																		                    listeners:{
+																	                            beforerender: function(obj, opts){
+																	                                /*global.permisos({
+																	                                    id: 15,
+																	                                    id_btn: obj.getId(), 
+																	                                    id_menu: gestion_devolucion.id_menu,
+																	                                    fn: ['panel_asignar_gestion.limpiar']
+																	                                });*/
+																	                            },
+																	                            click: function(obj, e){	  
+																	                            	creditos.setPrintSolicitud();
+																	                            }
+																	                        }
+																		                },
+																		                {
+																		                    xtype: 'button',
 																		                    id:creditos.id+'-btn-anular-solicitud',
 																		                    margin:'2px 2px 2px 2px',
 																		                    icon: '/images/icon/remove.png',
@@ -4617,6 +4642,10 @@
 				creditos.getUbigeo({VP_OP:'P',VP_VALUE:'100101'},objp,'100601');
 				var objd=Ext.getCmp(creditos.id+'-sol-cmb-Distrito');
 				creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},objd,'100601');
+			},
+			setPrintSolicitud:function(){
+				var vp_id_solicitud  = Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').getValue();
+				window.open(creditos.url+'get_print/?vp_id_solicitud='+vp_id_solicitud, '_blank');
 			},
 			setSaveSolicitud:function(op){
 				/*DATOS DE SOLICITUD*/

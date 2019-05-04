@@ -4,7 +4,7 @@
 		var reportes = {
 			id:'reportes',
 			id_menu:'<?php echo $p["id_menu"];?>',
-			url:'/gestion/reportes/',
+			url:'/gestion/configuraciones/',
 			opcion:'I',
 			id_lote:0,
 			shi_codigo:0,
@@ -17,19 +17,18 @@
 				
 				var store_dias_laborables = Ext.create('Ext.data.Store',{
 	                fields: [
-	                    {name: 'cod_ubi', type: 'string'},
-	                    {name: 'Distrito', type: 'string'},
-	                    {name: 'Provincia', type: 'string'},
-	                    {name: 'Departamento', type: 'string'},                    
-	                    {name: 'Poblacion', type: 'string'},
-	                    {name: 'Superficie', type: 'string'},
-	                    {name: 'Y', type: 'string'},
-	                    {name: 'X', type: 'string'}
+	                    {name: 'cod_dias_no_hab', type: 'string'},
+	                    {name: 'dia', type: 'string'},
+	                    {name: 'mes', type: 'string'},
+	                    {name: 'year', type: 'string'},                    
+	                    {name: 'descripcion', type: 'string'},
+	                    {name: 'tipo', type: 'string'},
+	                    {name: 'flag', type: 'string'}
 	                ],
-	                autoLoad:false,
+	                autoLoad:true,
 	                proxy:{
 	                    type: 'ajax',
-	                    url: reportes.url+'get_list_ubigeo/',
+	                    url: reportes.url+'get_list_no_laborables/',
 	                    reader:{
 	                        type: 'json',
 	                        rootProperty: 'data'
@@ -106,205 +105,178 @@
 	                            tabPosition: 'left',
 	                            bodyCls: 'transparent',
 								items:[
+									{
+										xtype:'panel',
+										id: reportes.id+'-tab-calendario',
+										border:false,
+										layout:'border',
+										bodyCls: 'white_fondo',
+										items:[
+											{
+												region:'west',
+												title:'Días Laborables',
+												width:150,
+												border:false,
+												bodyCls: 'transparent',
+												//padding:10,
+												items:[
+													{
+											            xtype: 'checkboxgroup',
+											            //flex: 1,
+											            title: 'Días de la Semana Laborables',
+											            defaultType: 'checkbox', // each item will be a checkbox
+											            layout: 'vbox',
+											            items: [
+													        {boxLabel: 'Lunes', name: 'cb-auto-1',checked: true,padding:10},
+											                {boxLabel: 'Martes', name: 'cb-auto-2', checked: true,padding:10},
+											                {boxLabel: 'Miercoles', name: 'cb-auto-3',checked: true,padding:10},
+											                {boxLabel: 'Jueves', name: 'cb-auto-4',checked: true,padding:10},
+											                {boxLabel: 'Viernes', name: 'cb-auto-5',checked: true,padding:10},
+											                {boxLabel: 'Sábado', name: 'cb-auto-6',checked: true,padding:10},
+											                {boxLabel: 'Domingo', name: 'cb-auto-7',padding:10}
+													    ]
+													}
+												],
+												bbar:[
+													{
+								                        xtype:'button',
+								                        text: 'Guardar',
+								                        icon: '/images/icon/save.png',
+								                        listeners:{
+								                            beforerender: function(obj, opts){
+								                                /*global.permisos({
+								                                    id: 15,
+								                                    id_btn: obj.getId(), 
+								                                    id_menu: gestion_devolucion.id_menu,
+								                                    fn: ['panel_asignar_gestion.limpiar']
+								                                });*/
+								                            },
+								                            click: function(obj, e){	             	
+	                               					            //agencias.getNew();
+								                            }
+								                        }
+								                    }
+												]
+											},
+											{
+												region:'center',
+												title:'Días No Laborables',
+												border:false,
+												layout:'border',
+												bbar:[],
+												items:[
+													{
+														region:'center',
+														border:false,
+														items:[
+															{
+										                        xtype: 'grid',
+										                        id: reportes.id + '-grid-reportes',
+										                        store: store_dias_laborables, 
+										                        columnLines: true,
+										                        columns:{
+										                            items:[
+										                            	{
+										                            		text: 'N°',
+																		    xtype: 'rownumberer',
+																		    width: 40,
+																		    sortable: false,
+																		    locked: true
+																		},
+										                                {
+										                                    text: 'Día',
+										                                    dataIndex: 'dia',
+										                                    width: 50
+										                                },
+										                                {
+										                                    text: 'Mes',
+										                                    dataIndex: 'mes',
+										                                    width: 50
+										                                },
+										                                {
+										                                    text: 'Año',
+										                                    dataIndex: 'year',
+										                                    width: 50
+										                                },
+										                                {
+										                                    text: 'Descripción',
+										                                    dataIndex: 'descripcion',
+										                                    flex: 1
+										                                },
+																		{
+										                                    text: 'ST',
+										                                    dataIndex: 'estado',
+										                                    //loocked : true,
+										                                    width: 40,
+										                                    align: 'center',
+										                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+										                                        //console.log(record);
+										                                        var estado = 'check-circle-green-16.png';
+										                                        if(record.get('estado')=='I'){
+										                                        	estado = 'check-circle-black-16.png';
+										                                        }
+										                                        metaData.style = "padding: 0px; margin: 0px";
+										                                        return global.permisos({
+										                                            type: 'link',
+										                                            id_menu: reportes.id_menu,
+										                                            icons:[
+										                                                {id_serv: 8, img: estado, qtip: 'Estado.', js: ""}
+
+										                                            ]
+										                                        });
+										                                    }
+										                                },
+										                                {
+										                                    text: 'EDT',
+										                                    dataIndex: 'estado',
+										                                    //loocked : true,
+										                                    width: 40,
+										                                    align: 'center',
+										                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+										                                        //console.log(record);
+										                                        metaData.style = "padding: 0px; margin: 0px";
+										                                        return global.permisos({
+										                                            type: 'link',
+										                                            id_menu: reportes.id_menu,
+										                                            icons:[
+										                                                {id_serv: 8, img: 'edit.png', qtip: 'Editar.', js: "reportes.getEdit("+rowIndex+")"}
+
+										                                            ]
+										                                        });
+										                                    }
+										                                }
+										                            ],
+										                            defaults:{
+										                                menuDisabled: true
+										                            }
+										                        },
+										                        multiSelect: true,
+										                        trackMouseOver: false,
+										                        listeners:{
+										                            afterrender: function(obj){
+										                                
+										                            },
+										                            beforeselect:function(obj, record, index, eOpts ){
+										                            	//scanning.setImageFile(record.get('path'),record.get('file'));
+										                            }
+										                        }
+										                    }
+														]
+													},
+													{
+														region:'south',
+														border:false,
+														height:100,
+														items:[]
+													}
+												]
+											}
+										]
+									},
 									/*PRINCIPAL*/
 									{
 										xtype:'panel',
-										border:false,
-										layout:'border',
-										bodyCls: 'white_fondo',
-										items:[
-											{
-												region:'center',
-												border:false,
-												layout:'fit',
-												bbar:[],
-												items:[
-													{
-								                        xtype: 'grid',
-								                        id: reportes.id + '-grid-motivos',
-								                        store: store_dias_laborables, 
-								                        columnLines: true,
-								                        columns:{
-								                            items:[
-								                            	{
-								                            		text: 'N°',
-																    xtype: 'rownumberer',
-																    width: 40,
-																    sortable: false,
-																    locked: true
-																},
-								                                {
-								                                    text: 'Nombre',
-								                                    dataIndex: 'nombre',
-								                                    width: 200
-								                                },
-								                                {
-								                                    text: 'Descripción',
-								                                    dataIndex: 'descripcion',
-								                                    flex: 1
-								                                },
-																{
-								                                    text: 'ST',
-								                                    dataIndex: 'estado',
-								                                    //loocked : true,
-								                                    width: 40,
-								                                    align: 'center',
-								                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
-								                                        //console.log(record);
-								                                        var estado = 'check-circle-green-16.png';
-								                                        if(record.get('estado')=='I'){
-								                                        	estado = 'check-circle-black-16.png';
-								                                        }
-								                                        metaData.style = "padding: 0px; margin: 0px";
-								                                        return global.permisos({
-								                                            type: 'link',
-								                                            id_menu: reportes.id_menu,
-								                                            icons:[
-								                                                {id_serv: 8, img: estado, qtip: 'Estado.', js: ""}
-
-								                                            ]
-								                                        });
-								                                    }
-								                                },
-								                                {
-								                                    text: 'EDT',
-								                                    dataIndex: 'estado',
-								                                    //loocked : true,
-								                                    width: 40,
-								                                    align: 'center',
-								                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
-								                                        //console.log(record);
-								                                        metaData.style = "padding: 0px; margin: 0px";
-								                                        return global.permisos({
-								                                            type: 'link',
-								                                            id_menu: reportes.id_menu,
-								                                            icons:[
-								                                                {id_serv: 8, img: 'edit.png', qtip: 'Editar.', js: "reportes.getEdit("+rowIndex+")"}
-
-								                                            ]
-								                                        });
-								                                    }
-								                                }
-								                            ],
-								                            defaults:{
-								                                menuDisabled: true
-								                            }
-								                        },
-								                        multiSelect: true,
-								                        trackMouseOver: false,
-								                        listeners:{
-								                            afterrender: function(obj){
-								                                
-								                            },
-								                            beforeselect:function(obj, record, index, eOpts ){
-								                            	//scanning.setImageFile(record.get('path'),record.get('file'));
-								                            }
-								                        }
-								                    }
-												]
-											}
-										]
-									},
-									{
-										xtype:'panel',
-										border:false,
-										layout:'border',
-										bodyCls: 'white_fondo',
-										items:[
-											{
-												region:'center',
-												border:false,
-												layout:'fit',
-												bbar:[],
-												items:[
-													{
-								                        xtype: 'grid',
-								                        id: reportes.id + '-grid-cargos',
-								                        store: store_dias_laborables, 
-								                        columnLines: true,
-								                        columns:{
-								                            items:[
-								                            	{
-								                            		text: 'N°',
-																    xtype: 'rownumberer',
-																    width: 40,
-																    sortable: false,
-																    locked: true
-																},
-								                                {
-								                                    text: 'Nombre',
-								                                    dataIndex: 'nombre',
-								                                    width: 200
-								                                },
-								                                {
-								                                    text: 'Descripción',
-								                                    dataIndex: 'descripcion',
-								                                    flex: 1
-								                                },
-																{
-								                                    text: 'ST',
-								                                    dataIndex: 'estado',
-								                                    //loocked : true,
-								                                    width: 40,
-								                                    align: 'center',
-								                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
-								                                        //console.log(record);
-								                                        var estado = 'check-circle-green-16.png';
-								                                        if(record.get('estado')=='I'){
-								                                        	estado = 'check-circle-black-16.png';
-								                                        }
-								                                        metaData.style = "padding: 0px; margin: 0px";
-								                                        return global.permisos({
-								                                            type: 'link',
-								                                            id_menu: reportes.id_menu,
-								                                            icons:[
-								                                                {id_serv: 8, img: estado, qtip: 'Estado.', js: ""}
-
-								                                            ]
-								                                        });
-								                                    }
-								                                },
-								                                {
-								                                    text: 'EDT',
-								                                    dataIndex: 'estado',
-								                                    //loocked : true,
-								                                    width: 40,
-								                                    align: 'center',
-								                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
-								                                        //console.log(record);
-								                                        metaData.style = "padding: 0px; margin: 0px";
-								                                        return global.permisos({
-								                                            type: 'link',
-								                                            id_menu: reportes.id_menu,
-								                                            icons:[
-								                                                {id_serv: 8, img: 'edit.png', qtip: 'Editar.', js: "reportes.getEdit("+rowIndex+")"}
-
-								                                            ]
-								                                        });
-								                                    }
-								                                }
-								                            ],
-								                            defaults:{
-								                                menuDisabled: true
-								                            }
-								                        },
-								                        multiSelect: true,
-								                        trackMouseOver: false,
-								                        listeners:{
-								                            afterrender: function(obj){
-								                                
-								                            },
-								                            beforeselect:function(obj, record, index, eOpts ){
-								                            	//scanning.setImageFile(record.get('path'),record.get('file'));
-								                            }
-								                        }
-								                    }
-												]
-											}
-										]
-									},
-									{
-										xtype:'panel',
+										id: reportes.id+'-tab-interes',
 										border:false,
 										layout:'border',
 										bodyCls: 'white_fondo',
@@ -406,50 +378,11 @@
 									},
 									{
 										xtype:'panel',
+										id: reportes.id+'-tab-motivos',
 										border:false,
 										layout:'border',
 										bodyCls: 'white_fondo',
 										items:[
-											{
-												region:'north',
-												height:130,
-												border:false,
-												bodyCls: 'transparent',
-												padding:10,
-												items:[
-													{
-											            xtype: 'fieldset',
-											            flex: 1,
-											            title: 'Días de la Semana Laborables',
-											            defaultType: 'checkbox', // each item will be a checkbox
-											            layout: 'anchor',
-											            defaults: {
-											                anchor: '100%',
-											                hideEmptyLabel: false
-											            },
-											            items: [
-															{
-													            // Use the default, automatic layout to distribute the controls evenly
-													            // across a single row
-													            xtype: 'checkboxgroup',
-													            fieldLabel: '',
-													            labelWidth: 10,
-													            cls: 'x-check-group-alt',
-													            padding:20,
-													            items: [
-													                {boxLabel: 'Lunes', name: 'cb-auto-1',checked: true,padding:10},
-													                {boxLabel: 'Martes', name: 'cb-auto-2', checked: true,padding:10},
-													                {boxLabel: 'Miercoles', name: 'cb-auto-3',checked: true,padding:10},
-													                {boxLabel: 'Jueves', name: 'cb-auto-4',checked: true,padding:10},
-													                {boxLabel: 'Viernes', name: 'cb-auto-5',checked: true,padding:10},
-													                {boxLabel: 'Sábado', name: 'cb-auto-6',checked: true,padding:10},
-													                {boxLabel: 'Domingo', name: 'cb-auto-7',padding:10}
-													            ]
-													        }
-													    ]
-													}
-												]
-											},
 											{
 												region:'center',
 												border:false,
@@ -458,7 +391,7 @@
 												items:[
 													{
 								                        xtype: 'grid',
-								                        id: reportes.id + '-grid-reportes',
+								                        id: reportes.id + '-grid-motivos',
 								                        store: store_dias_laborables, 
 								                        columnLines: true,
 								                        columns:{
@@ -471,7 +404,106 @@
 																    locked: true
 																},
 								                                {
-								                                    text: 'Fecha',
+								                                    text: 'Nombre',
+								                                    dataIndex: 'nombre',
+								                                    width: 200
+								                                },
+								                                {
+								                                    text: 'Descripción',
+								                                    dataIndex: 'descripcion',
+								                                    flex: 1
+								                                },
+																{
+								                                    text: 'ST',
+								                                    dataIndex: 'estado',
+								                                    //loocked : true,
+								                                    width: 40,
+								                                    align: 'center',
+								                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+								                                        //console.log(record);
+								                                        var estado = 'check-circle-green-16.png';
+								                                        if(record.get('estado')=='I'){
+								                                        	estado = 'check-circle-black-16.png';
+								                                        }
+								                                        metaData.style = "padding: 0px; margin: 0px";
+								                                        return global.permisos({
+								                                            type: 'link',
+								                                            id_menu: reportes.id_menu,
+								                                            icons:[
+								                                                {id_serv: 8, img: estado, qtip: 'Estado.', js: ""}
+
+								                                            ]
+								                                        });
+								                                    }
+								                                },
+								                                {
+								                                    text: 'EDT',
+								                                    dataIndex: 'estado',
+								                                    //loocked : true,
+								                                    width: 40,
+								                                    align: 'center',
+								                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
+								                                        //console.log(record);
+								                                        metaData.style = "padding: 0px; margin: 0px";
+								                                        return global.permisos({
+								                                            type: 'link',
+								                                            id_menu: reportes.id_menu,
+								                                            icons:[
+								                                                {id_serv: 8, img: 'edit.png', qtip: 'Editar.', js: "reportes.getEdit("+rowIndex+")"}
+
+								                                            ]
+								                                        });
+								                                    }
+								                                }
+								                            ],
+								                            defaults:{
+								                                menuDisabled: true
+								                            }
+								                        },
+								                        multiSelect: true,
+								                        trackMouseOver: false,
+								                        listeners:{
+								                            afterrender: function(obj){
+								                                
+								                            },
+								                            beforeselect:function(obj, record, index, eOpts ){
+								                            	//scanning.setImageFile(record.get('path'),record.get('file'));
+								                            }
+								                        }
+								                    }
+												]
+											}
+										]
+									},
+									{
+										xtype:'panel',
+										id: reportes.id+'-tab-cargos',
+										border:false,
+										layout:'border',
+										bodyCls: 'white_fondo',
+										items:[
+											{
+												region:'center',
+												border:false,
+												layout:'fit',
+												bbar:[],
+												items:[
+													{
+								                        xtype: 'grid',
+								                        id: reportes.id + '-grid-cargos',
+								                        store: store_dias_laborables, 
+								                        columnLines: true,
+								                        columns:{
+								                            items:[
+								                            	{
+								                            		text: 'N°',
+																    xtype: 'rownumberer',
+																    width: 40,
+																    sortable: false,
+																    locked: true
+																},
+								                                {
+								                                    text: 'Nombre',
 								                                    dataIndex: 'nombre',
 								                                    width: 200
 								                                },
