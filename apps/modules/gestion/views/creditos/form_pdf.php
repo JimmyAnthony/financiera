@@ -512,11 +512,114 @@ class MYPDF extends TCPDF {
 
 		$this->SetXY(171,$H-0.3);
 		$this->Cell(27,$H,'20/01/2019',0,0,'C');//FECHA INGRESO
+
+
+		$H+=5.3;
+		$this->SetXY(10,$H);
+		$this->Cell(95,$H,'AV LOS PINOS',0,0,'L');//DIRECCION
+
+		$this->SetXY(109.5,$H);
+		$this->Cell(7,$H,'001',0,0,'C');//NRO / MZ / LT
+
+		$this->SetXY(117.5,$H);
+		$this->Cell(7,$H,'001',0,0,'C');//NRO / MZ / LT
+
+		$this->SetXY(125.5,$H);
+		$this->Cell(7,$H,'001',0,0,'C');//NRO / MZ / LT
+
+
+		$this->SetXY(136.5,$H);
+		$this->Cell(7,$H,'001',0,0,'C');//DTO - INT
+
+		$this->SetXY(146.5,$H);
+		$this->Cell(7,$H,'001',0,0,'C');//DTO - INT
+
+		$this->SetXY(157.5,$H);
+		$this->Cell(40,$H,'LOS PORTALES',0,0,'C');//URBANIZACION
+
+		$H+=5.3;
+		$this->SetXY(10,$H);
+		$this->Cell(38,$H,'LIMA',0,0,'C');//DISTRITO
+		
+		$this->SetXY(51,$H);
+		$this->Cell(35,$H,'LIMA',0,0,'C');//PROVINCIA
+
+
+		$this->SetXY(90,$H);
+		$this->Cell(43,$H,'LIMA',0,0,'C');//DEPARTAMENTO
+
+		$this->SetXY(137,$H);
+		$this->Cell(61,$H-1,'POR EL PARQUE 2',0,0,'C');//NUMERO
+
+
+		/*REFERENCIA PERSONAL*/
+		$H+=12.2;
+		$this->SetXY(10,$H);
+		$this->Cell(97,$H,'JIMMY ANTHONY',0,0,'C');//PERSONAL
+
+		$this->SetXY(113,$H-0.5);
+		$this->Cell(40,$H,'987807171',0,0,'C');//PERSONAL
+
+		$this->SetXY(158.5,$H-0.5);
+		$this->Cell(40,$H,'987807171',0,0,'C');//PERSONAL
+
+		$H+=4.8;
+		$this->SetXY(10,$H);
+		$this->Cell(97,$H,'JIMMY ANTHONY',0,0,'C');//COMERCIAL
+
+		$this->SetXY(113,$H-0.5);
+		$this->Cell(40,$H,'987807171',0,0,'C');//PERSONAL
+
+		$this->SetXY(158.5,$H-0.5);
+		$this->Cell(40,$H,'987807171',0,0,'C');//PERSONAL
+		
+		$H+=97;
+		$this->SetXY(11,$H);
+		//MultiCell(float w, float h, string txt [, mixed border [, string align [, boolean fill]]])
+		$this->MultiCell(185,$H,'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing .',0,0,'L',true);//PERSONAL
 		
 
-        $this->SetAutoPageBreak($auto_page_break, $bMargin);
+
+
+        #$this->SetAutoPageBreak($auto_page_break, $bMargin);
+/*
+        $this->AddPage();
         
-        $this->setPageMark();
+        #$this->setPageMark();
+
+
+        $bMargin = $this->getBreakMargin();
+        
+        $auto_page_break = $this->AutoPageBreak;
+        
+        $this->SetAutoPageBreak(false, 0);
+        
+        $img_file = PATH.'/public_html/images/front/trascender2.jpg';
+        $this->Image($img_file, 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+        //$this->Image($img_file,7,7,60);
+        $W=50;
+        $H=50;
+        $X=($this->width_page/2)-($W/2);
+		$Y=($this->height_page/2)-($H/2);
+
+        $this->SetFont('calibrib', '', 16);
+		$this->SetXY($X-($W+14), $Y-4);
+		
+		
+		$fecha =date("d/m/Y,H:i:s");
+		$this->SetX(10);	
+		$this->SetY($H);
+		//$this->Image('images/qr_img_.png',170,7,30);
+		$this->SetFont('times','',10);	
+
+		$this->SetXY(9,$H);
+		$this->Cell(34,$H,strtoupper('1000.00'),0,0,'R');//$this->nombre  //monto solicitado
+
+		$this->SetAutoPageBreak($auto_page_break, $bMargin);
+
+
+        $this->SetAutoPageBreak($auto_page_break, $bMargin);
+        $this->setPageMark();*/
     }
 	
 	function Footer()
