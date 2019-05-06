@@ -86,7 +86,7 @@ class reportesModels extends Adodb {
         parent::SetParameterSP($p['week_start'], 'varchar');
         parent::SetParameterSP($p['week_end'], 'varchar');
         parent::SetParameterSP(USR_ID, 'int');//141
-        // echo '=>' . parent::getSql().'<br>'; exit();
+        //¿ echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
         return $array;
     }

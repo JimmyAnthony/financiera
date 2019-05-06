@@ -23,6 +23,10 @@ class reportesController extends AppController {
     public function index($p){        
         $this->view('reportes/form_index.php', $p);
     }
+    public function rpt_cuadro_de_avances($p){        
+        //$this->view('reportes/rpt_cuadro_de_avances.php', $p);
+        require APPPATH_VIEW . 'reportes/rpt_cuadro_de_avances.php';
+    }
     public function get_list_asesores($p){
         $rs = $this->objDatos->get_list_asesores($p);
         //var_export($rs);

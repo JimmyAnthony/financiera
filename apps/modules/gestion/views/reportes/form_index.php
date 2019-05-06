@@ -760,6 +760,7 @@
 												                    xtype: 'button',
 												                    margin:'2px 2px 2px 2px',
 												                    icon: '/images/icon/pdf.png',
+												                    hidden:true,
 												                    //glyph: 72,
 												                    columnWidth: 0.1,
 												                    text: 'PDF',
@@ -1118,6 +1119,7 @@
 												                    xtype: 'button',
 												                    margin:'2px 2px 2px 2px',
 												                    icon: '/images/icon/pdf.png',
+												                    hidden:true,
 												                    //glyph: 72,
 												                    columnWidth: 0.1,
 												                    text: 'PDF',
@@ -1476,6 +1478,7 @@
 												                    xtype: 'button',
 												                    margin:'2px 2px 2px 2px',
 												                    icon: '/images/icon/pdf.png',
+												                    hidden:true,
 												                    //glyph: 72,
 												                    columnWidth: 0.1,
 												                    text: 'PDF',
@@ -1834,6 +1837,7 @@
 												                    xtype: 'button',
 												                    margin:'2px 2px 2px 2px',
 												                    icon: '/images/icon/pdf.png',
+												                    hidden:true,
 												                    //glyph: 72,
 												                    columnWidth: 0.1,
 												                    text: 'PDF',
@@ -2193,6 +2197,7 @@
 												                    xtype: 'button',
 												                    margin:'2px 2px 2px 2px',
 												                    icon: '/images/icon/pdf.png',
+												                    hidden:true,
 												                    //glyph: 72,
 												                    columnWidth: 0.1,
 												                    text: 'PDF',
@@ -2437,6 +2442,7 @@
 						                                        {
 						                                            xtype:'combo',
 						                                            fieldLabel: 'Motivo',
+						                                            hidden:true,
 						                                            id:reportes.id+'-sol-cmb-motivo-ava',
 						                                            store: store_motivos,
 						                                            queryMode: 'local',
@@ -2617,12 +2623,13 @@
 											                                });*/
 											                            },
 											                            click: function(obj, e){	  
-											                            	//creditos.setSaveSolicitud('A');
+											                            	reportes.getExcelCuadro();
 											                            }
 											                        }
 												                },
 												                {
 												                    xtype: 'button',
+												                    hidden:true,
 												                    margin:'2px 2px 2px 2px',
 												                    icon: '/images/icon/pdf.png',
 												                    //glyph: 72,
@@ -2913,6 +2920,7 @@
 											region:'south',
 											//width:'45%',
 											height:'40%',
+											hidden:true,
 											items:[
 												{
 													region:'center',
@@ -2954,6 +2962,19 @@
 					}
 
 				}).show();
+			},
+			getExcelCuadro:function(){
+				var data = Ext.getCmp(reportes.id+'-filtro-semanas').getSelectedRecord().data;
+				var age = Ext.getCmp(reportes.id+'-sol-cmb-agencia-ava').getValue();
+				var ase = Ext.getCmp(reportes.id+'-sol-cmb-asesor-ava').getValue();
+				var mot = Ext.getCmp(reportes.id+'-sol-cmb-motivo-ava').getValue();
+				var mon = Ext.getCmp(reportes.id+'-sol-cmb-moneda-ava').getValue();
+				var obj = Ext.getCmp(reportes.id + '-grid-avances');
+
+				var week_start 	= data.week_start;
+				var week_end 	= data.week_end;
+
+				window.open(reportes.url+'rpt_cuadro_de_avances/?VP_OP=V&VP_ID_AGE='+age+'&VP_ASESOR='+ase+'&VP_MOTIVO='+mot+'&VP_MONEDA='+mon+'&week_start='+week_start+'&week_end='+week_end, '_blank');
 			},
 			getchartsAno:function(){
                 var ANIOS =[];

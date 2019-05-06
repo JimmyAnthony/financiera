@@ -3487,7 +3487,7 @@
 																		                    //glyph: 72,
 																		                    //columnWidth: 0.1,
 																		                    flex:0.5,
-																		                    text: 'Aprobar',
+																		                    text: 'PDF',
 																		                    scale: 'medium',
 																		                    iconAlign: 'top',
 																		                    listeners:{
