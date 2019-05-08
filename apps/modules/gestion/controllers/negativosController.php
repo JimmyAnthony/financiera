@@ -117,6 +117,9 @@ class negativosController extends AppController {
             $value_['fecha_creado'] = trim($value['fecha_creado']);
             $value_['enviado'] = trim($value['enviado']);
             $value_['flag'] = trim($value['flag']);
+            $value_['bueno'] = trim($value['bueno']);
+            $value_['regular'] = trim($value['regular']);
+            $value_['deficiente'] = trim($value['deficiente']);
             $array[]=$value_;
         }
 

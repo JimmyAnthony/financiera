@@ -982,6 +982,7 @@
 								{
 									region:'center',
 									border:false,
+									layout:'border',
 									items:[
 										{
 				                            region:'north',
@@ -1470,22 +1471,22 @@
 							                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 							                                        return value;
 							                                    }
-							                                },/*
+							                                },
 							                                {
-							                                    text: 'Usuario',
-							                                    dataIndex: 'usuario',
+							                                    text: 'Bueno',
+							                                    dataIndex: 'bueno',
 							                                    //loocked : true,
 							                                    //width: 40,
 							                                    //flex:1,
-							                                    width: 150,
+							                                    width: 80,
 							                                    align: 'right',
 							                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 							                                        return value;
 							                                    }
 							                                },
 							                                {
-							                                    text: 'Fuente',
-							                                    dataIndex: 'fuente',
+							                                    text: 'Regular',
+							                                    dataIndex: 'regular',
 							                                    //loocked : true,
 							                                    //width: 40,
 							                                    //flex:1,
@@ -1494,26 +1495,17 @@
 							                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 							                                        return value;
 							                                    }
-							                                },*/
+							                                },
 															{
-							                                    text: 'Estado',
-							                                    dataIndex: 'estado',
+							                                    text: 'Deficiente',
+							                                    dataIndex: 'deficiente',
 							                                    //loocked : true,
 							                                    width: 80,
 							                                    //flex:1,
 							                                    align: 'center',
 							                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 							                                        //console.log(record);
-							                                        var dato ='SOLICITADO';
-							                                        if(record.get('estado')=='A'){
-							                                        	dato = 'APROBADO';
-							                                        }
-							                                        if(record.get('estado')=='X'){
-							                                        	dato = 'ANULADO';
-							                                        }
-
-							                                        metaData.style = "padding: 0px; margin: 0px";
-							                                        return dato;
+							                                        return value;
 							                                    }
 							                                },
 							                                {
