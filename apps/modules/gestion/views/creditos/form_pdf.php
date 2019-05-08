@@ -800,17 +800,17 @@ class MYPDF extends TCPDF {
 
 			$H+=10;
 			$this->SetXY(79,$H);
-			$this->Cell(10,$H,strtoupper('X'),0,0,'L');//$this->nombre  //ADQUISICION DE MERCADERIA
+			$this->Cell(10,$H,strtoupper(''),0,0,'L');//$this->nombre  //ADQUISICION DE MERCADERIA
 
 			$this->SetXY(79,$H+5);
 			$this->Cell(10,$H,strtoupper('X'),0,0,'L');//$this->nombre  //AMPLIAR O MEJORAR  SU VISITA
 
 
 			$this->SetXY(174.5,$H-0.5);
-			$this->Cell(10,$H,strtoupper('X'),0,0,'L');//$this->nombre  //COMPRA DE ACCESORIOS  Y/O INSUMOS
+			$this->Cell(10,$H,strtoupper(''),0,0,'L');//$this->nombre  //COMPRA DE ACCESORIOS  Y/O INSUMOS
 
 			$this->SetXY(174.5,$H+4);
-			$this->Cell(10,$H,strtoupper('X'),0,0,'L');//$this->nombre  //OTROS
+			$this->Cell(10,$H,strtoupper(''),0,0,'L');//$this->nombre  //OTROS
 
 			$H+=16;
 			list($año, $mes , $día) = split('[/.-]', $this->fecha_creado);
@@ -844,15 +844,15 @@ class MYPDF extends TCPDF {
 			$this->Cell(10,$H,strtoupper('X'),0,0,'C');//$this->nombre  //FECHA DIA
 
 			$this->SetXY(121,$H);
-			$this->Cell(10,$H,strtoupper('X'),0,0,'C');//$this->nombre  //FECHA DIA
+			$this->Cell(10,$H,strtoupper(''),0,0,'C');//$this->nombre  //FECHA DIA
 
 			$this->SetXY(143,$H);
-			$this->Cell(10,$H,strtoupper('X'),0,0,'C');//$this->nombre  //FECHA DIA
+			$this->Cell(10,$H,strtoupper(''),0,0,'C');//$this->nombre  //FECHA DIA
 
 			$H+=45;
 			$this->SetXY(57,$H);
 			//MultiCell(float w, float h, string txt [, mixed border [, string align [, boolean fill]]])
-			$this->MultiCell(130,40,'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing .orem Ipsum passages, and more recently with desktop publishing .orem Ipsum passages, and more recently with desktop publishing .orem Ipsum passages, and more recently with desktop publishing .orem Ipsum passages, and more recently with desktop publishing .',0,0,'L',true);//PERSONAL
+			$this->MultiCell(130,40,'',0,0,'L',true);//PERSONAL
 
 			
 		}
