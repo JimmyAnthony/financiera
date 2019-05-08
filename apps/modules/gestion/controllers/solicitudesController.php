@@ -21,6 +21,9 @@ class solicitudesController extends AppController {
     public function index($p){        
         $this->view('solicitudes/form_index.php', $p);
     }
+    public function get_print($p){        
+        require APPPATH_VIEW . 'creditos/form_pdf.php';
+    }
     public function get_pdf($p){
         require APPPATH_VIEW . 'solicitudes/pdf_solicitudes.php';
     }

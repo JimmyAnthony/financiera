@@ -354,6 +354,31 @@
 	                    }
 	                }
 	            });
+	            var store_asesor_colocado = Ext.create('Ext.data.Store',{
+	                fields: [
+	                    {name: 'yearx', type: 'string'},
+	                    {name: 'mes', type: 'string'},
+
+	                    {name: 'nombres', type: 'string'},
+	                    {name: 'colocado', type: 'string'},
+	                    {name: 'monto', type: 'string'},
+	                    {name: 'cobrado', type: 'string'}
+	                ],
+	                autoLoad:true,
+	                proxy:{
+	                    type: 'ajax',
+	                    url: reportes.url+'SP_REPORTE_COLOCADO/',
+	                    reader:{
+	                        type: 'json',
+	                        rootProperty: 'data'
+	                    }
+	                },
+	                listeners:{
+	                    load: function(obj, records, successful, opts){
+	                        
+	                    }
+	                }
+	            });
 	            var store_motivo = Ext.create('Ext.data.Store',{
 	                fields: [
 	                    {name: 'ano', type: 'string'},
@@ -469,6 +494,28 @@
 			        data: myDataMoneda,
 			        fields: ['code', 'name']
 			    });
+
+			    var myDataMesRecurso = [
+					['1','ENERO'],
+				    ['2','FEBRERO'],
+				    ['3','MARZO'],
+				    ['4','ABRIL'],
+				    ['5','MAYO'],
+				    ['6','JUNIO'],
+				    ['7','JULIO'],
+				    ['8','AGOSTO'],
+				    ['9','SEPTIEMBRE'],
+				    ['10','OCTUBRE'],
+				    ['11','NOVIEMBRE'],
+				    ['12','DICIEMBRE']
+				];
+				var store_meses_recurso = Ext.create('Ext.data.ArrayStore', {
+			        storeId: 'estado',
+			        autoLoad: true,
+			        data: myDataMesRecurso,
+			        fields: ['code', 'name']
+			    });
+
 				var myDataSearch = [
 					['L','N° Lote'],
 					['N','Nombre Lote'],
@@ -1722,6 +1769,7 @@
 						                                        },
 						                                        {
 						                                            xtype:'combo',
+						                                            hidden:true,
 						                                            fieldLabel: 'Motivo',
 						                                            id:reportes.id+'-sol-cmb-motivo-asesor',
 						                                            store: store_motivos,
@@ -1788,6 +1836,110 @@
 										                            }
 										                        },
 										                        {
+						                                            xtype:'combo',
+						                                            fieldLabel: 'Año',
+						                                            id:reportes.id+'-filtro-ano-colocado',
+						                                            store: win.getStoreYear(false),
+						                                            queryMode: 'local',
+						                                            triggerAction: 'all',
+						                                            valueField: 'code',
+						                                            displayField: 'name',
+						                                            emptyText: '[Seleccione]',
+						                                            labelAlign:'right',
+						                                            //allowBlank: false,
+						                                            labelAlign:'top',
+										                            //width:'92%',
+										                            labelWidth:75,
+										                            columnWidth: 0.10,
+										                            //height:40,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+						                                            //readOnly: true,
+						                                            listeners:{
+						                                                afterrender:function(obj, e){
+						                                                	//creditos.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+						                                                	fecha = new Date(), year = fecha.getFullYear()
+						                                                	obj.setValue(year);
+						                                                },
+						                                                select:function(obj, records, eOpts){
+						                                                }
+						                                            }
+						                                        },
+										                        {
+										                            xtype:'combo',
+										                            fieldLabel: 'Mes desde',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'15px 5px 5px 25px',
+										                            id:reportes.id+'-sol-cmb-mes-desde-colocado', 
+										                            store: store_meses_recurso,
+										                            queryMode: 'local',
+										                            triggerAction: 'all',
+										                            valueField: 'code',
+										                            displayField: 'name',
+										                            emptyText: '[Seleccione]',
+										                            labelAlign:'right',
+										                            //allowBlank: false,
+										                            labelAlign:'top',
+										                            labelWidth: 50,
+										                            //width:80,
+										                            columnWidth: 0.1,
+										                            //flex:1,
+										                            anchor:'100%',
+										                            //readOnly: true,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                    // obj.getStore().load();
+										                                    fecha = new Date(), mes = fecha.getMonth() 
+										                                    obj.setValue(mes+1);
+										                                },
+										                                select:function(obj, records, eOpts){
+										                        
+										                                }
+										                            }
+										                        },
+										                        {
+										                            xtype:'combo',
+										                            fieldLabel: 'Mes Hasta',
+										                            bodyStyle: 'background: transparent',
+												                    padding:'15px 5px 5px 25px',
+										                            id:reportes.id+'-sol-cmb-mes-hasta-colocado', 
+										                            store: store_meses_recurso,
+										                            queryMode: 'local',
+										                            triggerAction: 'all',
+										                            valueField: 'code',
+										                            displayField: 'name',
+										                            emptyText: '[Seleccione]',
+										                            labelAlign:'right',
+										                            //allowBlank: false,
+										                            labelAlign:'top',
+										                            labelWidth: 50,
+										                            //width:80,
+										                            columnWidth: 0.1,
+										                            //flex:1,
+										                            anchor:'100%',
+										                            //readOnly: true,
+										                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+										                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+						                                            anchor:'100%',
+						                                            padding:'5px 5px 5px 10px',
+										                            listeners:{
+										                                afterrender:function(obj, e){
+										                                    // obj.getStore().load();
+										                                    fecha = new Date(), mes = fecha.getMonth() 
+										                                    obj.setValue(mes+1);
+										                                },
+										                                select:function(obj, records, eOpts){
+										                        
+										                                }
+										                            }
+										                        },
+										                        {
 												                    xtype: 'button',
 												                    margin:'2px 2px 2px 2px',
 												                    icon: '/images/icon/binocular.png',
@@ -1829,7 +1981,7 @@
 											                                });*/
 											                            },
 											                            click: function(obj, e){	  
-											                            	//creditos.setSaveSolicitud('A');
+											                            	reportes.getExcelColocado();
 											                            }
 											                        }
 												                },
@@ -1868,7 +2020,7 @@
 														{
 									                        xtype: 'grid',
 									                        id: reportes.id + '-grid-asesores',
-									                        store: store_asesor, 
+									                        store: store_asesor_colocado, 
 									                        columnLines: true,
 									                        //layout:'fit',
 									                        columns:{
@@ -1881,83 +2033,51 @@
 																	    locked: true
 																	},
 																	{
-									                                    text: 'Asesores',
-									                                    dataIndex: 'ano',
+									                                    text: 'Año',
+									                                    dataIndex: 'yearx',
 									                                    //loocked : true,
 									                                    //width: 40,
 									                                    flex:1,//width: 50,
 									                                    align: 'center'
 									                                },
 									                                {
-									                                    text: 'Moneda',
-									                                    dataIndex: 'moneda',
+									                                    text: 'Mes',
+									                                    dataIndex: 'mes',
 									                                    //loocked : true,
 									                                    //width: 40,
 									                                    flex:1,//width: 50,
 									                                    align: 'center'
 									                                },
 																	{
-									                                    text: 'Monto Aprobado',
-									                                    dataIndex: 'monto',
+									                                    text: 'Asesor',
+									                                    dataIndex: 'nombres',
 									                                    //loocked : true,
 									                                    //width: 40,
 									                                    flex:1,
 									                                    align: 'right'
 									                                },
 									                            	{
-									                                    text: 'Interes',
-									                                    dataIndex: 'interes',
+									                                    text: 'Colocado',
+									                                    dataIndex: 'colocado',
 									                                    //loocked : true,
 									                                    //width: 40,
 									                                     flex:1,//width: 60,
 									                                    align: 'right'
 									                                },
 									                                {
-									                                    text: 'Total Crédito',
-									                                    dataIndex: 'total_credito',
+									                                    text: 'Monto',
+									                                    dataIndex: 'monto',
 									                                    //loocked : true,
 									                                    //width: 40,
 									                                    flex:1,
 									                                    align: 'right'
 									                                },
 											                        {
-									                                    text: 'Total Mora',
-									                                    dataIndex: 'mora',
+									                                    text: 'Cobrado',
+									                                    dataIndex: 'cobrado',
 									                                    //loocked : true,
 									                                    //width: 40,
 									                                    flex:1,//width: 60,
-									                                    align: 'right'
-									                                },
-									                                {
-									                                    text: 'Total Pagado',  
-									                                    dataIndex:'pagado',
-									                                    //loocked : true,
-									                                    //width: 40,
-									                                    flex:1,
-									                                    align: 'right'
-									                                },
-											                        {
-									                                    text: 'Total Saldo',
-									                                    dataIndex: 'saldo',
-									                                    //loocked : true,
-									                                    //width: 40,
-									                                    flex:1,
-									                                    align: 'right'
-									                                },
-									                                {
-									                                    text: 'Total Acumulado',
-									                                    dataIndex: 'tot_acumulado',
-									                                    //loocked : true,
-									                                    //width: 40,
-									                                    flex:1,
-									                                    align: 'right'
-									                                },
-									                                {
-									                                    text: 'Total Ganancia',
-									                                    dataIndex: 'tot_ganancia',
-									                                    //loocked : true,
-									                                    //width: 40,
-									                                    flex:1,
 									                                    align: 'right'
 									                                }
 									                            ],
@@ -1982,6 +2102,7 @@
 										},
 										{
 											region:'south',
+											hidden:true,
 											//width:'45%',
 											height:'40%',
 											html:'<div id="chart-container-asesores"></div>'
@@ -2976,6 +3097,24 @@
 
 				window.open(reportes.url+'rpt_cuadro_de_avances/?VP_OP=V&VP_ID_AGE='+age+'&VP_ASESOR='+ase+'&VP_MOTIVO='+mot+'&VP_MONEDA='+mon+'&week_start='+week_start+'&week_end='+week_end, '_blank');
 			},
+			getExcelColocado:function(){
+				var age = Ext.getCmp(reportes.id+'-sol-cmb-agencia-asesor').getValue();
+				var ase = Ext.getCmp(reportes.id+'-sol-cmb-asesor-asesor').getValue();
+				var mot = Ext.getCmp(reportes.id+'-sol-cmb-motivo-asesor').getValue();
+				var mon = Ext.getCmp(reportes.id+'-sol-cmb-moneda-asesor').getValue();
+
+				var hasta = Ext.getCmp(reportes.id+'-sol-cmb-mes-hasta-colocado').getValue(); 
+				var desde = Ext.getCmp(reportes.id+'-sol-cmb-mes-desde-colocado').getValue(); 
+
+				var ano = Ext.getCmp(reportes.id+'-filtro-ano-colocado').getValue();
+
+				var obj = Ext.getCmp(reportes.id + '-grid-avances');
+
+				/*var week_start 	= data.week_start;
+				var week_end 	= data.week_end;*/
+
+				window.open(reportes.url+'rpt_colocado/?VP_OP=V&VP_ID_AGE='+age+'&VP_ASESOR='+ase+'&VP_MOTIVO='+mot+'&VP_MONEDA='+mon+'&VP_MOUNTH_B='+hasta+'&VP_MOUNTH_A='+desde+'&VP_YEAR='+ano, '_blank');
+			},
 			getchartsAno:function(){
                 var ANIOS =[];
                 var MONTOS =[];
@@ -3732,13 +3871,18 @@
 			getSearchByAsesores(){
 				var age = Ext.getCmp(reportes.id+'-sol-cmb-agencia-asesor').getValue();
 				var ase = Ext.getCmp(reportes.id+'-sol-cmb-asesor-asesor').getValue();
-				var mot = Ext.getCmp(reportes.id+'-sol-cmb-motivo-asesor').getValue();
+				//var mot = Ext.getCmp(reportes.id+'-sol-cmb-motivo-asesor').getValue();
 				var mon = Ext.getCmp(reportes.id+'-sol-cmb-moneda-asesor').getValue();
+
+				var hasta = Ext.getCmp(reportes.id+'-sol-cmb-mes-hasta-colocado').getValue(); 
+				var desde = Ext.getCmp(reportes.id+'-sol-cmb-mes-desde-colocado').getValue(); 
+				var ano = Ext.getCmp(reportes.id+'-filtro-ano-colocado').getValue();
+
 				var obj = Ext.getCmp(reportes.id + '-grid-asesores');
 
 				obj.getStore().removeAll();
 				obj.getStore().load(
-	                {params: {VP_OP:'S',VP_ID_AGE:age,VP_ASESOR:ase,VP_MOTIVO:mot,VP_MONEDA:mon},
+	                {params: {VP_OP:'S',VP_ID_AGE:age,VP_ASESOR:ase,VP_MONEDA:mon,VP_YEAR:ano,VP_MOUNTH_A:desde,VP_MOUNTH_B:hasta},//VP_MOTIVO:mot,
 	                callback:function(){
 	                	reportes.getchartsAsesores();
 	                }

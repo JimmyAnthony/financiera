@@ -50,6 +50,16 @@ class solicitudesModels extends Adodb {
         $array = parent::ExecuteSPArray();
         return $array;
     }
+
+    public function SP_CREDITOS_PDF($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_CREDITOS_PDF');
+        parent::SetParameterSP($p['VP_ID_CREDITOS'], 'int');//19
+        parent::SetParameterSP(USR_ID, 'int');//19
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
     
     public function SP_CREDITOS_DETALLE_LIST($p){
         parent::ReiniciarSQL();

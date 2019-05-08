@@ -27,6 +27,10 @@ class reportesController extends AppController {
         //$this->view('reportes/rpt_cuadro_de_avances.php', $p);
         require APPPATH_VIEW . 'reportes/rpt_cuadro_de_avances.php';
     }
+    public function rpt_colocado($p){        
+        //$this->view('reportes/rpt_cuadro_de_avances.php', $p);
+        require APPPATH_VIEW . 'reportes/rpt_colocado.php';
+    }
     public function get_list_asesores($p){
         $rs = $this->objDatos->get_list_asesores($p);
         //var_export($rs);
@@ -78,6 +82,32 @@ class reportesController extends AppController {
         header('Content-Type: application/json');
         return $this->response($data);
     }
+    public function SP_REPORTE_COLOCADO($p){
+        $rs = $this->objDatos->SP_REPORTE_COLOCADO($p);
+        //var_export($rs);
+        $array = array();
+        $lote = 0;
+        foreach ($rs as $index => $value){
+            $value_['nombres'] = utf8_encode(trim($value['nombres']));
+            $value_['yearx'] = trim($value['yearx']);
+            $value_['mes'] = trim($value['mes']);
+
+            $value_['colocado'] = trim($value['colocado']);
+            $value_['monto'] = trim($value['monto']);
+            $value_['cobrado'] = trim($value['cobrado']);
+            $array[]=$value_;
+        }
+
+        $data = array(
+            'success' => true,
+            'error'=>0,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+
     public function get_list_reportes($p){
         $rs = $this->objDatos->get_list_reportes($p);
         //var_export($rs);

@@ -2962,6 +2962,31 @@
 																                },
 																                {
 																                    xtype: 'button',
+																                    id:solicitudes.id+'-btn-impimir-solicitud',
+																                    margin:'2px 2px 2px 2px',
+																                    icon: '/images/icon/pdf.png',
+																                    //glyph: 72,
+																                    //columnWidth: 0.1,
+																                    flex:0.5,
+																                    text: 'PDF',
+																                    scale: 'medium',
+																                    iconAlign: 'top',
+																                    listeners:{
+															                            beforerender: function(obj, opts){
+															                                /*global.permisos({
+															                                    id: 15,
+															                                    id_btn: obj.getId(), 
+															                                    id_menu: gestion_devolucion.id_menu,
+															                                    fn: ['panel_asignar_gestion.limpiar']
+															                                });*/
+															                            },
+															                            click: function(obj, e){	  
+															                            	solicitudes.setPrintSolicitud();
+															                            }
+															                        }
+																                },
+																                {
+																                    xtype: 'button',
 																                    id:solicitudes.id+'-btn-anular-solicitud',
 																                    margin:'2px 2px 2px 2px',
 																                    icon: '/images/icon/remove.png',
@@ -3743,6 +3768,10 @@
 				}catch(e){
 
 				}
+			},
+			setPrintSolicitud:function(){
+				var vp_id_solicitud  = Ext.getCmp(solicitudes.id+'-sol-txt-id-solicitud').getValue();
+				window.open(solicitudes.url+'get_print/?vp_id_solicitud='+vp_id_solicitud, '_blank');
 			},
 			setDisabledBTNSolicitud:function(bool){
 				Ext.getCmp(solicitudes.id+'-btn-guardar-solicitud').setDisabled(bool);
