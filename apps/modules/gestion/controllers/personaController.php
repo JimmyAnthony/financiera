@@ -148,6 +148,7 @@ class personaController extends AppController {
                 $value_['laboral'] =trim($value['laboral']);
                 $value_['cargo'] =utf8_encode(trim($value['cargo']));
                 $value_['id_empresa'] =trim($value['id_empresa']);
+                $value_['id_negocio'] =trim($value['id_negocio']);
                 $value_['fecha_ingreso'] =trim($value['fecha_ingreso']);
 
                 $value_['id_dir'] = intval($value['id_dir']);
@@ -235,6 +236,7 @@ class personaController extends AppController {
                 $value_['cod_ubi_dep'] =trim($value['cod_ubi_dep']);
                 $value_['cod_ubi'] =trim($value['cod_ubi']);
                 $value_['flag'] =trim($value['flag']);
+                $value_['dir_descripcion'] =utf8_encode(trim($value['dir_descripcion']));
                 //$value_['permisos'] = $this->objDatos->usr_sis_servicios($p);
                 $array[]=$value_;
         }

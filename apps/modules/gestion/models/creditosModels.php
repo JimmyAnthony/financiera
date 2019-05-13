@@ -189,6 +189,20 @@ class creditosModels extends Adodb {
         $array = parent::ExecuteSPArray();
         return $array;
     }
+    public function SP_GARANTE_LIST($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_GARANTE_LIST');
+      // parent::SetParameterSP($p['vp_shi_codigo'], 'int');
+      //  parent::SetParameterSP($p['vp_fac_cliente'], 'int');
+        parent::SetParameterSP($p['vp_op'], 'varchar');
+        parent::SetParameterSP($p['vp_id_creditos'], 'varchar');
+        parent::SetParameterSP($p['vp_id'], 'int');
+        parent::SetParameterSP($p['vp_dni'], 'varchar');
+        parent::SetParameterSP($p['vp_nombres'], 'varchar');
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
     public function SP_DIRECCIONES_LIST($p){
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_DIRECCIONES_LIST');
@@ -265,6 +279,7 @@ class creditosModels extends Adodb {
         parent::ConnectionOpen($this->dsn, 'SP_PERSONA_DOCUMENTOS_LIST');
       // parent::SetParameterSP($p['vp_shi_codigo'], 'int');
       //  parent::SetParameterSP($p['vp_fac_cliente'], 'int');
+        parent::SetParameterSP($p['vp_id_creditos'], 'int');
         parent::SetParameterSP($p['vp_sol_id_per'], 'int');
         parent::SetParameterSP($p['vp_flag'], 'varchar');
         // echo '=>' . parent::getSql().'<br>'; exit();
@@ -288,6 +303,7 @@ class creditosModels extends Adodb {
         parent::SetParameterSP($p['vp_op'], 'varchar');//8
         parent::SetParameterSP($p['vp_id_doc'], 'int');//8
         parent::SetParameterSP($p['vp_sol_id_per'], 'int');//8
+        parent::SetParameterSP($p['vp_id_creditos'], 'int');
         parent::SetParameterSP($p['vp_nombre'], 'varchar');//8
         parent::SetParameterSP($p['vp_img'], 'varchar');//8
         parent::SetParameterSP(USR_ID, 'int');//141
@@ -296,5 +312,21 @@ class creditosModels extends Adodb {
         $array = parent::ExecuteSPArray();
         return $array;
     }
+    public function SP_GARANTE_RELACION_MANT($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_GARANTE_RELACION_MANT');
+        parent::SetParameterSP($p['vp_op'], 'varchar');//1
+        parent::SetParameterSP($p['vp_id_solicitud'], 'int');//8
+        parent::SetParameterSP($p['vp_sol_id_per'], 'int');//8
+        parent::SetParameterSP($p['vp_sol_doc_dni'], 'varchar');
+        parent::SetParameterSP(USR_ID, 'int');//141
 
+        parent::SetParameterSP('@OUT', 'int');//140
+        parent::SetParameterSP('@OUT', 'int');//140
+        parent::SetParameterSP('@OUT', 'int');//140
+        parent::SetParameterSP('@OUT', 'int');//140
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
 }

@@ -8,6 +8,8 @@
 			opcion:'I',
 			id_per:'<?php echo $p["id_per"];?>',
 			rollback:'<?php echo $p["rollback"];?>',
+			id_select:'<?php echo $p["id_select"];?>',
+			opcion:'<?php echo $p["opcion"];?>',
 			paramsStore:{},
 			back:'NONE',
 			init:function(){
@@ -164,6 +166,8 @@
 		                {name: 'nombre', type: 'string'},
 		                {name: 'rubro', type: 'string'},
 		                {name: 'telefono', type: 'string'},
+		                {name: 'descripcion', type: 'string'},
+		                {name: 'antiguedad', type: 'string'},
 		                {name: 'ruc', type: 'string'},
 		                {name: 'img', type: 'string'},
 		                {name: 'id_dir', type: 'string'},
@@ -200,9 +204,9 @@
                 Ext.create('Ext.window.Window',{
 	                id:centro_trabajo.id+'-win-form',
 	                plain: true,
-	                title:'Empresa',
+	                title:centro_trabajo.opcion=='C'?'Centro de Trabajo':'Negocio',
 	                icon: '/images/icon/user_gray.png',
-	                height: 580,
+	                height: 670,
 	                width: 700,
 	                resizable:false,
 	                modal: true,
@@ -228,7 +232,7 @@
 	                						//title:'Datos Empresa',
 	                						region:'north',
 	                						bodyStyle: 'background: transparent',
-	                						height:130,
+	                						height:222,
 	                						border:false,
 	                						items:[
 	                							{
@@ -329,8 +333,30 @@
 								                            labelWidth:55,
 								                            //readOnly:true,
 								                            //labelAlign:'top',
-								                            width:'70%',
-								                            //flex:1,
+								                            //width:'70%',
+								                            flex:1,
+								                            //height:40,
+								                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                            value:'',
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                }
+								                            }
+								                        },
+								                        {
+								                            xtype: 'textfield',	
+								                            id:centro_trabajo.id+'-sol-txt-antiguedad-empresa',
+								                            fieldLabel: 'Antiguedad',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 5px 5px 5px',
+								                            //id:centro_trabajo.id+'-txt-dni',
+								                            labelWidth:60,
+								                            //readOnly:true,
+								                            //labelAlign:'top',
+								                            //width:'70%',
+								                            flex:1,
 								                            //height:40,
 								                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
@@ -342,7 +368,31 @@
 								                            }
 								                        }
 								                    ]
-								                }
+								                },
+								                {
+													layout:'column',
+													xtype: 'fieldset',
+													title: centro_trabajo.opcion=='C'?'Descripción':'Breve Reseña del Negocio',
+													id: centro_trabajo.id + '-field-title',
+													bodyStyle: 'background: transparent',
+													//region:'north',
+													//height:100,
+													//flex:1,
+													border:true,
+													padding:'5px 5px 5px 5px',
+													margin:'5px 5px 5px 5px',
+													items:[
+														{
+													        xtype: 'textareafield',
+													        id: centro_trabajo.id + '-txt-nota',
+													        columnWidth: 1,
+													        //name: 'textarea1',
+													        //iconAlign: 'top',
+													        //fieldLabel: 'Nota',
+													        value: ''
+													    }
+													]
+												}
 	                						]
 	                					},
 	                					{
@@ -883,7 +933,7 @@
 	                    	}*/
 	                    	centro_trabajo.getSelectUbi();
 	                    	var objd = Ext.getCmp(centro_trabajo.id+'-list-direcciones');
-							centro_trabajo.getReload(objd,{vp_op:'N',vp_id:0,vp_nombre:''});
+							centro_trabajo.getReload(objd,{vp_op:'N',vp_id:0,vp_nombre:''},centro_trabajo.getAutoSelected);
 	                    },
 	                    'close':function(){
 
@@ -908,6 +958,9 @@
 				Ext.getCmp(centro_trabajo.id+'-sol-txt-nombre-empresa').setValue(data.nombre);
 				Ext.getCmp(centro_trabajo.id+'-sol-txt-rubro-empresa').setValue(data.rubro);
 				Ext.getCmp(centro_trabajo.id+'-sol-txt-telf-empresa').setValue(data.telefono);
+
+				Ext.getCmp(centro_trabajo.id+'-txt-nota').setValue(data.descripcion);
+				Ext.getCmp(centro_trabajo.id+'-sol-txt-antiguedad-empresa').setValue(data.antiguedad);
 
 				Ext.getCmp(centro_trabajo.id+'-sol-txt-id-dir').setValue(data.id_dir);
 				Ext.getCmp(centro_trabajo.id+'-sol-txt-dir-direccion').setValue(data.dir_direccion);
@@ -937,6 +990,8 @@
 				Ext.getCmp(centro_trabajo.id+'-sol-txt-nombre-empresa').setValue('');
 				Ext.getCmp(centro_trabajo.id+'-sol-txt-rubro-empresa').setValue('');
 				Ext.getCmp(centro_trabajo.id+'-sol-txt-telf-empresa').setValue('');
+				Ext.getCmp(centro_trabajo.id+'-txt-nota').setValue('');
+				Ext.getCmp(centro_trabajo.id+'-sol-txt-antiguedad-empresa').setValue('');
 
 				Ext.getCmp(centro_trabajo.id+'-sol-txt-id-dir').setValue(0);
 				Ext.getCmp(centro_trabajo.id+'-sol-txt-dir-direccion').setValue('');
@@ -956,6 +1011,9 @@
 				var nombre_empresa = Ext.getCmp(centro_trabajo.id+'-sol-txt-nombre-empresa').getValue();
 				var rubro_empresa = Ext.getCmp(centro_trabajo.id+'-sol-txt-rubro-empresa').getValue();
 				var telefonos = Ext.getCmp(centro_trabajo.id+'-sol-txt-telf-empresa').getValue();
+
+				var nota = Ext.getCmp(centro_trabajo.id+'-txt-nota').getValue();
+				var antiguedad = Ext.getCmp(centro_trabajo.id+'-sol-txt-antiguedad-empresa').getValue();
 				
 				var vp_sol_id_dir = Ext.getCmp(centro_trabajo.id+'-sol-txt-id-dir').getValue();
 				var vp_op = id_empresa==0?'I':'U';
@@ -970,6 +1028,9 @@
 				var sol_departamento = Ext.getCmp(centro_trabajo.id+'-sol-cmb-departamento').getValue();
 				var sol_provincia = Ext.getCmp(centro_trabajo.id+'-sol-cmb-provincia').getValue();
 				var sol_distrito = Ext.getCmp(centro_trabajo.id+'-sol-cmb-Distrito').getValue();
+
+				var nota = Ext.getCmp(centro_trabajo.id + '-txt-nota').getValue();
+				var antiguedad = Ext.getCmp(centro_trabajo.id+'-sol-txt-antiguedad-empresa').getValue();
 
 
 				global.Msg({
@@ -988,6 +1049,8 @@
 			                    	vp_nombre_empresa:nombre_empresa,
 			                    	vp_rubro_empresa:rubro_empresa,
 			                    	vp_telefonos:telefonos,
+			                    	vp_nota:nota,
+			                    	vp_antiguedad:antiguedad,
 			                    	//vp_sol_id_cli:vp_sol_id_cli,
 									vp_sol_id_dir:vp_sol_id_dir,
 									vp_sol_dir_direccion:sol_dir_direccion,
@@ -1001,7 +1064,9 @@
 									vp_sol_departamento:sol_departamento,
 									vp_sol_provincia:sol_provincia,
 									vp_sol_distrito:sol_distrito,
-									vp_flag:'A'
+									vp_flag:'A',
+									vp_nota:nota,
+									vp_antiguedad:antiguedad
 			                    },
 			                    timeout: 30000000,
 			                    success: function(response, options){
@@ -1019,10 +1084,12 @@
 			                                	Ext.getCmp(centro_trabajo.id+'-sol-txt-id-empresa').setValue(res.CODIGO);
 												Ext.getCmp(centro_trabajo.id+'-sol-txt-id-dir').setValue(res.ID_DIR);
 			                                	var objd = Ext.getCmp(centro_trabajo.id+'-list-direcciones');
-												centro_trabajo.getReload(objd,{vp_op:'N',vp_id:0,vp_nombre:''});
+												centro_trabajo.getReload(objd,{vp_op:'N',vp_id:0,vp_nombre:''}); 
 
-												var obj = Ext.getCmp(centro_trabajo.id+'-sol-txt-centro-trabajo');
-												centro_trabajo.getReload(obj,{vp_op:'N',vp_id:0,vp_nombre:''});
+												//var obj = Ext.getCmp(centro_trabajo.id+'-sol-txt-centro-trabajo');
+												//centro_trabajo.getReload(obj,{vp_op:'N',vp_id:0,vp_nombre:''});
+
+												eval(centro_trabajo.rollback+'('+res.CODIGO+',"'+centro_trabajo.opcion+'");');
 			                                }
 			                            });
 			                        } else{
@@ -1107,13 +1174,25 @@
 	                }
 	            });
 			},
-			getReload:function(obj,json){
+			getReload:function(obj,json,callbackx=null){
 		    	obj.getStore().removeAll();
 				obj.getStore().load(
 	                {params: json,
 	                callback:function(){
+	                	try{
+	                		callbackx();
+	                	}catch(e){}
 	                }
 	            });
+			},
+			getAutoSelected:function(){
+				var objd = Ext.getCmp(centro_trabajo.id+'-list-direcciones').getStore().data.items;
+				Ext.Object.each(objd, function(index, value){
+					console.log(index, value);
+                    if(value.data.id_empresa==centro_trabajo.id_select){
+                        centro_trabajo.getDirecciones(value.data);
+                    }
+                });
 			},
 			setBack:function(){
 				var tab=Ext.getCmp(centro_trabajo.id+'-tabContent');

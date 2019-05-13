@@ -208,11 +208,11 @@
 
 			    var myDataEstadoSol = [
 			    	['L','(TODOS)'],
-					['S','Solicitado'],
+					['S','SOLICITADO'],
 					['P','PRE-APROBADO'],
-					['A','Aprobado'],
-				    ['X','Anulado'],
-				    ['F','Cancelado']
+					['A','APROBADO'],
+				    ['X','ANULADO'],
+				    ['F','CANCELADO']
 				];
 				var store_estado_sol = Ext.create('Ext.data.ArrayStore', {
 			        storeId: 'search',
@@ -222,6 +222,7 @@
 			    });
 
 			    var myDataFuente = [
+			    	['L','(TODOS)'],
 					['W','Web'],
 					['M','Móvil']
 				];
@@ -606,7 +607,7 @@
 		            autoLoad:false,
 		            proxy:{
 		                type: 'ajax',
-		                url: creditos.url+'getListPersona/',
+		                url: creditos.url+'getListGarante/',
 		                reader:{
 		                    type: 'json',
 		                    rootProperty: 'data'
@@ -914,6 +915,7 @@
 								//{region:'west',bodyCls: 'transparent',width:'10%'},{region:'east',bodyCls: 'transparent',width:'10%'},
 								{
 									region:'center',
+									layout:'border',
 									border:false,
 									items:[
 										{
@@ -990,12 +992,12 @@
 										                            allowExponential: false,
 										                            //allowBlank: true,
 										                            maxLength: 8,
+										                            enforceMaxLength : true,
+										                            maskRe:/[0-9]/,
 										                            width:200,
 										                            //flex:1,
 										                            //height:40,
 										                            //maxLength : 8,
-																	enforceMaxLength : true,
-																	maskRe:/[0-9]/,
 										                            //anchor:'100%',
 										                            listeners:{
 										                                afterrender:function(obj, e){
@@ -1146,7 +1148,7 @@
 							                                                    listeners:{
 							                                                        afterrender:function(obj, e){
 							                                                            // obj.getStore().load();
-							                                                            Ext.getCmp(creditos.id+'-cmb-fuente').setValue('W');
+							                                                            Ext.getCmp(creditos.id+'-cmb-fuente').setValue('');
 							                                                        },
 							                                                        select:function(obj, records, eOpts){
 							                                                
@@ -1193,7 +1195,7 @@
 											items:[
 												{
 							                        xtype: 'grid',
-							                        region:'center',
+							                        //region:'center',
 							                        id: creditos.id+'-grid-solicitudes', 
 							                        store: Ext.create('Ext.data.Store',{
 											            fields: [
@@ -1227,7 +1229,7 @@
 										                    {name: 'enviado', type: 'string'},
 										                    {name: 'flag', type: 'string'}
 											            ],
-											            autoLoad:false,
+											            autoLoad:true,
 											            proxy:{
 											                type: 'ajax',
 											                url: creditos.url+'getListSolicitudes/', 
@@ -2270,6 +2272,7 @@
 																								    ['TI','Titulado'],
 																								    ['MA','Magister'],
 																								    ['TE','Tecnico'],
+																								    ['SE','Secundaria'],
 																								    ['OT','Otros']
 																								],
 																						        fields: ['code', 'name']
@@ -2504,6 +2507,178 @@
 																	layout:'border',
 																	items:[
 																		{
+																			region:'west',
+																			id: creditos.id + '-panel-west-doc',
+																			width:220,
+																			//layout:'fit',
+																			items:[
+																				{
+																					xtype: 'form',
+																					id: creditos.id + '-win-form-upload-doc',
+															                        //layout:'fit',
+															                        bodyStyle: 'background: transparent',
+																					padding:'5px 5px 5px 5px',
+																					margin:'15px 0px 5px 0px',
+																					//height:45,
+																					border:false,
+																					items:[
+																						{
+														                                    xtype: 'filefield',
+														                                    id: creditos.id + '-file-doc',
+														                                    name: creditos.id + '-filex-doc', 
+														                                    labelWidth:60,
+														                                    fieldLabel: 'Documento',
+														                                    allowBlank: false,
+														                                    emptyText: 'Seleccione imagen',
+														                                    //columnWidth: 1,
+														                                    buttonText: '',
+														                                    width:'90%',
+														                                    padding:'5px 5px 5px 5px',
+														                                    buttonConfig: {
+														                                        iconCls: 'upload-icon'
+														                                    },
+														                                    labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+																                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+														                                    listeners: {
+														                                        change: function (fld, value) {
+														                                            var newValue = value.replace(/C:\\fakepath\\/g, '');
+														                                            fld.setRawValue(newValue);
+														                                        }
+														                                    }
+														                                },
+														                                {
+																                            xtype: 'textfield',
+																                            fieldLabel: 'Nombre',
+																                            id:creditos.id+'-sol-txt-nombre-doc',
+																                            bodyStyle: 'background: transparent',
+																		                    padding:'5px 5px 5px 5px',
+																                            //id:persona.id+'-txt-dni',
+																                            labelWidth:60,
+																                            //readOnly:true,
+																                            //labelAlign:'top',
+																                            width:'90%',
+																                            //height:60,
+																                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+																                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+																                            value:'',
+																                            //anchor:'100%',
+																                            listeners:{
+																                                afterrender:function(obj, e){
+																                                }
+																                            }
+																                        }
+																					]
+																				},
+																				{
+															                        layout:'hbox',
+															                        bodyStyle: 'background: transparent',
+																					padding:'5px 5px 5px 5px',
+																					height:45,
+																					border:false,
+																					items:[
+																                        {
+																	                        xtype:'button',
+																	                        margin:'5px 5px 5px 5px',
+																	                        height:30,
+																	                        //text: 'Grabar',
+																	                        icon: '/images/icon/save.png',
+																	                        listeners:{
+																	                            beforerender: function(obj, opts){
+																								},
+																	                            click: function(obj, e){
+																	                            	var form = Ext.getCmp(creditos.id + '-win-form-upload-doc').getForm();
+																	                            	var vp_sol_id_per = Ext.getCmp(creditos.id+'-sol-txt-id-per').getValue();
+																	                            	var vp_id_solicitud  = Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').getValue();
+																	                            	var vp_img = Ext.getCmp(creditos.id + '-file-doc').getValue();
+																	                            	var vp_nombre_doc = Ext.getCmp(creditos.id+'-sol-txt-nombre-doc').getValue(); 
+																	                            	if(vp_sol_id_per==0){
+																										global.Msg({msg:"No es posible subir documentos para esta persona, debe grabar antes sus datos principales.",icon:2,fn:function(){}});
+																										return false;
+																									}
+																									if(vp_id_solicitud==0){
+																										global.Msg({msg:"No es posible subir documentos para esta persona, debe grabar antes la solicitud antes o seleccionar una solicitud.",icon:2,fn:function(){}});
+																										return false;
+																									}
+																									if(vp_img==''){
+																										global.Msg({msg:"Seleccione una imagen a cargar.",icon:2,fn:function(){}});
+																										return false;
+																									}
+																									if(vp_nombre_doc==''){
+																										global.Msg({msg:"Ingrese un nombre para el documento.",icon:2,fn:function(){}});
+																										return false;
+																									}
+																					                if (form.isValid()) {
+																					                    var mask = new Ext.LoadMask(Ext.getCmp(creditos.id + '-panel-west-doc'), {
+																					                        msg: 'Subiendo Documento...'
+																					                    });
+																					                    mask.show();
+																					                    form.submit({
+																					                        url: creditos.url + 'setDocumento/',
+																					                        params:{vp_sol_id_per:vp_sol_id_per,vp_id_creditos:vp_id_solicitud,vp_nombre:vp_nombre_doc},
+																					                        witMsg: 'Subiendo....',
+																					                        success: function (fp, o) {
+																					                            mask.hide();
+																					                            //window.open(Servicios.url + 'getExcelImpresion/?archivo='+o.result.archivo, "_blank");
+																					                            global.Msg({
+																					                                msg: o.result.MESSAGE_TEXT,
+																					                                icon: 1,
+																					                                buttons: 1,
+																					                                fn: function(btn){
+																					                                	 
+																					                                }
+																					                            });
+																					                            if(o.result.RESPONSE=='OK'){
+																					                            	//var img = '/persona/'+vp_sol_id_per+'/DOCUMENTOS/'+o.result.FILE;
+																					                            	//persona.setPhotoForm(img);
+																					                            	Ext.getCmp(creditos.id+'-sol-txt-nombre-doc').setValue('');
+																					                            	//var obj = Ext.getCmp(persona.id+'-sol-documentos-adjuntos');
+																													//persona.getReload(obj,{vp_sol_id_per:vp_sol_id_per,vp_flag:'A'});
+																													win.getGalery({container:'contenedor-documentos',forma:'L',url:creditos.url+'get_list_documentos/',params:{vp_id_creditos:vp_id_solicitud,vp_sol_id_per:vp_sol_id_per,vp_flag:'A'} });
+																								                }
+																					                        },
+																					                        failure: function (fp, o) {
+																					                            mask.hide();
+																					                            console.log(o.result);
+																					                        }
+																					                    });
+																					                }
+																	                            }
+																	                        }
+																	                    },
+																	                    {
+																	                        xtype:'button',
+																	                        hidden:true,
+																	                        height:30,
+																	                        margin:'5px 5px 5px 5px',
+																	                        //text: 'Grabar',
+																	                        icon: '/images/icon/Document.png',
+																	                        listeners:{
+																	                            beforerender: function(obj, opts){
+																								},
+																	                            click: function(obj, e){
+																	                            	//persona.setSavepersona(op);
+																	                            }
+																	                        }
+																	                    },
+																	                    {
+																	                        xtype:'button',
+																	                        height:30,
+																	                        margin:'5px 5px 5px 5px',
+																	                        //text: 'Grabar',
+																	                        icon: '/images/icon/Trash.png',
+																	                        listeners:{
+																	                            beforerender: function(obj, opts){
+																								},
+																	                            click: function(obj, e){
+																	                            	//persona.setSavepersona(op);
+																	                            }
+																	                        }
+																	                    }
+																                    ]
+																                }
+																			]
+																		},
+																		{
 																			region:'center',
 																			border:false,
 																			autoScroll:true,
@@ -2511,7 +2686,7 @@
 																			items:[
 																				/*{
 																		            xtype: 'dataview',
-																		            id:creditos.id+'-sol-documentos-adjuntos',
+																		            id:persona.id+'-sol-documentos-adjuntos',
 																		            tpl: [
 																		                '<tpl for=".">',
 																		                    '<div class="dataview-multisort-item">',
@@ -2534,6 +2709,14 @@
 																		        }*/
 																			]
 																		}
+																		/*{
+																			region:'center',
+																			border:false,
+																			autoScroll:true,
+																			html:'<div id="contenedor-documentos" ></div>',
+																			items:[
+																			]
+																		}*/
 																	]
 																},
 																{
@@ -2541,6 +2724,7 @@
 																	title:'Conyugue',
 																	//bodyStyle: 'background: transparent',
 																	border:false,
+																	layout:'fit',
 																	//layout:'border',
 																	/*bbar:[
 																		{
@@ -2663,6 +2847,7 @@
 																	title:'Garante',
 																	//bodyStyle: 'background: transparent',
 																	border:false,
+																	layout:'fit',
 																	//layout:'border',
 																	bbar:[
 																		{
@@ -2675,6 +2860,13 @@
 												                            labelWidth:40,
 												                            //readOnly:true,
 												                            //labelAlign:'top',
+												                            allowOnlyWhitespace: false,
+												                            allowDecimals: false,
+												                            allowExponential: false,
+												                            //allowBlank: true,
+												                            maxLength: 8,
+												                            enforceMaxLength : true,
+												                            maskRe:/[0-9]/,
 												                            width:120,
 												                            //flex:1,
 												                            //height:40,
@@ -2747,8 +2939,8 @@
 													                        tpl: imageTplPointerConyugue,
 													                        multiSelect: false,
 													                        singleSelect: false,
-													                        loadingText:'Cargando Lista de Conyugues...',
-													                        emptyText: '<div class="list_grid_as__list_menu"><div class="list_grid_as__none_data" ></div><div class="list_grid_as__title_clear_data">NO TIENE NINGUN Conyugue</div></div>',
+													                        loadingText:'Cargando Lista de Garantes...',
+													                        emptyText: '<div class="list_grid_as__list_menu"><div class="list_grid_as__none_data" ></div><div class="list_grid_as__title_clear_data">NO TIENE NINGUN GARANTE</div></div>',
 													                        itemSelector: 'div.list_grid_as__list_menu_select',
 													                        trackOver: true,
 													                        overItemCls: 'list_grid_as__list_menu-hover',
@@ -4388,7 +4580,7 @@
 
 				var grid=Ext.getCmp(creditos.id+'-grid-solicitudes');
 				var record = grid.getStore().getAt(idx);
-				var data =record.data;
+				var data_x =record.data;
 
 				creditos.setClearcreditos();
 				creditos.setDisabledBTNSolicitud(false);
@@ -4399,7 +4591,7 @@
                     params:{
                     	vp_op:'D',
 						vp_id:0,
-						vp_dni:data.doc_dni,
+						vp_dni:data_x.doc_dni,
 						vp_nombres:''
                     },
                     timeout: 30000000,
@@ -4446,7 +4638,8 @@
 
 							//var obj = Ext.getCmp(creditos.id+'-sol-documentos-adjuntos');
 							//creditos.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
-							win.getGalery({container:'contenedor-documentos',forma:'L',url:creditos.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
+							//win.getGalery({container:'contenedor-documentos',forma:'L',url:creditos.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
+							win.getGalery({container:'contenedor-documentos',forma:'L',url:creditos.url+'get_list_documentos/',params:{vp_id_creditos:data_x.id_creditos,vp_sol_id_per:data.id_per,vp_flag:'A'} });
 
 							if(data.id_dir!=0){
 								creditos.getDirecciones(data.id_dir);
@@ -4465,7 +4658,7 @@
 							creditos.getReload(objp,{vp_op:'Y',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 
 							var objg = Ext.getCmp(creditos.id+'-list-garante');
-							creditos.getReload(objg,{vp_op:'G',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+							creditos.getReload(objg,{vp_op:'G',vp_id_creditos:data_x.id_creditos,vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 
 							var objv = Ext.getCmp(creditos.id+'-list-solicitudes');
 							creditos.getReload(objv,{VP_T_DOC:'P',VP_ID_PER:data.id_per,VP_DOC:''});
@@ -4617,6 +4810,9 @@
 				Ext.getCmp(creditos.id+'-sol-txt-mora').setValue(data.mora);
 				Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').setValue(data.fecha_1ra_letra);
 				Ext.getCmp(creditos.id + '-txt-nota').setValue(data.nota);
+
+
+				win.getGalery({container:'contenedor-documentos',forma:'L',url:creditos.url+'get_list_documentos/',params:{vp_id_creditos:data.id_creditos,vp_sol_id_per:data.id_per,vp_flag:'A'} }); 
 
 				
 				var objc = Ext.getCmp(creditos.id + '-grid-cuotas');
@@ -4808,8 +5004,10 @@
 			                                fn: function(btn){
 			                                	var vp_dni = Ext.getCmp(creditos.id+'-sol-txt-doc-dni').getValue();
 			                                	Ext.getCmp(creditos.id+'-txt-dni').setValue(vp_dni);
-			                                	creditos.getListaSolicitudes(vp_dni);
-			                                	creditos.setDataSolicitud(creditos.idx);
+			                                	//creditos.getListaSolicitudes(vp_dni);
+			                                	creditos.setDataSolicitud(creditos.index);
+			                                	//creditos.index=rowIndex;
+							                    //var fun = "creditos.setDataSolicitudX("+rowIndex+")";
 			                                	//Ext.getCmp(creditos.id+'-select-garante').setValue('');
 			                                	//var objp = Ext.getCmp(creditos.id+'-list-garante');
 												//creditos.getReload(objp,{vp_op:'G',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
@@ -5029,6 +5227,7 @@
 			},
 			setSavecreditosGarante:function(forma){
 				var vp_sol_id_per = Ext.getCmp(creditos.id+'-sol-txt-id-per').getValue();
+				var vp_id_solicitud  = Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').getValue();
 
 				var sol_doc_dni = Ext.getCmp(creditos.id+'-select-garante').getValue();
 				/*var sol_doc_ce = Ext.getCmp(creditos.id+'-sol-txt-doc-ce').getValue();
@@ -5038,11 +5237,11 @@
 
 				var op =forma;
 				if(vp_sol_id_per==0){
-					global.Msg({msg:"No es posible Eliminar, aun no existe un registro en la base datos.",icon:2,fn:function(){}});
+					global.Msg({msg:"Persona no seleccionada, ingrese un DNI.",icon:2,fn:function(){}});
 					return false;
 				}
-				if(sol_doc_dni==''){
-					global.Msg({msg:"Ingrese el DNI.",icon:2,fn:function(){}});
+				if(vp_id_solicitud==0){
+					global.Msg({msg:"Seleccione o grabar la solicitud para agregar un garante.",icon:2,fn:function(){}});
 					return false;
 				}
 
@@ -5056,9 +5255,10 @@
                     		Ext.getCmp(creditos.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
 	                        //scanning.getLoader(true);
 			                Ext.Ajax.request({
-			                    url:creditos.url+'setSavecreditos/',
+			                    url:creditos.url+'setSaveGarante/',
 			                    params:{
 			                    	vp_op:op,
+			                    	vp_id_solicitud:vp_id_solicitud,
 									vp_sol_id_per:vp_sol_id_per,
 									vp_sol_doc_dni:sol_doc_dni,
 									vp_flag:'A'
@@ -5076,7 +5276,7 @@
 			                                fn: function(btn){
 			                                	Ext.getCmp(creditos.id+'-select-garante').setValue('');
 			                                	var objp = Ext.getCmp(creditos.id+'-list-garante');
-												creditos.getReload(objp,{vp_op:'G',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+												creditos.getReload(objp,{vp_op:'G',vp_id_creditos:vp_id_solicitud,vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 			                                }
 			                            });
 			                        }else{
@@ -5150,7 +5350,7 @@
 				creditos.setClearcreditos();
 				creditos.setDisabledBTNSolicitud(false);
 				creditos.setClearSolicitud();
-
+				var vp_id_solicitud  = Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').getValue();
 				Ext.Ajax.request({
                     url:creditos.url+'getListPersona/',
                     params:{
@@ -5203,7 +5403,7 @@
 
 							//var obj = Ext.getCmp(creditos.id+'-sol-documentos-adjuntos');
 							//creditos.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
-							win.getGalery({container:'contenedor-documentos',forma:'L',url:creditos.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
+							//win.getGalery({container:'contenedor-documentos',forma:'L',url:creditos.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
 
 							if(data.id_dir!=0){
 								creditos.getDirecciones(data.id_dir);
@@ -5222,7 +5422,7 @@
 							creditos.getReload(objp,{vp_op:'Y',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 
 							var objg = Ext.getCmp(creditos.id+'-list-garante');
-							creditos.getReload(objg,{vp_op:'G',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+							creditos.getReload(objg,{vp_op:'G',vp_id_solicitud:vp_id_solicitud,vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 
 							var objv = Ext.getCmp(creditos.id+'-list-solicitudes');
 							creditos.getReload(objv,{VP_T_DOC:'P',VP_ID_PER:data.id_per,VP_DOC:''});

@@ -44,7 +44,15 @@
 
 	                    {name: 'fecha_mod', type: 'string'},
 	                    {name: 'enviado', type: 'string'},
-	                    {name: 'flag', type: 'string'}
+	                    {name: 'flag', type: 'string'},
+
+	                    {name: 'personal', type: 'string'},
+	                    {name: 'telefono1', type: 'string'},
+	                    {name: 'telefono2', type: 'string'},
+
+	                    {name: 'comercial', type: 'string'},
+	                    {name: 'telefono3', type: 'string'},
+	                    {name: 'telefono4', type: 'string'}
 	                ],
 	                autoLoad:false,
 	                proxy:{
@@ -649,7 +657,7 @@
 		            autoLoad:false,
 		            proxy:{
 		                type: 'ajax',
-		                url: solicitudes.url+'getListPersona/',
+		                url: solicitudes.url+'getListGarante/',
 		                reader:{
 		                    type: 'json',
 		                    rootProperty: 'data'
@@ -1723,6 +1731,7 @@
 																						    ['TI','Titulado'],
 																						    ['MA','Magister'],
 																						    ['TE','Tecnico'],
+																						    ['SE','Secundaria'],
 																						    ['OT','Otros']
 																						],
 																				        fields: ['code', 'name']
@@ -1886,15 +1895,7 @@
 														                        
 														                                }
 														                            }
-														                        }
-														                    ]
-														                },
-														                {
-																			layout:'hbox',
-																			bodyStyle: 'background: transparent',
-																			padding:'5px 5px 5px 5px',
-																			border:false,
-																			items:[
+														                        },
 														                        {
 																			        xtype: 'datefield',
 																			        id:solicitudes.id+'-sol-date-fecha-ingreso',
@@ -1904,14 +1905,56 @@
 																			        format:'Y-m-d',
 																			        //flex:1,
 														                            //height:40,
-														                            width:220,
+														                            width:140,
 														                            readOnly:true,
-														                            labelWidth: 110,
+														                            labelWidth: 50,
 																			        labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-																			        fieldLabel: 'Fecha Ingreso',
+																			        fieldLabel: 'F.Ingreso',
 																			        value:''
 																			    }
+														                    ]
+														                },
+														                {
+																			layout:'hbox',
+																			bodyStyle: 'background: transparent',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+														                        {
+														                            xtype:'combo',
+														                            fieldLabel: 'Negocio',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 5px 5px 5px',
+														                            id:solicitudes.id+'-sol-txt-negocio',
+														                            store: store_centro_trabajo,
+														                            queryMode: 'local',
+														                            triggerAction: 'all',
+														                            valueField: 'id_empresa',
+														                            displayField: 'nombre',
+														                            emptyText: '[Seleccione]',
+														                            labelAlign:'right',
+														                            //allowBlank: false,
+														                            //labelAlign:'top',
+														                            labelWidth: 110,
+														                            readOnly: true,
+														                            //width:200,
+														                            flex:1,
+														                            anchor:'98%',
+														                            height:20,
+														                            //readOnly: true,
+														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                    // obj.getStore().load();
+														                                    //obj.setValue('S');
+														                                },
+														                                select:function(obj, records, eOpts){
+														                        
+														                                }
+														                            }
+														                        }
 														                    ]
 														                }
 													            	]
@@ -1957,6 +2000,178 @@
 															layout:'border',
 															items:[
 																{
+																	region:'west',
+																	id: solicitudes.id + '-panel-west-doc',
+																	width:220,
+																	//layout:'fit',
+																	items:[
+																		{
+																			xtype: 'form',
+																			id: solicitudes.id + '-win-form-upload-doc',
+													                        //layout:'fit',
+													                        bodyStyle: 'background: transparent',
+																			padding:'5px 5px 5px 5px',
+																			margin:'15px 0px 5px 0px',
+																			//height:45,
+																			border:false,
+																			items:[
+																				{
+												                                    xtype: 'filefield',
+												                                    id: solicitudes.id + '-file-doc',
+												                                    name: solicitudes.id + '-filex-doc', 
+												                                    labelWidth:60,
+												                                    fieldLabel: 'Documento',
+												                                    allowBlank: false,
+												                                    emptyText: 'Seleccione imagen',
+												                                    //columnWidth: 1,
+												                                    buttonText: '',
+												                                    width:'90%',
+												                                    padding:'5px 5px 5px 5px',
+												                                    buttonConfig: {
+												                                        iconCls: 'upload-icon'
+												                                    },
+												                                    labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+												                                    listeners: {
+												                                        change: function (fld, value) {
+												                                            var newValue = value.replace(/C:\\fakepath\\/g, '');
+												                                            fld.setRawValue(newValue);
+												                                        }
+												                                    }
+												                                },
+												                                {
+														                            xtype: 'textfield',
+														                            fieldLabel: 'Nombre',
+														                            id:solicitudes.id+'-sol-txt-nombre-doc',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 5px 5px 5px',
+														                            //id:persona.id+'-txt-dni',
+														                            labelWidth:60,
+														                            //readOnly:true,
+														                            //labelAlign:'top',
+														                            width:'90%',
+														                            //height:60,
+														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                }
+														                            }
+														                        }
+																			]
+																		},
+																		{
+													                        layout:'hbox',
+													                        bodyStyle: 'background: transparent',
+																			padding:'5px 5px 5px 5px',
+																			height:45,
+																			border:false,
+																			items:[
+														                        {
+															                        xtype:'button',
+															                        margin:'5px 5px 5px 5px',
+															                        height:30,
+															                        //text: 'Grabar',
+															                        icon: '/images/icon/save.png',
+															                        listeners:{
+															                            beforerender: function(obj, opts){
+																						},
+															                            click: function(obj, e){
+															                            	var form = Ext.getCmp(solicitudes.id + '-win-form-upload-doc').getForm();
+															                            	var vp_sol_id_per = Ext.getCmp(solicitudes.id+'-sol-txt-id-per').getValue();
+															                            	var vp_id_solicitud  = Ext.getCmp(solicitudes.id+'-sol-txt-id-solicitud').getValue();
+															                            	var vp_img = Ext.getCmp(solicitudes.id + '-file-doc').getValue();
+															                            	var vp_nombre_doc = Ext.getCmp(solicitudes.id+'-sol-txt-nombre-doc').getValue(); 
+															                            	if(vp_sol_id_per==0){
+																								global.Msg({msg:"No es posible subir documentos para esta persona, debe grabar antes sus datos principales.",icon:2,fn:function(){}});
+																								return false;
+																							}
+																							if(vp_id_solicitud==0){
+																								global.Msg({msg:"No es posible subir documentos para esta persona, debe grabar antes la solicitud antes o seleccionar una solicitud.",icon:2,fn:function(){}});
+																								return false;
+																							}
+																							if(vp_img==''){
+																								global.Msg({msg:"Seleccione una imagen a cargar.",icon:2,fn:function(){}});
+																								return false;
+																							}
+																							if(vp_nombre_doc==''){
+																								global.Msg({msg:"Ingrese un nombre para el documento.",icon:2,fn:function(){}});
+																								return false;
+																							}
+																			                if (form.isValid()) {
+																			                    var mask = new Ext.LoadMask(Ext.getCmp(solicitudes.id + '-panel-west-doc'), {
+																			                        msg: 'Subiendo Documento...'
+																			                    });
+																			                    mask.show();
+																			                    form.submit({
+																			                        url: solicitudes.url + 'setDocumento/',
+																			                        params:{vp_sol_id_per:vp_sol_id_per,vp_id_creditos:vp_id_solicitud,vp_nombre:vp_nombre_doc},
+																			                        witMsg: 'Subiendo....',
+																			                        success: function (fp, o) {
+																			                            mask.hide();
+																			                            //window.open(Servicios.url + 'getExcelImpresion/?archivo='+o.result.archivo, "_blank");
+																			                            global.Msg({
+																			                                msg: o.result.MESSAGE_TEXT,
+																			                                icon: 1,
+																			                                buttons: 1,
+																			                                fn: function(btn){
+																			                                	 
+																			                                }
+																			                            });
+																			                            if(o.result.RESPONSE=='OK'){
+																			                            	//var img = '/persona/'+vp_sol_id_per+'/DOCUMENTOS/'+o.result.FILE;
+																			                            	//persona.setPhotoForm(img);
+																			                            	Ext.getCmp(solicitudes.id+'-sol-txt-nombre-doc').setValue('');
+																			                            	//var obj = Ext.getCmp(persona.id+'-sol-documentos-adjuntos');
+																											//persona.getReload(obj,{vp_sol_id_per:vp_sol_id_per,vp_flag:'A'});
+																											win.getGalery({container:'contenedor-documentos',forma:'L',url:solicitudes.url+'get_list_documentos/',params:{vp_id_creditos:vp_id_solicitud,vp_sol_id_per:vp_sol_id_per,vp_flag:'A'} });
+																						                }
+																			                        },
+																			                        failure: function (fp, o) {
+																			                            mask.hide();
+																			                            console.log(o.result);
+																			                        }
+																			                    });
+																			                }
+															                            }
+															                        }
+															                    },
+															                    {
+															                        xtype:'button',
+															                        hidden:true,
+															                        height:30,
+															                        margin:'5px 5px 5px 5px',
+															                        //text: 'Grabar',
+															                        icon: '/images/icon/Document.png',
+															                        listeners:{
+															                            beforerender: function(obj, opts){
+																						},
+															                            click: function(obj, e){
+															                            	//persona.setSavepersona(op);
+															                            }
+															                        }
+															                    },
+															                    {
+															                        xtype:'button',
+															                        height:30,
+															                        margin:'5px 5px 5px 5px',
+															                        //text: 'Grabar',
+															                        icon: '/images/icon/Trash.png',
+															                        listeners:{
+															                            beforerender: function(obj, opts){
+																						},
+															                            click: function(obj, e){
+															                            	//persona.setSavepersona(op);
+															                            }
+															                        }
+															                    }
+														                    ]
+														                }
+																	]
+																},
+																{
 																	region:'center',
 																	border:false,
 																	autoScroll:true,
@@ -1964,7 +2179,7 @@
 																	items:[
 																		/*{
 																            xtype: 'dataview',
-																            id:solicitudes.id+'-sol-documentos-adjuntos',
+																            id:persona.id+'-sol-documentos-adjuntos',
 																            tpl: [
 																                '<tpl for=".">',
 																                    '<div class="dataview-multisort-item">',
@@ -1987,6 +2202,14 @@
 																        }*/
 																	]
 																}
+																/*{
+																	region:'center',
+																	border:false,
+																	autoScroll:true,
+																	html:'<div id="contenedor-documentos" ></div>',
+																	items:[
+																	]
+																}*/
 															]
 														},
 														{
@@ -1994,6 +2217,7 @@
 															title:'Conyugue',
 															//bodyStyle: 'background: transparent',
 															border:false,
+															layout:'fit',
 															//layout:'border',
 															/*bbar:[
 																{
@@ -2117,6 +2341,7 @@
 															//bodyStyle: 'background: transparent',
 															border:false,
 															//layout:'border',
+															layout:'fit',
 															bbar:[
 																{
 										                            xtype: 'textfield',
@@ -2128,6 +2353,13 @@
 										                            labelWidth:40,
 										                            //readOnly:true,
 										                            //labelAlign:'top',
+										                            allowOnlyWhitespace: false,
+										                            allowDecimals: false,
+										                            allowExponential: false,
+										                            //allowBlank: true,
+										                            maxLength: 8,
+										                            enforceMaxLength : true,
+										                            maskRe:/[0-9]/,
 										                            width:120,
 										                            //flex:1,
 										                            //height:40,
@@ -2200,8 +2432,8 @@
 											                        tpl: imageTplPointerConyugue,
 											                        multiSelect: false,
 											                        singleSelect: false,
-											                        loadingText:'Cargando Lista de Conyugues...',
-											                        emptyText: '<div class="list_grid_as__list_menu"><div class="list_grid_as__none_data" ></div><div class="list_grid_as__title_clear_data">NO TIENE NINGUN Conyugue</div></div>',
+											                        loadingText:'Cargando Lista de Garantes...',
+											                        emptyText: '<div class="list_grid_as__list_menu"><div class="list_grid_as__none_data" ></div><div class="list_grid_as__title_clear_data">NO TIENE NINGUN GARANTE</div></div>',
 											                        itemSelector: 'div.list_grid_as__list_menu_select',
 											                        trackOver: true,
 											                        overItemCls: 'list_grid_as__list_menu-hover',
@@ -2232,6 +2464,269 @@
 											                        }
 											                    }
 															]
+														},
+														{
+															xtype:'panel',
+															title:'Referencia Personal',
+															//bodyStyle: 'background: transparent',
+															border:false,
+															//layout:'border',
+															//layout:'fit',
+															items:[
+																{
+																	xtype:'panel',
+																	border:false,
+																	layout:'hbox',
+																	items:[
+																		{
+												                            xtype: 'textfield',
+												                            id:solicitudes.id+'-ref-personal',
+												                            fieldLabel: 'Nombres y Apellidos',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:solicitudes.id+'-txt-dni',
+												                            labelWidth:40,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            /*allowOnlyWhitespace: false,
+												                            allowDecimals: false,
+												                            allowExponential: false,
+												                            //allowBlank: true,
+												                            maxLength: 8,
+												                            enforceMaxLength : true,
+												                            maskRe:/[0-9]/,*/
+												                            //width:120,
+												                            flex:1,
+												                            //height:40,
+												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                },
+												                                change: function(field, newValue, oldValue){
+														                            field.setValue(newValue.toUpperCase());
+														                        }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',
+												                            id:solicitudes.id+'-ref-personal-telf1',
+												                            fieldLabel: 'teléfono 1',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:solicitudes.id+'-txt-dni',
+												                            labelWidth:40,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            allowOnlyWhitespace: false,
+												                            allowDecimals: false,
+												                            allowExponential: false,
+												                            //allowBlank: true,
+												                            //maxLength: 8,
+												                            //enforceMaxLength : true,
+												                            maskRe:/[0-9-]/,
+												                            width:120,
+												                            //flex:1,
+												                            //height:40,
+												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                },
+												                                change: function(field, newValue, oldValue){
+														                            field.setValue(newValue.toUpperCase());
+														                        }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',
+												                            id:solicitudes.id+'-ref-personal-telf2',
+												                            fieldLabel: 'teléfono 1',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:solicitudes.id+'-txt-dni',
+												                            labelWidth:40,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            allowOnlyWhitespace: false,
+												                            allowDecimals: false,
+												                            allowExponential: false,
+												                            //allowBlank: true,
+												                            //maxLength: 8,
+												                            //enforceMaxLength : true,
+												                            maskRe:/[0-9-]/,
+												                            width:120,
+												                            //flex:1,
+												                            //height:40,
+												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                },
+												                                change: function(field, newValue, oldValue){
+														                            field.setValue(newValue.toUpperCase());
+														                        }
+												                            }
+												                        }
+																	]
+																},
+																{
+																	xtype:'panel',
+																	border:false,
+																	layout:'hbox',
+																	items:[
+																		{
+												                            xtype: 'textfield',
+												                            id:solicitudes.id+'-ref-comercial',
+												                            fieldLabel: 'Comercial',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:solicitudes.id+'-txt-dni',
+												                            labelWidth:40,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            /*allowOnlyWhitespace: false,
+												                            allowDecimals: false,
+												                            allowExponential: false,
+												                            allowBlank: true,
+												                            //maxLength: 8,
+												                            //enforceMaxLength : true,
+												                            maskRe:/[0-9-]/,*/
+												                            //width:120,
+												                            flex:1,
+												                            //height:40,
+												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                },
+												                                change: function(field, newValue, oldValue){
+														                            field.setValue(newValue.toUpperCase());
+														                        }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',
+												                            id:solicitudes.id+'-ref-comercial-telf1',
+												                            fieldLabel: 'teléfono 1',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:solicitudes.id+'-txt-dni',
+												                            labelWidth:40,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            allowOnlyWhitespace: false,
+												                            allowDecimals: false,
+												                            allowExponential: false,
+												                            //allowBlank: true,
+												                            //maxLength: 8,
+												                            //enforceMaxLength : true,
+												                            maskRe:/[0-9-]/,
+												                            width:120,
+												                            //flex:1,
+												                            //height:40,
+												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                },
+												                                change: function(field, newValue, oldValue){
+														                            field.setValue(newValue.toUpperCase());
+														                        }
+												                            }
+												                        },
+												                        {
+												                            xtype: 'textfield',
+												                            id:solicitudes.id+'-ref-comercial-telf2',
+												                            fieldLabel: 'teléfono 1',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:solicitudes.id+'-txt-dni',
+												                            labelWidth:40,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            allowOnlyWhitespace: false,
+												                            allowDecimals: false,
+												                            allowExponential: false,
+												                            //allowBlank: true,
+												                            //maxLength: 8,
+												                            //enforceMaxLength : true,
+												                            maskRe:/[0-9-]/,
+												                            width:120,
+												                            //flex:1,
+												                            //height:40,
+												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                },
+												                                change: function(field, newValue, oldValue){
+														                            field.setValue(newValue.toUpperCase());
+														                        }
+												                            }
+												                        }
+																	]
+																},
+																{
+											                        xtype:'button',
+											                        //margin:'20px 5px 5px 5px',
+											                        height:30,
+											                        //text: 'Grabar',
+											                        icon: '/images/icon/save.png',
+											                        listeners:{
+											                            beforerender: function(obj, opts){
+																		},
+											                            click: function(obj, e){
+											                            	solicitudes.setSaveReferencia('I');
+											                            }
+											                        }
+											                    },
+											                    {
+											                        xtype:'button',
+											                        height:30,
+											                        //margin:'20px 5px 5px 5px',
+											                        //text: 'Grabar',
+											                        icon: '/images/icon/Document.png',
+											                        listeners:{
+											                            beforerender: function(obj, opts){
+																		},
+											                            click: function(obj, e){
+											                            	Ext.getCmp(solicitudes.id+'-ref-comercial-telf2').setValue('');
+											                            	Ext.getCmp(solicitudes.id+'-ref-comercial-telf1').setValue('');
+											                            	Ext.getCmp(solicitudes.id+'-ref-comercial').setValue('');
+											                            	Ext.getCmp(solicitudes.id+'-ref-personal-telf2').setValue('');
+											                            	Ext.getCmp(solicitudes.id+'-ref-personal-telf1').setValue('');
+											                            	Ext.getCmp(solicitudes.id+'-ref-personal').setValue('');
+											                            }
+											                        }
+											                    },
+											                    {
+											                        xtype:'button',
+											                        height:30,
+											                        //margin:'20px 5px 5px 5px',
+											                        //text: 'Grabar',
+											                        icon: '/images/icon/Trash.png',
+											                        listeners:{
+											                            beforerender: function(obj, opts){
+																		},
+											                            click: function(obj, e){
+											                            	solicitudes.setSaveReferencia('D');
+											                            }
+											                        }
+											                    }
+															]
 														}
 													]
 							                	}
@@ -2258,7 +2753,7 @@
 						         				{
 						         					layout:'border',
 						         					region:'north',
-						         					height:390,
+						         					height:480,
 						         					border:false,
 						         					items:[
 						         						{
@@ -2291,55 +2786,180 @@
 					                					},
 					                					{
 					                						region:'center',
-					                						layout:'border',
+					                						layout:'fit',
 					                						border:false,
+					                						bodyStyle: 'background: transparent',
 					                						items:[
 										         				{
-									                				region:'north',
-									                				padding:'5px 0px 5px 5px',
-									                				height:340,
-									                				bodyStyle: 'background: transparent',
-									                				border:false,
-									                				items:[
-									                					{
-																			xtype:'panel',
+																	xtype:'panel',
+																	bodyStyle: 'background: transparent',
+																	//title:'Registro',
+																	border:false,
+																	items:[
+																		{
+																			layout:'column',
+																			xtype: 'fieldset',
+																			title: 'Descripción de la Casa',
+																			id: solicitudes.id + '-field-title',
 																			bodyStyle: 'background: transparent',
-																			//title:'Registro',
-																			border:false,
+																			//region:'north',
+																			//height:100,
+																			//flex:1,
+																			border:true,
+																			padding:'5px 5px 5px 5px',
+																			margin:'5px 5px 5px 5px',
 																			items:[
 																				{
-														                            xtype: 'textfield',	
-														                            fieldLabel: 'IDdir',
-														                            id:solicitudes.id+'-sol-txt-id-dir',
-														                            hidden:true,
-														                            bodyStyle: 'background: transparent',
-																                    //padding:'15px 5px 5px 25px',
-														                            //id:solicitudes.id+'-txt-dni',
-														                            labelWidth:50,
-														                            //readOnly:true,
-														                            labelAlign:'top',
-														                            //width:120,
-														                            //height:60,
-														                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
-														                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
-														                            value:'0',
-														                            //anchor:'100%',
-														                            listeners:{
-														                                afterrender:function(obj, e){
-														                                }
-														                            }
-														                        },
-																                {
+																			        xtype: 'textareafield',
+																			        id: solicitudes.id + '-txt-dir-descripcion',
+																			        columnWidth: 1,
+																			        readOnly:true,
+																			        //name: 'textarea1',
+																			        //iconAlign: 'top',
+																			        //fieldLabel: 'Nota',
+																			        value: ''
+																			    }
+																			]
+																		},
+																		{
+												                            xtype: 'textfield',	
+												                            fieldLabel: 'IDdir',
+												                            id:solicitudes.id+'-sol-txt-id-dir',
+												                            hidden:true,
+												                            bodyStyle: 'background: transparent',
+														                    //padding:'15px 5px 5px 25px',
+												                            //id:solicitudes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            //readOnly:true,
+												                            labelAlign:'top',
+												                            //width:120,
+												                            //height:60,
+												                            labelStyle: "font-size:17px;font-weight:bold;padding:17px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:25px; text-align: center; font-weight: bold',
+												                            value:'0',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                }
+												                            }
+												                        },
+														                {
+												                            xtype: 'textfield',
+												                            fieldLabel: 'Avenida/Calle/Jirón/Pasaje',
+												                            id:solicitudes.id+'-sol-txt-dir-direccion',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 10px 5px 5px',
+												                            //id:solicitudes.id+'-txt-dni',
+												                            labelWidth:50,
+												                            readOnly:true,
+												                            labelAlign:'top',
+												                            width:'95%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                },
+												                                change: function(field, newValue, oldValue){
+														                            field.setValue(newValue.toUpperCase());
+														                        }
+												                            }
+												                        },
+																		{
+																			layout:'hbox',
+																			bodyStyle: 'background: transparent',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+														                        {
 														                            xtype: 'textfield',
-														                            fieldLabel: 'Avenida/Calle/Jirón/Pasaje',
-														                            id:solicitudes.id+'-sol-txt-dir-direccion',
+														                            id:solicitudes.id+'-sol-txt-dir-numero',
+														                            fieldLabel: 'N°',
 														                            bodyStyle: 'background: transparent',
 																                    padding:'5px 10px 5px 5px',
 														                            //id:solicitudes.id+'-txt-dni',
 														                            labelWidth:50,
 														                            readOnly:true,
 														                            labelAlign:'top',
-														                            width:'95%',
+														                            //width:50,
+														                            flex:1,
+														                            height:40,
+														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                },
+														                                change: function(field, newValue, oldValue){
+																                            field.setValue(newValue.toUpperCase());
+																                        }
+														                            }
+														                        },
+														                        {
+														                            xtype: 'textfield',
+														                            id:solicitudes.id+'-sol-txt-dir-mz',
+														                            fieldLabel: 'MZ',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:solicitudes.id+'-txt-dni',
+														                            labelWidth:50,
+														                            readOnly:true,
+														                            labelAlign:'top',
+														                            //width:50,
+														                            flex:1,
+														                            height:40,
+														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                },
+														                                change: function(field, newValue, oldValue){
+																                            field.setValue(newValue.toUpperCase());
+																                        }
+														                            }
+														                        },
+														                        {
+														                            xtype: 'textfield',
+														                            id:solicitudes.id+'-sol-txt-dir-lt',
+														                            fieldLabel: 'LT',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:solicitudes.id+'-txt-dni',
+														                            labelWidth:50,
+														                            readOnly:true,
+														                            labelAlign:'top',
+														                            //width:50,
+														                            flex:1,
+														                            height:40,
+														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                },
+														                                change: function(field, newValue, oldValue){
+																                            field.setValue(newValue.toUpperCase());
+																                        }
+														                            }
+														                        },
+														                        {
+														                            xtype: 'textfield',
+														                            id:solicitudes.id+'-sol-txt-dir-dpto',
+														                            fieldLabel: 'DPTO',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:solicitudes.id+'-txt-dni',
+														                            labelWidth:50,
+														                            readOnly:true,
+														                            labelAlign:'top',
+														                            //width:50,
 														                            flex:1,
 														                            height:40,
 														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
@@ -2355,182 +2975,49 @@
 														                            }
 														                        },
 																				{
-																					layout:'hbox',
-																					bodyStyle: 'background: transparent',
-																					padding:'5px 5px 5px 5px',
-																					border:false,
-																					items:[
-																                        {
-																                            xtype: 'textfield',
-																                            id:solicitudes.id+'-sol-txt-dir-numero',
-																                            fieldLabel: 'N°',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'5px 10px 5px 5px',
-																                            //id:solicitudes.id+'-txt-dni',
-																                            labelWidth:50,
-																                            readOnly:true,
-																                            labelAlign:'top',
-																                            //width:50,
-																                            flex:1,
-																                            height:40,
-																                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-																                            value:'',
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                },
-																                                change: function(field, newValue, oldValue){
-																		                            field.setValue(newValue.toUpperCase());
-																		                        }
-																                            }
-																                        },
-																                        {
-																                            xtype: 'textfield',
-																                            id:solicitudes.id+'-sol-txt-dir-mz',
-																                            fieldLabel: 'MZ',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'5px 10px 5px 5px',
-																                            //id:solicitudes.id+'-txt-dni',
-																                            labelWidth:50,
-																                            readOnly:true,
-																                            labelAlign:'top',
-																                            //width:50,
-																                            flex:1,
-																                            height:40,
-																                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-																                            value:'',
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                },
-																                                change: function(field, newValue, oldValue){
-																		                            field.setValue(newValue.toUpperCase());
-																		                        }
-																                            }
-																                        },
-																                        {
-																                            xtype: 'textfield',
-																                            id:solicitudes.id+'-sol-txt-dir-lt',
-																                            fieldLabel: 'LT',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'5px 10px 5px 5px',
-																                            //id:solicitudes.id+'-txt-dni',
-																                            labelWidth:50,
-																                            readOnly:true,
-																                            labelAlign:'top',
-																                            //width:50,
-																                            flex:1,
-																                            height:40,
-																                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-																                            value:'',
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                },
-																                                change: function(field, newValue, oldValue){
-																		                            field.setValue(newValue.toUpperCase());
-																		                        }
-																                            }
-																                        },
-																                        {
-																                            xtype: 'textfield',
-																                            id:solicitudes.id+'-sol-txt-dir-dpto',
-																                            fieldLabel: 'DPTO',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'5px 10px 5px 5px',
-																                            //id:solicitudes.id+'-txt-dni',
-																                            labelWidth:50,
-																                            readOnly:true,
-																                            labelAlign:'top',
-																                            //width:50,
-																                            flex:1,
-																                            height:40,
-																                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-																                            value:'',
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                },
-																                                change: function(field, newValue, oldValue){
-																		                            field.setValue(newValue.toUpperCase());
-																		                        }
-																                            }
-																                        },
-																						{
-																                            xtype: 'textfield',
-																                            id:solicitudes.id+'-sol-txt-dir-interior',
-																                            fieldLabel: 'INT.',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'5px 10px 5px 5px',
-																                            //id:solicitudes.id+'-txt-dni',
-																                            labelWidth:50,
-																                            readOnly:true,
-																                            labelAlign:'top',
-																                            //width:50,
-																                            	flex:1,
-																                            height:40,
-																                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-																                            value:'',
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                },
-																                                change: function(field, newValue, oldValue){
-																		                            field.setValue(newValue.toUpperCase());
-																		                        }
-																                            }
-																                        }
-																                    ]
-																                },
-																                {
-																					layout:'hbox',
-																					bodyStyle: 'background: transparent',
-																					padding:'5px 5px 5px 5px',
-																					border:false,
-																					items:[
-																		                {
-																                            xtype: 'textfield',
-																                            id:solicitudes.id+'-sol-txt-dir-urb',
-																                            fieldLabel: 'Urbanización/AA.HH/PJ/ASOC',
-																                            bodyStyle: 'background: transparent',
-																		                    padding:'5px 10px 5px 5px',
-																                            //id:solicitudes.id+'-txt-dni',
-																                            labelWidth:50,
-																                            readOnly:true,
-																                            labelAlign:'top',
-																                            //width:'100%',
-																                            flex:1,
-																                            height:40,
-																                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-																                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-																                            value:'',
-																                            //anchor:'100%',
-																                            listeners:{
-																                                afterrender:function(obj, e){
-																                                },
-																                                change: function(field, newValue, oldValue){
-																		                            field.setValue(newValue.toUpperCase());
-																		                        }
-																                            }
-																                        }
-																                    ]
-																                },
-														                        {
 														                            xtype: 'textfield',
-														                            id:solicitudes.id+'-sol-txt-dir-referencia',
-														                            fieldLabel: 'Referencia de Domicilio',
+														                            id:solicitudes.id+'-sol-txt-dir-interior',
+														                            fieldLabel: 'INT.',
 														                            bodyStyle: 'background: transparent',
-																                    padding:'5px 5px 5px 10px',
+																                    padding:'5px 10px 5px 5px',
 														                            //id:solicitudes.id+'-txt-dni',
-														                            labelWidth:55,
+														                            labelWidth:50,
 														                            readOnly:true,
 														                            labelAlign:'top',
-														                            width:'92%',
+														                            //width:50,
+														                            	flex:1,
+														                            height:40,
+														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                },
+														                                change: function(field, newValue, oldValue){
+																                            field.setValue(newValue.toUpperCase());
+																                        }
+														                            }
+														                        }
+														                    ]
+														                },
+														                {
+																			layout:'hbox',
+																			bodyStyle: 'background: transparent',
+																			padding:'5px 5px 5px 5px',
+																			border:false,
+																			items:[
+																                {
+														                            xtype: 'textfield',
+														                            id:solicitudes.id+'-sol-txt-dir-urb',
+														                            fieldLabel: 'Urbanización/AA.HH/PJ/ASOC',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:solicitudes.id+'-txt-dni',
+														                            labelWidth:50,
+														                            readOnly:true,
+														                            labelAlign:'top',
+														                            //width:'100%',
 														                            flex:1,
 														                            height:40,
 														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
@@ -2544,115 +3031,140 @@
 																                            field.setValue(newValue.toUpperCase());
 																                        }
 														                            }
-														                        },
-																                {
-										                                            xtype:'combo',
-										                                            fieldLabel: 'Departamento',
-										                                            id:solicitudes.id+'-sol-cmb-departamento',
-										                                            store: solicitudes.store_ubigeo,
-										                                            queryMode: 'local',
-										                                            triggerAction: 'all',
-										                                            valueField: 'cod_ubi',
-										                                            displayField: 'Departamento',
-										                                            emptyText: '[Seleccione]',
-										                                            labelAlign:'right',
-										                                            //allowBlank: false,
-										                                            //labelAlign:'top',
-														                            width:'92%',
-														                            labelWidth:75,
-														                            flex:1,
-														                            readOnly:true,
-														                            //height:40,
-														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-										                                            anchor:'100%',
-										                                            padding:'5px 5px 5px 10px',
-										                                            //readOnly: true,
-										                                            listeners:{
-										                                                afterrender:function(obj, e){
-										                                        			/*Ext.getCmp(solicitudes.id+'-sol-cmb-provincia').getStore().removeAll();
-										                                        			Ext.getCmp(solicitudes.id+'-sol-cmb-Distrito').getStore().removeAll();
-										                                                	solicitudes.getUbigeo({VP_OP:'D',VP_VALUE:''},obj,'100101');*/
-										                                                },
-										                                                select:function(obj, records, eOpts){
-										                                        			var pro = Ext.getCmp(solicitudes.id+'-sol-cmb-provincia');
-										                                        			Ext.getCmp(solicitudes.id+'-sol-cmb-provincia').setValue('');
-										                                        			Ext.getCmp(solicitudes.id+'-sol-cmb-Distrito').getStore().removeAll();
-										                                        			Ext.getCmp(solicitudes.id+'-sol-cmb-Distrito').setValue('');
-										                                                	solicitudes.getUbigeo({VP_OP:'P',VP_VALUE:obj.getValue()},pro,'');
-										                                                }
-										                                            }
-										                                        },
-										                                        {
-										                                            xtype:'combo',
-										                                            fieldLabel: 'Provincia',
-										                                            id:solicitudes.id+'-sol-cmb-provincia',
-										                                            store: solicitudes.store_ubigeo2,
-										                                            queryMode: 'local',
-										                                            triggerAction: 'all',
-										                                            valueField: 'cod_ubi',
-										                                            displayField: 'Provincia',
-										                                            emptyText: '[Seleccione]',
-										                                            labelAlign:'right',
-										                                            //allowBlank: false,
-										                                            //labelAlign:'top',
-														                            width:'92%',
-														                            labelWidth:75,
-														                            flex:1,
-														                            readOnly:true,
-														                            //height:40,
-														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-										                                            anchor:'100%',
-										                                            padding:'5px 5px 5px 10px',
-										                                            //readOnly: true,
-										                                            listeners:{
-										                                                afterrender:function(obj, e){
-										                                        			/*Ext.getCmp(solicitudes.id+'-sol-cmb-Distrito').getStore().removeAll();
-										                                                	solicitudes.getUbigeo({VP_OP:'P',VP_VALUE:'100101'},obj,'100601');*/
-										                                                },
-										                                                select:function(obj, records, eOpts){
-										                                        			var dis=Ext.getCmp(solicitudes.id+'-sol-cmb-Distrito');
-										                                                	solicitudes.getUbigeo({VP_OP:'X',VP_VALUE:obj.getValue()},dis,'');
-										                                                }
-										                                            }
-										                                        },
-										                                        {
-										                                            xtype:'combo',
-										                                            fieldLabel: 'Distrito',
-										                                            id:solicitudes.id+'-sol-cmb-Distrito',
-										                                            store: solicitudes.store_ubigeo3,
-										                                            queryMode: 'local',
-										                                            triggerAction: 'all',
-										                                            valueField: 'cod_ubi',
-										                                            displayField: 'Distrito',
-										                                            emptyText: '[Seleccione]',
-										                                            labelAlign:'right',
-										                                            //allowBlank: false,
-										                                            //labelAlign:'top',
-														                            width:'92%',
-														                            labelWidth:75,
-														                            flex:1,
-														                            readOnly:true,
-														                            //height:40,
-														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-										                                            anchor:'100%',
-										                                            padding:'5px 5px 5px 10px',
-										                                            //readOnly: true,
-										                                            listeners:{
-										                                                afterrender:function(obj, e){
-										                                                	//solicitudes.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
-										                                                },
-										                                                select:function(obj, records, eOpts){
-										                                        
-										                                                }
-										                                            }
-										                                        }
-																			]
-																		}
-									                				]
-									                			}
+														                        }
+														                    ]
+														                },
+												                        {
+												                            xtype: 'textfield',
+												                            id:solicitudes.id+'-sol-txt-dir-referencia',
+												                            fieldLabel: 'Referencia de Domicilio',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 10px',
+												                            //id:solicitudes.id+'-txt-dni',
+												                            labelWidth:55,
+												                            readOnly:true,
+												                            labelAlign:'top',
+												                            width:'92%',
+												                            flex:1,
+												                            height:40,
+												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+												                            value:'',
+												                            //anchor:'100%',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                },
+												                                change: function(field, newValue, oldValue){
+														                            field.setValue(newValue.toUpperCase());
+														                        }
+												                            }
+												                        },
+														                {
+								                                            xtype:'combo',
+								                                            fieldLabel: 'Departamento',
+								                                            id:solicitudes.id+'-sol-cmb-departamento',
+								                                            store: solicitudes.store_ubigeo,
+								                                            queryMode: 'local',
+								                                            triggerAction: 'all',
+								                                            valueField: 'cod_ubi',
+								                                            displayField: 'Departamento',
+								                                            emptyText: '[Seleccione]',
+								                                            labelAlign:'right',
+								                                            //allowBlank: false,
+								                                            //labelAlign:'top',
+												                            width:'92%',
+												                            labelWidth:75,
+												                            flex:1,
+												                            readOnly:true,
+												                            //height:40,
+												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                                            anchor:'100%',
+								                                            padding:'5px 5px 5px 10px',
+								                                            //readOnly: true,
+								                                            listeners:{
+								                                                afterrender:function(obj, e){
+								                                        			/*Ext.getCmp(solicitudes.id+'-sol-cmb-provincia').getStore().removeAll();
+								                                        			Ext.getCmp(solicitudes.id+'-sol-cmb-Distrito').getStore().removeAll();
+								                                                	solicitudes.getUbigeo({VP_OP:'D',VP_VALUE:''},obj,'100101');*/
+								                                                },
+								                                                select:function(obj, records, eOpts){
+								                                        			var pro = Ext.getCmp(solicitudes.id+'-sol-cmb-provincia');
+								                                        			Ext.getCmp(solicitudes.id+'-sol-cmb-provincia').setValue('');
+								                                        			Ext.getCmp(solicitudes.id+'-sol-cmb-Distrito').getStore().removeAll();
+								                                        			Ext.getCmp(solicitudes.id+'-sol-cmb-Distrito').setValue('');
+								                                                	solicitudes.getUbigeo({VP_OP:'P',VP_VALUE:obj.getValue()},pro,'');
+								                                                }
+								                                            }
+								                                        },
+								                                        {
+								                                            xtype:'combo',
+								                                            fieldLabel: 'Provincia',
+								                                            id:solicitudes.id+'-sol-cmb-provincia',
+								                                            store: solicitudes.store_ubigeo2,
+								                                            queryMode: 'local',
+								                                            triggerAction: 'all',
+								                                            valueField: 'cod_ubi',
+								                                            displayField: 'Provincia',
+								                                            emptyText: '[Seleccione]',
+								                                            labelAlign:'right',
+								                                            //allowBlank: false,
+								                                            //labelAlign:'top',
+												                            width:'92%',
+												                            labelWidth:75,
+												                            flex:1,
+												                            readOnly:true,
+												                            //height:40,
+												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                                            anchor:'100%',
+								                                            padding:'5px 5px 5px 10px',
+								                                            //readOnly: true,
+								                                            listeners:{
+								                                                afterrender:function(obj, e){
+								                                        			/*Ext.getCmp(solicitudes.id+'-sol-cmb-Distrito').getStore().removeAll();
+								                                                	solicitudes.getUbigeo({VP_OP:'P',VP_VALUE:'100101'},obj,'100601');*/
+								                                                },
+								                                                select:function(obj, records, eOpts){
+								                                        			var dis=Ext.getCmp(solicitudes.id+'-sol-cmb-Distrito');
+								                                                	solicitudes.getUbigeo({VP_OP:'X',VP_VALUE:obj.getValue()},dis,'');
+								                                                }
+								                                            }
+								                                        },
+								                                        {
+								                                            xtype:'combo',
+								                                            fieldLabel: 'Distrito',
+								                                            id:solicitudes.id+'-sol-cmb-Distrito',
+								                                            store: solicitudes.store_ubigeo3,
+								                                            queryMode: 'local',
+								                                            triggerAction: 'all',
+								                                            valueField: 'cod_ubi',
+								                                            displayField: 'Distrito',
+								                                            emptyText: '[Seleccione]',
+								                                            labelAlign:'right',
+								                                            //allowBlank: false,
+								                                            //labelAlign:'top',
+												                            width:'92%',
+												                            labelWidth:75,
+												                            flex:1,
+												                            readOnly:true,
+												                            //height:40,
+												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                                            anchor:'100%',
+								                                            padding:'5px 5px 5px 10px',
+								                                            //readOnly: true,
+								                                            listeners:{
+								                                                afterrender:function(obj, e){
+								                                                	//solicitudes.getUbigeo({VP_OP:'X',VP_VALUE:'100601'},obj,'100601');
+								                                                },
+								                                                select:function(obj, records, eOpts){
+								                                        
+								                                                }
+								                                            }
+								                                        }
+																	]
+																}
 									                		]
 									                	}
 						         					]
@@ -3769,6 +4281,80 @@
 
 				}
 			},
+			setSaveReferencia:function(op){
+				var vp_id_per = Ext.getCmp(solicitudes.id+'-sol-txt-id-per').getValue();
+				var vp_id_solicitud  = Ext.getCmp(solicitudes.id+'-sol-txt-id-solicitud').getValue();
+				var c_telf2 = Ext.getCmp(solicitudes.id+'-ref-comercial-telf2').getValue();
+            	var c_telf1 = Ext.getCmp(solicitudes.id+'-ref-comercial-telf1').getValue();
+            	var comercial = Ext.getCmp(solicitudes.id+'-ref-comercial').getValue();
+            	var p_telf2 = Ext.getCmp(solicitudes.id+'-ref-personal-telf2').getValue();
+            	var p_telf1 = Ext.getCmp(solicitudes.id+'-ref-personal-telf1').getValue();
+            	var personal = Ext.getCmp(solicitudes.id+'-ref-personal').getValue();
+
+            	if(vp_id_per==0){
+					global.Msg({msg:"Ingrese el DNI de una persona para agregar las referencias.",icon:2,fn:function(){}});
+					return false;
+				}
+
+				if(vp_id_solicitud==0){
+					global.Msg({msg:"Seleccione o grabar la solicitud para agregar las referencias.",icon:2,fn:function(){}});
+					return false;
+				}
+
+            	global.Msg({
+                    msg: '¿Seguro de ejecutar esta acción?',
+                    icon: 3,
+                    buttons: 3,
+                    fn: function(btn){
+                    	if (btn == 'yes'){
+                    		Ext.getCmp(solicitudes.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
+	                        //scanning.getLoader(true);
+			                Ext.Ajax.request({
+			                    url:solicitudes.url+'setSaveReferencia/', 
+			                    params:{
+			                    	vp_op 			:op,
+			                    	vp_id_per 		:vp_id_per,
+			                    	vp_id_solicitud :vp_id_solicitud,
+			                    	vp_personal		:personal,
+									vp_p_telf1		:p_telf1,
+									vp_p_telf2		:p_telf2,
+									vp_comercial	:comercial,
+									vp_c_telf1		:c_telf1,
+									vp_c_telf2		:c_telf2
+			                    },
+			                    timeout: 30000000,
+			                    success: function(response, options){
+			                        Ext.getCmp(solicitudes.id+'-win-form').el.unmask();
+			                        var res = Ext.JSON.decode(response.responseText);
+			                        //control.getLoader(false);
+			                        if (res.error == 'OK'){
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 1,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	
+			                                	//Ext.getCmp(solicitudes.id+'-select-garante').setValue('');
+			                                	//var objp = Ext.getCmp(solicitudes.id+'-list-garante');
+												//solicitudes.getReload(objp,{vp_op:'G',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+			                                }
+			                            });
+			                        }else{
+			                            global.Msg({
+			                                msg: res.msn,
+			                                icon: 0,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	 
+			                                }
+			                            });
+			                        }
+			                    }
+			                });
+						}
+					}
+				});
+			},
 			setPrintSolicitud:function(){
 				var vp_id_solicitud  = Ext.getCmp(solicitudes.id+'-sol-txt-id-solicitud').getValue();
 				window.open(solicitudes.url+'get_print/?vp_id_solicitud='+vp_id_solicitud, '_blank');
@@ -3798,6 +4384,13 @@
 				Ext.getCmp(solicitudes.id+'-sol-date-fecha-1-letra').setValue(new Date());*/
 				Ext.getCmp(solicitudes.id + '-txt-nota').setValue('');
 				solicitudes.setReadOnlySolicitud(false);
+
+				Ext.getCmp(solicitudes.id+'-ref-comercial-telf2').setValue('');
+            	Ext.getCmp(solicitudes.id+'-ref-comercial-telf1').setValue('');
+            	Ext.getCmp(solicitudes.id+'-ref-comercial').setValue('');
+            	Ext.getCmp(solicitudes.id+'-ref-personal-telf2').setValue('');
+            	Ext.getCmp(solicitudes.id+'-ref-personal-telf1').setValue('');
+            	Ext.getCmp(solicitudes.id+'-ref-personal').setValue('');
 			},
 			setReadOnlySolicitud:function(bool){
 				Ext.getCmp(solicitudes.id+'-sol-date-fecha-solicitud').setReadOnly(bool);
@@ -3884,9 +4477,23 @@
 				Ext.getCmp(solicitudes.id+'-sol-date-fecha-1-letra').setValue(data.fecha_1ra_letra);*/
 				Ext.getCmp(solicitudes.id + '-txt-nota').setValue(data.nota);
 
+				win.getGalery({container:'contenedor-documentos',forma:'L',url:solicitudes.url+'get_list_documentos/',params:{vp_id_creditos:data.id_creditos,vp_sol_id_per:data.id_per,vp_flag:'A'} }); 
+
+
 				
 				var objc = Ext.getCmp(solicitudes.id + '-grid-cuotas');
 				solicitudes.getReload(objc,{VP_CODIGO:data.id_creditos});
+
+				var objg = Ext.getCmp(solicitudes.id+'-list-garante');
+				solicitudes.getReload(objg,{vp_op:'G',vp_id_creditos:data.id_creditos,vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+
+				
+				Ext.getCmp(solicitudes.id+'-ref-comercial-telf2').setValue(data.telefono4);
+            	Ext.getCmp(solicitudes.id+'-ref-comercial-telf1').setValue(data.telefono3);
+            	Ext.getCmp(solicitudes.id+'-ref-comercial').setValue(data.comercial);
+            	Ext.getCmp(solicitudes.id+'-ref-personal-telf2').setValue(data.telefono2);
+            	Ext.getCmp(solicitudes.id+'-ref-personal-telf1').setValue(data.telefono1);
+            	Ext.getCmp(solicitudes.id+'-ref-personal').setValue(data.personal);
 			},
 			setCollapse:function(){
 				try{
@@ -4282,7 +4889,7 @@
 			},
 			setSavesolicitudesGarante:function(forma){
 				var vp_sol_id_per = Ext.getCmp(solicitudes.id+'-sol-txt-id-per').getValue();
-
+				var vp_id_solicitud  = Ext.getCmp(solicitudes.id+'-sol-txt-id-solicitud').getValue();
 				var sol_doc_dni = Ext.getCmp(solicitudes.id+'-select-garante').getValue();
 				/*var sol_doc_ce = Ext.getCmp(solicitudes.id+'-sol-txt-doc-ce').getValue();
 				var sol_doc_cip = Ext.getCmp(solicitudes.id+'-sol-txt-doc-cip').getValue();
@@ -4291,7 +4898,11 @@
 
 				var op =forma;
 				if(vp_sol_id_per==0){
-					global.Msg({msg:"No es posible Eliminar, aun no existe un registro en la base datos.",icon:2,fn:function(){}});
+					global.Msg({msg:"Persona no seleccionada, ingrese un DNI.",icon:2,fn:function(){}});
+					return false;
+				}
+				if(vp_id_solicitud==0){
+					global.Msg({msg:"Seleccione o grabar la solicitud para agregar un garante.",icon:2,fn:function(){}});
 					return false;
 				}
 				if(sol_doc_dni==''){
@@ -4309,9 +4920,10 @@
                     		Ext.getCmp(solicitudes.id+'-win-form').el.mask('Salvando Información…', 'x-mask-loading');
 	                        //scanning.getLoader(true);
 			                Ext.Ajax.request({
-			                    url:solicitudes.url+'setSavesolicitudes/',
+			                    url:solicitudes.url+'setSaveGarante/',
 			                    params:{
 			                    	vp_op:op,
+			                    	vp_id_solicitud:vp_id_solicitud,
 									vp_sol_id_per:vp_sol_id_per,
 									vp_sol_doc_dni:sol_doc_dni,
 									vp_flag:'A'
@@ -4329,7 +4941,7 @@
 			                                fn: function(btn){
 			                                	Ext.getCmp(solicitudes.id+'-select-garante').setValue('');
 			                                	var objp = Ext.getCmp(solicitudes.id+'-list-garante');
-												solicitudes.getReload(objp,{vp_op:'G',vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+												solicitudes.getReload(objp,{vp_op:'G',vp_id_creditos:vp_id_solicitud,vp_id:vp_sol_id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 			                                }
 			                            });
 			                        }else{
@@ -4403,7 +5015,7 @@
 				solicitudes.setClearsolicitudes();
 				solicitudes.setDisabledBTNSolicitud(false);
 				solicitudes.setClearSolicitud();
-
+				var vp_id_solicitud  = Ext.getCmp(solicitudes.id+'-sol-txt-id-solicitud').getValue();
 				Ext.Ajax.request({
                     url:solicitudes.url+'getListPersona/',
                     params:{
@@ -4445,6 +5057,7 @@
 							Ext.getCmp(solicitudes.id+'-sol-cmb-laboral').setValue(data.laboral);
 							Ext.getCmp(solicitudes.id+'-sol-txt-cargo').setValue(data.cargo);
 							Ext.getCmp(solicitudes.id+'-sol-txt-centro-trabajo').setValue(data.id_empresa);
+							Ext.getCmp(solicitudes.id+'-sol-txt-negocio').setValue(data.id_negocio);
 							Ext.getCmp(solicitudes.id+'-sol-date-fecha-ingreso').setValue(data.fecha_ingreso);
 
 							//Ext.getCmp(solicitudes.id+'-sol-txt-id-tel').setValue(data.id_tel);
@@ -4454,9 +5067,7 @@
 
 							
 
-							//var obj = Ext.getCmp(solicitudes.id+'-sol-documentos-adjuntos');
-							//solicitudes.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
-							win.getGalery({container:'contenedor-documentos',forma:'L',url:solicitudes.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
+							//win.getGalery({container:'contenedor-documentos',forma:'L',url:solicitudes.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
 
 							if(data.id_dir!=0){
 								solicitudes.getDirecciones(data.id_dir);
@@ -4474,8 +5085,8 @@
 							var objp = Ext.getCmp(solicitudes.id+'-list-Conyugues');
 							solicitudes.getReload(objp,{vp_op:'Y',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 
-							var objg = Ext.getCmp(solicitudes.id+'-list-garante');
-							solicitudes.getReload(objg,{vp_op:'G',vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
+							//var objg = Ext.getCmp(solicitudes.id+'-list-garante');
+							//solicitudes.getReload(objg,{vp_op:'G',vp_id_creditos:vp_id_solicitud,vp_id:data.id_per,vp_dni:'',vp_nombres:'',vp_flag:'A'});
 
 							var objv = Ext.getCmp(solicitudes.id+'-list-solicitudes');
 							solicitudes.getReload(objv,{VP_T_DOC:'P',VP_ID_PER:data.id_per,VP_DOC:''});
@@ -4509,6 +5120,7 @@
 						Ext.getCmp(solicitudes.id+'-sol-txt-dir-interior').setValue(data.dir_interior);
 						Ext.getCmp(solicitudes.id+'-sol-txt-dir-urb').setValue(data.dir_urb);
 						Ext.getCmp(solicitudes.id+'-sol-txt-dir-referencia').setValue(data.dir_referencia);
+						Ext.getCmp(solicitudes.id + '-txt-dir-descripcion').setValue(data.dir_descripcion);
 
 						/*DIRECCIONES*/
 						var obj=Ext.getCmp(solicitudes.id+'-sol-cmb-departamento');
@@ -4556,6 +5168,7 @@
 				Ext.getCmp(solicitudes.id+'-sol-cmb-laboral').setValue('OT');
 				Ext.getCmp(solicitudes.id+'-sol-txt-cargo').setValue('');
 				Ext.getCmp(solicitudes.id+'-sol-txt-centro-trabajo').setValue('');
+				Ext.getCmp(solicitudes.id+'-sol-txt-negocio').setValue('');
 				Ext.getCmp(solicitudes.id+'-sol-date-fecha-ingreso').setValue('');
 
 				//Ext.getCmp(solicitudes.id+'-sol-txt-id-tel').setValue(0);
@@ -4700,6 +5313,7 @@
 				Ext.getCmp(solicitudes.id+'-sol-txt-dir-interior').setValue('');
 				Ext.getCmp(solicitudes.id+'-sol-txt-dir-urb').setValue('');
 				Ext.getCmp(solicitudes.id+'-sol-txt-dir-referencia').setValue('');
+				Ext.getCmp(solicitudes.id + '-txt-dir-descripcion').setValue('');
 				//Ext.getCmp(solicitudes.id+'-list-direcciones').getStore().removeAll();
 			},
 			setSaveDireccion:function(){
@@ -4717,6 +5331,7 @@
 				var sol_dir_interior = Ext.getCmp(solicitudes.id+'-sol-txt-dir-interior').getValue();
 				var sol_dir_urb = Ext.getCmp(solicitudes.id+'-sol-txt-dir-urb').getValue();
 				var sol_dir_referencia = Ext.getCmp(solicitudes.id+'-sol-txt-dir-referencia').getValue();
+				var dir_descripcion=Ext.getCmp(solicitudes.id + '-txt-dir-descripcion').getValue();
 				var sol_departamento = Ext.getCmp(solicitudes.id+'-sol-cmb-departamento').getValue();
 				var sol_provincia = Ext.getCmp(solicitudes.id+'-sol-cmb-provincia').getValue();
 				var sol_distrito = Ext.getCmp(solicitudes.id+'-sol-cmb-Distrito').getValue();
@@ -4749,6 +5364,7 @@
 									vp_sol_dir_interior:sol_dir_interior,
 									vp_sol_dir_urb:sol_dir_urb,
 									vp_sol_dir_referencia:sol_dir_referencia,
+									vp_dir_descripcion:dir_descripcion,
 									vp_sol_departamento:sol_departamento,
 									vp_sol_provincia:sol_provincia,
 									vp_sol_distrito:sol_distrito,

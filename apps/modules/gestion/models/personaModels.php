@@ -41,6 +41,7 @@ class personaModels extends Adodb {
         parent::SetParameterSP($p['vp_sol_laboral'], 'varchar');//23
         parent::SetParameterSP($p['vp_sol_cargo'], 'varchar');//24
         parent::SetParameterSP($p['vp_sol_centro_trabajo'], 'varchar');//24
+        parent::SetParameterSP($p['vp_id_negocio'], 'varchar');
         parent::SetParameterSP($p['vp_sol_fecha_ingreso'], 'varchar');//24
         
 
@@ -105,6 +106,7 @@ class personaModels extends Adodb {
         parent::SetParameterSP($p['vp_sol_dir_interior'], 'varchar');//32
         parent::SetParameterSP($p['vp_sol_dir_urb'], 'varchar');//33
         parent::SetParameterSP(utf8_decode($p['vp_sol_dir_referencia']), 'varchar');//34
+        parent::SetParameterSP(utf8_decode($p['vp_descripcion']), 'varchar');//34
         
         parent::SetParameterSP($p['vp_sol_departamento'], 'varchar');//35
         parent::SetParameterSP($p['vp_sol_provincia'], 'varchar');//35

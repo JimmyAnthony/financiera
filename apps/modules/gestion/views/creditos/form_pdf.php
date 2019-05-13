@@ -101,6 +101,7 @@ class MYPDF extends TCPDF {
 	    $this->dir_interior='';
 	    $this->dir_urb='';
 	    $this->dir_referencia='';
+	    $this->dir_descripcion='';
 	    $this->cod_ubi_dep='';
 	    $this->cod_ubi_pro='';
 	    $this->cod_ubi='';
@@ -112,6 +113,8 @@ class MYPDF extends TCPDF {
 	    $this->nombre='';
 	    $this->rubro='';
 	    $this->telefono='';
+	    $this->descripcion_empresa='';
+	    $this->antiguedad='';
 	    $this->id_dir_empresa='';
 	    $this->ruc='';
 	    
@@ -124,9 +127,31 @@ class MYPDF extends TCPDF {
 	    $this->dir_interior_EMP='';
 	    $this->dir_urb_EMP='';
 	    $this->dir_referencia_EMP='';
+	    $this->dir_descripcion_EMP='';
 	    $this->cod_ubi_dep_EMP='';
 	    $this->cod_ubi_pro_EMP='';
 	    $this->cod_ubi_EMP='';
+
+	    $this->nombre_neg='';
+	    $this->rubro_neg='';
+	    $this->telefono_neg='';
+	    $this->descripcion_empresa_neg='';
+	    $this->antiguedad_neg='';
+	    //$this->id_dir_empresa_neg='';
+	    $this->ruc_neg='';
+
+	    $this->dir_direccion_NEG='';
+	    $this->dir_numero_NEG='';
+	    $this->dir_mz_NEG='';
+	    $this->dir_lt_NEG='';
+	    $this->dir_dpto_NEG='';
+	    $this->dir_interior_NEG='';
+	    $this->dir_urb_NEG='';
+	    $this->dir_referencia_NEG='';
+	    $this->dir_descripcion_NEG='';
+	    $this->cod_ubi_dep_NEG='';
+	    $this->cod_ubi_pro_NEG='';
+	    $this->cod_ubi_NEG='';
 	    
 	    $this->ape_pat_CONYU='';
 	    $this->ape_mat_CONYU='';
@@ -148,6 +173,8 @@ class MYPDF extends TCPDF {
 	    $this->cargo_CONYU='';
 	    #PCO.id_empresa as id_empresa='';
 	    $this->fecha_ingreso_CONYU='';
+
+	    $this->nombre_EYU='';
 	    
 	    
 	    $this->ape_pat_AGE='';
@@ -181,6 +208,7 @@ class MYPDF extends TCPDF {
 	    $this->dir_interior_AGE='';
 	    $this->dir_urb_AGE='';
 	    $this->dir_referencia_AGE='';
+	    $this->dir_descripcion_AGE='';
 	    $this->cod_ubi_dep_AGE='';
 	    $this->cod_ubi_pro_AGE='';
 	    $this->cod_ubi_AGE='';
@@ -218,6 +246,13 @@ class MYPDF extends TCPDF {
 	    $this->fecha_ingreso_ASE='';
 	    #PA.id_dir='';
 	    $this->img_ASE='';
+
+	    $this->personal='';
+	    $this->telefono1='';
+	    $this->telefono2='';
+	    $this->comercial='';
+	    $this->telefono3='';
+	    $this->telefono4='';
 		
 		$fecha =date("d/m/Y,H:i:s");
 
@@ -326,18 +361,18 @@ class MYPDF extends TCPDF {
 
 		$this->SetXY(167.5,$H);
 		$this->Cell(10,$H-1,($this->id_dir=='')?'':'X',0,0,'C');//DOMICILARIO
-
+		$this->SetFont('times','',8);
 		$H+=10.5;
 		$this->SetXY(10,$H);
-		$this->Cell(38,$H,$this->ape_pat,0,0,'C');//APELLIDO PATERNO
+		$this->Cell(38,$H,($this->ape_pat),0,0,'C');//APELLIDO PATERNO
 		
 		$this->SetXY(51,$H);
-		$this->Cell(35,$H,$this->ape_mat,0,0,'C');//APELLIDO MATARNO
+		$this->Cell(35,$H,($this->ape_mat),0,0,'C');//APELLIDO MATARNO
 
 
 		$this->SetXY(90,$H);
-		$this->Cell(43,$H,$this->nombres,0,0,'C');//NOMBRES
-
+		$this->Cell(43,$H,($this->nombres),0,0,'C');//NOMBRES
+		$this->SetFont('times','',10);
 
 		
 		#list($A, $B, $C, $D, $E, $F, $G ,$HH, $II) = explode("", $this->doc_dni);
@@ -409,8 +444,9 @@ class MYPDF extends TCPDF {
 
 		$H+=5.5;
 		$this->SetXY(10,$H);
-		$this->Cell(95,$H,$this->dir_direccion,0,0,'L');//DIRECCION
-
+		$this->SetFont('times','',7);
+		$this->Cell(95,$H,($this->dir_direccion),0,0,'L');//DIRECCION
+		$this->SetFont('times','',10);
 		$this->SetXY(108.5,$H);
 		$this->Cell(7,$H,$this->dir_numero,0,0,'C');//NRO / MZ / LT
 
@@ -442,74 +478,78 @@ class MYPDF extends TCPDF {
 		$this->Cell(43,$H,$this->cod_ubi_dep,0,0,'C');//DEPARTAMENTO
 
 		$this->SetXY(137,$H);
-		$this->Cell(61,$H-1,$this->dir_referencia,0,0,'C');//NUMERO
+		$this->SetFont('times','',7);
+		$this->Cell(61,$H-1,($this->dir_referencia),0,0,'C');//NUMERO
 		
 
 
 		//INFORMACION LABORAL
 		$H+=10;
+		
 		$this->SetXY(10,$H);
-		$this->Cell(95,$H,$this->dir_direccion_EMP,0,0,'L');//DIRECCION
-
+		$this->Cell(95,$H,($this->laboral!='IN')?($this->dir_direccion_EMP):($this->dir_direccion_NEG),0,0,'L');//DIRECCION
+		$this->SetFont('times','',10);
 		$this->SetXY(108.5,$H);
-		$this->Cell(7,$H,$this->dir_numero_EMP,0,0,'C');//NRO / MZ / LT
+		$this->Cell(7,$H,($this->laboral!='IN')?$this->dir_numero_EMP:$this->dir_numero_NEG,0,0,'C');//NRO / MZ / LT
 
 		$this->SetXY(117.5,$H);
-		$this->Cell(7,$H,$this->dir_mz_EMP,0,0,'C');//NRO / MZ / LT
+		$this->Cell(7,$H,($this->laboral!='IN')?$this->dir_mz_EMP:$this->dir_mz_NEG,0,0,'C');//NRO / MZ / LT
 
 		$this->SetXY(126.5,$H);
-		$this->Cell(7,$H,$this->dir_lt_EMP,0,0,'C');//NRO / MZ / LT
+		$this->Cell(7,$H,($this->laboral!='IN')?$this->dir_lt_EMP:$this->dir_lt_NEG,0,0,'C');//NRO / MZ / LT
 
 
 		$this->SetXY(136.5,$H);
-		$this->Cell(7,$H,$this->dir_dpto_EMP,0,0,'C');//DTO - INT
+		$this->Cell(7,$H,($this->laboral!='IN')?$this->dir_dpto_EMP:$this->dir_dpto_NEG,0,0,'C');//DTO - INT
 
 		$this->SetXY(145.5,$H);
-		$this->Cell(7,$H,$this->dir_interior_EMP,0,0,'C');//DTO - INT
-
+		$this->Cell(7,$H,($this->laboral!='IN')?$this->dir_interior_EMP:$this->dir_interior_NEG,0,0,'C');//DTO - INT
+		$this->SetFont('times','',7);
 		$this->SetXY(157.5,$H);
-		$this->Cell(40,$H,$this->dir_urb_EMP,0,0,'C');//URBANIZACION
-
+		$this->Cell(40,$H,($this->laboral!='IN')?$this->dir_urb_EMP:$this->dir_urb_NEG,0,0,'C');//URBANIZACION
+		$this->SetFont('times','',10);
 
 		$H+=5.5;
 		$this->SetXY(10,$H);
-		$this->Cell(38,$H,$this->cod_ubi_EMP,0,0,'C');//DISTRITO
+		$this->Cell(38,$H,($this->laboral!='IN')?$this->cod_ubi_EMP:$this->cod_ubi_NEG,0,0,'C');//DISTRITO
 		
 		$this->SetXY(51,$H);
-		$this->Cell(35,$H,$this->cod_ubi_pro_EMP,0,0,'C');//PROVINCIA
+		$this->Cell(35,$H,($this->laboral!='IN')?$this->cod_ubi_pro_EMP:$this->cod_ubi_pro_NEG,0,0,'C');//PROVINCIA
 
 
 		$this->SetXY(90,$H);
-		$this->Cell(43,$H,$this->cod_ubi_dep_EMP,0,0,'C');//DEPARTAMENTO
+		$this->Cell(43,$H,($this->laboral!='IN')?$this->cod_ubi_dep_EMP:$this->cod_ubi_dep_NEG,0,0,'C');//DEPARTAMENTO
 
 		$this->SetXY(137,$H);
 		$this->Cell(61,$H-1,'',0,0,'C');//OBSERVACION ADICIONAL
 
 
 		$H+=5.5;
+		$this->SetFont('times','',7);
 		$this->SetXY(10,$H);
-		$this->Cell(43,$H,$this->rubro,0,0,'C');//GIRO DEL NEGOCIO
-		
+		$this->Cell(43,$H,($this->laboral!='IN')?($this->rubro):($this->rubro_neg),0,0,'C');//GIRO DEL NEGOCIO
+		$this->SetFont('times','',10);
 		$this->SetXY(57,$H);
-		$this->Cell(44,$H,'',0,0,'C');//ANTIGUEDAD
+		$this->Cell(44,$H,($this->laboral!='IN')?($this->antiguedad):($this->antiguedad_neg),0,0,'C');//ANTIGUEDAD
 
-
+		$this->SetFont('times','',7);	
 		$this->SetXY(105,$H);
-		$this->Cell(93,$H-1,$this->dir_referencia_EMP,0,0,'C');//NUMERO
-
+		$this->Cell(93,$H-1,($this->laboral!='IN')?($this->dir_referencia_EMP):($this->dir_referencia_NEG),0,0,'C');//NUMERO
+		$this->SetFont('times','',10);	
 
 		/*INFORMACION DEL CONYUGUE*/
 		$H+=10.3;
+		$this->SetFont('times','',8);
 		$this->SetXY(10,$H);
-		$this->Cell(38,$H,$this->ape_pat_CONYU,0,0,'C');//APELLIDO PATERNO
+		$this->Cell(38,$H,($this->ape_pat_CONYU),0,0,'C');//APELLIDO PATERNO
 		
 		$this->SetXY(51,$H);
-		$this->Cell(35,$H,$this->ape_mat_CONYU,0,0,'C');//APELLIDO MATERNO
+		$this->Cell(35,$H,($this->ape_mat_CONYU),0,0,'C');//APELLIDO MATERNO
 
 
 		$this->SetXY(90,$H);
-		$this->Cell(43,$H,$this->nombres_CONYU,0,0,'C');//NOMBRES
-
+		$this->Cell(43,$H,($this->nombres_CONYU),0,0,'C');//NOMBRES
+		$this->SetFont('times','',10);
 
 		$parte=$this->doc_dni_CONYU;
 		$A=$parte[0];
@@ -574,28 +614,28 @@ class MYPDF extends TCPDF {
 
 
 		$this->SetXY(134.5,$H-4);
-		$this->Cell(10,$H,($this->estudios_CONYU=='OT')?'BA':'',0,0,'C');//BACHILLER
+		$this->Cell(10,$H,($this->estudios_CONYU=='BA')?'X':'',0,0,'C');//BACHILLER
 
 		$this->SetXY(134.5,$H);
-		$this->Cell(10,$H,($this->estudios_CONYU=='OT')?'TI':'',0,0,'C');//TITULADO
+		$this->Cell(10,$H,($this->estudios_CONYU=='TI')?'X':'',0,0,'C');//TITULADO
 
 		$this->SetXY(164,$H-4);
-		$this->Cell(10,$H,($this->estudios_CONYU=='OT')?'TE':'',0,0,'C');//TECNOLOGIA
+		$this->Cell(10,$H,($this->estudios_CONYU=='TE')?'X':'',0,0,'C');//TECNOLOGIA
 
 		$this->SetXY(164,$H);
-		$this->Cell(10,$H,($this->estudios_CONYU=='OT')?'MA':'',0,0,'C');//MAGISTER
+		$this->Cell(10,$H,($this->estudios_CONYU=='MA')?'X':'',0,0,'C');//MAGISTER
 
 
 		$H+=5.3;
 		$this->SetXY(10,$H); 
-		$this->Cell(38,$H,$this->profesion_CONYU,0,0,'C');//PROFESION
-		
-		$this->SetXY(51,$H);
-		$this->Cell(47,$H,'',0,0,'C');//CENTRO DEL TRABAJO
-
+		$this->Cell(38,$H,($this->profesion_CONYU),0,0,'C');//PROFESION
 		$this->SetFont('times','',7);	
+		$this->SetXY(51,$H);
+		$this->Cell(47,$H,($this->nombre_EYU),0,0,'C');//CENTRO DEL TRABAJO
+
+		
 		$this->SetXY(102,$H);
-		$this->Cell(31,$H,$this->cargo_CONYU,0,0,'C');//CARGO
+		$this->Cell(31,$H,($this->cargo_CONYU),0,0,'C');//CARGO
 		$this->SetFont('times','',10);	
 
 		$this->SetXY(139,$H-0.3);
@@ -608,16 +648,17 @@ class MYPDF extends TCPDF {
 		/*GARANTE*/
 
 		$H+=10.3;
+		$this->SetFont('times','',8);
 		$this->SetXY(10,$H);
-		$this->Cell(38,$H,$this->ape_pat_AGE,0,0,'C');//APELLIDO PATERNO
+		$this->Cell(38,$H,($this->ape_pat_AGE),0,0,'C');//APELLIDO PATERNO
 		
 		$this->SetXY(51,$H);
-		$this->Cell(35,$H,$this->ape_mat_AGE,0,0,'C');//APELLIDO MATARNO
+		$this->Cell(35,$H,($this->ape_mat_AGE),0,0,'C');//APELLIDO MATARNO
 
 
 		$this->SetXY(90,$H);
-		$this->Cell(43,$H,$this->nombres_AGE,0,0,'C');//NOMBRES
-
+		$this->Cell(43,$H,($this->nombres_AGE),0,0,'C');//NOMBRES
+		$this->SetFont('times','',10);
 		$parte=$this->doc_dni_AGE;
 		$A=$parte[0];
 		$B=$parte[1];
@@ -685,30 +726,30 @@ class MYPDF extends TCPDF {
 		$this->SetXY(178,$H);
 		$this->Cell(10,$H,($this->domicilio_AGE=='FAM')?'X':'',0,0,'C');//DOMICILIO FAMILIAR
 
-
+		$this->SetFont('times','',7);
 		$H+=5.2;
 		$this->SetXY(10,$H);
-		$this->Cell(38,$H,$this->profesion_AGE,0,0,'C');//PROFESION
+		$this->Cell(38,$H,($this->profesion_AGE),0,0,'C');//PROFESION
 		
 		$this->SetXY(51,$H);
-		$this->Cell(47,$H,$this->nombre_AGE,0,0,'C');//CENTRO DEL TRABAJO
+		$this->Cell(47,$H,($this->nombre_AGE),0,0,'C');//CENTRO DEL TRABAJO
 
 
 		$this->SetXY(102,$H);
 		$this->Cell(31,$H,$this->cargo_AGE,0,0,'C');//CARGO
 
-
+		$this->SetFont('times','',10);
 		$this->SetXY(139,$H-0.3);
 		$this->Cell(29,$H,$this->fecha_ingreso_AGE,0,0,'C');//FECHA INGRESO
 
 		$this->SetXY(171,$H-0.3);
 		$this->Cell(27,$H,'',0,0,'C');//FECHA INGRESO
 
-
+		$this->SetFont('times','',7);
 		$H+=5.3;
 		$this->SetXY(10,$H);
-		$this->Cell(95,$H,$this->dir_direccion_AGE,0,0,'L');//DIRECCION
-
+		$this->Cell(95,$H,($this->dir_direccion_AGE),0,0,'L');//DIRECCION
+		$this->SetFont('times','',10);
 		$this->SetXY(109.5,$H);
 		$this->Cell(7,$H,$this->dir_numero_AGE,0,0,'C');//NRO / MZ / LT
 
@@ -725,9 +766,11 @@ class MYPDF extends TCPDF {
 		$this->SetXY(146.5,$H);
 		$this->Cell(7,$H,$this->dir_interior_AGE,0,0,'C');//DTO - INT
 
+		$this->SetFont('times','',7);
 		$this->SetXY(157.5,$H);
 		$this->Cell(40,$H,$this->dir_urb_AGE,0,0,'C');//URBANIZACION
 
+		$this->SetFont('times','',10);
 		$H+=5.3;
 		$this->SetXY(10,$H);
 		$this->Cell(38,$H,$this->cod_ubi_AGE,0,0,'C');//DISTRITO
@@ -739,35 +782,36 @@ class MYPDF extends TCPDF {
 		$this->SetXY(90,$H);
 		$this->Cell(43,$H,$this->cod_ubi_dep_AGE,0,0,'C');//DEPARTAMENTO
 
+		$this->SetFont('times','',7);
 		$this->SetXY(137,$H);
-		$this->Cell(61,$H-1,$this->dir_referencia_AGE,0,0,'C');//REFERENCIA
+		$this->Cell(61,$H-1,($this->dir_referencia_AGE),0,0,'C');//REFERENCIA
 
-
+		$this->SetFont('times','',10);
 		/*REFERENCIA PERSONAL*/
 		$H+=12.2;
 		$this->SetXY(10,$H);
-		$this->Cell(97,$H,'',0,0,'C');//PERSONAL
+		$this->Cell(97,$H,($this->personal),0,0,'C');//PERSONAL
 
 		$this->SetXY(113,$H-0.5);
-		$this->Cell(40,$H,'',0,0,'C');//PERSONAL
+		$this->Cell(40,$H,$this->telefono1,0,0,'C');//PERSONAL
 
 		$this->SetXY(158.5,$H-0.5);
-		$this->Cell(40,$H,'',0,0,'C');//PERSONAL
+		$this->Cell(40,$H,$this->telefono2,0,0,'C');//PERSONAL
 
 		$H+=4.8;
 		$this->SetXY(10,$H);
-		$this->Cell(97,$H,'',0,0,'C');//COMERCIAL
+		$this->Cell(97,$H,($this->comercial),0,0,'C');//COMERCIAL
 
 		$this->SetXY(113,$H-0.5);
-		$this->Cell(40,$H,'',0,0,'C');//PERSONAL
+		$this->Cell(40,$H,$this->telefono3,0,0,'C');//PERSONAL
 
 		$this->SetXY(158.5,$H-0.5);
-		$this->Cell(40,$H,'',0,0,'C');//PERSONAL
+		$this->Cell(40,$H,$this->telefono4,0,0,'C');//PERSONAL
 		
 		$H+=97;
 		$this->SetXY(11,$H);
 		//MultiCell(float w, float h, string txt [, mixed border [, string align [, boolean fill]]])
-		$this->MultiCell(185,$H,$this->nombre,0,0,'L',true);//PERSONAL
+		$this->MultiCell(185,$H,($this->laboral!='IN')?($this->descripcion_empresa):($this->descripcion_empresa_neg),0,0,'L',true);//reseña
 		
 
 		}else{
@@ -829,7 +873,7 @@ class MYPDF extends TCPDF {
 
 			$this->SetFont('times','',7);	
 			$this->SetXY(112,$H);
-			$this->Cell(23,$H,$this->nombres_ASE,0,0,'C');//$this->nombre  //PROMOTOR NOMBRES
+			$this->Cell(23,$H,($this->nombres_ASE),0,0,'C');//$this->nombre  //PROMOTOR NOMBRES
 
 			$this->SetFont('times','',10);	
 
@@ -852,7 +896,7 @@ class MYPDF extends TCPDF {
 			$H+=45;
 			$this->SetXY(57,$H);
 			//MultiCell(float w, float h, string txt [, mixed border [, string align [, boolean fill]]])
-			$this->MultiCell(130,40,'',0,0,'L',true);//PERSONAL
+			$this->MultiCell(130,40,($this->dir_descripcion),0,0,'L',true);//descripcion de la casa
 
 			
 		}

@@ -26,6 +26,9 @@ class centroTrabajoModels extends Adodb {
         parent::SetParameterSP(utf8_decode($p['vp_rubro_empresa']), 'varchar');//10
         parent::SetParameterSP(utf8_decode($p['vp_telefonos']), 'varchar');//11
 
+        parent::SetParameterSP(utf8_decode($p['vp_nota']), 'varchar');//28
+        parent::SetParameterSP(utf8_decode($p['vp_antiguedad']), 'varchar');//28
+
         parent::SetParameterSP($p['vp_sol_id_dir'], 'int');//26
         parent::SetParameterSP(utf8_decode($p['vp_sol_dir_direccion']), 'varchar');//27
         parent::SetParameterSP($p['vp_sol_dir_numero'], 'varchar');//28
@@ -42,6 +45,7 @@ class centroTrabajoModels extends Adodb {
 
         parent::SetParameterSP($p['VP_RUC'], 'varchar');//28
         parent::SetParameterSP($p['VP_IMG'], 'varchar');//28
+
         parent::SetParameterSP(USR_ID, 'int');//141
 
         parent::SetParameterSP('@OUT', 'int');//140
@@ -162,7 +166,7 @@ class centroTrabajoModels extends Adodb {
       //  parent::SetParameterSP($p['vp_fac_cliente'], 'int');
         parent::SetParameterSP($p['vp_op'], 'varchar');
         parent::SetParameterSP($p['vp_id'], 'int');
-        parent::SetParameterSP($p['vp_nombre'], 'varchar');
+        parent::SetParameterSP(utf8_decode($p['vp_nombre']), 'varchar');
         // echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
         return $array;
@@ -175,7 +179,7 @@ class centroTrabajoModels extends Adodb {
         parent::SetParameterSP($p['vp_op'], 'varchar');
         parent::SetParameterSP($p['vp_id'], 'int');
         parent::SetParameterSP($p['vp_dni'], 'varchar');
-        parent::SetParameterSP($p['vp_nombres'], 'varchar');
+        parent::SetParameterSP(utf8_decode($p['vp_nombres']), 'varchar');
         // echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
         return $array;

@@ -213,7 +213,7 @@ class centroTrabajoController extends AppController {
     public function getListEmpresa($p){
         
         $this->array = $this->objDatos->SP_EMPRESA_LIST($p);
-        //var_export($this->arrayMenu);
+        //var_export($this->array);
         $array = array();
         foreach ($this->array as $index => $value){
                 //$p['id_asesor'] = intval($value['id_asesor']);
@@ -223,6 +223,9 @@ class centroTrabajoController extends AppController {
                 $value_['nombre'] =utf8_encode(trim($value['nombre']));
                 $value_['rubro'] =utf8_encode(trim($value['rubro']));
                 $value_['telefono'] =utf8_encode(trim($value['telefono']));
+                $value_['descripcion'] =utf8_encode(trim($value['descripcion']));
+                $value_['antiguedad'] =utf8_encode(trim($value['antiguedad']));
+                
                 $value_['ruc'] =utf8_encode(trim($value['ruc']));
                 $value_['img'] =utf8_encode(trim($value['img']));
                 
@@ -235,7 +238,7 @@ class centroTrabajoController extends AppController {
 
                 $value_['dir_interior'] =trim($value['dir_interior']);
                 $value_['dir_urb'] =trim($value['dir_urb']);
-                $value_['dir_referencia'] =trim($value['dir_referencia']);
+                $value_['dir_referencia'] =utf8_encode(trim($value['dir_referencia']));
                 $value_['cod_ubi_pro'] =trim($value['cod_ubi_pro']);
                 $value_['cod_ubi_dep'] =trim($value['cod_ubi_dep']);
                 $value_['cod_ubi'] =trim($value['cod_ubi']);

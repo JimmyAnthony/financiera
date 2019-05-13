@@ -92,76 +92,7 @@
 	                }
 	            });
 
-	            var store_plantillas = Ext.create('Ext.data.Store',{
-	                fields: [
-	                    {name: 'cod_plantilla', type: 'string'},
-				        {name: 'shi_codigo', type: 'string'},
-				        {name: 'fac_cliente', type: 'string'},
-				        {name: 'nombre', type: 'string'},
-	                    {name: 'cod_formato', type: 'string'},
-	                    {name: 'tot_trazos', type: 'string'},
-	                    {name: 'path', type: 'string'},
-	                    {name: 'img', type: 'string'},
-	                    {name: 'pathorigen', type: 'string'},
-	                    {name: 'imgorigen', type: 'string'},
-	                    {name: 'texto', type: 'string'},
-	                    {name: 'estado', type: 'string'},
-	                    {name: 'fecha', type: 'string'},
-	                    {name: 'usuario', type: 'string'},
-	                    {name: 'width', type: 'string'},
-	                    {name: 'height', type: 'string'},
-	                    {name: 'width_formato', type: 'string'},
-	                    {name: 'height_formato', type: 'string'},
-	                    {name: 'formato', type: 'string'}
-	                ],
-	                autoLoad:false,
-	                proxy:{
-	                    type: 'ajax',
-	                    url: persona.url+'get_ocr_plantillas/',
-	                    reader:{
-	                        type: 'json',
-	                        rootProperty: 'data'
-	                    }
-	                },
-	                listeners:{
-	                    load: function(obj, records, successful, opts){
-	                        
-	                    }
-	                }
-	            });
-
-				var store_trazos = Ext.create('Ext.data.Store',{
-	                fields: [
-	                    {name: 'cod_trazo', type: 'string'},
-				        {name: 'cod_plantilla', type: 'string'},
-				        {name: 'nombre', type: 'string'},
-				        {name: 'tipo', type: 'string'},
-	                    {name: 'x', type: 'string'},
-	                    {name: 'y', type: 'string'},
-	                    {name: 'w', type: 'string'},
-	                    {name: 'h', type: 'string'},
-	                    {name: 'path', type: 'string'},
-	                    {name: 'img', type: 'string'},
-	                    {name: 'texto', type: 'string'},
-	                    {name: 'estado', type: 'string'},
-	                    {name: 'usuario', type: 'string'},
-	                    {name: 'fecha', type: 'string'}
-	                ],
-	                autoLoad:false,
-	                proxy:{
-	                    type: 'ajax',
-	                    url: persona.url+'get_ocr_trazos/',
-	                    reader:{
-	                        type: 'json',
-	                        rootProperty: 'data'
-	                    }
-	                },
-	                listeners:{
-	                    load: function(obj, records, successful, opts){
-	                        
-	                    }
-	                }
-	            });
+	            
 
 				var myData = [
 				    ['databox_interno_color','databox_interno_color','databox_interno_color','databox_interno_color','databox_interno_color','databox_interno_color']
@@ -816,6 +747,13 @@
 		                    padding:'5px 5px 5px 5px',
                             //id:persona.id+'-txt-dni',
                             labelWidth:0,
+                            allowOnlyWhitespace: false,
+                            allowDecimals: false,
+                            allowExponential: false,
+                            //allowBlank: true,
+                            maxLength: 8,
+                            enforceMaxLength : true,
+                            maskRe:/[0-9]/,
                             //readOnly:true,
                             //labelAlign:'top',
                             width:160,
@@ -1337,6 +1275,13 @@
 												                            //readOnly:true,
 												                            labelAlign:'top',
 												                            //width:'50%',
+												                            allowOnlyWhitespace: false,
+												                            allowDecimals: false,
+												                            allowExponential: false,
+												                            //allowBlank: true,
+												                            maxLength: 8,
+												                            enforceMaxLength : true,
+												                            maskRe:/[0-9]/,
 												                            flex:1,
 												                            height:40,
 												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
@@ -1613,7 +1558,7 @@
 												                                    obj.setValue('OT');
 												                                },
 												                                select:function(obj, records, eOpts){
-												                                	if(obj.getValue()=='IN' || obj.getValue()=='OT'){
+												                                	/*if(obj.getValue()=='IN' || obj.getValue()=='OT'){
 													                        			Ext.getCmp(persona.id+'-sol-txt-cargo').setValue('');
 													                        			Ext.getCmp(persona.id+'-sol-txt-cargo').setVisible(false);
 													                        			Ext.getCmp(persona.id+'-sol-txt-centro-trabajo').setFieldLabel('Negocio');
@@ -1622,7 +1567,7 @@
 													                        			Ext.getCmp(persona.id+'-sol-txt-cargo').setVisible(true);
 													                        			Ext.getCmp(persona.id+'-sol-txt-centro-trabajo').setFieldLabel('Centro de Trabajo');
 
-												                        			}
+												                        			}*/
 												                                }
 												                            }
 												                        },
@@ -1672,6 +1617,7 @@
 												                            //allowBlank: false,
 												                            //labelAlign:'top',
 												                            labelWidth: 110,
+												                            listWidth: 200,
 												                            //width:200,
 												                            flex:1,
 												                            anchor:'98%',
@@ -1682,7 +1628,7 @@
 												                            listeners:{
 												                                afterrender:function(obj, e){
 												                                    // obj.getStore().load();
-												                                    obj.setValue('S');
+												                                    //obj.setValue('S');
 												                                },
 												                                select:function(obj, records, eOpts){
 												                        
@@ -1699,19 +1645,11 @@
 													                            beforerender: function(obj, opts){
 																				},
 													                            click: function(obj, e){
-													                            	persona.getCentroTrabajo();
+													                            	persona.getCentroTrabajo('C');
 													                            }
 													                        }
-													                    }
-												                    ]
-												                },
-												                {
-																	layout:'hbox',
-																	bodyStyle: 'background: transparent',
-																	padding:'5px 5px 5px 5px',
-																	border:false,
-																	items:[
-												                        {
+													                    },
+													                    {
 																	        xtype: 'datefield',
 																	        id:persona.id+'-sol-date-fecha-ingreso',
 																	        padding:'5px 5px 5px 5px',
@@ -1720,13 +1658,68 @@
 																	        format:'Y-m-d',
 																	        //flex:1,
 												                            //height:40,
-												                            width:220,
-												                            labelWidth: 110,
+												                            width:140,
+												                            labelWidth: 50,
 																	        labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-																	        fieldLabel: 'Fecha Ingreso',
+																	        fieldLabel: 'F.Ingreso',
 																	        value:''
 																	    }
+												                    ]
+												                },
+												                {
+																	layout:'hbox',
+																	bodyStyle: 'background: transparent',
+																	padding:'5px 5px 5px 5px',
+																	border:false,
+																	items:[
+																		{
+												                            xtype:'combo',
+												                            fieldLabel: 'Negocio',
+												                            bodyStyle: 'background: transparent',
+														                    padding:'5px 5px 5px 5px',
+												                            id:persona.id+'-sol-txt-negocio',
+												                            store: store_centro_trabajo,
+												                            queryMode: 'local',
+												                            triggerAction: 'all',
+												                            valueField: 'id_empresa',
+												                            displayField: 'nombre',
+												                            emptyText: '[Seleccione]',
+												                            labelAlign:'right',
+												                            //allowBlank: false,
+												                            //labelAlign:'top',
+												                            labelWidth: 110,
+												                            //width:200,
+												                            flex:1,
+												                            anchor:'98%',
+												                            height:20,
+												                            //readOnly: true,
+												                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+												                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+												                            listeners:{
+												                                afterrender:function(obj, e){
+												                                    // obj.getStore().load();
+												                                    //obj.setValue('S');
+												                                },
+												                                select:function(obj, records, eOpts){
+												                        
+												                                }
+												                            }
+												                        },
+													                    {
+													                        xtype:'button',
+													                        height:30,
+													                        //margin:'20px 5px 5px 5px',
+													                        //text: 'Grabar',
+													                        icon: '/images/icon/Document.png',
+													                        listeners:{
+													                            beforerender: function(obj, opts){
+																				},
+													                            click: function(obj, e){
+													                            	persona.getCentroTrabajo('N');
+													                            }
+													                        }
+													                    }
 												                    ]
 												                },
 												                {
@@ -1793,7 +1786,7 @@
 											//title:'Datos',
 											bodyStyle: 'background: transparent',
 				                            id: persona.id+'-tabContentDatos',
-				                            activeItem: 0,
+				                            activeItem: 1,
 				                            autoScroll: false,
 				                            defaults:{
 				                                closable: true,
@@ -1810,7 +1803,131 @@
 											items:[
 												{
 													xtype:'panel',
+													title:'Conyugue',
+													//bodyStyle: 'background: transparent',
+													border:false,
+													layout:'fit',
+													//layout:'border',
+													bbar:[
+														{
+								                            xtype: 'textfield',
+								                            id:persona.id+'-select-conyugue',
+								                            fieldLabel: 'DNI',
+								                            bodyStyle: 'background: transparent',
+										                    padding:'5px 10px 5px 5px',
+								                            //id:persona.id+'-txt-dni',
+								                            labelWidth:40,
+								                            //readOnly:true,
+								                            //labelAlign:'top',
+								                            width:120,
+								                            //flex:1,
+								                            //height:40,
+								                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+								                            value:'',
+								                            //anchor:'100%',
+								                            listeners:{
+								                                afterrender:function(obj, e){
+								                                },
+								                                change: function(field, newValue, oldValue){
+										                            field.setValue(newValue.toUpperCase());
+										                        }
+								                            }
+								                        },
+														{
+									                        xtype:'button',
+									                        //margin:'20px 5px 5px 5px',
+									                        height:30,
+									                        //text: 'Grabar',
+									                        icon: '/images/icon/add.gif',
+									                        listeners:{
+									                            beforerender: function(obj, opts){
+																},
+									                            click: function(obj, e){
+									                            	persona.setSavePersonaConyugue('Y');
+									                            }
+									                        }
+									                    },
+									                    {
+									                        xtype:'button',
+									                        height:30,
+									                        //margin:'20px 5px 5px 5px',
+									                        //text: 'Grabar',
+									                        icon: '/images/icon/Document.png',
+									                        listeners:{
+									                            beforerender: function(obj, opts){
+																},
+									                            click: function(obj, e){
+									                            	Ext.getCmp(persona.id+'-select-conyugue').setValue('');
+									                            }
+									                        }
+									                    },
+									                    {
+									                        xtype:'button',
+									                        height:30,
+									                        //margin:'20px 5px 5px 5px',
+									                        //text: 'Grabar',
+									                        icon: '/images/icon/Trash.png',
+									                        listeners:{
+									                            beforerender: function(obj, opts){
+																},
+									                            click: function(obj, e){
+									                            	persona.setSavePersonaConyugue('Z');
+									                            }
+									                        }
+									                    }
+													],
+													items:[
+														 {
+									                        xtype: 'dataview',
+									                        id: persona.id+'-list-Conyugues',
+									                        bodyStyle: 'background: transparent',
+									                        bodyCls: 'transparent',
+									                        layout:'fit',
+									                        store: store_conyugue,
+									                        autoScroll: true,
+									                        loadMask:true,
+									                        autoHeight: false,
+									                        tpl: imageTplPointerConyugue,
+									                        multiSelect: false,
+									                        singleSelect: false,
+									                        loadingText:'Cargando Lista de Conyugues...',
+									                        emptyText: '<div class="list_grid_as__list_menu"><div class="list_grid_as__none_data" ></div><div class="list_grid_as__title_clear_data">NO TIENE NINGUN Conyugue</div></div>',
+									                        itemSelector: 'div.list_grid_as__list_menu_select',
+									                        trackOver: true,
+									                        overItemCls: 'list_grid_as__list_menu-hover',
+									                        listeners: {
+									                            'itemdblclick': function(view, record, item, idx, event, opts) {
+									                                /*me.idx=idx;
+									                                var record = this.getStore().getAt(idx);
+									                                var val =record.data;
+									                                var menu_class = val.menu_class == null || val.menu_class == '' ? '' : val.menu_class;
+									                                if(val.nivel!=0){
+									                                    if(me.config_.mode==1){
+									                                        win.show({vurl: val.url, id_menu: idx, class: menu_class});//obj.getItemId().split('-')[1]  
+									                                    }else{
+									                                        var tab=Ext.getCmp(me.config_.tab);
+									                                        var active=Ext.getCmp(me.config_.id+val.url);
+									                                        tab.setActiveTab(active);
+									                                    }
+									                                }*/
+									                                
+									                                var record = this.getStore().getAt(idx);
+									                                var val =record.data;
+																	Ext.getCmp(persona.id+'-select-conyugue').setValue(val.dni);
+									                                
+									                            },
+									                            afterrender:function(obj){
+									                            	
+									                            }
+									                        }
+									                    }
+													]
+												},
+												{
+													xtype:'panel',
 													title:'Documentos Adjuntos',
+													hidden:true,
 													bodyStyle: 'background: transparent',
 													border:false,
 													layout:'border',
@@ -2017,129 +2134,8 @@
 												},
 												{
 													xtype:'panel',
-													title:'Conyugue',
-													//bodyStyle: 'background: transparent',
-													border:false,
-													//layout:'border',
-													bbar:[
-														{
-								                            xtype: 'textfield',
-								                            id:persona.id+'-select-conyugue',
-								                            fieldLabel: 'DNI',
-								                            bodyStyle: 'background: transparent',
-										                    padding:'5px 10px 5px 5px',
-								                            //id:persona.id+'-txt-dni',
-								                            labelWidth:40,
-								                            //readOnly:true,
-								                            //labelAlign:'top',
-								                            width:120,
-								                            //flex:1,
-								                            //height:40,
-								                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
-								                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-								                            value:'',
-								                            //anchor:'100%',
-								                            listeners:{
-								                                afterrender:function(obj, e){
-								                                },
-								                                change: function(field, newValue, oldValue){
-										                            field.setValue(newValue.toUpperCase());
-										                        }
-								                            }
-								                        },
-														{
-									                        xtype:'button',
-									                        //margin:'20px 5px 5px 5px',
-									                        height:30,
-									                        //text: 'Grabar',
-									                        icon: '/images/icon/add.gif',
-									                        listeners:{
-									                            beforerender: function(obj, opts){
-																},
-									                            click: function(obj, e){
-									                            	persona.setSavePersonaConyugue('Y');
-									                            }
-									                        }
-									                    },
-									                    {
-									                        xtype:'button',
-									                        height:30,
-									                        //margin:'20px 5px 5px 5px',
-									                        //text: 'Grabar',
-									                        icon: '/images/icon/Document.png',
-									                        listeners:{
-									                            beforerender: function(obj, opts){
-																},
-									                            click: function(obj, e){
-									                            	Ext.getCmp(persona.id+'-select-conyugue').setValue('');
-									                            }
-									                        }
-									                    },
-									                    {
-									                        xtype:'button',
-									                        height:30,
-									                        //margin:'20px 5px 5px 5px',
-									                        //text: 'Grabar',
-									                        icon: '/images/icon/Trash.png',
-									                        listeners:{
-									                            beforerender: function(obj, opts){
-																},
-									                            click: function(obj, e){
-									                            	persona.setSavePersonaConyugue('Z');
-									                            }
-									                        }
-									                    }
-													],
-													items:[
-														 {
-									                        xtype: 'dataview',
-									                        id: persona.id+'-list-Conyugues',
-									                        bodyStyle: 'background: transparent',
-									                        bodyCls: 'transparent',
-									                        layout:'fit',
-									                        store: store_conyugue,
-									                        autoScroll: true,
-									                        loadMask:true,
-									                        autoHeight: false,
-									                        tpl: imageTplPointerConyugue,
-									                        multiSelect: false,
-									                        singleSelect: false,
-									                        loadingText:'Cargando Lista de Conyugues...',
-									                        emptyText: '<div class="list_grid_as__list_menu"><div class="list_grid_as__none_data" ></div><div class="list_grid_as__title_clear_data">NO TIENE NINGUN Conyugue</div></div>',
-									                        itemSelector: 'div.list_grid_as__list_menu_select',
-									                        trackOver: true,
-									                        overItemCls: 'list_grid_as__list_menu-hover',
-									                        listeners: {
-									                            'itemdblclick': function(view, record, item, idx, event, opts) {
-									                                /*me.idx=idx;
-									                                var record = this.getStore().getAt(idx);
-									                                var val =record.data;
-									                                var menu_class = val.menu_class == null || val.menu_class == '' ? '' : val.menu_class;
-									                                if(val.nivel!=0){
-									                                    if(me.config_.mode==1){
-									                                        win.show({vurl: val.url, id_menu: idx, class: menu_class});//obj.getItemId().split('-')[1]  
-									                                    }else{
-									                                        var tab=Ext.getCmp(me.config_.tab);
-									                                        var active=Ext.getCmp(me.config_.id+val.url);
-									                                        tab.setActiveTab(active);
-									                                    }
-									                                }*/
-									                                
-									                                var record = this.getStore().getAt(idx);
-									                                var val =record.data;
-																	Ext.getCmp(persona.id+'-select-conyugue').setValue(val.dni);
-									                                
-									                            },
-									                            afterrender:function(obj){
-									                            	
-									                            }
-									                        }
-									                    }
-													]
-												},
-												{
-													xtype:'panel',
 													title:'Garante',
+													hidden:true,
 													//bodyStyle: 'background: transparent',
 													border:false,
 													//layout:'border',
@@ -2152,6 +2148,13 @@
 										                    padding:'5px 10px 5px 5px',
 								                            //id:persona.id+'-txt-dni',
 								                            labelWidth:40,
+								                            allowOnlyWhitespace: false,
+								                            allowDecimals: false,
+								                            allowExponential: false,
+								                            //allowBlank: true,
+								                            maxLength: 8,
+								                            enforceMaxLength : true,
+								                            maskRe:/[0-9]/,
 								                            //readOnly:true,
 								                            //labelAlign:'top',
 								                            width:120,
@@ -2275,6 +2278,30 @@
 			                				bodyStyle: 'background: transparent',
 			                				border:false,
 			                				items:[
+			                					{
+													layout:'column',
+													xtype: 'fieldset',
+													title: 'Descripción de la Casa',
+													id: persona.id + '-field-title',
+													bodyStyle: 'background: transparent',
+													//region:'north',
+													//height:100,
+													//flex:1,
+													border:true,
+													padding:'5px 5px 5px 5px',
+													margin:'5px 5px 5px 5px',
+													items:[
+														{
+													        xtype: 'textareafield',
+													        id: persona.id + '-txt-nota',
+													        columnWidth: 1,
+													        //name: 'textarea1',
+													        //iconAlign: 'top',
+													        //fieldLabel: 'Nota',
+													        value: ''
+													    }
+													]
+												},
 			                					{
 													xtype:'panel',
 													bodyStyle: 'background: transparent',
@@ -2677,7 +2704,7 @@
 			                			},
 			                			{
 			                				region:'south',
-			                				height:300,
+			                				height:190,
 			                				border:false,
 			                				layout:'fit',
 			                				items:[
@@ -3098,6 +3125,7 @@
 				var sol_laboral = Ext.getCmp(persona.id+'-sol-cmb-laboral').getValue();
 				var sol_cargo = Ext.getCmp(persona.id+'-sol-txt-cargo').getValue();
 				var sol_centro_trabajo = Ext.getCmp(persona.id+'-sol-txt-centro-trabajo').getValue();
+				var id_negocio=Ext.getCmp(persona.id+'-sol-txt-negocio').getValue();
 				var sol_fecha_ingreso = Ext.getCmp(persona.id+'-sol-date-fecha-ingreso').getRawValue();
 
 
@@ -3106,7 +3134,7 @@
 
 				var op =forma;
 				if(op!='D'){
-					op = vp_sol_id_cli!=0?'U':'I';
+					op = vp_sol_id_per!=0?'U':'I';
 
 					if(sol_ape_pat==''){
 						global.Msg({msg:"Ingrese el Apellido Paterno.",icon:2,fn:function(){}});
@@ -3183,6 +3211,7 @@
 						vp_sol_laboral:sol_laboral,
 						vp_sol_cargo:sol_cargo,
 						vp_sol_centro_trabajo:sol_centro_trabajo,
+						vp_id_negocio:id_negocio,
 						vp_sol_fecha_ingreso:sol_fecha_ingreso,
 
 						vp_id_tel:vp_sol_id_tel,
@@ -3425,6 +3454,7 @@
 							Ext.getCmp(persona.id+'-sol-cmb-laboral').setValue(data.laboral);
 							Ext.getCmp(persona.id+'-sol-txt-cargo').setValue(data.cargo);
 							Ext.getCmp(persona.id+'-sol-txt-centro-trabajo').setValue(data.id_empresa);
+							Ext.getCmp(persona.id+'-sol-txt-negocio').setValue(data.id_negocio);
 							Ext.getCmp(persona.id+'-sol-date-fecha-ingreso').setValue(data.fecha_ingreso);
 
 							Ext.getCmp(persona.id+'-sol-txt-id-tel').setValue(data.id_tel);
@@ -3434,9 +3464,7 @@
 
 							
 
-							//var obj = Ext.getCmp(persona.id+'-sol-documentos-adjuntos');
-							//persona.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
-							win.getGalery({container:'contenedor-documentos-persona',forma:'L',url:persona.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
+							//win.getGalery({container:'contenedor-documentos-persona',forma:'L',url:persona.url+'get_list_documentos/',params:{vp_sol_id_per:data.id_per,vp_flag:'A'} });
 
 							if(data.id_dir!=0){
 								persona.getDirecciones(data.id_dir);
@@ -3486,6 +3514,7 @@
 						Ext.getCmp(persona.id+'-sol-txt-dir-interior').setValue(data.dir_interior);
 						Ext.getCmp(persona.id+'-sol-txt-dir-urb').setValue(data.dir_urb);
 						Ext.getCmp(persona.id+'-sol-txt-dir-referencia').setValue(data.dir_referencia);
+						Ext.getCmp(persona.id + '-txt-nota').setValue(data.dir_descripcion);
 
 						/*DIRECCIONES*/
 						var obj=Ext.getCmp(persona.id+'-sol-cmb-departamento');
@@ -3519,6 +3548,7 @@
 				Ext.getCmp(persona.id+'-sol-txt-doc-cm').setValue('');
 				Ext.getCmp(persona.id+'-sol-cmb-estado-civil').setValue('S');
 				Ext.getCmp(persona.id+'-sol-txt-centro-trabajo').setValue('0');
+				Ext.getCmp(persona.id+'-sol-txt-negocio').setValue('0');
 				Ext.getCmp(persona.id+'-sol-date-fecha-nac').setValue('');
 
 				
@@ -3533,6 +3563,7 @@
 				Ext.getCmp(persona.id+'-sol-cmb-laboral').setValue('OT');
 				Ext.getCmp(persona.id+'-sol-txt-cargo').setValue('');
 				Ext.getCmp(persona.id+'-sol-txt-centro-trabajo').setValue('');
+				Ext.getCmp(persona.id+'-sol-txt-negocio').setValue('');
 				Ext.getCmp(persona.id+'-sol-date-fecha-ingreso').setValue('');
 
 				Ext.getCmp(persona.id+'-sol-txt-id-tel').setValue(0);
@@ -3542,9 +3573,7 @@
 
 				
 
-				//var obj = Ext.getCmp(persona.id+'-sol-documentos-adjuntos');
-				//persona.getReload(obj,{vp_sol_id_per:data.id_per,vp_flag:'A'}); 
-				win.getGalery({container:'contenedor-documentos-persona',forma:'L',url:persona.url+'get_list_documentos/',params:{vp_sol_id_per:0,vp_flag:'A'} });
+				//win.getGalery({container:'contenedor-documentos-persona',forma:'L',url:persona.url+'get_list_documentos/',params:{vp_sol_id_per:0,vp_flag:'A'} });
 
 				persona.getSelectUbi();
 				Ext.getCmp(persona.id+'-list-direcciones').getStore().removeAll();
@@ -3677,6 +3706,7 @@
 				Ext.getCmp(persona.id+'-sol-txt-dir-interior').setValue('');
 				Ext.getCmp(persona.id+'-sol-txt-dir-urb').setValue('');
 				Ext.getCmp(persona.id+'-sol-txt-dir-referencia').setValue('');
+				Ext.getCmp(persona.id + '-txt-nota').setValue('');
 			},
 			setSaveDireccion:function(){
 
@@ -3696,6 +3726,7 @@
 				var sol_departamento = Ext.getCmp(persona.id+'-sol-cmb-departamento').getValue();
 				var sol_provincia = Ext.getCmp(persona.id+'-sol-cmb-provincia').getValue();
 				var sol_distrito = Ext.getCmp(persona.id+'-sol-cmb-Distrito').getValue();
+				var descripcion = Ext.getCmp(persona.id + '-txt-nota').getValue();
 
 				if(vp_sol_id_per=='' || vp_sol_id_per == 0){
 					global.Msg({msg:"Debe guardar los datos de la persona antes.",icon:2,fn:function(){}});
@@ -3728,6 +3759,7 @@
 									vp_sol_departamento:sol_departamento,
 									vp_sol_provincia:sol_provincia,
 									vp_sol_distrito:sol_distrito,
+									vp_descripcion:descripcion,
 									vp_flag:'A'
 			                    },
 			                    timeout: 30000000,
@@ -4015,11 +4047,30 @@
 				downloadingImage.src = img;
 				console.log(img);*/
 			},
-			getCentroTrabajo:function(){
-				win.show({vurl: persona.url_ct+'get_centro_trabajo/?rollback=persona.getReloadCentroTrabajo();', id_menu: persona.id_menu, class: ''});
-			},
-			getReloadCentroTrabajo:function(){
+			getCentroTrabajo:function(opcion){
 				
+				if(opcion=='C'){
+					var id_select = Ext.getCmp(persona.id+'-sol-txt-centro-trabajo').getValue();
+				}else{
+					var id_select = Ext.getCmp(persona.id+'-sol-txt-negocio').getValue();
+				}
+				win.show({vurl: persona.url_ct+'get_centro_trabajo/?rollback=persona.getReloadCentroTrabajo&id_select='+id_select+'&opcion='+opcion, id_menu: persona.id_menu, class: ''});
+			},
+			getReloadCentroTrabajo:function(vp_id_empresa,opcion){
+				if(opcion=='C'){
+					var obj = Ext.getCmp(persona.id+'-sol-txt-centro-trabajo');
+				}else{
+					var obj = Ext.getCmp(persona.id+'-sol-txt-negocio');
+				}
+				//persona.getReload(obj,{vp_op:'N',vp_id:0,vp_nombre:''});
+
+				obj.getStore().removeAll();
+				obj.getStore().load(
+	                {params: {vp_op:'N',vp_id:0,vp_nombre:''},
+	                callback:function(){
+	                	obj.setValue(vp_id_empresa);
+	                }
+	            });
 			}
 		}
 		Ext.onReady(persona.init,persona);

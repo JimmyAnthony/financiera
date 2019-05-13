@@ -60,6 +60,14 @@ class solicitudesController extends AppController {
             $value_['fecha_mod'] = trim($value['fecha_mod']);
             $value_['enviado'] = trim($value['enviado']);
             $value_['flag'] = trim($value['flag']);
+
+            $value_['personal'] = utf8_encode(trim($value['personal']));
+            $value_['telefono1'] = trim($value['telefono1']);
+            $value_['telefono2'] = trim($value['telefono2']);
+
+            $value_['comercial'] = utf8_encode(trim($value['comercial']));
+            $value_['telefono3'] = trim($value['telefono3']);
+            $value_['telefono4'] = trim($value['telefono4']);
             $array[]=$value_;
         }
 
@@ -247,6 +255,7 @@ class solicitudesController extends AppController {
                 $value_['laboral'] =trim($value['laboral']);
                 $value_['cargo'] =utf8_encode(trim($value['cargo']));
                 $value_['id_empresa'] =trim($value['id_empresa']);
+                $value_['id_negocio'] =trim($value['id_negocio']);
                 $value_['fecha_ingreso'] =trim($value['fecha_ingreso']);
 
                 $value_['id_dir'] = intval($value['id_dir']);
@@ -330,6 +339,7 @@ class solicitudesController extends AppController {
                 $value_['dir_interior'] =trim($value['dir_interior']);
                 $value_['dir_urb'] =trim($value['dir_urb']);
                 $value_['dir_referencia'] =trim($value['dir_referencia']);
+                $value_['dir_descripcion'] =trim($value['dir_descripcion']);
                 $value_['cod_ubi_pro'] =trim($value['cod_ubi_pro']);
                 $value_['cod_ubi_dep'] =trim($value['cod_ubi_dep']);
                 $value_['cod_ubi'] =trim($value['cod_ubi']);
@@ -581,6 +591,7 @@ class solicitudesController extends AppController {
         $lote = 0;
         foreach ($rs as $index => $value){
             $value_['id_doc'] = intval($value['id_doc']);
+            $value_['id_creditos'] = intval($value['id_creditos']);
             $value_['id_per'] = intval($value['id_per']);
             $value_['time'] = utf8_encode(trim($value['nombre']));
             $value_['img_path'] = '/persona/'.$value['id_per'].'/DOCUMENTOS/'.trim($value['img']);
@@ -669,15 +680,16 @@ class solicitudesController extends AppController {
         sleep(1);
         $array = array();
         
-        $nombre_archivo = $_FILES['persona-filex-doc']['name'];
-        $tipo_archivo = $_FILES['persona-filex-doc']['type'];
-        $tamano_archivo = $_FILES['persona-filex-doc']['size'];
+        $nombre_archivo = $_FILES['solicitudes-filex-doc']['name'];
+        $tipo_archivo = $_FILES['solicitudes-filex-doc']['type'];
+        $tamano_archivo = $_FILES['solicitudes-filex-doc']['size'];
 
         $path_parts = pathinfo($nombre_archivo);
         $ext=$path_parts['extension'];
 
         $setTypeFile = array(
             'jpg' => 'jpg',
+            'JPG' => 'JPG',
             'JPEG' => 'JPEG',
             'png' => 'png',
             'PNG' => 'PNG'
@@ -702,7 +714,7 @@ class solicitudesController extends AppController {
                 $dir = PATH.'public_html/persona/'.$p['vp_sol_id_per'].'/DOCUMENTOS/'.$file;
                 
                 
-                if (@move_uploaded_file($_FILES['persona-filex-doc']['tmp_name'], $dir)){
+                if (@move_uploaded_file($_FILES['solicitudes-filex-doc']['tmp_name'], $dir)){
                     $this->setResizeImage($p['vp_sol_id_per'],trim($file));
                     $p['vp_op']='U';
                     $rs = $this->objDatos->SP_PERSONA_DOCUMENTOS($p);
@@ -820,5 +832,79 @@ class solicitudesController extends AppController {
        $dst = imagecreatetruecolor($w, $h);
        imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
        return $dst;
+    }
+    public function getListGarante($p){
+        
+        $this->array = $this->objDatos->SP_GARANTE_LIST($p);
+        //var_export($this->arrayMenu);
+        $array = array();
+        foreach ($this->array as $index => $value){
+                //$p['id_asesor'] = intval($value['id_asesor']);
+                $value_['id_per'] = intval($value['id_per']);
+                $value_['ape_pat'] =utf8_encode(trim($value['ape_pat']));
+                $value_['ape_mat'] =utf8_encode(trim($value['ape_mat']));
+                $value_['nombres'] =utf8_encode(trim($value['nombres']));
+                $value_['sexo'] =trim($value['sexo']);
+                
+
+                $value_['doc_dni'] =trim($value['doc_dni']);
+                $value_['doc_ce'] =trim($value['doc_ce']);
+                $value_['doc_cip'] =trim($value['doc_cip']);
+                $value_['doc_ruc'] =trim($value['doc_ruc']);
+                $value_['doc_cm'] =trim($value['doc_cm']);
+                $value_['estado_civil'] =trim($value['estado_civil']);
+                $value_['fecha_nac'] =trim($value['fecha_nac']);
+                $value_['id_tel'] =intval($value['id_tel']);
+
+                $value_['domicilio'] =trim($value['domicilio']);
+                $value_['estudios'] =trim($value['estudios']);
+                $value_['profesion'] =utf8_encode(trim($value['profesion']));
+                $value_['laboral'] =trim($value['laboral']);
+                $value_['cargo'] =utf8_encode(trim($value['cargo']));
+                $value_['id_empresa'] =trim($value['id_empresa']);
+                $value_['fecha_ingreso'] =trim($value['fecha_ingreso']);
+
+                $value_['id_dir'] = intval($value['id_dir']);
+
+                $value_['img'] =trim($value['img']);
+                $value_['fecha_creacion'] =trim($value['fecha_creacion']);
+                $value_['flag'] =trim($value['flag']);
+                $value_['id_user'] =trim($value['id_user']);
+                //$value_['permisos'] = $this->objDatos->usr_sis_servicios($p);
+                $array[]=$value_;
+        }
+        $data = array(
+            'success' => true,
+            'total' => count($array),
+            'data' => $array
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+    public function setSaveGarante($p){
+        $rs = $this->objDatos->SP_GARANTE_RELACION_MANT($p);
+        $rs = $rs[0];
+        $data = array(
+            'success' => true,
+            'error' => $rs['RESPONSE'],
+            'msn' => utf8_encode(trim($rs['MESSAGE_TEXT'])),
+            'CODIGO' => trim($rs['CODIGO']),
+            'ID_PER' => trim($rs['ID_PER'])
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+    public function setSaveReferencia($p){
+        $rs = $this->objDatos->SP_REFERENCIA_MANT($p);
+        $rs = $rs[0];
+        $data = array(
+            'success' => true,
+            'error' => $rs['RESPONSE'],
+            'msn' => utf8_encode(trim($rs['MESSAGE_TEXT'])),
+            'CODIGO' => trim($rs['CODIGO']),
+            'ID_PER' => trim($rs['ID_PER'])
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
     }
 }
