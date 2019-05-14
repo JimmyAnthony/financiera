@@ -534,7 +534,7 @@ foreach ($rs as $index => $item){
 		 $pdf->SetXY(43,$y);
 		 $pdf->Cell(11,3,number_format($item['pagado'],2),0,0,'L',0);
 		 $pdf->SetXY(51.5,$y);
-		 list($añox, $mesx , $diax) = split('[/.-]', $item['fecha_cuota']);//fecha_pago
+		 list($añox, $mesx , $diax) = split('[/.-]', $item['fecha_pago']);
 		 $pdf->Cell(22,3,$diax,0,0,'L',0);
 		 $pdf->SetXY(59,$y);
 		 $pdf->Cell(23,3,$mesx,0,0,'L',0);

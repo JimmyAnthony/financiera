@@ -23,6 +23,9 @@ class cobranzaController extends AppController {
     public function index($p){        
         $this->view('cobranza/form_index.php', $p);
     }
+    public function get_cuotas_print($p){        
+        require APPPATH_VIEW . 'creditos/form__cuotas_pdf.php';
+    }
     public function get_list_creditos_asesor($p){
         $rs = $this->objDatos->SP_CREDITOS_ASESORES_LIST($p);
         //var_export($rs);

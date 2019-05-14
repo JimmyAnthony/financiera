@@ -1311,7 +1311,7 @@
 													                {name: 'ape_pat', type: 'string'},
 													                {name: 'ape_mat', type: 'string'},
 													                {name: 'dni', type: 'string'},
-
+													                {name: 'monto_aprobado', type: 'string'},	
 													                {name: 'solicitudes', type: 'string'},
 													                {name: 'sol_monto', type: 'string'},
 													                {name: 'tot_cuotas', type: 'string'},
@@ -1366,7 +1366,7 @@
 									                                    }
 									                                },
 																	{
-																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Solicitado</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Créditos</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
 																		align:'center',
 																		//width: 100,
 																		//flex:1,
@@ -1385,7 +1385,7 @@
 											                                {
 											                                    text: 'Monto',
 											                                    align:'right',
-											                                    dataIndex: 'sol_monto',
+											                                    dataIndex: 'monto_aprobado',
 											                                    width: 60,
 											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 											                                        metaData.style = "padding: 0px; margin: 0px";
@@ -1395,7 +1395,7 @@
 									                                	]
 									                            	},
 									                            	{
-																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Crédito</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Pendientes de Pago</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
 																		align:'center',
 																		//width: 100,
 																		//flex:1,
@@ -1717,7 +1717,7 @@
 									                                    }
 									                                },
 																	{
-																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Crédito</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Créditos</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
 																		align:'center',
 																		//width: 100,
 																		//flex:1,
@@ -1746,7 +1746,7 @@
 									                                	]
 									                            	},
 									                            	{
-																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Crédito</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Pendientes de Pago</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
 																		align:'center',
 																		//width: 100,
 																		//flex:1,
@@ -2849,7 +2849,7 @@
 													                                });*/
 													                            },
 													                            click: function(obj, e){	  
-													                            	cobranza.setPagar();
+													                            	cobranza.setPagar(); 
 													                            }
 													                        }
 														                }
@@ -3304,7 +3304,9 @@
                 grid.getView().refresh();
             },
 			setPagar:function(){
-				Ext.create('Ext.window.Window',{
+				var vp_id_solicitud 	= Ext.getCmp(cobranza.id+'-sol-txt-id-solicitud').getValue();
+				window.open(cobranza.url+'get_cuotas_print/?vp_id_solicitud='+vp_id_solicitud, '_blank');
+				/*Ext.create('Ext.window.Window',{
 	                id:cobranza.id+'-win-cobranza',
 	                plain: true,
 	                title:'Pagos',
@@ -3356,7 +3358,7 @@
 
 	                    }
 	                }
-	            }).show().center();
+	            }).show().center();*/
 			},
 			getAsesores:function(){
 				var vp_op=Ext.getCmp(cobranza.id+'-txt-estado-filter').getValue();
