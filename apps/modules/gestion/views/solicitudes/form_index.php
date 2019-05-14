@@ -2545,7 +2545,7 @@
 												                        {
 												                            xtype: 'textfield',
 												                            id:solicitudes.id+'-ref-personal-telf2',
-												                            fieldLabel: 'teléfono 1',
+												                            fieldLabel: 'teléfono 2',
 												                            bodyStyle: 'background: transparent',
 														                    padding:'5px 10px 5px 5px',
 												                            //id:solicitudes.id+'-txt-dni',
@@ -2648,7 +2648,7 @@
 												                        {
 												                            xtype: 'textfield',
 												                            id:solicitudes.id+'-ref-comercial-telf2',
-												                            fieldLabel: 'teléfono 1',
+												                            fieldLabel: 'teléfono 2',
 												                            bodyStyle: 'background: transparent',
 														                    padding:'5px 10px 5px 5px',
 												                            //id:solicitudes.id+'-txt-dni',

@@ -195,7 +195,7 @@ class creditosModels extends Adodb {
       // parent::SetParameterSP($p['vp_shi_codigo'], 'int');
       //  parent::SetParameterSP($p['vp_fac_cliente'], 'int');
         parent::SetParameterSP($p['vp_op'], 'varchar');
-        parent::SetParameterSP($p['vp_id_creditos'], 'varchar');
+        parent::SetParameterSP($p['vp_op'], 'varchar');
         parent::SetParameterSP($p['vp_id'], 'int');
         parent::SetParameterSP($p['vp_dni'], 'varchar');
         parent::SetParameterSP($p['vp_nombres'], 'varchar');

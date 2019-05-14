@@ -24,6 +24,10 @@ class creditosController extends AppController {
     public function get_print($p){        
         require APPPATH_VIEW . 'creditos/form_pdf.php';
     }
+
+    public function get_cuotas_print($p){        
+        require APPPATH_VIEW . 'creditos/form__cuotas_pdf.php';
+    }
     
     public function get_list_client_creditos($p){
         $rs = $this->objDatos->SP_CREDITOS_CLIENTE_LIST($p);
@@ -58,6 +62,15 @@ class creditosController extends AppController {
             $value_['fecha_mod'] = trim($value['fecha_mod']);
             $value_['enviado'] = trim($value['enviado']);
             $value_['flag'] = trim($value['flag']);
+
+            $value_['personal'] = utf8_encode(trim($value['personal']));
+            $value_['telefono1'] = trim($value['telefono1']);
+            $value_['telefono2'] = trim($value['telefono2']);
+
+            $value_['comercial'] = utf8_encode(trim($value['comercial']));
+            $value_['telefono3'] = trim($value['telefono3']);
+            $value_['telefono4'] = trim($value['telefono4']);
+
             $array[]=$value_;
         }
 
@@ -110,6 +123,13 @@ class creditosController extends AppController {
             $value_['fecha_creado'] = trim($value['fecha_creado']);
             $value_['enviado'] = trim($value['enviado']);
             $value_['flag'] = trim($value['flag']);
+            $value_['personal'] = utf8_encode(trim($value['personal']));
+            $value_['telefono1'] = trim($value['telefono1']);
+            $value_['telefono2'] = trim($value['telefono2']);
+
+            $value_['comercial'] = utf8_encode(trim($value['comercial']));
+            $value_['telefono3'] = trim($value['telefono3']);
+            $value_['telefono4'] = trim($value['telefono4']);
             $array[]=$value_;
         }
 
@@ -296,6 +316,7 @@ class creditosController extends AppController {
                 $value_['laboral'] =trim($value['laboral']);
                 $value_['cargo'] =utf8_encode(trim($value['cargo']));
                 $value_['id_empresa'] =trim($value['id_empresa']);
+                $value_['id_negocio'] =trim($value['id_negocio']);
                 $value_['fecha_ingreso'] =trim($value['fecha_ingreso']);
 
                 $value_['id_dir'] = intval($value['id_dir']);
@@ -428,6 +449,7 @@ class creditosController extends AppController {
                 $value_['dir_interior'] =trim($value['dir_interior']);
                 $value_['dir_urb'] =trim($value['dir_urb']);
                 $value_['dir_referencia'] =trim($value['dir_referencia']);
+                $value_['dir_descripcion'] =trim($value['dir_descripcion']);
                 $value_['cod_ubi_pro'] =trim($value['cod_ubi_pro']);
                 $value_['cod_ubi_dep'] =trim($value['cod_ubi_dep']);
                 $value_['cod_ubi'] =trim($value['cod_ubi']);

@@ -49,6 +49,7 @@ class MYPDF extends TCPDF {
 		$this->id_creditos='';
 	    $this->nro_solicitud='';
 	    $this->id_age='';
+	    $this->nombre_agencia='';
 	    $this->id_per='';
 	    $this->id_garante='';
 	    $this->id_asesor='';
@@ -324,7 +325,7 @@ class MYPDF extends TCPDF {
 		$this->Cell(34,$H,strtoupper($this->monto_solicitado),0,0,'R');//$this->nombre  //monto solicitado
 
 		$this->SetXY(53,$H);
-		$this->Cell(33,$H-1,$this->tipo_cliente,0,0,'C');//tipo cliente
+		$this->Cell(33,$H-1,$this->tipo_cliente=='N'?'NUEVO':'RECURRENTE',0,0,'C');//tipo cliente
 
 
 		$this->SetXY(122,$H);
@@ -857,10 +858,10 @@ class MYPDF extends TCPDF {
 			$this->Cell(10,$H,strtoupper(''),0,0,'L');//$this->nombre  //OTROS
 
 			$H+=16;
-			list($año, $mes , $día) = split('[/.-]', $this->fecha_creado);
+			list($año, $mes , $dia) = split('[/.-]', $this->fecha_creado);
 			
 			$this->SetXY(17,$H);
-			$this->Cell(19,$H,$día,0,0,'C');//$this->nombre  //FECHA DIA
+			$this->Cell(19,$H,$dia,0,0,'C');//$this->nombre  //FECHA DIA
 
 			$this->SetXY(36,$H);
 			$this->Cell(19,$H,$mes,0,0,'C');//$this->nombre  //MES
@@ -878,7 +879,7 @@ class MYPDF extends TCPDF {
 			$this->SetFont('times','',10);	
 
 			$this->SetXY(149,$H-2);
-			$this->Cell(49,$H,strtoupper('PRINCIPAL'),0,0,'C');//$this->nombre  //AGENCIA
+			$this->Cell(49,$H,strtoupper($this->nombre_agencia),0,0,'C');//$this->nombre  //AGENCIA
 
 			$H+=11;
 			$this->SetXY(79,$H);

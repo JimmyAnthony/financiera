@@ -44,7 +44,15 @@
 
 	                    {name: 'fecha_mod', type: 'string'},
 	                    {name: 'enviado', type: 'string'},
-	                    {name: 'flag', type: 'string'}
+	                    {name: 'flag', type: 'string'},
+
+	                    {name: 'personal', type: 'string'},
+	                    {name: 'telefono1', type: 'string'},
+	                    {name: 'telefono2', type: 'string'},
+
+	                    {name: 'comercial', type: 'string'},
+	                    {name: 'telefono3', type: 'string'},
+	                    {name: 'telefono4', type: 'string'}
 	                ],
 	                autoLoad:false,
 	                proxy:{
@@ -1227,7 +1235,15 @@
 
 										                    {name: 'fecha_mod', type: 'string'},
 										                    {name: 'enviado', type: 'string'},
-										                    {name: 'flag', type: 'string'}
+										                    {name: 'flag', type: 'string'},
+										                    {name: 'personal', type: 'string'},
+										                    {name: 'telefono1', type: 'string'},
+										                    {name: 'telefono2', type: 'string'},
+
+										                    {name: 'comercial', type: 'string'},
+										                    {name: 'telefono3', type: 'string'},
+										                    {name: 'telefono4', type: 'string'},
+										                    {name: 'id_negocio', type: 'string'}
 											            ],
 											            autoLoad:true,
 											            proxy:{
@@ -2436,15 +2452,7 @@
 																                        
 																                                }
 																                            }
-																                        }
-																                    ]
-																                },
-																                {
-																					layout:'hbox',
-																					bodyStyle: 'background: transparent',
-																					padding:'5px 5px 5px 5px',
-																					border:false,
-																					items:[
+																                        },
 																                        {
 																					        xtype: 'datefield',
 																					        id:creditos.id+'-sol-date-fecha-ingreso',
@@ -2454,14 +2462,56 @@
 																					        format:'Y-m-d',
 																					        //flex:1,
 																                            //height:40,
-																                            width:220,
+																                            width:140,
 																                            readOnly:true,
-																                            labelWidth: 110,
+																                            labelWidth: 50,
 																					        labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
 																                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
-																					        fieldLabel: 'Fecha Ingreso',
+																					        fieldLabel: 'F.Ingreso',
 																					        value:''
 																					    }
+																                    ]
+																                },
+																                {
+																					layout:'hbox',
+																					bodyStyle: 'background: transparent',
+																					padding:'5px 5px 5px 5px',
+																					border:false,
+																					items:[
+																                        {
+																                            xtype:'combo',
+																                            fieldLabel: 'Negocio',
+																                            bodyStyle: 'background: transparent',
+																		                    padding:'5px 5px 5px 5px',
+																                            id:creditos.id+'-sol-txt-negocio',
+																                            store: store_centro_trabajo,
+																                            queryMode: 'local',
+																                            triggerAction: 'all',
+																                            valueField: 'id_empresa',
+																                            displayField: 'nombre',
+																                            emptyText: '[Seleccione]',
+																                            labelAlign:'right',
+																                            //allowBlank: false,
+																                            //labelAlign:'top',
+																                            labelWidth: 110,
+																                            readOnly: true,
+																                            //width:200,
+																                            flex:1,
+																                            anchor:'98%',
+																                            height:20,
+																                            //readOnly: true,
+																                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+																                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+																                            listeners:{
+																                                afterrender:function(obj, e){
+																                                    // obj.getStore().load();
+																                                    //obj.setValue('S');
+																                                },
+																                                select:function(obj, records, eOpts){
+																                        
+																                                }
+																                            }
+																                        }
 																                    ]
 																                }
 															            	]
@@ -2806,11 +2856,11 @@
 													                        autoScroll: true,
 													                        loadMask:true,
 													                        autoHeight: false,
-													                        tpl: imageTplPointerConyugue,
+													                        tpl: imageTplPointerConyugue, 
 													                        multiSelect: false,
 													                        singleSelect: false,
 													                        loadingText:'Cargando Lista de Conyugues...',
-													                        emptyText: '<div class="list_grid_as__list_menu"><div class="list_grid_as__none_data" ></div><div class="list_grid_as__title_clear_data">NO TIENE NINGUN Conyugue</div></div>',
+													                        emptyText: '<div class="list_grid_as__list_menu" ><div class="list_grid_as__none_data" ></div><div class="list_grid_as__title_clear_data">NO TIENE NINGUN Conyugue</div></div>',
 													                        itemSelector: 'div.list_grid_as__list_menu_select',
 													                        trackOver: true,
 													                        overItemCls: 'list_grid_as__list_menu-hover',
@@ -2929,7 +2979,7 @@
 																		 {
 													                        xtype: 'dataview',
 													                        id: creditos.id+'-list-garante',
-													                        bodyStyle: 'background: transparent',
+													                        bodyStyle: 'background: transparent;',
 													                        bodyCls: 'transparent',
 													                        layout:'fit',
 													                        store: store_garante,
@@ -2971,6 +3021,222 @@
 													                        }
 													                    }
 																	]
+																},
+																{
+																	xtype:'panel',
+																	title:'Referencia Personal',
+																	//bodyStyle: 'background: transparent',
+																	border:false,
+																	//layout:'border',
+																	//layout:'fit',
+																	items:[
+																		{
+																			xtype:'panel',
+																			border:false,
+																			layout:'hbox',
+																			items:[
+																				{
+														                            xtype: 'textfield',
+														                            id:creditos.id+'-ref-personal',
+														                            fieldLabel: 'Nombres y Apellidos',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:solicitudes.id+'-txt-dni',
+														                            labelWidth:40,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            /*allowOnlyWhitespace: false,
+														                            allowDecimals: false,
+														                            allowExponential: false,
+														                            //allowBlank: true,
+														                            maxLength: 8,
+														                            enforceMaxLength : true,
+														                            maskRe:/[0-9]/,*/
+														                            //width:120,
+														                            flex:1,
+														                            //height:40,
+														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                },
+														                                change: function(field, newValue, oldValue){
+																                            field.setValue(newValue.toUpperCase());
+																                        }
+														                            }
+														                        },
+														                        {
+														                            xtype: 'textfield',
+														                            id:creditos.id+'-ref-personal-telf1',
+														                            fieldLabel: 'teléfono 1',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:solicitudes.id+'-txt-dni',
+														                            labelWidth:40,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            allowOnlyWhitespace: false,
+														                            allowDecimals: false,
+														                            allowExponential: false,
+														                            //allowBlank: true,
+														                            //maxLength: 8,
+														                            //enforceMaxLength : true,
+														                            maskRe:/[0-9-]/,
+														                            width:120,
+														                            //flex:1,
+														                            //height:40,
+														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                },
+														                                change: function(field, newValue, oldValue){
+																                            field.setValue(newValue.toUpperCase());
+																                        }
+														                            }
+														                        },
+														                        {
+														                            xtype: 'textfield',
+														                            id:creditos.id+'-ref-personal-telf2',
+														                            fieldLabel: 'teléfono 2',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:solicitudes.id+'-txt-dni',
+														                            labelWidth:40,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            allowOnlyWhitespace: false,
+														                            allowDecimals: false,
+														                            allowExponential: false,
+														                            //allowBlank: true,
+														                            //maxLength: 8,
+														                            //enforceMaxLength : true,
+														                            maskRe:/[0-9-]/,
+														                            width:120,
+														                            //flex:1,
+														                            //height:40,
+														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                },
+														                                change: function(field, newValue, oldValue){
+																                            field.setValue(newValue.toUpperCase());
+																                        }
+														                            }
+														                        }
+																			]
+																		},
+																		{
+																			xtype:'panel',
+																			border:false,
+																			layout:'hbox',
+																			items:[
+																				{
+														                            xtype: 'textfield',
+														                            id:creditos.id+'-ref-comercial',
+														                            fieldLabel: 'Comercial',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:solicitudes.id+'-txt-dni',
+														                            labelWidth:40,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            /*allowOnlyWhitespace: false,
+														                            allowDecimals: false,
+														                            allowExponential: false,
+														                            allowBlank: true,
+														                            //maxLength: 8,
+														                            //enforceMaxLength : true,
+														                            maskRe:/[0-9-]/,*/
+														                            //width:120,
+														                            flex:1,
+														                            //height:40,
+														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                },
+														                                change: function(field, newValue, oldValue){
+																                            field.setValue(newValue.toUpperCase());
+																                        }
+														                            }
+														                        },
+														                        {
+														                            xtype: 'textfield',
+														                            id:creditos.id+'-ref-comercial-telf1',
+														                            fieldLabel: 'teléfono 1',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:solicitudes.id+'-txt-dni',
+														                            labelWidth:40,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            allowOnlyWhitespace: false,
+														                            allowDecimals: false,
+														                            allowExponential: false,
+														                            //allowBlank: true,
+														                            //maxLength: 8,
+														                            //enforceMaxLength : true,
+														                            maskRe:/[0-9-]/,
+														                            width:120,
+														                            //flex:1,
+														                            //height:40,
+														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                },
+														                                change: function(field, newValue, oldValue){
+																                            field.setValue(newValue.toUpperCase());
+																                        }
+														                            }
+														                        },
+														                        {
+														                            xtype: 'textfield',
+														                            id:creditos.id+'-ref-comercial-telf2',
+														                            fieldLabel: 'teléfono 2',
+														                            bodyStyle: 'background: transparent',
+																                    padding:'5px 10px 5px 5px',
+														                            //id:solicitudes.id+'-txt-dni',
+														                            labelWidth:40,
+														                            //readOnly:true,
+														                            labelAlign:'top',
+														                            allowOnlyWhitespace: false,
+														                            allowDecimals: false,
+														                            allowExponential: false,
+														                            //allowBlank: true,
+														                            //maxLength: 8,
+														                            //enforceMaxLength : true,
+														                            maskRe:/[0-9-]/,
+														                            width:120,
+														                            //flex:1,
+														                            //height:40,
+														                            labelStyle: "font-size:10px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+														                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+														                            value:'',
+														                            //anchor:'100%',
+														                            listeners:{
+														                                afterrender:function(obj, e){
+														                                },
+														                                change: function(field, newValue, oldValue){
+																                            field.setValue(newValue.toUpperCase());
+																                        }
+														                            }
+														                        }
+																			]
+																		}
+																	]
 																}
 															]
 									                	}
@@ -2997,7 +3263,7 @@
 								         				{
 								         					layout:'border',
 								         					region:'north',
-								         					height:390,
+								         					height:480,
 								         					border:false,
 								         					items:[
 								         						{
@@ -3036,7 +3302,7 @@
 												         				{
 											                				region:'north',
 											                				padding:'5px 0px 5px 5px',
-											                				height:340,
+											                				height:440,
 											                				bodyStyle: 'background: transparent',
 											                				border:false,
 											                				items:[
@@ -3046,6 +3312,31 @@
 																					//title:'Registro',
 																					border:false,
 																					items:[
+																						{
+																							layout:'column',
+																							xtype: 'fieldset',
+																							title: 'Descripción de la Casa',
+																							id: creditos.id + '-field-title',
+																							bodyStyle: 'background: transparent',
+																							//region:'north',
+																							//height:100,
+																							//flex:1,
+																							border:true,
+																							padding:'5px 5px 5px 5px',
+																							margin:'5px 5px 5px 5px',
+																							items:[
+																								{
+																							        xtype: 'textareafield',
+																							        id: creditos.id + '-txt-dir-descripcion',
+																							        columnWidth: 1,
+																							        readOnly:true,
+																							        //name: 'textarea1',
+																							        //iconAlign: 'top',
+																							        //fieldLabel: 'Nota',
+																							        value: ''
+																							    }
+																							]
+																						},
 																						{
 																                            xtype: 'textfield',	
 																                            fieldLabel: 'IDdir',
@@ -4214,6 +4505,33 @@
 																			region:'center',
 																			layout:'fit',
 																			border:false,
+																			bbar:[
+																				{
+																                    xtype: 'button',
+																                    //id:creditos.id+'-btn-impimir-solicitud',
+																                    margin:'2px 2px 2px 2px',
+																                    icon: '/images/icon/pdf.png',
+																                    //glyph: 72,
+																                    //columnWidth: 0.1,
+																                    flex:0.5,
+																                    text: 'IMPRIMIR CARTILLA DE CUOTAS PDF',
+																                    scale: 'medium',
+																                    //iconAlign: 'top',
+																                    listeners:{
+															                            beforerender: function(obj, opts){
+															                                /*global.permisos({
+															                                    id: 15,
+															                                    id_btn: obj.getId(), 
+															                                    id_menu: gestion_devolucion.id_menu,
+															                                    fn: ['panel_asignar_gestion.limpiar']
+															                                });*/
+															                            },
+															                            click: function(obj, e){	  
+															                            	creditos.setPrintCuotasSolicitud();
+															                            }
+															                        }
+																                }
+																			],
 																			items:[
 																				{
 															                        xtype: 'grid',
@@ -4553,6 +4871,14 @@
 				Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').setValue(new Date());
 				Ext.getCmp(creditos.id + '-txt-nota').setValue('');
 				creditos.setReadOnlySolicitud(false);
+				Ext.getCmp(creditos.id+'-sol-txt-negocio').setValue('');
+
+				Ext.getCmp(creditos.id+'-ref-comercial-telf2').setValue('');
+            	Ext.getCmp(creditos.id+'-ref-comercial-telf1').setValue('');
+            	Ext.getCmp(creditos.id+'-ref-comercial').setValue('');
+            	Ext.getCmp(creditos.id+'-ref-personal-telf2').setValue('');
+            	Ext.getCmp(creditos.id+'-ref-personal-telf1').setValue('');
+            	Ext.getCmp(creditos.id+'-ref-personal').setValue('');
 			},
 			setReadOnlySolicitud:function(bool){
 				Ext.getCmp(creditos.id+'-sol-date-fecha-solicitud').setReadOnly(bool);
@@ -4572,6 +4898,14 @@
 				Ext.getCmp(creditos.id+'-sol-txt-mora').setReadOnly(bool);
 				Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').setReadOnly(bool);
 				Ext.getCmp(creditos.id + '-txt-nota').setReadOnly(bool);
+				Ext.getCmp(creditos.id+'-sol-txt-negocio').setReadOnly(bool);
+
+				Ext.getCmp(creditos.id+'-ref-comercial-telf2').setReadOnly(bool);
+            	Ext.getCmp(creditos.id+'-ref-comercial-telf1').setReadOnly(bool);
+            	Ext.getCmp(creditos.id+'-ref-comercial').setReadOnly(bool);
+            	Ext.getCmp(creditos.id+'-ref-personal-telf2').setReadOnly(bool);
+            	Ext.getCmp(creditos.id+'-ref-personal-telf1').setReadOnly(bool);
+            	Ext.getCmp(creditos.id+'-ref-personal').setReadOnly(bool);
 			},
 			setDataSolicitudX:function(idx){
 				var tab=Ext.getCmp(creditos.id+'-win-form'); 
@@ -4627,7 +4961,9 @@
 							Ext.getCmp(creditos.id+'-sol-cmb-laboral').setValue(data.laboral);
 							Ext.getCmp(creditos.id+'-sol-txt-cargo').setValue(data.cargo);
 							Ext.getCmp(creditos.id+'-sol-txt-centro-trabajo').setValue(data.id_empresa);
+							Ext.getCmp(creditos.id+'-sol-txt-negocio').setValue(data.id_negocio);
 							Ext.getCmp(creditos.id+'-sol-date-fecha-ingreso').setValue(data.fecha_ingreso);
+
 
 							//Ext.getCmp(creditos.id+'-sol-txt-id-tel').setValue(data.id_tel);
 							Ext.getCmp(creditos.id+'-sol-txt-id-dir').setValue(data.id_dir);
@@ -4672,7 +5008,7 @@
 			setDataSolicitudXX:function(idx){
 				var grid=Ext.getCmp(creditos.id+'-grid-solicitudes');
 				var record = grid.getStore().getAt(idx);
-				var data =record.data;
+				var data =record.data; console.log(data);
 
 				creditos.setDisabledBTNSolicitud(true);
 				//creditos.setClearSolicitud();
@@ -4737,6 +5073,13 @@
 				Ext.getCmp(creditos.id+'-sol-txt-mora').setValue(data.mora);
 				Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').setValue(data.fecha_1ra_letra);
 				Ext.getCmp(creditos.id + '-txt-nota').setValue(data.nota);
+
+				Ext.getCmp(creditos.id+'-ref-comercial-telf2').setValue(data.telefono4);
+            	Ext.getCmp(creditos.id+'-ref-comercial-telf1').setValue(data.telefono3);
+            	Ext.getCmp(creditos.id+'-ref-comercial').setValue(data.comercial);
+            	Ext.getCmp(creditos.id+'-ref-personal-telf2').setValue(data.telefono2);
+            	Ext.getCmp(creditos.id+'-ref-personal-telf1').setValue(data.telefono1);
+            	Ext.getCmp(creditos.id+'-ref-personal').setValue(data.personal);
 
 				
 				var objc = Ext.getCmp(creditos.id + '-grid-cuotas');
@@ -4811,6 +5154,13 @@
 				Ext.getCmp(creditos.id+'-sol-date-fecha-1-letra').setValue(data.fecha_1ra_letra);
 				Ext.getCmp(creditos.id + '-txt-nota').setValue(data.nota);
 
+				Ext.getCmp(creditos.id+'-ref-comercial-telf2').setValue(data.telefono4);
+            	Ext.getCmp(creditos.id+'-ref-comercial-telf1').setValue(data.telefono3);
+            	Ext.getCmp(creditos.id+'-ref-comercial').setValue(data.comercial);
+            	Ext.getCmp(creditos.id+'-ref-personal-telf2').setValue(data.telefono2);
+            	Ext.getCmp(creditos.id+'-ref-personal-telf1').setValue(data.telefono1);
+            	Ext.getCmp(creditos.id+'-ref-personal').setValue(data.personal);
+
 
 				win.getGalery({container:'contenedor-documentos',forma:'L',url:creditos.url+'get_list_documentos/',params:{vp_id_creditos:data.id_creditos,vp_sol_id_per:data.id_per,vp_flag:'A'} }); 
 
@@ -4842,6 +5192,10 @@
 			setPrintSolicitud:function(){
 				var vp_id_solicitud  = Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').getValue();
 				window.open(creditos.url+'get_print/?vp_id_solicitud='+vp_id_solicitud, '_blank');
+			},
+			setPrintCuotasSolicitud:function(){
+				var vp_id_solicitud  = Ext.getCmp(creditos.id+'-sol-txt-id-solicitud').getValue();
+				window.open(creditos.url+'get_cuotas_print/?vp_id_solicitud='+vp_id_solicitud, '_blank');
 			},
 			setSaveSolicitud:function(op){
 				/*DATOS DE SOLICITUD*/
@@ -5392,6 +5746,7 @@
 							Ext.getCmp(creditos.id+'-sol-cmb-laboral').setValue(data.laboral);
 							Ext.getCmp(creditos.id+'-sol-txt-cargo').setValue(data.cargo);
 							Ext.getCmp(creditos.id+'-sol-txt-centro-trabajo').setValue(data.id_empresa);
+							Ext.getCmp(creditos.id+'-sol-txt-negocio').setValue(data.id_negocio);
 							Ext.getCmp(creditos.id+'-sol-date-fecha-ingreso').setValue(data.fecha_ingreso);
 
 							//Ext.getCmp(creditos.id+'-sol-txt-id-tel').setValue(data.id_tel);
@@ -5456,6 +5811,7 @@
 						Ext.getCmp(creditos.id+'-sol-txt-dir-interior').setValue(data.dir_interior);
 						Ext.getCmp(creditos.id+'-sol-txt-dir-urb').setValue(data.dir_urb);
 						Ext.getCmp(creditos.id+'-sol-txt-dir-referencia').setValue(data.dir_referencia);
+						Ext.getCmp(creditos.id + '-txt-dir-descripcion').setValue(data.dir_descripcion);
 
 						/*DIRECCIONES*/
 						var obj=Ext.getCmp(creditos.id+'-sol-cmb-departamento');
@@ -5647,6 +6003,7 @@
 				Ext.getCmp(creditos.id+'-sol-txt-dir-interior').setValue('');
 				Ext.getCmp(creditos.id+'-sol-txt-dir-urb').setValue('');
 				Ext.getCmp(creditos.id+'-sol-txt-dir-referencia').setValue('');
+				Ext.getCmp(creditos.id + '-txt-dir-descripcion').setValue('');
 				//Ext.getCmp(creditos.id+'-list-direcciones').getStore().removeAll();
 			},
 			setSaveDireccion:function(){
