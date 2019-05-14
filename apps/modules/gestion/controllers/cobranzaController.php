@@ -490,7 +490,7 @@ class cobranzaController extends AppController {
                 $value_['ape_mat'] =utf8_encode(trim($value['ape_mat']));
                 $value_['nombre'] =utf8_encode(trim($value['nombres'])).','.utf8_encode(trim($value['ape_pat'])).' '.utf8_encode(trim($value['ape_mat']));
                 $value_['dni'] =trim($value['dni']);
-                
+                $value_['monto_aprobado'] =trim($value['monto_aprobado']);
                 $value_['solicitudes'] =trim($value['solicitudes']);
                 $value_['sol_monto'] =trim($value['sol_monto']);
 

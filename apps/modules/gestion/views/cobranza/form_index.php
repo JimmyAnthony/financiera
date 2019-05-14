@@ -1662,7 +1662,7 @@
 													                {name: 'ape_pat', type: 'string'},
 													                {name: 'ape_mat', type: 'string'},
 													                {name: 'dni', type: 'string'},
-
+													                {name: 'monto_aprobado', type: 'string'},
 													                {name: 'solicitudes', type: 'string'},
 													                {name: 'sol_monto', type: 'string'},
 													                {name: 'tot_cuotas', type: 'string'},
@@ -1717,7 +1717,7 @@
 									                                    }
 									                                },
 																	{
-																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Solicitado</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
+																		text:'<div style="display: inline-flex;"><div style="width: 76px;">Crédito</div><div id="AnaEfect-1-EN" style="width:16px;"></div></div>',
 																		align:'center',
 																		//width: 100,
 																		//flex:1,
@@ -1736,7 +1736,7 @@
 											                                {
 											                                    text: 'Monto',
 											                                    align:'right',
-											                                    dataIndex: 'sol_monto',
+											                                    dataIndex: 'monto_aprobado',
 											                                    width: 60,
 											                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 											                                        metaData.style = "padding: 0px; margin: 0px";
