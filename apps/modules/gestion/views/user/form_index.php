@@ -591,7 +591,7 @@
 			                                            type: 'link',
 			                                            id_menu: user.id_menu,
 			                                            icons:[
-			                                                {id_serv: 7, img: estado, qtip: 'Estado.', js: ""}
+			                                                {id_serv: 8, img: estado, qtip: 'Estado.', js: ""}
 
 			                                            ]
 			                                        });
@@ -610,8 +610,8 @@
 			                                            type: 'link',
 			                                            id_menu: user.id_menu,
 			                                            icons:[
-			                                                {id_serv: 7, img: 'edit.png', qtip: 'Editar.', js: "user.getEdit("+rowIndex+")"},
-			                                                {id_serv: 7, img: 'reprogramadas.png', qtip: 'Editar.', js: "user.getPermisoMenu("+rowIndex+")"}
+			                                                {id_serv: 8, img: 'edit.png', qtip: 'Editar.', js: "user.getEdit("+rowIndex+")"},
+			                                                {id_serv: 8, img: 'reprogramadas.png', qtip: 'Editar.', js: "user.getPermisoMenu("+rowIndex+")"}
 
 			                                            ]
 			                                        });
@@ -707,7 +707,7 @@
 	                                            type: 'link',
 	                                            id_menu: user.id_menu,
 	                                            icons:[
-	                                                {id_serv: 7, img: estado=='Y'?'check-circle-green-16.png':'check-circle-black-16.png', qtip: 'Click Para cambiar estado.', js: "user.setChangeAccess("+rowIndex+")"},
+	                                                {id_serv: 8, img: estado=='Y'?'check-circle-green-16.png':'check-circle-black-16.png', qtip: 'Click Para cambiar estado.', js: "user.setChangeAccess("+rowIndex+")"},
 
 	                                            ]
 	                                        });

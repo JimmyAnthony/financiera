@@ -3558,7 +3558,18 @@
 										                                                },
 										                                                select:function(obj, records, eOpts){
 										                                        			var obja = Ext.getCmp(solicitudes.id+'-sol-cmb-asesor');
-							                            									solicitudes.getReload(obja,{vp_cod_age:obj.getValue()});
+							                            									//solicitudes.getReload(obja,{vp_cod_age:obj.getValue()});
+							                            									obja.getStore().removeAll();
+																							obja.getStore().load(
+																				                {params: {vp_cod_age:obj.getValue()},
+																				                callback:function(){
+																				                	var cant = obja.getStore().getCount();
+																				                	if(cant==1){
+																				                		var id_asesor = obja.getStore().data.items[0].data.id_asesor;
+																				                		obja.setValue(id_asesor);
+																				                	}
+																				                }
+																				            });
 										                                                }
 										                                            }
 										                                        },
