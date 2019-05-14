@@ -399,7 +399,7 @@ class MYPDF extends tcpdf {
 $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, array(120, 220), true, 'UTF-8', false);
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('DSP');
-$pdf->SetTitle('REPORTE DE CRÉDITO');
+$pdf->SetTitle('CARTILLA DE CRÉDITO - '.str_pad($_REQUEST['vp_id_solicitud'], 10, "0", STR_PAD_LEFT));
 $pdf->SetSubject('TRASCENDER');
 $pdf->SetKeywords('PDF,DSP');
 

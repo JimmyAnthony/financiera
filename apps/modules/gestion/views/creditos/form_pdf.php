@@ -945,7 +945,7 @@ class MYPDF extends TCPDF {
 $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('DSP');
-$pdf->SetTitle('REPORTE DE CRÉDITO');
+$pdf->SetTitle('SOLICITUD DE CRÉDITO - '.str_pad($_REQUEST['vp_id_solicitud'], 10, "0", STR_PAD_LEFT));
 $pdf->SetSubject('TRASCENDER');
 $pdf->SetKeywords('PDF,DSP');
 
