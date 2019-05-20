@@ -531,19 +531,23 @@ foreach ($rs as $index => $item){
 		 //$pdf->SetXY(25,$y);
 		 $pdf->SetXY(28,$y);
 		 $pdf->Cell(11,3,number_format($item['valor_cuota'],2),0,0,'R',0);
-		 $pdf->SetXY(43,$y);
-		 $pdf->Cell(11,3,number_format($item['pagado'],2),0,0,'L',0);
+		 $pdf->SetXY(38,$y);
+		 $pagado=number_format($item['pagado'],2);
+		 $pdf->Cell(13.5,3,$pagado==0?'':$pagado,0,0,'R',0);
 		 $pdf->SetXY(51.5,$y);
 		 list($añox, $mesx , $diax) = split('[/.-]', $item['fecha_pago']);
 		 $pdf->Cell(22,3,$diax,0,0,'L',0);
 		 $pdf->SetXY(59,$y);
 		 $pdf->Cell(23,3,$mesx,0,0,'L',0);
 		 $pdf->SetXY(65.3,$y);
-		 $pdf->Cell(9,3,number_format($item['mora'],2),0,0,'C',0);
+		 $mora = number_format($item['mora'],2);
+		 $pdf->Cell(9,3,$mora==0?'':$mora,0,0,'C',0);
 		 $pdf->SetXY(73,$y);
-		 $pdf->Cell(9,3,number_format(($item['dias']),0),0,0,'C',0);
+		 $diasz= number_format(($item['dias']),0);
+		 $pdf->Cell(9,3,$diasz==0?'':$diasz,0,0,'C',0);
 		 $pdf->SetXY(81,$y);
-		 $pdf->Cell(12,3,$item['saldo_cuota'],0,0,'R',0);
+		 $saldo = number_format($item['saldo_cuota'],2);
+		 $pdf->Cell(12,3,$saldo==0?'':$saldo,0,0,'R',0);
 		 $pdf->Ln(2);
 
 	}

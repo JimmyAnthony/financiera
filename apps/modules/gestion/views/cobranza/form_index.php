@@ -1174,7 +1174,7 @@
 												                        },
 												                        {
 												                            xtype: 'textfield',	
-												                            fieldLabel: 'Total Solicitado',
+												                            fieldLabel: 'Total Crédito',
 												                            id:cobranza.id+'-txt-esperado-monto-solicitado',
 												                            bodyStyle: 'background: transparent',
 														                    padding:'5px 5px 5px 5px',
