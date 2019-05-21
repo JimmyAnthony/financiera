@@ -296,4 +296,47 @@ class configuracionesModels extends Adodb {
         $array = parent::ExecuteSPArray();
         return $array;
     }
+    public function SP_DIAS_HABILES_MANT($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_DIAS_HABILES_MANT');
+        parent::SetParameterSP($p['vp_lun'], 'varchar');//8
+        parent::SetParameterSP($p['vp_mar'], 'varchar');//8
+        parent::SetParameterSP($p['vp_mie'], 'varchar');//8
+        parent::SetParameterSP($p['vp_jue'], 'varchar');//8
+        parent::SetParameterSP($p['vp_vie'], 'varchar');//8
+        parent::SetParameterSP($p['vp_sab'], 'varchar');//8
+        parent::SetParameterSP($p['vp_dom'], 'varchar');//8
+        parent::SetParameterSP(USR_ID, 'int');//141
+        parent::SetParameterSP('@OUT', 'int');//140
+        parent::SetParameterSP('@OUT', 'int');//140
+        parent::SetParameterSP('@OUT', 'int');//140
+         //echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+    public function SP_DIAS_HABILES_LIST($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_DIAS_HABILES_LIST');
+         //echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+    public function SP_DIAS_NO_HABILES_MANT($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_DIAS_NO_HABILES_MANT');
+        parent::SetParameterSP($p['VP_OP'], 'varchar');//8
+        parent::SetParameterSP($p['VP_COD'], 'int');//8
+        parent::SetParameterSP($p['VP_DIA'], 'varchar');//8
+        parent::SetParameterSP($p['VP_MES'], 'varchar');//8
+        parent::SetParameterSP($p['VP_YEAR'], 'varchar');//8
+        parent::SetParameterSP(utf8_decode($p['VP_DESCRIPCION']), 'varchar');//8
+        parent::SetParameterSP($p['VP_ESTADO'], 'varchar');//8
+        parent::SetParameterSP(USR_ID, 'int');//141
+        parent::SetParameterSP('@OUT', 'int');//140
+        parent::SetParameterSP('@OUT', 'int');//140
+        parent::SetParameterSP('@OUT', 'int');//140
+         //echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
 }

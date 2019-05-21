@@ -23,6 +23,52 @@ class configuracionesController extends AppController {
     public function index($p){        
         $this->view('configuraciones/form_index.php', $p);
     }
+    public function SP_DIAS_HABILES_MANT($p){
+        $rs = $this->objDatos->SP_DIAS_HABILES_MANT($p);
+        $rs = $rs[0];
+        $data = array(
+            'success' => true,
+            'RESPONSE' => $rs['RESPONSE'],
+            'MESSAGE_TEXT' => utf8_encode(trim($rs['MESSAGE_TEXT']))
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+    public function SP_DIAS_HABILES_LIST($p){
+        $rs = $this->objDatos->SP_DIAS_HABILES_LIST($p);
+        //var_export($rs);
+        $array = array();
+        foreach ($rs as $index => $value){
+            $value_['lun'] =trim($value['lun']);
+            $value_['mar'] =trim($value['mar']);
+            $value_['mie'] =trim($value['mie']);
+            $value_['jue'] =trim($value['jue']);
+            $value_['vie'] =trim($value['vie']);
+            $value_['sab'] =trim($value['sab']);
+            $value_['dom'] =trim($value['dom']);
+            $array[]=$value_;
+        }
+
+        $data = array(
+            'success' => true,
+            'error'=>0,
+            'total' => count($array),
+            'data' => $array[0]
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
+    public function SP_DIAS_NO_HABILES_MANT($p){
+        $rs = $this->objDatos->SP_DIAS_NO_HABILES_MANT($p);
+        $rs = $rs[0];
+        $data = array(
+            'success' => true,
+            'RESPONSE' => $rs['RESPONSE'],
+            'MESSAGE_TEXT' => utf8_encode(trim($rs['MESSAGE_TEXT']))
+        );
+        header('Content-Type: application/json');
+        return $this->response($data);
+    }
     public function get_list_no_laborables($p){
         $rs = $this->objDatos->get_list_no_laborables($p);
         //var_export($rs);

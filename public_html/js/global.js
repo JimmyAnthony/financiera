@@ -194,7 +194,7 @@ win = {
     getStoreYear: function(ALL) {
         var i = 2010, fecha = new Date(), year = fecha.getFullYear() + 1, years = new Array();
         if (ALL)
-            years.push(['', 'All']);
+            years.push(['ALL', 'ALL']);
         for (; year >= i; year--)
             years.push([year, year]);
         return Ext.create('Ext.data.ArrayStore', {
@@ -207,7 +207,7 @@ win = {
     getStoreMonth: function(ALL) {
         var i = 0, month = new Array();
         if (ALL)
-            month.push(['', 'All']);
+            month.push(['ALL', 'ALL']);
         month.push(
                 ["01", "Jan"],
                 ["02", "Feb"],
@@ -235,7 +235,7 @@ win = {
     getStoreDays: function(ALL) {
         var j = 31, day = 1, days = new Array();
         if (ALL)
-            days.push(['', 'All']);
+            days.push(['ALL', 'ALL']);
         for (; day <= j; day++)
             days.push([(day < 10) ? '0' + day : day, (day < 10) ? '0' + day : day]);
         return Ext.create('Ext.data.ArrayStore', {

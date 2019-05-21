@@ -59,6 +59,7 @@
 							{
 								region:'west',
 								layout:'fit',
+								disabled:true,
 								//hidden:true,
 								width:200,
 								border:false,
@@ -123,18 +124,24 @@
 													{
 											            xtype: 'checkboxgroup',
 											            //flex: 1,
+											            id: reportes.id+'-chk-dias',
 											            title: 'Días de la Semana Laborables',
 											            defaultType: 'checkbox', // each item will be a checkbox
 											            layout: 'vbox',
 											            items: [
-													        {boxLabel: 'Lunes', name: 'cb-auto-1',checked: true,padding:10},
-											                {boxLabel: 'Martes', name: 'cb-auto-2', checked: true,padding:10},
-											                {boxLabel: 'Miercoles', name: 'cb-auto-3',checked: true,padding:10},
-											                {boxLabel: 'Jueves', name: 'cb-auto-4',checked: true,padding:10},
-											                {boxLabel: 'Viernes', name: 'cb-auto-5',checked: true,padding:10},
-											                {boxLabel: 'Sábado', name: 'cb-auto-6',checked: true,padding:10},
-											                {boxLabel: 'Domingo', name: 'cb-auto-7',padding:10}
-													    ]
+													        {boxLabel: 'Lunes',id: reportes.id+'-chk-lun', name: 'cb-auto-1',checked: true,padding:10},
+											                {boxLabel: 'Martes', id: reportes.id+'-chk-mar',name: 'cb-auto-2', checked: true,padding:10},
+											                {boxLabel: 'Miercoles',id: reportes.id+'-chk-mie', name: 'cb-auto-3',checked: true,padding:10},
+											                {boxLabel: 'Jueves', id: reportes.id+'-chk-jue',name: 'cb-auto-4',checked: true,padding:10},
+											                {boxLabel: 'Viernes', id: reportes.id+'-chk-vie',name: 'cb-auto-5',checked: true,padding:10},
+											                {boxLabel: 'Sábado', id: reportes.id+'-chk-sab',name: 'cb-auto-6',checked: true,padding:10},
+											                {boxLabel: 'Domingo',id: reportes.id+'-chk-dom', name: 'cb-auto-7',padding:10}
+													    ],
+													    listeners:{
+													    	afterrender:function(){
+													    		reportes.getDiasHabiles();
+													    	}
+													    }
 													}
 												],
 												bbar:[
@@ -152,7 +159,7 @@
 								                                });*/
 								                            },
 								                            click: function(obj, e){	             	
-	                               					            //agencias.getNew();
+	                               					           reportes.setSaveDiasHabiles();
 								                            }
 								                        }
 								                    }
@@ -163,11 +170,53 @@
 												title:'Días No Laborables',
 												border:false,
 												layout:'border',
-												bbar:[],
+												bbar:[
+													'->',
+													{
+								                        xtype:'button',
+								                        text: 'Nuevo',
+								                        icon: '/images/icon/Notepad.png',
+								                        listeners:{
+								                            beforerender: function(obj, opts){
+								                                /*global.permisos({
+								                                    id: 15,
+								                                    id_btn: obj.getId(), 
+								                                    id_menu: gestion_devolucion.id_menu,
+								                                    fn: ['panel_asignar_gestion.limpiar']
+								                                });*/
+								                            },
+								                            click: function(obj, e){	             	
+	                               					           reportes.getNewDias();
+								                            }
+								                        }
+								                    },
+													{
+								                        xtype:'button',
+								                        width:80,
+								                        //flex:1,
+								                        //scale: 'medium',
+								                        text: 'Guardar',
+								                        icon: '/images/icon/save.png',
+								                        listeners:{
+								                            beforerender: function(obj, opts){
+								                                /*global.permisos({
+								                                    id: 15,
+								                                    id_btn: obj.getId(), 
+								                                    id_menu: gestion_devolucion.id_menu,
+								                                    fn: ['panel_asignar_gestion.limpiar']
+								                                });*/
+								                            },
+								                            click: function(obj, e){
+								                            	reportes.getSaveDiasNoHabiles();
+								                            }
+								                        }
+								                    }
+												],
 												items:[
 													{
 														region:'center',
 														border:false,
+														layout:'fit',
 														items:[
 															{
 										                        xtype: 'grid',
@@ -205,14 +254,14 @@
 										                                },
 																		{
 										                                    text: 'ST',
-										                                    dataIndex: 'estado',
+										                                    dataIndex: 'flag',
 										                                    //loocked : true,
 										                                    width: 40,
 										                                    align: 'center',
 										                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view){
 										                                        //console.log(record);
 										                                        var estado = 'check-circle-green-16.png';
-										                                        if(record.get('estado')=='I'){
+										                                        if(record.get('flag')=='I'){
 										                                        	estado = 'check-circle-black-16.png';
 										                                        }
 										                                        metaData.style = "padding: 0px; margin: 0px";
@@ -220,7 +269,7 @@
 										                                            type: 'link',
 										                                            id_menu: reportes.id_menu,
 										                                            icons:[
-										                                                {id_serv: 8, img: estado, qtip: 'Estado.', js: ""}
+										                                                {id_serv: 27, img: estado, qtip: 'Estado.', js: ""}
 
 										                                            ]
 										                                        });
@@ -239,7 +288,7 @@
 										                                            type: 'link',
 										                                            id_menu: reportes.id_menu,
 										                                            icons:[
-										                                                {id_serv: 8, img: 'edit.png', qtip: 'Editar.', js: "reportes.getEdit("+rowIndex+")"}
+										                                                {id_serv: 27, img: 'edit.png', qtip: 'Editar.', js: "reportes.getEditDias("+rowIndex+")"}
 
 										                                            ]
 										                                        });
@@ -267,7 +316,195 @@
 														region:'south',
 														border:false,
 														height:100,
-														items:[]
+														//layout:'hbox',
+														padding:20,
+														bodyStyle: 'background: transparent',
+														items:[
+															{
+																layout:'hbox',bodyStyle: 'background: transparent',
+																border:false,
+																items:[
+																	{
+					                                                    xtype: 'textfield',	
+					                                                    fieldLabel: 'Cod',
+					                                                    disabled:true,
+					                                                    id:reportes.id+'-txt-cod-dia-no-habil',
+					                                                    labelWidth:20,
+					                                                    //readOnly:true,
+					                                                    labelAlign:'right',
+					                                                    //height:30,
+											                            //labelStyle: "font-size:20px;font-weight:bold;padding:4px 0px 0px 0px;text-align: center;font-weight: bold",
+											                            //fieldStyle: 'font-size:20px; text-align: center; font-weight: bold',
+					                                                    width:60,
+					                                                    padding:5,
+					                                                    //flex:1,
+					                                                    anchor:'100%'
+					                                                },
+																	{
+					                                                    xtype:'combo',
+					                                                    fieldLabel: 'Día',
+					                                                    bodyStyle: 'background: transparent',
+														                //labelStyle: "font-size:18px;font-weight:bold;padding:6px 0px 0px 0px;text-align: center;font-weight: bold",
+												                        //fieldStyle: 'font-size:20px; text-align: center; font-weight: bold',
+					                                                    id:reportes.id+'-txt-dia-no-habiles',
+					                                                    store: win.getStoreDays(false), 
+					                                                    queryMode: 'local',
+					                                                    triggerAction: 'all',
+					                                                    valueField: 'code',
+					                                                    displayField: 'name',
+					                                                    emptyText: '[Seleccione]',
+					                                                    labelAlign:'right',
+					                                                    //allowBlank: false,
+					                                                    labelWidth: 25,
+					                                                    padding:5,
+					                                                    //width:'95%',
+					                                                    flex:1,
+					                                                    anchor:'100%',
+					                                                    labelStyle: "font-size:11px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+											                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+					                                                    //readOnly: true,
+					                                                    listeners:{
+					                                                        afterrender:function(obj, e){
+					                                                            // obj.getStore().load();
+					                                                            //Ext.getCmp(cobranza.id+'-txt-estado-filter').setValue('C');
+					                                                        },
+					                                                        select:function(obj, records, eOpts){
+					                                                
+					                                                        }
+					                                                    }
+					                                                },
+					                                                {
+					                                                    xtype:'combo',
+					                                                    fieldLabel: 'Mes',
+					                                                    bodyStyle: 'background: transparent',
+														                //labelStyle: "font-size:18px;font-weight:bold;padding:6px 0px 0px 0px;text-align: center;font-weight: bold",
+												                        //fieldStyle: 'font-size:20px; text-align: center; font-weight: bold',
+					                                                    id:reportes.id+'-txt-mes-no-habiles',
+					                                                    store: win.getStoreMonth(false), 
+					                                                    queryMode: 'local',
+					                                                    triggerAction: 'all',
+					                                                    valueField: 'code',
+					                                                    displayField: 'name',
+					                                                    emptyText: '[Seleccione]',
+					                                                    labelAlign:'right',
+					                                                    //allowBlank: false,
+					                                                    labelWidth: 25,
+					                                                    padding:5,
+					                                                    //width:'95%',
+					                                                    //width:200,
+					                                                    flex:1,
+					                                                    anchor:'100%',
+					                                                    labelStyle: "font-size:11px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+											                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+					                                                    //readOnly: true,
+					                                                    listeners:{
+					                                                        afterrender:function(obj, e){
+					                                                            // obj.getStore().load();
+					                                                            //Ext.getCmp(cobranza.id+'-txt-estado-filter').setValue('C');
+					                                                        },
+					                                                        select:function(obj, records, eOpts){
+					                                                
+					                                                        }
+					                                                    }
+					                                                },
+					                                                {
+					                                                    xtype:'combo',
+					                                                    fieldLabel: 'Año',
+					                                                    bodyStyle: 'background: transparent',
+														                //labelStyle: "font-size:18px;font-weight:bold;padding:6px 0px 0px 0px;text-align: center;font-weight: bold",
+												                        //fieldStyle: 'font-size:20px; text-align: center; font-weight: bold',
+					                                                    id:reportes.id+'-txt-anio-no-habiles',
+					                                                    store: win.getStoreYear(true),
+					                                                    queryMode: 'local',
+					                                                    triggerAction: 'all',
+					                                                    valueField: 'code',
+					                                                    displayField: 'name',
+					                                                    emptyText: '[Seleccione]',
+					                                                    labelAlign:'right',
+					                                                    //allowBlank: false,
+					                                                    labelWidth: 25,
+					                                                    padding:5,
+					                                                    //width:'95%',
+					                                                    flex:1,
+					                                                    anchor:'100%',
+					                                                    labelStyle: "font-size:11px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+											                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+					                                                    //readOnly: true,
+					                                                    listeners:{
+					                                                        afterrender:function(obj, e){
+					                                                            // obj.getStore().load();
+					                                                            //Ext.getCmp(cobranza.id+'-txt-estado-filter').setValue('C');
+					                                                        },
+					                                                        select:function(obj, records, eOpts){
+					                                                
+					                                                        }
+					                                                    }
+					                                                },
+					                                                {
+					                                                    xtype:'combo',
+					                                                    fieldLabel: 'Estado',
+					                                                    bodyStyle: 'background: transparent',
+														                //labelStyle: "font-size:18px;font-weight:bold;padding:6px 0px 0px 0px;text-align: center;font-weight: bold",
+												                        //fieldStyle: 'font-size:20px; text-align: center; font-weight: bold',
+					                                                    id:reportes.id+'-txt-estado-dias-habiles',
+					                                                    store: Ext.create('Ext.data.ArrayStore', {
+																        storeId: 'estado',
+																        autoLoad: true,
+																        data:  [
+																			['A','Activo'],
+																		    ['I','Inactivo']
+																		],
+																	        fields: ['code', 'name']
+																	    }),
+					                                                    queryMode: 'local',
+					                                                    triggerAction: 'all',
+					                                                    valueField: 'code',
+					                                                    displayField: 'name',
+					                                                    emptyText: '[Seleccione]',
+					                                                    labelAlign:'right',
+					                                                    //allowBlank: false,
+					                                                    labelWidth: 45,
+					                                                    padding:5,
+					                                                    //width:'95%',
+					                                                    flex:1,
+					                                                    anchor:'100%',
+					                                                    labelStyle: "font-size:11px;font-weight:bold;padding:5px 0px 0px 0px;text-align: center;font-weight: bold",
+											                            fieldStyle: 'font-size:10px; text-align: center; font-weight: bold',
+					                                                    //readOnly: true,
+					                                                    listeners:{
+					                                                        afterrender:function(obj, e){
+					                                                            // obj.getStore().load();
+					                                                            obj.setValue('A');
+					                                                        },
+					                                                        select:function(obj, records, eOpts){
+					                                                
+					                                                        }
+					                                                    }
+					                                                }
+																]
+															},
+															{
+																layout:'hbox',bodyStyle: 'background: transparent',
+																padding:5,
+																border:false,
+																items:[
+				                                                	{
+					                                                    xtype: 'textfield',	
+					                                                    fieldLabel: 'Descripción',
+					                                                    id:reportes.id+'-txt-descripcion-dia-no-habil',
+					                                                    labelWidth:70,
+					                                                    //readOnly:true,
+					                                                    labelAlign:'right',
+					                                                    //height:30,
+											                            //labelStyle: "font-size:20px;font-weight:bold;padding:4px 0px 0px 0px;text-align: center;font-weight: bold",
+											                            //fieldStyle: 'font-size:20px; text-align: center; font-weight: bold',
+					                                                    //width:'100%',
+					                                                    flex:1,
+					                                                    anchor:'100%'
+					                                                }
+				                                               	]
+				                                            }
+														]
 													}
 												]
 											}
@@ -598,6 +835,91 @@
 	                    }
 					}
 				}).show();
+			},
+			setSaveDiasHabiles:function(){
+				var lum=Ext.getCmp(reportes.id+'-chk-lun').getValue()?'Y':'N';
+				var mar=Ext.getCmp(reportes.id+'-chk-mar').getValue()?'Y':'N';
+				var mie=Ext.getCmp(reportes.id+'-chk-mie').getValue()?'Y':'N';
+				var jue=Ext.getCmp(reportes.id+'-chk-jue').getValue()?'Y':'N';
+				var vie=Ext.getCmp(reportes.id+'-chk-vie').getValue()?'Y':'N';
+				var sab=Ext.getCmp(reportes.id+'-chk-sab').getValue()?'Y':'N';
+				var dom=Ext.getCmp(reportes.id+'-chk-dom').getValue()?'Y':'N';
+				global.Msg({
+                    msg: '¿Seguro de guardar?',
+                    icon: 3,
+                    buttons: 3,
+                    fn: function(btn){
+                    	if (btn == 'yes'){
+                    		Ext.getCmp(reportes.id+'-tabContent').el.mask('Salvando Información…', 'x-mask-loading');
+	                        //scanning.getLoader(true);
+			                Ext.Ajax.request({
+			                    url:reportes.url+'SP_DIAS_HABILES_MANT/',
+			                    params:{
+			                    	vp_lun:lum,
+			                    	vp_mar:mar,
+									vp_mie:mie,
+									vp_jue:jue,
+									vp_vie:vie,
+									vp_sab:sab,
+									vp_dom:dom,
+									vp_flag:'A'
+			                    },
+			                    timeout: 30000000,
+			                    success: function(response, options){
+			                        Ext.getCmp(reportes.id+'-tabContent').el.unmask();
+			                        var res = Ext.JSON.decode(response.responseText);
+			                        //control.getLoader(false);
+			                        if (res.RESPONSE == 'OK'){
+			                            global.Msg({
+			                                msg: res.MESSAGE_TEXT,
+			                                icon: 1,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	//reportes.getHistory();
+			                                	//Ext.getCmp(reportes.id+'-win-form').close();
+			                                }
+			                            });
+			                        } else{
+			                            global.Msg({
+			                                msg: res.MESSAGE_TEXT,
+			                                icon: 0,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	 
+			                                }
+			                            });
+			                        }
+			                    }
+			                });
+						}
+					}
+				});
+			},
+			getDiasHabiles:function(){
+				
+        		Ext.getCmp(reportes.id+'-tabContent').el.mask('Salvando Información…', 'x-mask-loading');
+                //scanning.getLoader(true);
+                Ext.Ajax.request({
+                    url:reportes.url+'SP_DIAS_HABILES_LIST/',
+                    params:{
+						vp_flag:'A'
+                    },
+                    timeout: 30000000,
+                    success: function(response, options){
+                        Ext.getCmp(reportes.id+'-tabContent').el.unmask();
+                        var res = Ext.JSON.decode(response.responseText);
+                        res=res.data;
+                        console.log(res);
+                        //control.getLoader(false);
+                        Ext.getCmp(reportes.id+'-chk-lun').setValue(res.lun=='Y'?true:false);
+						Ext.getCmp(reportes.id+'-chk-mar').setValue(res.mar=='Y'?true:false);
+						Ext.getCmp(reportes.id+'-chk-mie').setValue(res.mie=='Y'?true:false);
+						Ext.getCmp(reportes.id+'-chk-jue').setValue(res.jue=='Y'?true:false);
+						Ext.getCmp(reportes.id+'-chk-vie').setValue(res.vie=='Y'?true:false);
+						Ext.getCmp(reportes.id+'-chk-sab').setValue(res.sab=='Y'?true:false);
+						Ext.getCmp(reportes.id+'-chk-dom').setValue(res.dom=='Y'?true:false);
+                    }
+                });
 			},
 			getchartsAno:function(){
                 var ANIOS =[];
@@ -1423,6 +1745,116 @@
 			getEdit:function(index){
 				var rec = Ext.getCmp(reportes.id + '-grid-credit').getStore().getAt(index);
 				reportes.setForm('U',rec.data);
+			},
+			getEditDias:function(index){
+				var rec = Ext.getCmp(reportes.id + '-grid-reportes').getStore().getAt(index);
+				Ext.getCmp(reportes.id+'-txt-descripcion-dia-no-habil').setValue(rec.data.descripcion);
+				Ext.getCmp(reportes.id+'-txt-estado-dias-habiles').setValue(rec.data.flag);
+				Ext.getCmp(reportes.id+'-txt-anio-no-habiles').setValue(rec.data.year);
+				Ext.getCmp(reportes.id+'-txt-mes-no-habiles').setValue(rec.data.mes);
+				Ext.getCmp(reportes.id+'-txt-dia-no-habiles').setValue(rec.data.dia);
+				Ext.getCmp(reportes.id+'-txt-cod-dia-no-habil').setValue(rec.data.cod_dias_no_hab);
+			},
+			getNewDias:function(index){
+				Ext.getCmp(reportes.id+'-txt-descripcion-dia-no-habil').setValue('');
+				Ext.getCmp(reportes.id+'-txt-estado-dias-habiles').setValue('A');
+				Ext.getCmp(reportes.id+'-txt-anio-no-habiles').setValue('');
+				Ext.getCmp(reportes.id+'-txt-mes-no-habiles').setValue('');
+				Ext.getCmp(reportes.id+'-txt-dia-no-habiles').setValue('');
+				Ext.getCmp(reportes.id+'-txt-cod-dia-no-habil').setValue(0);
+			},
+			getSaveDiasNoHabiles:function(){
+				var descripcion=Ext.getCmp(reportes.id+'-txt-descripcion-dia-no-habil').getValue();
+				var estado=Ext.getCmp(reportes.id+'-txt-estado-dias-habiles').getValue();
+				var year=Ext.getCmp(reportes.id+'-txt-anio-no-habiles').getValue();
+				var mes=Ext.getCmp(reportes.id+'-txt-mes-no-habiles').getValue();
+				var dia=Ext.getCmp(reportes.id+'-txt-dia-no-habiles').getValue();
+				var cod=Ext.getCmp(reportes.id+'-txt-cod-dia-no-habil').getValue();
+
+
+				if(dia==''){ 
+					global.Msg({msg:"seleccione el día.",icon:2,fn:function(){}});
+					return false;
+				}
+
+				if(mes==''){ 
+					global.Msg({msg:"seleccione el mes.",icon:2,fn:function(){}});
+					return false;
+				}
+
+				if(year==''){ 
+					global.Msg({msg:"seleccione el year.",icon:2,fn:function(){}});
+					return false;
+				}
+
+				if(descripcion==''){ 
+					global.Msg({msg:"Ingrese una descripcion.",icon:2,fn:function(){}});
+					return false;
+				}
+
+				if(estado==''){ 
+					global.Msg({msg:"seleccione el estado.",icon:2,fn:function(){}});
+					return false;
+				}
+
+				global.Msg({
+                    msg: '¿Seguro de guardar?',
+                    icon: 3,
+                    buttons: 3,
+                    fn: function(btn){
+                    	if (btn == 'yes'){
+                    		Ext.getCmp(reportes.id+'-tabContent').el.mask('Salvando Información…', 'x-mask-loading');
+	                        //scanning.getLoader(true);
+			                Ext.Ajax.request({
+			                    url:reportes.url+'SP_DIAS_NO_HABILES_MANT/',
+			                    params:{
+			                    	VP_OP:cod==0?'I':'U',
+			                    	VP_DESCRIPCION:descripcion,
+			                    	VP_ESTADO:estado,
+									VP_YEAR:year,
+									VP_MES:mes,
+									VP_DIA:dia,
+									VP_COD:cod
+			                    },
+			                    timeout: 30000000,
+			                    success: function(response, options){
+			                        Ext.getCmp(reportes.id+'-tabContent').el.unmask();
+			                        var res = Ext.JSON.decode(response.responseText);
+			                        //control.getLoader(false);
+			                        if (res.RESPONSE == 'OK'){
+			                            global.Msg({
+			                                msg: res.MESSAGE_TEXT,
+			                                icon: 1,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	//reportes.getHistory();
+			                                	reportes.getNewDias();
+			                                	var obj = Ext.getCmp(reportes.id + '-grid-reportes');
+												obj.getStore().removeAll();
+												obj.getStore().load(
+									                {params: {VP_OP:'A'},
+									                callback:function(){
+									                	//reportes.getchartsreportes();
+									                }
+									            });
+			                                }
+			                            });
+			                        } else{
+			                            global.Msg({
+			                                msg: res.MESSAGE_TEXT,
+			                                icon: 0,
+			                                buttons: 1,
+			                                fn: function(btn){
+			                                	 
+			                                }
+			                            });
+			                        }
+			                    }
+			                });
+						}
+					}
+				});
+
 			},
 			getNew:function(){
 				reportes.setForm('I',{id_reportes:0,usr_codigo:'',usr_nombre:'',usr_perfil:1,usr_estado:1});
