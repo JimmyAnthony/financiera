@@ -33,6 +33,7 @@ class indexModels extends Adodb {
     public function usr_sis_register_mac($p){
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_MOVIL_REGISTRA_MAC');
+        parent::SetParameterSP($p['user'], 'varchar');
         parent::SetParameterSP($p['mac'], 'varchar');
         parent::SetParameterSP($p['numero'], 'varchar');
          //echo '=>' . parent::getSql().'<br>'; exit();

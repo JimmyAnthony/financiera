@@ -221,6 +221,21 @@ class indexController extends AppController {
         }
         return $men;
     }
+    public function validaSolicitud($p){
+        header("Content-Type: text/plain");
+        //$p['ip'] = Common::get_Ip();
+        $rs = $this->objDatos->usr_sis_register_mac($p);
+        //var_export($rs);
+       $rs[0]['key'] = sha1(trim($rs[0]['key']));
+        $rs = $rs[0];
+        if (intval($rs['sql_error']) == 0 ){
+            $men = "{success: true,error:0,data:".json_encode($rs).", errors: '".utf8_encode(trim($rs['msn_error']))."'}";
+        }else{
+            $men =  "{success: true, error:1, errors: '".utf8_encode(trim($rs['msn_error']))."'}";
+        }
+        return $men;
+    }
+    
     public function get_mobile_gps_demonio($p){
         //$this->valida_mobil($p);
         header("Content-Type: text/plain");
