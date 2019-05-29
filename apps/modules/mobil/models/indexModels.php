@@ -30,6 +30,30 @@ class indexModels extends Adodb {
         $array = parent::ExecuteSPArray();
         return $array;
     }
+
+    public function usr_sis_access_login_current($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_MOVIL_ACCESS_CURRENT');
+        parent::SetParameterSP($p['user'], 'varchar');
+        parent::SetParameterSP(sha1($p['password']), 'varchar');
+        parent::SetParameterSP($p['mac'], 'varchar');
+        parent::SetParameterSP($p['numero'], 'varchar');
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
+
+    public function usr_sis_access_login($p){
+        parent::ReiniciarSQL();
+        parent::ConnectionOpen($this->dsn, 'SP_MOVIL_ACCESS');
+        parent::SetParameterSP($p['user'], 'varchar');
+        parent::SetParameterSP(sha1($p['password']), 'varchar');
+        parent::SetParameterSP($p['mac'], 'varchar');
+        parent::SetParameterSP($p['numero'], 'varchar');
+        // echo '=>' . parent::getSql().'<br>'; exit();
+        $array = parent::ExecuteSPArray();
+        return $array;
+    }
     public function usr_sis_register_mac($p){
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_MOVIL_REGISTRA_MAC');

@@ -30,13 +30,11 @@ class indexController extends AppController {
         //$p['ip'] = Common::get_Ip();
         //echo sha1(trim($rs[0]['key']))."___";
         //echo $p["key"]."-".sha1(trim($rs[0]['key_urb'])."".sha1(trim($rs[0]['key'])));
-        $rs = $this->objDatos->usr_sis_login_mac($p);
+        $rs = $this->objDatos->usr_sis_access_login_current($p);
         //var_export($rs);
-        if (intval($rs['sql_error']) >= 0 ){
-            if(!($p["key"] == sha1(trim($rs[0]['key_urb'])."".sha1(trim($rs[0]['key']))))){
-                echo $men =  "{success: true,error:1, errors: 'Su sessión a expirado',close:1}";
-                exit();
-            }
+        if (intval($rs['sql_error']) != 1 ){
+            echo $men =  "{success: true,error:1, errors: 'Su sessión a expirado',close:1}";
+            exit();
         }else{
             echo "{success: false, errors: '".trim($rs['msn_error'])."',close:0}";
             exit();
@@ -210,9 +208,9 @@ class indexController extends AppController {
     public function valida($p){
         header("Content-Type: text/plain");
         //$p['ip'] = Common::get_Ip();
-        $rs = $this->objDatos->usr_sis_register_mac($p);
+        $rs = $this->objDatos->usr_sis_access_login($p);
         //var_export($rs);
-       $rs[0]['key'] = sha1(trim($rs[0]['key']));
+       $rs[0]['key'] = trim($rs[0]['key']);
         $rs = $rs[0];
         if (intval($rs['sql_error']) == 0 ){
             $men = "{success: true,error:0,data:".json_encode($rs).", errors: '".utf8_encode(trim($rs['msn_error']))."'}";
@@ -226,7 +224,7 @@ class indexController extends AppController {
         //$p['ip'] = Common::get_Ip();
         $rs = $this->objDatos->usr_sis_register_mac($p);
         //var_export($rs);
-       $rs[0]['key'] = sha1(trim($rs[0]['key']));
+       $rs[0]['key'] = trim($rs[0]['key']);
         $rs = $rs[0];
         if (intval($rs['sql_error']) == 0 ){
             $men = "{success: true,error:0,data:".json_encode($rs).", errors: '".utf8_encode(trim($rs['msn_error']))."'}";
@@ -235,7 +233,7 @@ class indexController extends AppController {
         }
         return $men;
     }
-    
+
     public function get_mobile_gps_demonio($p){
         //$this->valida_mobil($p);
         header("Content-Type: text/plain");
