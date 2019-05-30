@@ -60,7 +60,7 @@ class indexModels extends Adodb {
         parent::SetParameterSP($p['user'], 'varchar');
         parent::SetParameterSP($p['mac'], 'varchar');
         parent::SetParameterSP($p['numero'], 'varchar');
-         //echo '=>' . parent::getSql().'<br>'; exit();
+         echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
         return $array;
     }
