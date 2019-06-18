@@ -234,8 +234,11 @@ class indexModels extends Adodb {
 
     public function get_list_shipper($p){
         parent::ReiniciarSQL();
-        parent::ConnectionOpen($this->dsn, 'get_ext_list_shipper');
+        parent::ConnectionOpen($this->dsn, 'SP_MOVIL_ASESORES_COBROS_LIST');
         parent::SetParameterSP($p['id_user'], 'int');
+        parent::SetParameterSP($p['sis_id'], 'int');
+        parent::SetParameterSP($p['key'], 'varchar');
+        parent::SetParameterSP($p['id_mac'], 'varchar');
         // echo '=>' . parent::getSql().'<br>'; exit();
         $array = parent::ExecuteSPArray();
         return $array;
