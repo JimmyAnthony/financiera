@@ -174,7 +174,7 @@ class indexModels extends Adodb {
         parent::SetParameterSP($p['sis_id'], 'int');
         parent::SetParameterSP($p['key'], 'varchar');
         parent::SetParameterSP($p['id_mac'], 'varchar');
-        // echo '=>' . parent::getSql() . '</br>';
+        // echo '=>' . parent::getSql() . '</br>'; 
         $array = parent::ExecuteSPArray(array('sql_error', 'msn_error'));
         return $array;
     }
