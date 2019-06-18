@@ -166,7 +166,7 @@ class indexModels extends Adodb {
     /**
      * Obtiene el listado de menus al que se tiene permiso
      * por usuario y sistema
-     */
+     */ 
     public function usr_sis_menus($p){
         parent::ReiniciarSQL();
         parent::ConnectionOpen($this->dsn, 'SP_MOVIL_MENU');//zc_mobile_menu
