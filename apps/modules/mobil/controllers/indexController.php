@@ -282,7 +282,7 @@ class indexController extends AppController {
         //session_start();
         $_SESSION['sis_id'] = $p['sis_id'];
 
-        $this->objDatos->usr_sis_change_first_sistema($p);
+        #$this->objDatos->usr_sis_change_first_sistema($p);
         $p['vp_mod_id'] = 0;
         $p['vp_menu_id'] = 0;
         // $this->objServicios = $this->objDatos->usr_sis_servicios($p);

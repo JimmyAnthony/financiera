@@ -169,9 +169,11 @@ class indexModels extends Adodb {
      */
     public function usr_sis_menus($p){
         parent::ReiniciarSQL();
-        parent::ConnectionOpen($this->dsn, 'usr_sis_menus');//zc_mobile_menu
+        parent::ConnectionOpen($this->dsn, 'SP_MOVIL_MENU');//zc_mobile_menu
         parent::SetParameterSP($p['id_user'], 'int');
         parent::SetParameterSP($p['sis_id'], 'int');
+        parent::SetParameterSP($p['key'], 'varchar');
+        parent::SetParameterSP($p['id_mac'], 'varchar');
         // echo '=>' . parent::getSql() . '</br>';
         $array = parent::ExecuteSPArray(array('sql_error', 'msn_error'));
         return $array;
