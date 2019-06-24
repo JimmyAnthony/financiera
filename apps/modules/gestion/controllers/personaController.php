@@ -231,7 +231,7 @@ class personaController extends AppController {
 
                 $value_['dir_interior'] =trim($value['dir_interior']);
                 $value_['dir_urb'] =trim($value['dir_urb']);
-                $value_['dir_referencia'] =trim($value['dir_referencia']);
+                $value_['dir_referencia'] =utf8_encode(trim($value['dir_referencia']));
                 $value_['cod_ubi_pro'] =trim($value['cod_ubi_pro']);
                 $value_['cod_ubi_dep'] =trim($value['cod_ubi_dep']);
                 $value_['cod_ubi'] =trim($value['cod_ubi']);
