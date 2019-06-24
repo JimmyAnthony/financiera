@@ -52,7 +52,7 @@ class indexController extends AppController {
                 $value_['shi_logo'] = (trim($value['shi_logo']) == '') ? 'default.png' : $value['shi_logo'];
                 $value_['direccion'] = utf8_encode(trim($value['direccion']));
                 $value_['campanas'] = trim($value['saldo_cuota']);
-                $value_['cobro'] = trim($value['saldo_cuota']);
+                $value_['saldo'] = trim($value['saldo_cuota']);
                 $value_['pagado'] = trim($value['pagado']);
                 $value_['json']='';
                 $array[]=$value_;
