@@ -47,9 +47,13 @@ class indexController extends AppController {
         $array = array();
         foreach ($rs as $index => $value){
                 $value_['shi_codigo'] = intval($value['id_creditos']);
-                $value_['shi_nombre'] = trim($value['nombre']) ;
+                $value_['shi_nombre'] = utf8_encode(trim($value['nombre'])) ;
+                $value_['doc_dni'] = trim($value['doc_dni']);
                 $value_['shi_logo'] = (trim($value['shi_logo']) == '') ? 'default.png' : $value['shi_logo'];
-                $value_['campanas'] = intval($value['saldo_cuota']);
+                $value_['direccion'] = utf8_encode(trim($value['direccion']));
+                $value_['campanas'] = trim($value['saldo_cuota']);
+                $value_['cobro'] = trim($value['saldo_cuota']);
+                $value_['pagado'] = trim($value['pagado']);
                 $value_['json']='';
                 $array[]=$value_;
         }
