@@ -46,7 +46,7 @@ class indexController extends AppController {
         //var_export($this->arrayMenu);
         $array = array();
         foreach ($rs as $index => $value){
-                $value_['shi_codigo'] = intval($value['shi_codigo']);
+                $value_['shi_codigo'] = intval($value['id_creditos']);
                 $value_['shi_nombre'] = trim($value['nombre']) ;
                 $value_['shi_logo'] = (trim($value['shi_logo']) == '') ? 'default.png' : $value['shi_logo'];
                 $value_['campanas'] = intval($value['saldo_cuota']);
